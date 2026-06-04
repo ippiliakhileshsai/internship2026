@@ -6,7 +6,7 @@ Project: Electric Current and Circuits
 
 1. Research on Electric Current Concepts
 
-Electric Current
+**Electric Current**
 
 Electric current is the flow of electric charge through a conductor such as a metal wire. The movement of electrons creates an electric current. It is measured in amperes (A).
 
@@ -16,9 +16,10 @@ Examples
 - Charging a mobile phone
 - Running a fan
 
+Reference: https://www.britannica.com/science/electric-current
 ---
 
-Electric Circuit
+**Electric Circuit**
 
 An electric circuit is a complete path through which electric current flows from a power source to an electrical device and back.
 
@@ -35,9 +36,10 @@ Types of Circuits
 - Closed Circuit – Current flows normally.
 - Short Circuit – Current flows through an unintended path and may cause damage.
 
+Reference: https://www.britannica.com/technology/electric-circuit
 ---
 
-Conductors
+**Conductors**
 
 Conductors are materials that allow electric current to pass through them easily.
 
@@ -71,6 +73,7 @@ Uses
 - Covering electrical wires
 - Safety equipment
 
+Reference : https://www.britannica.com/science/electricity/Conductors-insulators-and-semiconductors
 ---
 
 Earthing
@@ -127,6 +130,7 @@ Prevention
 - Installation of safety circuit breakers
 - Avoid touching electrical equipment with wet hands
 
+Reference : https://www.esfi.org/electric-shock-drowning-water-and-electricity-dont-mix/
 ---
 
 3. Educational Explanations for Students
@@ -173,67 +177,11 @@ After completing this lesson, students should be able to:
 6. Analyze causes of electrical accidents.
 7. Suggest methods to prevent electrical hazards.
 
----
-
-5. Storyboard Content
-
-Scene 1 – Introduction
-
-Students are playing near a farm and a borewell.
-
-Concept: Electricity is useful in everyday life.
+Reference:- https://ncert.nic.in/textbook/pdf/gecu103.pdf
 
 ---
 
-Scene 2 – Borewell Motor Installation
-
-A farmer installs an electric motor to pump water.
-
-Concept: Electricity powers machines.
-
----
-
-Scene 3 – Hidden Problem
-
-The insulation of a wire becomes damaged.
-
-Concept: Exposed wires are dangerous.
-
----
-
-Scene 4 – Accident
-
-A person touches the metal motor and receives an electric shock.
-
-Concept: Electricity flows through conductive paths.
-
----
-
-Scene 5 – Investigation
-
-A teacher explains electric current, circuits, conductors, insulators, and earthing.
-
-Concept: Understanding electricity improves safety.
-
----
-
-Scene 6 – Safety Measures
-
-Proper earthing and insulated wiring are installed.
-
-Concept: Safety measures prevent accidents.
-
----
-
-Scene 7 – Summary and Quiz
-
-Students answer questions and review safety rules.
-
-Concept: Reinforcement of learning.
-
----
-
-6. Scientific Validation Checklist
+5. Scientific Validation Checklist
 
 - Current is the flow of electric charge.
 - A complete circuit is required for current flow.
