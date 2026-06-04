@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constitution Quest: Junior Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="welcome" class="page active">
+        <div class="hero-container">
+            <div class="hero-badge">🇮🇳 National Civic Academy</div>
+            <h1>Constitution Quest</h1>
+            <h3>The Ultimate Interactive Rulebook Guide</h3>
+            <p class="hero-subtitle">
+                Become a certified **Constitution Hero**! Explore your 6 core pillars of freedom 
+                and discover the 11 duties that keep our nation strong, clean, and united.
+            </p>
+            
+            <div class="action-zone">
+                <button class="btn-main-start" onclick="showPage('modules')">Launch Quest Map 🚀</button>
+                
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-box">
+                    <span class="stat-num">6</span>
+                    <span class="stat-label">Core Rights</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num">11</span>
+                    <span class="stat-label">Civic Duties</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num">3</span>
+                    <span class="stat-label">Quiz Levels</span>
+                </div>
+            </div>
+
+            <div class="feature-strip">
+                <div class="feature-tag">🎯 Real-Life Stories</div>
+                <div class="feature-tag">🧩 Word Games</div>
+                <div class="feature-tag">🏆 Level Up Badges</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="modules" class="page">
+        <div class="card">
+            <h1 class="section-title">Select Your Training Track</h1>
+            <p>What would you like to master first, citizen?</p>
+            
+            <div class="module-container">
+                <div class="module-card track-rights">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Rights Shield">
+                    <h2>Fundamental Rights</h2>
+                    <p class="track-desc">6 structural protections guaranteed to every citizen by law.</p>
+                    <button class="btn-track" onclick="showPage('rights')">Enter Rights Hub</button>
+                </div>
+                
+                <div class="module-card track-duties">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png" alt="Duties Hands">
+                    <h2>Fundamental Duties</h2>
+                    <p class="track-desc">11 code responsibilities to help build a fantastic society.</p>
+                    <button class="btn-track" onclick="showPage('duties')">Enter Duties Hub</button>
+                </div>
+            </div>
+            
+            <button class="btn-secondary" onclick="showPage('welcome')">↩️ Back to Home Screen</button>
+        </div>
+    </section>
+
+    <section id="rights" class="page">
+        <div class="card">
+            <h1>⚖️ The 6 Fundamental Rights</h1>
+            <p class="hub-intro">Part III of the Indian Constitution protects these powers for you:</p>
+            
+            <div class="button-grid-list">
+                <button onclick="loadTopic('equality')">1. Right to Equality</button>
+                <button onclick="loadTopic('freedom')">2. Right to Freedom</button>
+                <button onclick="loadTopic('exploitation')">3. Right against Exploitation</button>
+                <button onclick="loadTopic('religion')">4. Freedom of Religion</button>
+                <button onclick="loadTopic('culture')">5. Cultural & Educational Rights</button>
+                <button onclick="loadTopic('remedies')">6. Right to Constitutional Remedies</button>
+            </div>
+            
+            <hr>
+            <button class="btn-secondary" onclick="showPage('modules')">⬅️ Back to Tracks</button>
+        </div>
+    </section>
+
+    <section id="duties" class="page">
+        <div class="card">
+            <h1>🤝 The 11 Fundamental Duties</h1>
+            <p class="hub-intro">Article 51A lists these responsibilities to show respect for India:</p>
+            
+            <div class="button-grid-list">
+                <button onclick="loadTopic('symbols')">1. Respect Flag, Anthem & Constitution</button>
+                <button onclick="loadTopic('ideals')">2. Follow Noble Freedom Ideals</button>
+                <button onclick="loadTopic('sovereignty')">3. Protect Unity & Sovereignty</button>
+                <button onclick="loadTopic('defense')">4. Defend Nation & Serve When Called</button>
+                <button onclick="loadTopic('harmony')">5. Promote Brotherhood & Harmony</button>
+                <button onclick="loadTopic('heritage')">6. Value Our Rich Heritage Culture</button>
+                <button onclick="loadTopic('environment')">7. Protect Forests, Lakes & Wildlife</button>
+                <button onclick="loadTopic('science')">8. Build Scientific Temper & Logic</button>
+                <button onclick="loadTopic('property')">9. Safeguard Public Property Safely</button>
+                <button onclick="loadTopic('excellence')">10. Strive for Group Excellence</button>
+                <button onclick="loadTopic('parentDuty')">11. Parent Duty: Send Kids to School</button>
+            </div>
+            
+            <hr>
+            <button class="btn-secondary" onclick="showPage('modules')">⬅️ Back to Tracks</button>
+        </div>
+    </section>
+
+    <section id="learning" class="page">
+        <div class="card">
+            <h1 id="topicTitle" class="topic-header-title"></h1>
+            
+            <div class="info-box">
+                <h4>📜 What it means in simple terms:</h4>
+                <p id="topicContent"></p>
+            </div>
+            
+            <div class="scenario-box">
+                <h3>📖 Real-Life School Scenario:</h3>
+                <p id="scenarioText"></p>
+            </div>
+            
+            <div class="interactive-forward-dock">
+                <button class="btn-action-trigger" onclick="showPage('gameMenu')">🎮 Play Practice Games!</button>
+                <button class="btn-secondary" onclick="goBackToModuleGroup()">↩️ Back to Category List</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="gameMenu" class="page">
+        <div class="card">
+            <h1>Mini-Game Training Room</h1>
+            <p>Earn practice points to unlock your confidence before challenging the big final exam board.</p>
+            
+            <div class="grid-buttons">
+                <button class="game-btn" onclick="startMCQ()">💡 Scenario Quiz</button>
+                <button class="game-btn" onclick="startPuzzle()">🧩 Word Unscramble</button>
+            </div>
+            <hr>
+            <button class="btn-accent" onclick="startQuiz()">🏆 Launch Final Graded Exam</button>
+            <button class="btn-secondary" onclick="showPage('modules')">Cancel / Switch Tracks</button>
+        </div>
+    </section>
+
+    <section id="mcqGame" class="page">
+        <div class="card">
+            <h2>Scenario Case Analysis</h2>
+            <p id="mcqQuestion" class="game-prompt-text"></p>
+            <div id="mcqOptions" class="vertical-btn-group"></div>
+            <h3 id="mcqFeedback" class="live-feedback"></h3>
+            <button class="btn-secondary" onclick="showPage('gameMenu')">Return to Training Room</button>
+        </div>
+    </section>
+
+    <section id="puzzleGame" class="page">
+        <div class="card">
+            <h2>🧩 Unscramble the Keyword</h2>
+            <p>Fix the mixed-up characters to assemble the target legal word:</p>
+            <h1 id="scrambledWord" class="scrambled-text"></h1>
+            <input type="text" id="puzzleAnswer" placeholder="Type answer in capital letters..." autocomplete="off">
+            <br>
+            <button onclick="checkPuzzle()">Verify Vocabulary</button>
+            <h3 id="puzzleResult" class="live-feedback"></h3>
+            <button class="btn-secondary" onclick="showPage('gameMenu')">Return to Training Room</button>
+        </div>
+    </section>
+
+    <section id="quizPage" class="page">
+        <div class="card">
+            <div class="quiz-header">
+                <span id="quizLevelBadge" class="level-indicator">Level 1: School Basics</span>
+                <span id="quizProgressTracker">Question 1/9</span>
+            </div>
+            <hr>
+            <h2 id="question" class="quiz-question-prompt"></h2>
+            <div id="answers" class="vertical-btn-group"></div>
+            <div id="quizRuntimeFeedback" class="live-feedback"></div>
+        </div>
+    </section>
+
+    <section id="resultPage" class="page">
+        <div class="card">
+            <img src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png" width="100" alt="Trophy Medal">
+            <h1>Civic Evaluation Report</h1>
+            <div class="score-card">
+                <h2 id="finalScore">Score: 0</h2>
+                <h3 id="badge">Evaluation Complete</h3>
+            </div>
+            <p>Excellent study habits build amazing communities. Share what you learned with your classmates today!</p>
+            <button class="btn-main-start" onclick="resetStateAndHome()">Play Again From Scratch 🔄</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
