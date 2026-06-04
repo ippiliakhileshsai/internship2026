@@ -1,5 +1,7 @@
 # Electric Current and Circuit Safety Project
 
+https://excalidraw.com/#json=o8Ndtex1kzT8_Bcbp-VjE,R7tI03EqJ0NIUlhUilo41A
+
 ## Storyboard Creation
 
 A complete storyboard was developed based on a borewell electric shock incident witnessed by a boy and his father. The story connects real-life events with scientific concepts to create an educational learning experience.
