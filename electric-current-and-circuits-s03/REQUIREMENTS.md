@@ -1,8 +1,4 @@
-Member 1 – Problem Research & Educational Content
-
 Project: Electric Current and Circuits
-
----
 
 1. Research on Electric Current Concepts
 
