@@ -1,6 +1,6 @@
 # internship2026
 
-​### 1. Project Repo Structure 
+## Project Repo Structure 
 - Readme.md (Mandatory - documentation and instructions)
 - requirements.txt 
 - User Persona
@@ -36,13 +36,38 @@ Activity
 
 They are three types of requirments:
 
-i.Functional 
+## Functional Requirements
 
-ii.Learning
+What should the simulation do?
 
-iii.Technical
+**Example**: Electric Circuit
 
-Scrum Meetings for updates 
+Student should:
+
+✅ Connect wires
+✅ Turn switch ON/OFF
+✅ Check bulb glowing
+✅ See wrong connection
+
+## Non-Functional Requirements
+
+How should it feel?
+
+✅ Easy to use
+✅ Mobile friendly
+✅ Works in low internet
+✅ Fun and engaging
+✅ Clear visuals
+
+## Learning Requirements
+
+What learning outcome should happen? 
+After using simulation, student should be able to:
+
+✅ Explain circuit flow
+✅ Identify open/closed circuit
+✅ Predict outcomes
+
 
 **Minimum Roles :**
 
