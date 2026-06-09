@@ -56,7 +56,16 @@ Eg : How might we help Class 7 students visually understand force through intera
 6. Testing Lead: checks the product for bugs and ensures quality before release. 
 
 
-## Phase 6 — Define MVP (Minimum Viable Simulation) & Code Development
+## Phase 6 — Code Development & Define MVP (Minimum Viable Simulation)
+
+Project Structure to be maintained :
+- index.html (Mandatory - Main file)
+- HTML Files (Keep in folder if multiple)
+- CSS Files (Keep in folder if multiple)
+- JS Files (Keep in folder if multiple)
+- Images (Keep in folder if multiple)
+- requirements.txt (Mandatory-for team to maintain) - Get it from ## Phase 2 — Requirement Gathering
+- storyboard file
 
 Example: 
 
