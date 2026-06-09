@@ -55,7 +55,6 @@ Eg : How might we help Class 7 students visually understand force through intera
 5. Documentation Lead : Documenting the entire project workflow (maintaining Readme.md)
 6. Testing Lead: checks the product for bugs and ensures quality before release. 
 
-
 ## Phase 6 — Code Development & Define MVP (Minimum Viable Simulation)
 
 Project Structure to be maintained :
@@ -66,6 +65,7 @@ Project Structure to be maintained :
 - Images (Keep in folder if multiple)
 - requirements.txt (Mandatory-for team to maintain) - Get it from ## Phase 2 — Requirement Gathering
 - storyboard file
+- About my team (teams.txt) - should also include details of ## Phase 5 — Task Division 
 
 Process of MVP (Minimum Viable Simulation) 
 Example:
