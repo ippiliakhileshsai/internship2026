@@ -4,16 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certificate of Achievement</title>
-
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<nav class="navbar">
-
-    <div class="logo">
-        ⚡ ConductoVerse
-    </div>
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="index.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse
+    </a>
 
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
@@ -22,79 +21,75 @@
         <li><a href="quiz.html">Quiz</a></li>
         <li><a href="uses.html">Uses</a></li>
         <li><a href="lab.html">Virtual Lab</a></li>
-        <li><a href="certificate.html">Certificate</a></li>
+        <li><a class="active" href="certificate.html">Certificate</a></li>
     </ul>
-
 </nav>
 
-<!-- Rest of page -->
-<body>
+<main>
+    <section class="certificate">
+        <div class="eyebrow">Mission complete</div>
+        <h1>Certificate of Achievement</h1>
+        <p>Enter your name to generate your ConductoVerse certificate.</p>
 
-<div class="certificate">
+        <input type="text" id="nameInput" placeholder="Your Name" aria-label="Student name">
+        <br>
+        <button onclick="generateCertificate()">Generate Certificate</button>
 
-<h1>🏆 Certificate of Achievement</h1>
+        <div id="certificateContent" style="display:none;">
+            <div class="badge">🏆</div>
+            <p style="text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; color: var(--muted); font-size: 0.85rem;">This certificate is proudly presented to</p>
+            <div id="studentName"></div>
+            <p style="color: var(--muted); font-size: 1rem;">for successfully completing the</p>
+            <h2 style="font-family: 'Outfit', sans-serif; color: var(--blue-dark); margin: 8px 0 16px;">Conductors & Insulators Interactive Program</h2>
+            <p style="color: var(--muted); font-size: 0.95rem;">and demonstrating excellent understanding of</p>
+            <p style="color: var(--ink); font-size: 1rem; margin-top: 4px;"><strong>electric current, conductors, insulators, safety, and real-life applications.</strong></p>
+            
+            <h3 style="font-family: 'Outfit', sans-serif; color: var(--orange); font-size: 1.4rem; margin-top: 20px;">Junior Electricity Explorer</h3>
+            
+            <div class="certificate-footer">
+                <div class="signature-line">
+                    <span class="signature-name">Team SynapseX</span>
+                    <span class="signature-title">Program Director</span>
+                </div>
+                <div class="certificate-date">
+                    <span class="date-value" id="date"></span>
+                    <span class="date-label">Date Completed</span>
+                </div>
+            </div>
+            
+            <button onclick="window.print()" class="print-btn">Print Certificate 🖨️</button>
+        </div>
 
-<p>Enter your name below:</p>
+        <div class="restart">
+            <a href="index.html">Back to Home</a>
+            <a href="lab.html" class="btn secondary">Return to Lab</a>
+        </div>
+    </section>
+</main>
 
-<input type="text" id="nameInput" placeholder="Your Name">
-
-<br>
-
-<button onclick="generateCertificate()">
-Generate Certificate
-</button>
-
-<div id="certificateContent" style="display:none;">
-
-<div class="badge">⚡</div>
-
-<p>This Certificate is Proudly Presented To</p>
-
-<div id="studentName"></div>
-
-<p>For Successfully Completing the</p>
-
-<h2>Conductors & Insulators Interactive Learning Program</h2>
-
-<p>and demonstrating an excellent understanding of</p>
-
-<p><strong>Electrical Conductors, Insulators, and Their Applications</strong></p>
-
-<h2>⚡ Junior Electricity Explorer ⚡</h2>
-
-<p>Date: <span id="date"></span></p>
-
-</div>
-
-<div class="restart">
-<a href="index.html">🏠 Back to Home</a>
-</div>
-
-</div>
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
 
 <script>
+function generateCertificate() {
+    const nameInput = document.getElementById("nameInput");
+    const name = nameInput.value.trim();
 
-function generateCertificate(){
+    if (name === "") {
+        alert("Please enter your name.");
+        nameInput.focus();
+        return;
+    }
 
-let name = document.getElementById("nameInput").value;
-
-if(name.trim() === ""){
-alert("Please enter your name.");
-return;
+    document.getElementById("studentName").textContent = name;
+    document.getElementById("date").textContent = new Date().toLocaleDateString();
+    document.getElementById("certificateContent").style.display = "block";
+    
+    // Smooth scroll to certificate
+    document.getElementById("certificateContent").scrollIntoView({ behavior: 'smooth' });
 }
-
-document.getElementById("studentName").innerHTML = name;
-
-let today = new Date();
-
-document.getElementById("date").innerHTML =
-today.toLocaleDateString();
-
-document.getElementById("certificateContent").style.display = "block";
-
-}
-
 </script>
-
+<script src="js/bg-simulation.js"></script>
 </body>
 </html>

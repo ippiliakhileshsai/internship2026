@@ -4,126 +4,166 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Learn Conductors & Insulators</title>
-
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<nav class="navbar">
-
-    <div class="logo">
-        ⚡ ConductoVerse
-    </div>
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="index.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse
+    </a>
 
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="learn.html">Learn</a></li>
+        <li><a class="active" href="learn.html">Learn</a></li>
         <li><a href="bulb.html">Bulb Test</a></li>
         <li><a href="quiz.html">Quiz</a></li>
         <li><a href="uses.html">Uses</a></li>
         <li><a href="lab.html">Virtual Lab</a></li>
         <li><a href="certificate.html">Certificate</a></li>
     </ul>
-
 </nav>
 
-<!-- Rest of page -->
-<body>
+<main>
+    <section class="page-intro">
+        <div class="eyebrow">Visual lesson</div>
+        <h1>Conductors let electricity move. Insulators stop it.</h1>
+        <p>
+            Electricity needs a complete path. Some materials open the path like a road,
+            while others act like a safety wall.
+        </p>
+    </section>
 
-<h1>⚡ Learn Conductors & Insulators</h1>
+    <div class="section-divider"></div>
 
-<div class="container">
+    <section class="container">
+        <div class="concept-grid">
+            <article class="concept-card conductor">
+                <h2>Conductors</h2>
+                <p>Materials with free electrons allow electric current to travel easily.</p>
+                <div class="interactive-atom-sim" id="conductorSim" aria-label="Interactive conductor simulation">
+                    <!-- Canvas injected by JS -->
+                </div>
+                <div class="sim-instruction">👆 Click & swipe to push the free electrons!</div>
+                <div class="sim-control-panel" style="margin-bottom: 20px;">
+                    <span class="sim-control-label">⚡ Voltage (Speed):</span>
+                    <input type="range" class="sim-control-slider" id="voltageSlider" min="0" max="6" step="0.5" value="1.5" aria-label="Voltage regulator slider">
+                </div>
+                <h3>Think of it like:</h3>
+                <p>A clear road where charges can move from one side to another.</p>
+            </article>
 
-    <div class="card" onclick="toggleCard(this)">
-        <h2>⚡ What are Conductors?</h2>
-        <div class="content">
-            <p>
-                Conductors are materials that allow electricity
-                to flow through them easily.
-            </p>
-            <br>
-            <strong>Examples:</strong>
-            <ul>
-                <li>Copper</li>
-                <li>Silver</li>
-                <li>Aluminum</li>
-                <li>Iron</li>
-            </ul>
+            <article class="concept-card insulator">
+                <h2>Insulators</h2>
+                <p>Materials with tightly held electrons make it difficult for current to flow.</p>
+                <div class="interactive-atom-sim" id="insulatorSim" aria-label="Interactive insulator simulation">
+                    <!-- Canvas injected by JS -->
+                </div>
+                <div class="sim-instruction">🔒 Try to drag electrons! See why they stay stuck.</div>
+                <div class="sim-control-panel" style="margin-bottom: 20px;">
+                    <span class="sim-control-label">🔮 Forcefield:</span>
+                    <button class="sim-btn-stress" id="btnStressTest">Apply Electrostatic Pull</button>
+                </div>
+                <h3>Think of it like:</h3>
+                <p>A closed gate that protects people by blocking the electric path.</p>
+            </article>
         </div>
-    </div>
+    </section>
 
-    <div class="card" onclick="toggleCard(this)">
-        <h2>🛡️ What are Insulators?</h2>
-        <div class="content">
-            <p>
-                Insulators are materials that prevent electricity
-                from flowing easily.
-            </p>
-            <br>
-            <strong>Examples:</strong>
-            <ul>
-                <li>Rubber</li>
-                <li>Plastic</li>
-                <li>Glass</li>
-                <li>Wood</li>
-            </ul>
+    <div class="section-divider"></div>
+
+    <section class="section">
+        <div class="section-head">
+            <h2>Material examples</h2>
+            <p>Students remember faster when each object is tied to a visible category.</p>
         </div>
-    </div>
 
-    <div class="card" onclick="toggleCard(this)">
-        <h2>🔍 Key Differences</h2>
-        <div class="content">
-            <table border="1" cellpadding="10">
-                <tr>
-                    <th>Conductors</th>
-                    <th>Insulators</th>
-                </tr>
-                <tr>
-                    <td>Copper</td>
-                    <td>Rubber</td>
-                </tr>
-                <tr>
-                    <td>Silver</td>
-                    <td>Plastic</td>
-                </tr>
-                <tr>
-                    <td>Aluminum</td>
-                    <td>Glass</td>
-                </tr>
-            </table>
+        <div class="material-grid">
+            <div class="material-card">
+                <div class="icon-orb">🧵</div>
+                <strong>Copper wire</strong>
+                <span>Conductor: used in home wiring</span>
+            </div>
+            <div class="material-card">
+                <div class="icon-orb">🥄</div>
+                <strong>Metal spoon</strong>
+                <span>Conductor: metals pass current</span>
+            </div>
+            <div class="material-card">
+                <div class="icon-orb">🧤</div>
+                <strong>Rubber glove</strong>
+                <span>Insulator: protects from shock</span>
+            </div>
+            <div class="material-card">
+                <div class="icon-orb">🪵</div>
+                <strong>Wood</strong>
+                <span>Insulator: blocks easy flow</span>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div class="card" onclick="toggleCard(this)">
-        <h2>🌍 Real-Life Examples</h2>
-        <div class="content">
-            <p>🏠 House Wiring → Copper</p>
-            <p>🔌 Charger Cable → Copper + Plastic</p>
-            <p>🧤 Electrician Gloves → Rubber</p>
-            <p>⚡ Power Lines → Aluminum</p>
+    <div class="section-divider"></div>
+
+    <section class="container">
+        <div class="section-head">
+            <h2>Quick comparison</h2>
+            <p>Use this table as the memory checkpoint before the experiment.</p>
         </div>
+
+        <div class="comparison">
+            <div class="comparison-row">
+                <div class="comparison-cell good">
+                    <h3>Conductors</h3>
+                    <p>Allow electricity to pass through easily.</p>
+                </div>
+                <div class="comparison-cell safe">
+                    <h3>Insulators</h3>
+                    <p>Do not allow electricity to pass through easily.</p>
+                </div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell good">
+                    <h3>Common examples</h3>
+                    <p>Copper, silver, aluminum, iron, coins, metal spoons.</p>
+                </div>
+                <div class="comparison-cell safe">
+                    <h3>Common examples</h3>
+                    <p>Rubber, plastic, glass, wood, paper, safety gloves.</p>
+                </div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell good">
+                    <h3>Real use</h3>
+                    <p>Carry current inside wires and power lines.</p>
+                </div>
+                <div class="comparison-cell safe">
+                    <h3>Real use</h3>
+                    <p>Cover wires, switches, and tools to protect people.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="fun-fact">
+        <h2>Did you know?</h2>
+        <p>Silver conducts electricity extremely well, but copper is used more often because it is cheaper and strong enough for wiring.</p>
+        <p>Rubber and plastic are used around wires because they help keep electricity inside the wire and away from our hands.</p>
+    </section>
+
+    <div class="section buttons">
+        <a href="index.html" class="btn secondary">Back Home</a>
+        <a href="bulb.html" class="btn">Try the Bulb Experiment</a>
     </div>
+</main>
 
-</div>
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
 
-<div class="fun-fact">
-    <h2>💡 Did You Know?</h2>
-    <br>
-    <p>Silver is one of the best conductors of electricity.</p>
-    <p>Rubber is used to cover wires because it is a good insulator.</p>
-    <p>Lightning can travel at over 270,000 mph!</p>
-</div>
-
-<div class="buttons">
-    <a href="index.html" class="btn">⬅ Back Home</a>
-    <a href="bulb.html" class="btn">💡 Virtual Bulb Test ➡</a>
-</div>
-
-<script>
-function toggleCard(card){
-    card.classList.toggle("active");
-}
-</script>
-
+<script src="js/bg-simulation.js"></script>
+<script src="js/learn-sim.js"></script>
 </body>
 </html>

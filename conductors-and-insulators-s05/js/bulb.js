@@ -1,30 +1,29 @@
-function checkAnswer(material){
+const circuitStage = document.getElementById("circuitStage");
+const message = document.getElementById("message");
+const next = document.getElementById("next");
+const testMaterial = document.getElementById("testMaterial");
+const choiceButtons = document.querySelectorAll(".material-choice");
 
-const bulb=document.getElementById("bulb");
-const message=document.getElementById("message");
-const next=document.getElementById("next");
+choiceButtons.forEach((button) => {
+    button.addEventListener("click", () => testChoice(button));
+});
 
-if(material==="Copper"){
+function testChoice(button) {
+    // Toggle active state on buttons
+    choiceButtons.forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
 
-bulb.classList.add("glow");
+    const isConductor = button.dataset.kind === "conductor";
+    const material = button.dataset.material;
+    const note = button.dataset.note;
 
-message.innerHTML=
-"✅ Correct! Copper is a conductor. The bulb lights up!";
+    testMaterial.textContent = material;
+    circuitStage.className = isConductor ? "circuit-stage is-lit" : "circuit-stage is-blocked";
 
-message.style.color="#22c55e";
+    message.className = isConductor ? "message success" : "message error";
+    message.innerHTML = isConductor
+        ? `<strong>${material} is a conductor.</strong><br>${note}<br>The circuit is complete, so the bulb glows!`
+        : `<strong>${material} is an insulator.</strong><br>${note}<br>The circuit is blocked, so the bulb stays off.`;
 
-next.style.display="block";
-
-}
-else{
-
-bulb.classList.remove("glow");
-
-message.innerHTML=
-"❌ Wrong! "+material+" is an insulator and cannot light the bulb.";
-
-message.style.color="#ef4444";
-
-}
-
+    next.style.display = isConductor ? "flex" : "none";
 }

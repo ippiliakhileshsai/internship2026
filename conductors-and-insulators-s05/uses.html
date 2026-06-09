@@ -1,103 +1,676 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Real Life Uses</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real-Life Uses of Conductors & Insulators | ConductoVerse</title>
+<meta name="description" content="Explore real-life uses of conductors and insulators through interactive visuals — from house wiring to lightning conductors. Aligned with AP State Board Science curriculum.">
 <link rel="stylesheet" href="css/style.css">
-
+<link rel="stylesheet" href="css/uses-page.css">
 </head>
 <body>
 
-<nav class="navbar">
-
-    <div class="logo">
-        ⚡ ConductoVerse
-    </div>
-
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="index.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse
+    </a>
     <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="learn.html">Learn</a></li>
         <li><a href="bulb.html">Bulb Test</a></li>
         <li><a href="quiz.html">Quiz</a></li>
-        <li><a href="uses.html">Uses</a></li>
+        <li><a class="active" href="uses.html">Uses</a></li>
         <li><a href="lab.html">Virtual Lab</a></li>
         <li><a href="certificate.html">Certificate</a></li>
     </ul>
-
 </nav>
 
-<!-- Rest of page -->
-<body>
+<main>
+    <!-- ═══════════════════ HERO SECTION ═══════════════════ -->
+    <section class="uses-hero" id="uses-hero">
+        <div class="uses-hero__content">
+            <div class="eyebrow">
+                <span class="eyebrow-icon">🌍</span>
+                Real-Life Applications
+            </div>
+            <h1>Conductors & Insulators <br><span class="gradient-text">All Around You</span></h1>
+            <p class="uses-hero__subtitle">
+                From the wires inside your walls to the rubber soles on your shoes — 
+                conductors carry electricity where we need it, and insulators keep us safe.
+                Explore real examples from your home, school, and neighbourhood!
+            </p>
+            <div class="uses-hero__stats">
+                <div class="stat-bubble">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Real Examples</span>
+                </div>
+                <div class="stat-bubble">
+                    <span class="stat-number">🎮</span>
+                    <span class="stat-label">Interactive Game</span>
+                </div>
+                <div class="stat-bubble">
+                    <span class="stat-number">⚡</span>
+                    <span class="stat-label">Safety Tips</span>
+                </div>
+            </div>
+        </div>
+        <div class="uses-hero__visual">
+            <div class="floating-scene">
+                <svg class="hero-svg" viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+                    <path id="wirePath" d="M 50 300 L 50 60 L 200 60 L 350 60 L 350 300 L 200 300 Z" 
+                          stroke="#c86b2b" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.4"/>
+                    <path d="M 50 300 L 50 60 L 200 60 L 350 60 L 350 300 L 200 300 Z" 
+                          stroke="url(#wireGlow)" stroke-width="6" fill="none" stroke-linecap="round"/>
+                    <circle class="svg-electron e1" r="6" fill="#5ee7ff">
+                        <animateMotion dur="4s" repeatCount="indefinite" path="M 50 300 L 50 60 L 200 60 L 350 60 L 350 300 L 200 300 Z"/>
+                    </circle>
+                    <circle class="svg-electron e2" r="5" fill="#00d4ff">
+                        <animateMotion dur="4s" repeatCount="indefinite" begin="1.3s" path="M 50 300 L 50 60 L 200 60 L 350 60 L 350 300 L 200 300 Z"/>
+                    </circle>
+                    <circle class="svg-electron e3" r="4" fill="#88f0ff">
+                        <animateMotion dur="4s" repeatCount="indefinite" begin="2.6s" path="M 50 300 L 50 60 L 200 60 L 350 60 L 350 300 L 200 300 Z"/>
+                    </circle>
+                    <rect x="160" y="278" width="80" height="44" rx="10" fill="#23364d" stroke="#fff" stroke-width="1.5"/>
+                    <rect x="170" y="286" width="18" height="28" rx="3" fill="#ea4d5c"/>
+                    <text x="179" y="304" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">−</text>
+                    <rect x="212" y="286" width="18" height="28" rx="3" fill="#19a76f"/>
+                    <text x="221" y="304" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold">+</text>
+                    <text x="200" y="336" text-anchor="middle" fill="#5b6d84" font-size="11" font-weight="600">Battery</text>
+                    <circle cx="200" cy="48" r="28" fill="url(#bulbGlow)" class="svg-bulb"/>
+                    <circle cx="200" cy="48" r="20" fill="#fff6a8" stroke="#f59f00" stroke-width="2" class="svg-bulb-inner"/>
+                    <line x1="192" y1="42" x2="192" y2="54" stroke="#8a4d16" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="200" y1="38" x2="200" y2="58" stroke="#8a4d16" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="208" y1="42" x2="208" y2="54" stroke="#8a4d16" stroke-width="2.5" stroke-linecap="round"/>
+                    <text x="200" y="14" text-anchor="middle" fill="#f59f00" font-size="11" font-weight="700">💡 Bulb</text>
+                    <rect x="16" y="156" width="72" height="32" rx="8" fill="#fff8e8" stroke="#c86b2b" stroke-width="1.5"/>
+                    <text x="52" y="177" text-anchor="middle" fill="#c86b2b" font-size="10" font-weight="700">Copper ⚡</text>
+                    <rect x="316" y="156" width="72" height="32" rx="8" fill="#eef4ff" stroke="#1769ff" stroke-width="1.5"/>
+                    <text x="352" y="177" text-anchor="middle" fill="#1769ff" font-size="10" font-weight="700">Plastic 🛡️</text>
+                    <defs>
+                        <radialGradient id="bulbGlow" cx="50%" cy="50%" r="100%">
+                            <stop offset="0%" stop-color="#ffbf1f" stop-opacity="0.7"/>
+                            <stop offset="100%" stop-color="#ffbf1f" stop-opacity="0"/>
+                        </radialGradient>
+                        <linearGradient id="wireGlow" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#c86b2b" stop-opacity="0.8"/>
+                            <stop offset="50%" stop-color="#f3a35c" stop-opacity="0.9"/>
+                            <stop offset="100%" stop-color="#c86b2b" stop-opacity="0.8"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="float-label conductor-label" style="--delay: 0s">🔶 Copper Wire</div>
+                <div class="float-label insulator-label" style="--delay: 0.3s">🔷 Rubber Cover</div>
+                <div class="float-label conductor-label" style="--delay: 0.6s">🔶 Aluminum</div>
+            </div>
+        </div>
+    </section>
 
-<h1>🌍 Real-Life Uses</h1>
+    <div class="section-divider"></div>
 
-<div class="container">
+    <!-- ═══════════════════ QUICK RECALL BANNER ═══════════════════ -->
+    <section class="recall-banner" id="recall-banner">
+        <div class="recall-inner">
+            <div class="recall-item">
+                <div class="recall-icon conductor-icon">⚡</div>
+                <div>
+                    <strong>Conductors</strong>
+                    <p>Materials that allow electric current to flow through them easily.</p>
+                </div>
+            </div>
+            <div class="recall-divider"></div>
+            <div class="recall-item">
+                <div class="recall-icon insulator-icon">🛡️</div>
+                <div>
+                    <strong>Insulators</strong>
+                    <p>Materials that do not allow electric current to flow through them.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="card"
-onclick="showInfo(
-'House Wiring',
-'Copper wires are used in homes because they conduct electricity efficiently.'
-)">
-🏠 House Wiring
-</div>
+    <div class="section-divider"></div>
 
-<div class="card"
-onclick="showInfo(
-'Phone Chargers',
-'Copper conducts electricity while plastic protects users.'
-)">
-🔌 Phone Chargers
-</div>
+    <!-- ═══════════════════ START HERE: BASICS ═══════════════════ -->
+    <section class="section basics-section" id="basics-section">
+        <div class="section-head" style="text-align:center; max-width:760px; margin:0 auto 28px;">
+            <div class="eyebrow" style="justify-content:center;">
+                <span class="eyebrow-icon">🌟</span>
+                Start Here — Zero Knowledge? No Problem!
+            </div>
+            <h2>First, Let's Understand Electricity</h2>
+            <p>Before we learn where conductors and insulators are used, let's understand what electricity really is — using a simple water pipe example!</p>
+        </div>
 
-<div class="card"
-onclick="showInfo(
-'Power Lines',
-'Aluminum is widely used in power transmission lines.'
-)">
-⚡ Power Lines
-</div>
+        <!-- Step 1: What is Electricity? -->
+        <div class="basics-grid">
+            <div class="basics-card" id="basics-1">
+                <div class="basics-step-badge">Step 1</div>
+                <h3>💧 Think of Water in a Pipe</h3>
+                <p class="basics-explain">Imagine water flowing through a pipe. The water moves from one end to the other, right?</p>
+                <p class="basics-explain"><strong>Electricity works the same way!</strong> Instead of water, tiny invisible particles called <strong>electrons</strong> flow through wires. This flow of electrons is called <strong>electric current</strong>.</p>
+                <div class="basics-visual">
+                    <svg viewBox="0 0 440 130" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Pipe -->
+                        <rect x="30" y="40" width="380" height="50" rx="25" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2.5"/>
+                        <text x="220" y="30" text-anchor="middle" fill="#0ea5e9" font-size="12" font-weight="800">Wire (like a pipe)</text>
+                        <!-- Water/electron dots flowing -->
+                        <circle r="8" fill="#5ee7ff" opacity="0.9"><animate attributeName="cx" values="50;400;50" dur="3s" repeatCount="indefinite"/><animate attributeName="cy" values="65;65;65" dur="3s" repeatCount="indefinite"/></circle>
+                        <circle r="7" fill="#38bdf8" opacity="0.8"><animate attributeName="cx" values="150;400;50;150" dur="3.5s" repeatCount="indefinite"/><animate attributeName="cy" values="65;65;65;65" dur="3.5s" repeatCount="indefinite"/></circle>
+                        <circle r="6" fill="#7dd3fc" opacity="0.7"><animate attributeName="cx" values="280;400;50;280" dur="4s" repeatCount="indefinite"/><animate attributeName="cy" values="65;65;65;65" dur="4s" repeatCount="indefinite"/></circle>
+                        <!-- Labels -->
+                        <text x="50" y="115" fill="#0369a1" font-size="11" font-weight="700">⚡ Electrons flow →</text>
+                        <text x="300" y="115" fill="#0369a1" font-size="11" font-weight="700">= Electric Current</text>
+                    </svg>
+                </div>
+            </div>
 
-<div class="card"
-onclick="showInfo(
-'Safety Gloves',
-'Rubber gloves protect electricians from electric shock.'
-)">
-🧤 Safety Gloves
-</div>
+            <div class="basics-card" id="basics-2">
+                <div class="basics-step-badge">Step 2</div>
+                <h3>⚛️ What Are Electrons?</h3>
+                <p class="basics-explain">Everything around us is made of tiny <strong>atoms</strong>. Each atom has even tinier particles called <strong>electrons</strong> spinning around it.</p>
+                <p class="basics-explain">In some materials, electrons can <strong>move freely</strong> (like loose marbles). In others, they are <strong>stuck tightly</strong> and cannot move.</p>
+                <div class="basics-visual">
+                    <svg viewBox="0 0 440 130" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Atom 1: Free electrons -->
+                        <circle cx="120" cy="65" r="22" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                        <text x="120" y="70" text-anchor="middle" fill="#92400e" font-size="10" font-weight="900">Atom</text>
+                        <!-- Free electrons bouncing away -->
+                        <circle r="6" fill="#fbbf24"><animate attributeName="cx" values="145;190;145" dur="1.5s" repeatCount="indefinite"/><animate attributeName="cy" values="55;45;55" dur="1.5s" repeatCount="indefinite"/></circle>
+                        <circle r="5" fill="#f59e0b"><animate attributeName="cx" values="145;200;145" dur="1.8s" repeatCount="indefinite"/><animate attributeName="cy" values="75;85;75" dur="1.8s" repeatCount="indefinite"/></circle>
+                        <text x="120" y="115" text-anchor="middle" fill="#92400e" font-size="10" font-weight="700">Free electrons → MOVE!</text>
+                        <text x="120" y="12" text-anchor="middle" fill="#19a76f" font-size="11" font-weight="800">✅ Conductor (Metal)</text>
+                        
+                        <!-- Atom 2: Stuck electrons -->
+                        <circle cx="330" cy="65" r="22" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+                        <text x="330" y="70" text-anchor="middle" fill="#5b21b6" font-size="10" font-weight="900">Atom</text>
+                        <!-- Stuck electrons (not moving) -->
+                        <circle cx="352" cy="52" r="6" fill="#a78bfa" opacity="0.6"/>
+                        <circle cx="352" cy="78" r="5" fill="#a78bfa" opacity="0.6"/>
+                        <text x="362" y="55" fill="#7c3aed" font-size="14" font-weight="900">🔒</text>
+                        <text x="362" y="82" fill="#7c3aed" font-size="14" font-weight="900">🔒</text>
+                        <text x="330" y="115" text-anchor="middle" fill="#5b21b6" font-size="10" font-weight="700">Electrons STUCK → No flow</text>
+                        <text x="330" y="12" text-anchor="middle" fill="#ea4d5c" font-size="11" font-weight="800">❌ Insulator (Rubber/Plastic)</text>
+                    </svg>
+                </div>
+            </div>
 
-<div class="card"
-onclick="showInfo(
-'Switch Boards',
-'Plastic switch covers prevent accidental shocks.'
-)">
-🎛️ Switch Boards
-</div>
+            <div class="basics-card basics-card-wide" id="basics-3">
+                <div class="basics-step-badge">Step 3</div>
+                <h3>🔀 Conductor vs Insulator — The Pipe Test!</h3>
+                <p class="basics-explain">Think of two pipes. One is <strong>open</strong> — water flows through easily. The other is <strong>blocked</strong> — water cannot pass. Conductors and insulators work the same way with electricity!</p>
+                <div class="basics-visual basics-visual-wide">
+                    <svg viewBox="0 0 700 150" xmlns="http://www.w3.org/2000/svg">
+                        <!-- CONDUCTOR PIPE (open) -->
+                        <text x="175" y="16" text-anchor="middle" fill="#19a76f" font-size="13" font-weight="900">✅ CONDUCTOR (Open Pipe)</text>
+                        <!-- Pipe -->
+                        <rect x="30" y="35" width="290" height="40" rx="20" fill="#ecfdf5" stroke="#10b981" stroke-width="2.5"/>
+                        <!-- Electrons flowing through -->
+                        <circle r="7" fill="#34d399"><animate attributeName="cx" values="50;300;50" dur="2s" repeatCount="indefinite"/><animate attributeName="cy" values="55;55;55" dur="2s" repeatCount="indefinite"/></circle>
+                        <circle r="6" fill="#6ee7b7"><animate attributeName="cx" values="180;300;50;180" dur="2.5s" repeatCount="indefinite"/><animate attributeName="cy" values="55;55;55;55" dur="2.5s" repeatCount="indefinite"/></circle>
+                        <circle r="5" fill="#a7f3d0"><animate attributeName="cx" values="100;300;50;100" dur="3s" repeatCount="indefinite"/><animate attributeName="cy" values="55;55;55;55" dur="3s" repeatCount="indefinite"/></circle>
+                        <!-- Bulb glowing -->
+                        <circle cx="340" cy="55" r="18" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"><animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite"/></circle>
+                        <text x="340" y="60" text-anchor="middle" font-size="16">💡</text>
+                        <!-- Labels -->
+                        <text x="175" y="100" text-anchor="middle" fill="#065f46" font-size="11" font-weight="700">Copper, Iron, Aluminum</text>
+                        <text x="175" y="116" text-anchor="middle" fill="#065f46" font-size="10">Electrons flow freely → Bulb lights up! ✨</text>
+                        
+                        <!-- INSULATOR PIPE (blocked) -->
+                        <text x="540" y="16" text-anchor="middle" fill="#ea4d5c" font-size="13" font-weight="900">❌ INSULATOR (Blocked Pipe)</text>
+                        <!-- Pipe -->
+                        <rect x="400" y="35" width="290" height="40" rx="20" fill="#fff1f2" stroke="#f87171" stroke-width="2.5"/>
+                        <!-- Block in the middle -->
+                        <rect x="520" y="30" width="20" height="50" rx="4" fill="#ef4444" opacity="0.8"/>
+                        <text x="530" y="60" text-anchor="middle" fill="#fff" font-size="14" font-weight="900">✕</text>
+                        <!-- Electrons stuck -->
+                        <circle cx="470" cy="55" r="7" fill="#fca5a5" opacity="0.7"><animate attributeName="cx" values="460;510;460" dur="1.5s" repeatCount="indefinite"/></circle>
+                        <circle cx="450" cy="55" r="6" fill="#fecaca" opacity="0.6"><animate attributeName="cx" values="440;500;440" dur="1.8s" repeatCount="indefinite"/></circle>
+                        <!-- Bulb NOT glowing -->
+                        <circle cx="710" cy="55" r="18" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2" opacity="0.5"/>
+                        <text x="710" y="60" text-anchor="middle" font-size="16" opacity="0.4">💡</text>
+                        <!-- Labels -->
+                        <text x="540" y="100" text-anchor="middle" fill="#991b1b" font-size="11" font-weight="700">Rubber, Wood, Plastic, Glass</text>
+                        <text x="540" y="116" text-anchor="middle" fill="#991b1b" font-size="10">Electrons blocked → Bulb stays OFF 🚫</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
 
-</div>
+        <!-- Simple Remember Box -->
+        <div class="remember-box">
+            <div class="remember-icon">🧠</div>
+            <div class="remember-content">
+                <h3>Easy Way to Remember!</h3>
+                <div class="remember-grid">
+                    <div class="remember-item conductor-remember">
+                        <span class="remember-emoji">🚰</span>
+                        <strong>Conductor = Open tap</strong>
+                        <p>Water (electricity) flows through easily</p>
+                    </div>
+                    <div class="remember-item insulator-remember">
+                        <span class="remember-emoji">🧱</span>
+                        <strong>Insulator = Brick wall</strong>
+                        <p>Water (electricity) is blocked completely</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div id="popup" class="popup">
+    <div class="section-divider"></div>
 
-<div class="popup-content">
+    <!-- ═══════════════════ MAIN USES — VISUAL CARDS ═══════════════════ -->
+    <section class="section" id="uses-section">
+        <div class="section-head" style="text-align:center; max-width:760px; margin:0 auto 32px;">
+            <div class="eyebrow" style="justify-content:center;">
+                <span class="eyebrow-icon">🏠</span>
+                Everyday Examples
+            </div>
+            <h2>Where Do We See Them Every Day?</h2>
+            <p>Now that you know what conductors and insulators are, let's see them in real life! <strong>Click any card</strong> to see how it works inside.</p>
+        </div>
 
-<h2 id="popupTitle"></h2>
+        <!-- How to use guide -->
+        <div class="how-to-guide">
+            <div class="guide-step">
+                <span class="guide-num">1</span>
+                <span>Look at the picture 🖼️</span>
+            </div>
+            <div class="guide-arrow">→</div>
+            <div class="guide-step">
+                <span class="guide-num">2</span>
+                <span>Click "Explore" 👆</span>
+            </div>
+            <div class="guide-arrow">→</div>
+            <div class="guide-step">
+                <span class="guide-num">3</span>
+                <span>Watch the simulation ⚡</span>
+            </div>
+            <div class="guide-arrow">→</div>
+            <div class="guide-step">
+                <span class="guide-num">4</span>
+                <span>Read & learn! 📖</span>
+            </div>
+        </div>
 
-<p id="popupText"></p>
+        <div class="visual-uses-grid" id="usesGrid">
+            <!-- Card 1 -->
+            <article class="visual-use-card" data-card-id="house-wiring" tabindex="0">
+                <div class="vu-card__image">
+                    <img src="images/house-wiring.png" alt="House electrical wiring" loading="lazy">
+                    <div class="vu-card__badge conductor-badge">Conductor + Insulator</div>
+                </div>
+                <div class="vu-card__body">
+                    <h3>🏠 House Wiring</h3>
+                    <p class="vu-card__short">Copper wires carry electricity. Plastic covers keep us safe.</p>
+                    <span class="vu-card__cta">Click to explore →</span>
+                </div>
+            </article>
+            <!-- Card 2 -->
+            <article class="visual-use-card" data-card-id="phone-charger" tabindex="0">
+                <div class="vu-card__image">
+                    <img src="images/phone-charger.png" alt="Phone charger cable" loading="lazy">
+                    <div class="vu-card__badge conductor-badge">Conductor + Insulator</div>
+                </div>
+                <div class="vu-card__body">
+                    <h3>🔌 Phone Charger Cable</h3>
+                    <p class="vu-card__short">Metal wires inside, rubber/plastic outside.</p>
+                    <span class="vu-card__cta">Click to explore →</span>
+                </div>
+            </article>
+            <!-- Card 3 -->
+            <article class="visual-use-card" data-card-id="power-lines" tabindex="0">
+                <div class="vu-card__image">
+                    <img src="images/power-lines.png" alt="Power transmission towers" loading="lazy">
+                    <div class="vu-card__badge conductor-badge">Conductor</div>
+                </div>
+                <div class="vu-card__body">
+                    <h3>⚡ Power Transmission Lines</h3>
+                    <p class="vu-card__short">Aluminum cables carry electricity over hundreds of kilometres.</p>
+                    <span class="vu-card__cta">Click to explore →</span>
+                </div>
+            </article>
+            <!-- Card 4 -->
+            <article class="visual-use-card" data-card-id="safety-gloves" tabindex="0">
+                <div class="vu-card__image">
+                    <img src="images/safety-gloves.png" alt="Electrician rubber gloves" loading="lazy">
+                    <div class="vu-card__badge insulator-badge">Insulator</div>
+                </div>
+                <div class="vu-card__body">
+                    <h3>🧤 Rubber Safety Gloves</h3>
+                    <p class="vu-card__short">Rubber blocks electricity from reaching the body.</p>
+                    <span class="vu-card__cta">Click to explore →</span>
+                </div>
+            </article>
+            <!-- Card 5 -->
+            <article class="visual-use-card" data-card-id="switch-board" tabindex="0">
+                <div class="vu-card__image">
+                    <img src="images/switch-board.png" alt="Electrical switch board" loading="lazy">
+                    <div class="vu-card__badge conductor-badge">Conductor + Insulator</div>
+                </div>
+                <div class="vu-card__body">
+                    <h3>🎛️ Switch Boards</h3>
+                    <p class="vu-card__short">Plastic covers protect. Metal contacts inside conduct.</p>
+                    <span class="vu-card__cta">Click to explore →</span>
+                </div>
+            </article>
+            <!-- Card 6 -->
+            <article class="visual-use-card" data-card-id="kitchen" tabindex="0">
+                <div class="vu-card__image">
+                    <img src="images/kitchen-items.png" alt="Kitchen utensils" loading="lazy">
+                    <div class="vu-card__badge conductor-badge">Conductor + Insulator</div>
+                </div>
+                <div class="vu-card__body">
+                    <h3>🍳 Kitchen Utensils</h3>
+                    <p class="vu-card__short">Steel pans conduct heat. Wooden handles protect your hands.</p>
+                    <span class="vu-card__cta">Click to explore →</span>
+                </div>
+            </article>
+            <!-- Card 7 -->
+            <article class="visual-use-card" data-card-id="electric-iron" tabindex="0">
+                <div class="vu-card__image">
+                    <img src="images/electric-iron.png" alt="Electric iron" loading="lazy">
+                    <div class="vu-card__badge conductor-badge">Conductor + Insulator</div>
+                </div>
+                <div class="vu-card__body">
+                    <h3>🔥 Electric Iron</h3>
+                    <p class="vu-card__short">Nichrome wire heats up. Plastic handle stays cool.</p>
+                    <span class="vu-card__cta">Click to explore →</span>
+                </div>
+            </article>
+            <!-- Card 8 -->
+            <article class="visual-use-card" data-card-id="lightning" tabindex="0">
+                <div class="vu-card__image">
+                    <img src="images/lightning-conductor.png" alt="Lightning conductor on building" loading="lazy">
+                    <div class="vu-card__badge conductor-badge">Conductor</div>
+                </div>
+                <div class="vu-card__body">
+                    <h3>🌩️ Lightning Conductor</h3>
+                    <p class="vu-card__short">A metal rod on buildings safely carries lightning to the ground.</p>
+                    <span class="vu-card__cta">Click to explore →</span>
+                </div>
+            </article>
+            <!-- Card 9 -->
+            <article class="visual-use-card" data-card-id="fuse" tabindex="0">
+                <div class="vu-card__image">
+                    <img src="images/fuse-wire.png" alt="Electrical fuse" loading="lazy">
+                    <div class="vu-card__badge conductor-badge">Conductor (Safety)</div>
+                </div>
+                <div class="vu-card__body">
+                    <h3>🔧 Fuse Wire</h3>
+                    <p class="vu-card__short">A thin wire that melts to break the circuit if too much current flows.</p>
+                    <span class="vu-card__cta">Click to explore →</span>
+                </div>
+            </article>
+            <!-- Card 10 -->
+            <article class="visual-use-card" data-card-id="pole-insulator" tabindex="0">
+                <div class="vu-card__image">
+                    <img src="images/electric-pole.png" alt="Electric pole insulators" loading="lazy">
+                    <div class="vu-card__badge insulator-badge">Insulator</div>
+                </div>
+                <div class="vu-card__body">
+                    <h3>🏗️ Porcelain Disc Insulators</h3>
+                    <p class="vu-card__short">Ceramic discs on poles stop electricity from leaking into the ground.</p>
+                    <span class="vu-card__cta">Click to explore →</span>
+                </div>
+            </article>
+        </div>
+    </section>
 
-<button onclick="closePopup()">
-Close
-</button>
+    <!-- ═══════════════════ POPUP MODAL ═══════════════════ -->
+    <div class="sim-overlay" id="simOverlay" role="dialog" aria-modal="true" aria-labelledby="simTitle">
+        <div class="sim-modal">
+            <button class="sim-close" id="simClose" aria-label="Close popup">✕</button>
+            
+            <div class="sim-layout">
+                <!-- Left: Image + Simulation -->
+                <div class="sim-visual-area">
+                    <img class="sim-image" id="simImage" src="" alt="">
+                    <div class="sim-canvas" id="simCanvas">
+                        <!-- SVG simulation injected by JS -->
+                    </div>
+                </div>
 
-</div>
+                <!-- Right: Info -->
+                <div class="sim-info-area">
+                    <h2 class="sim-title" id="simTitle"></h2>
+                    <div class="sim-analogy" id="simAnalogy"></div>
+                    <div class="sim-tags" id="simTags"></div>
+                    <p class="sim-simple" id="simSimple"></p>
+                    <div class="sim-details" id="simDetails"></div>
+                    <div class="sim-fact-box" id="simFact"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</div>
+    <div class="section-divider"></div>
 
-<div class="next">
-<a href="lab.html">
-🧪 Go To Virtual Lab
-</a>
-</div>
+    <!-- ═══════════════════ INTERACTIVE: SPOT THE TYPE ═══════════════════ -->
+    <section class="section" id="spot-game">
+        <div class="section-head" style="text-align:center; max-width:760px; margin:0 auto 28px;">
+            <div class="eyebrow" style="justify-content:center;">
+                <span class="eyebrow-icon">🎮</span>
+                Interactive Activity
+            </div>
+            <h2>Spot the Conductor or Insulator!</h2>
+            <p>For each item below, click <strong>Conductor</strong> or <strong>Insulator</strong>. See how many you get right!</p>
+        </div>
 
-<script src="js/uses.js"></script>
+        <div class="spot-game-container">
+            <div class="spot-score-bar">
+                <div class="spot-progress" id="spotProgress">
+                    <div class="spot-fill" id="spotFill" style="width: 0%"></div>
+                </div>
+                <span class="spot-score-text" id="spotScoreText">0 / 10</span>
+            </div>
 
+            <div class="spot-card" id="spotCard">
+                <div class="spot-item-display" id="spotDisplay">
+                    <span class="spot-emoji" id="spotEmoji">🥄</span>
+                    <h3 class="spot-item-name" id="spotName">Steel Spoon</h3>
+                    <p class="spot-hint" id="spotHint">Think: Can electricity pass through it?</p>
+                </div>
+                <div class="spot-buttons" id="spotButtons">
+                    <button class="spot-btn conductor-btn" id="btnConductor" onclick="spotAnswer('conductor')">
+                        <span class="spot-btn-icon">⚡</span> Conductor
+                    </button>
+                    <button class="spot-btn insulator-btn" id="btnInsulator" onclick="spotAnswer('insulator')">
+                        <span class="spot-btn-icon">🛡️</span> Insulator
+                    </button>
+                </div>
+                <div class="spot-feedback" id="spotFeedback"></div>
+            </div>
+
+            <div class="spot-result" id="spotResult" style="display:none;">
+                <div class="spot-result-icon" id="spotResultIcon">🏆</div>
+                <h3 id="spotResultTitle">Great Job!</h3>
+                <p id="spotResultText">You got 8 out of 10 correct!</p>
+                <button onclick="resetSpotGame()" class="spot-restart-btn">Play Again 🔄</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════ CONDUCTOR vs INSULATOR TABLE ═══════════════════ -->
+    <section class="section" id="comparison-section">
+        <div class="section-head" style="text-align:center; max-width:760px; margin:0 auto 28px;">
+            <div class="eyebrow" style="justify-content:center;">
+                <span class="eyebrow-icon">📊</span>
+                Quick Comparison
+            </div>
+            <h2>Conductors vs Insulators at a Glance</h2>
+        </div>
+
+        <div class="visual-comparison-table">
+            <div class="vct-header">
+                <div class="vct-cell conductor-cell">
+                    <span class="vct-icon">⚡</span>
+                    <strong>Conductors</strong>
+                </div>
+                <div class="vct-cell insulator-cell">
+                    <span class="vct-icon">🛡️</span>
+                    <strong>Insulators</strong>
+                </div>
+            </div>
+            <div class="vct-row">
+                <div class="vct-cell">Allow electric current to flow through them</div>
+                <div class="vct-cell">Do not allow electric current to flow through them</div>
+            </div>
+            <div class="vct-row">
+                <div class="vct-cell">Have many <strong>free electrons</strong></div>
+                <div class="vct-cell">Have very <strong>few free electrons</strong></div>
+            </div>
+            <div class="vct-row">
+                <div class="vct-cell">
+                    <div class="material-chips">
+                        <span class="chip conductor-chip">Copper</span>
+                        <span class="chip conductor-chip">Aluminum</span>
+                        <span class="chip conductor-chip">Iron</span>
+                        <span class="chip conductor-chip">Silver</span>
+                        <span class="chip conductor-chip">Gold</span>
+                    </div>
+                </div>
+                <div class="vct-cell">
+                    <div class="material-chips">
+                        <span class="chip insulator-chip">Rubber</span>
+                        <span class="chip insulator-chip">Wood</span>
+                        <span class="chip insulator-chip">Plastic</span>
+                        <span class="chip insulator-chip">Glass</span>
+                        <span class="chip insulator-chip">Porcelain</span>
+                    </div>
+                </div>
+            </div>
+            <div class="vct-row">
+                <div class="vct-cell">Used for making <strong>wires, cables, heating elements</strong></div>
+                <div class="vct-cell">Used for making <strong>covers, handles, switch bodies</strong></div>
+            </div>
+            <div class="vct-row">
+                <div class="vct-cell">Usually metals</div>
+                <div class="vct-cell">Usually non-metals</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════ SAFETY TIPS ═══════════════════ -->
+    <section class="section" id="safety-section">
+        <div class="section-head" style="text-align:center; max-width:760px; margin:0 auto 28px;">
+            <div class="eyebrow" style="justify-content:center;">
+                <span class="eyebrow-icon">⚠️</span>
+                Stay Safe!
+            </div>
+            <h2>Electrical Safety Tips for Students</h2>
+            <p>Understanding conductors and insulators helps us stay safe every day.</p>
+        </div>
+
+        <div class="safety-grid">
+            <div class="safety-card" id="safety-1">
+                <div class="safety-number">1</div>
+                <div class="safety-visual">🚫💧</div>
+                <h3>Never touch switches with wet hands</h3>
+                <p>Water is a conductor. Wet hands can allow current to flow through your body and cause electric shock.</p>
+            </div>
+            <div class="safety-card" id="safety-2">
+                <div class="safety-number">2</div>
+                <div class="safety-visual">🔌❌</div>
+                <h3>Don't use damaged cables</h3>
+                <p>If the plastic insulation is torn, the metal wire inside is exposed. This can cause shock or fire.</p>
+            </div>
+            <div class="safety-card" id="safety-3">
+                <div class="safety-number">3</div>
+                <div class="safety-visual">👟✅</div>
+                <h3>Wear rubber-soled shoes</h3>
+                <p>Rubber is an insulator. Rubber-soled shoes help protect you from electric shock if you step on a live wire.</p>
+            </div>
+            <div class="safety-card" id="safety-4">
+                <div class="safety-number">4</div>
+                <div class="safety-visual">🪁⚡</div>
+                <h3>Never fly kites near power lines</h3>
+                <p>Wet kite thread can conduct electricity. If it touches a power line, the current can reach you!</p>
+            </div>
+            <div class="safety-card" id="safety-5">
+                <div class="safety-number">5</div>
+                <div class="safety-visual">🌳🔥</div>
+                <h3>Stay away from fallen wires</h3>
+                <p>If you see a wire fallen from an electric pole, stay far away and inform an elder. The wire may be live.</p>
+            </div>
+            <div class="safety-card" id="safety-6">
+                <div class="safety-number">6</div>
+                <div class="safety-visual">🔧🧤</div>
+                <h3>Use insulated tools</h3>
+                <p>Screwdrivers and pliers used for electrical work have rubber handles to prevent shock.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════ FUN FACTS CAROUSEL ═══════════════════ -->
+    <section class="section" id="facts-section">
+        <div class="section-head" style="text-align:center; max-width:760px; margin:0 auto 28px;">
+            <div class="eyebrow" style="justify-content:center;">
+                <span class="eyebrow-icon">🤓</span>
+                Did You Know?
+            </div>
+            <h2>Amazing Facts About Conductors & Insulators</h2>
+        </div>
+
+        <div class="facts-carousel" id="factsCarousel">
+            <div class="fact-slides" id="factSlides">
+                <div class="fact-slide active">
+                    <div class="fact-slide-icon">🥇</div>
+                    <h3>Silver is the Best Conductor</h3>
+                    <p>Silver conducts electricity better than any other metal! But we use copper and aluminum because they are much cheaper.</p>
+                </div>
+                <div class="fact-slide">
+                    <div class="fact-slide-icon">💎</div>
+                    <h3>Diamond is an Insulator</h3>
+                    <p>Even though diamond is made of carbon atoms, it does not conduct electricity because its electrons are tightly bonded.</p>
+                </div>
+                <div class="fact-slide">
+                    <div class="fact-slide-icon">🌊</div>
+                    <h3>Pure Water is an Insulator!</h3>
+                    <p>Pure (distilled) water does not conduct electricity. But tap water contains dissolved salts, which make it a conductor.</p>
+                </div>
+                <div class="fact-slide">
+                    <div class="fact-slide-icon">🧬</div>
+                    <h3>Human Body is a Conductor</h3>
+                    <p>Our body contains water and salts that allow electricity to flow. This is why electric shock is dangerous!</p>
+                </div>
+                <div class="fact-slide">
+                    <div class="fact-slide-icon">✏️</div>
+                    <h3>Graphite Conducts Electricity</h3>
+                    <p>The "lead" in your pencil is actually graphite — a form of carbon that conducts electricity! The only non-metal that does.</p>
+                </div>
+                <div class="fact-slide">
+                    <div class="fact-slide-icon">🌡️</div>
+                    <h3>Semiconductors: In Between!</h3>
+                    <p>Silicon and Germanium are neither good conductors nor insulators. Called <strong>semiconductors</strong>, they power computer chips!</p>
+                </div>
+            </div>
+            <div class="fact-controls">
+                <button class="fact-nav prev-btn" id="factPrev" onclick="changeFact(-1)">‹</button>
+                <div class="fact-dots" id="factDots"></div>
+                <button class="fact-nav next-btn" id="factNext" onclick="changeFact(1)">›</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+    <div class="section next" style="text-align:center;">
+        <a href="lab.html">Go To Virtual Lab →</a>
+    </div>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/bg-simulation.js"></script>
+<script src="js/uses-page.js"></script>
 </body>
 </html>
