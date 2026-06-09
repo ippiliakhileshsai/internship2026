@@ -67,14 +67,15 @@ Project Structure to be maintained :
 - requirements.txt (Mandatory-for team to maintain) - Get it from ## Phase 2 — Requirement Gathering
 - storyboard file
 
-Example: 
+Process of MVP (Minimum Viable Simulation) 
+Example:
 
 ❌ Full Science Lab
 
 ✅ One concept only:
 “Bulb glows when circuit completes.”
 
-Build small → test → improve.
+**Build small → test → improve.**
 
 ## Phase 7 — Usability Testing 
 
