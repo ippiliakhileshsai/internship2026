@@ -65,7 +65,8 @@ Project Structure to be maintained :
 - Images (Keep in folder if multiple)
 - requirements.txt (Mandatory-for team to maintain) - Get it from ## Phase 2 — Requirement Gathering
 - storyboard file
-- About my team (teams.txt) - should also include details of ## Phase 5 — Task Division 
+- About my team (teams.txt) - should also include details of ## Phase 5 — Task Division
+- Readme.md - Documentation of simulation
 
 Process of MVP (Minimum Viable Simulation) 
 Example:
