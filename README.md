@@ -65,6 +65,7 @@ Project Structure to be maintained :
 - Images (Keep in folder if multiple)
 - requirements.txt (Mandatory-for team to maintain) - Get it from ## Phase 2 — Requirement Gathering
 - storyboard file (PNG/JPEG/PDF)
+- Userpersona
 - About my team (teams.txt) - should also include details of ## Phase 5 — Task Division
 - Readme.md - Documentation of simulation
 
