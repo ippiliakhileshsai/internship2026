@@ -1,0 +1,549 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f7f9;
+  color: #1f2f36;
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  color: #15323d;
+}
+
+p {
+  color: #546872;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.background-decor {
+  display: none;
+}
+
+.page-shell,
+.splash-layout {
+  padding: 20px;
+}
+
+.page-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.splash-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash-card,
+.topbar,
+.hero-panel,
+.info-strip article,
+.nav-card,
+.micro-card,
+.disease-card,
+.selected-banner,
+.selection-panel,
+.detail-layout,
+.detail-block,
+.prevention-card,
+.quiz-shell,
+.quiz-card,
+.quiz-result,
+.info-card,
+.takeaway-card,
+.cta-banner,
+.conclusion-panel {
+  background: #ffffff;
+  border: 1px solid #d8e1e8;
+  border-radius: 12px;
+}
+
+.splash-card,
+.hero-panel,
+.detail-layout,
+.quiz-shell,
+.conclusion-panel {
+  padding: 24px;
+}
+
+.section-head,
+.info-strip,
+.nav-card-grid,
+.micro-grid,
+.disease-list-grid,
+.prevention-grid,
+.about-grid,
+.takeaway-grid {
+  margin-bottom: 20px;
+}
+
+.hero-badge,
+.section-tag,
+.eyebrow,
+.score-chip,
+.micro-meta,
+.disease-meta {
+  display: inline-block;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.hero-badge,
+.section-tag,
+.micro-meta,
+.disease-meta {
+  background: #e3f3ee;
+  color: #116a55;
+}
+
+.eyebrow {
+  margin-bottom: 8px;
+  background: #eef3f6;
+  color: #2d5f70;
+}
+
+.score-chip {
+  background: #eef3f6;
+  color: #1f2f36;
+}
+
+.splash-card {
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+}
+
+.splash-logo {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.logo-circle {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #edf3f7;
+  border: 1px solid #d8e1e8;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.loading-group {
+  margin-top: 20px;
+}
+
+.loading-bar {
+  width: 100%;
+  max-width: 320px;
+  height: 10px;
+  margin: 0 auto 12px;
+  background: #e3e9ee;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.loading-fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #14866d;
+  animation: loadBar 3s linear forwards;
+}
+
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.loading-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #14866d;
+  animation: dotPulse 1s infinite;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.redirect-note {
+  margin-top: 14px;
+  font-weight: bold;
+}
+
+.topbar {
+  max-width: 1100px;
+  margin: 0 auto 20px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.topbar h2 {
+  margin-bottom: 0;
+  font-size: 24px;
+}
+
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.nav-link,
+.primary-btn,
+.secondary-btn,
+.quiz-option {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #cfd9e0;
+  cursor: pointer;
+}
+
+.nav-link,
+.secondary-btn {
+  background: #eef3f6;
+}
+
+.nav-link.active,
+.nav-link:hover,
+.primary-btn {
+  background: #14866d;
+  color: #ffffff;
+  border-color: #14866d;
+}
+
+.primary-btn:hover {
+  background: #116a55;
+}
+
+.nav-toggle {
+  display: none;
+  padding: 10px 14px;
+  border: 1px solid #cfd9e0;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.hero-panel,
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.hero-actions,
+.button-row,
+.quiz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.button-row.center {
+  justify-content: center;
+}
+
+.hero-visual {
+  min-height: 220px;
+  padding: 20px;
+  border: 1px solid #d8e1e8;
+  border-radius: 12px;
+  background: #f7fafc;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hero-core,
+.microbe-orbit {
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: 1px solid #d8e1e8;
+  background: #ffffff;
+  font-weight: bold;
+}
+
+.hero-core {
+  background: #14866d;
+  color: #ffffff;
+}
+
+.info-strip,
+.nav-card-grid,
+.micro-grid,
+.disease-list-grid,
+.prevention-grid,
+.about-grid,
+.takeaway-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.info-strip,
+.prevention-grid,
+.takeaway-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.nav-card-grid {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.micro-grid,
+.disease-list-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.about-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.info-strip article,
+.selected-banner,
+.selection-panel,
+.info-card,
+.takeaway-card,
+.nav-card,
+.micro-card,
+.disease-card,
+.prevention-card {
+  padding: 18px;
+}
+
+.nav-card,
+.micro-card,
+.disease-card,
+.prevention-card {
+  display: block;
+}
+
+.card-icon,
+.prevention-icon {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: #eef3f6;
+  border: 1px solid #d8e1e8;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.cta-banner,
+.selected-banner,
+.selection-panel,
+.quiz-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.micro-card img,
+.disease-card img,
+.detail-image-wrap img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #d8e1e8;
+  background: #f7fafc;
+}
+
+.micro-card img,
+.disease-card img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  margin-bottom: 14px;
+}
+
+.detail-image-wrap img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.micro-card.selected-card {
+  border-color: #14866d;
+}
+
+.detail-content {
+  display: grid;
+  gap: 12px;
+}
+
+.detail-block,
+.quiz-card,
+.quiz-result {
+  padding: 16px;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.quiz-option {
+  width: 100%;
+  text-align: left;
+  background: #ffffff;
+}
+
+.quiz-option.correct {
+  background: #e4f4ee;
+  border-color: #8ec8b7;
+}
+
+.quiz-option.wrong {
+  background: #fdeaea;
+  border-color: #e4a2a2;
+}
+
+.quiz-feedback {
+  margin-top: 16px;
+  padding: 14px;
+  min-height: 50px;
+  border: 1px solid #d8e1e8;
+  border-radius: 10px;
+  background: #f7fafc;
+  color: #1f2f36;
+}
+
+.conclusion-panel {
+  text-align: center;
+}
+
+.healthy-line {
+  margin: 12px 0 20px;
+  color: #116a55;
+}
+
+@keyframes loadBar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-panel,
+  .detail-layout,
+  .info-strip,
+  .nav-card-grid,
+  .micro-grid,
+  .disease-list-grid,
+  .prevention-grid,
+  .about-grid,
+  .takeaway-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .page-shell,
+  .splash-layout {
+    padding: 14px;
+  }
+
+  .nav-toggle {
+    display: inline-block;
+  }
+
+  .main-nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .main-nav.open {
+    display: flex;
+  }
+
+  .hero-panel,
+  .detail-layout,
+  .info-strip,
+  .nav-card-grid,
+  .micro-grid,
+  .disease-list-grid,
+  .prevention-grid,
+  .about-grid,
+  .takeaway-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-banner,
+  .selected-banner,
+  .selection-panel,
+  .quiz-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
