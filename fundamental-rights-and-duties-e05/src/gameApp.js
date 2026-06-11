@@ -582,6 +582,12 @@ function render() {
     
     // --- ONBOARDING STAGE ---
     html += `
+          <button 
+            onclick=" window.location.href='./index.html'"
+            class="w-full py-4 px-6 rounded-2xl border-4 border-black bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-comic text-2xl uppercase tracking-widest hover:scale-[1.02] hover:brightness-110 active:scale-95 transition-all shadow-xl comic-shadow"
+          >
+                            Return Back to Home
+          </button>
       <main class="flex-1 flex flex-col items-center justify-center py-10 relative z-30">
         <div class="max-w-xl w-full text-center bg-slate-950/95 border-6 border-slate-900 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden comic-shadow">
           <!-- Geometric web design motif on box -->
