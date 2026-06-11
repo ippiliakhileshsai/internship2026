@@ -1,0 +1,10 @@
+Team No: S13
+Topic: plastics types properties and environmentel issues
+Total Members : 7
+Divya : GitHub management(creating issues, tacking) , types of plastic code
+Meghana : Testing
+Sai Sumit : storybord , UI (index.html)
+Naseer Mohammad : GitHub management , UI(index.css)
+Bhuvanesh : Environmentel issue content
+Vaishnavi : Documentation , README.md
+Karthik : plastic types issue content

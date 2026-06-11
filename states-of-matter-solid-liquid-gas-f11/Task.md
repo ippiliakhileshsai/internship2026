@@ -4,7 +4,7 @@
 
 ---
 
-### Member 1 — Project Setup & UI
+###  M.Jashwanthkumar— Project Setup & UI
 - [ ] Create homepage layout (index.html shell)
 - [ ] Design and build navigation bar
 - [ ] Design header and footer
@@ -13,7 +13,7 @@
 
 ---
 
-### Member 2 — Particle Simulation
+### mani — Particle Simulation
 - [ ] Create particle container using HTML5 Canvas
 - [ ] Implement solid particle behavior (tight grid, slight vibration)
 - [ ] Implement liquid particle behavior (flowing, bounded movement)

@@ -1,0 +1,257 @@
+/* =============================================
+   QUEST FOR THE LOST LIGHT — Animations CSS
+   All keyframe animations & micro-interactions
+   ============================================= */
+
+/* ---- Starfield twinkle (defined in main.css but extended here) ---- */
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.8); }
+  50%       { opacity: 1; transform: scale(1.2); }
+}
+
+/* ---- Gold glow pulse (castle, badges) ---- */
+@keyframes glowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px #ffd700) drop-shadow(0 0 20px rgba(255,215,0,0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px #ffd700) drop-shadow(0 0 50px rgba(255,215,0,0.7));
+  }
+}
+
+/* ---- Crystal float (up & down) ---- */
+@keyframes floatCrystal {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 6px #60a5fa);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.08);
+    filter: drop-shadow(0 0 18px #60a5fa) drop-shadow(0 0 30px rgba(96,165,250,0.5));
+  }
+}
+
+/* ---- Bounce star ---- */
+@keyframes bounceStar {
+  0%, 100% { transform: translateY(0)  rotate(0deg); }
+  50%       { transform: translateY(-8px) rotate(10deg); }
+}
+
+/* ---- Shimmer sweep (button shine) ---- */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ---- Confetti fall ---- */
+@keyframes confettiFall {
+  0%   { transform: translateY(0)    rotate(0deg)   scale(1);   opacity: 1; }
+  80%  { opacity: 0.8; }
+  100% { transform: translateY(900px) rotate(720deg) scale(0.5); opacity: 0; }
+}
+
+/* ---- Screen slide transitions ---- */
+@keyframes slideOutLeft {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(-50px); opacity: 0; }
+}
+@keyframes slideInRight {
+  from { transform: translateX(50px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1);    }
+  to   { opacity: 0; transform: scale(0.96); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(1.04); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+/* ---- Pop in (spring-like) ---- */
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.4) rotate(-10deg); }
+  70%  { transform: scale(1.1) rotate(3deg); }
+  100% { opacity: 1; transform: scale(1)   rotate(0deg); }
+}
+
+/* ---- Star earned bounce ---- */
+@keyframes starBounce {
+  0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+  60%  { transform: scale(1.3) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1)   rotate(0deg); opacity: 1; }
+}
+
+/* ---- Progress bar grow ---- */
+@keyframes growBar {
+  from { width: 0%; }
+}
+
+/* ---- Orb pulse ---- */
+@keyframes orbPulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* ---- Wizard appear ---- */
+@keyframes wizardAppear {
+  0%   { opacity: 0; transform: translateY(20px) scale(0.8); }
+  100% { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* ---- Text fade up ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Card slide right ---- */
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ---- Neon border pulse (current level) ---- */
+@keyframes neonBorderPulse {
+  0%, 100% { box-shadow: 0 0 8px  var(--accent, #9333ea); }
+  50%       { box-shadow: 0 0 20px var(--accent, #9333ea), 0 0 40px var(--accent, #9333ea); }
+}
+.level-row.current {
+  animation: neonBorderPulse 2.5s ease-in-out infinite;
+}
+
+/* ---- XP bar glow ---- */
+.xp-bar-fill {
+  position: relative;
+  overflow: hidden;
+}
+.xp-bar-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: shimmer 2s linear infinite;
+}
+
+/* ---- Profile avatar ring pulse ---- */
+@keyframes glowGold {
+  0%, 100% { box-shadow: 0 0 15px rgba(255,215,0,0.3), inset 0 0 15px rgba(255,215,0,0.05); }
+  50%       { box-shadow: 0 0 35px rgba(255,215,0,0.7), inset 0 0 30px rgba(255,215,0,0.1); }
+}
+
+/* ---- Final crystal row ---- */
+@keyframes crystalRow {
+  0%   { opacity: 0; transform: translateY(-30px) scale(0.5); }
+  60%  { transform: translateY(4px) scale(1.1); }
+  100% { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* ---- Micro: button tap ---- */
+.btn-primary:active  { transform: scale(0.97); transition: transform 0.1s; }
+.btn-secondary:active { transform: scale(0.96); }
+.nav-btn:active { transform: scale(0.92); }
+
+/* ---- Micro: quiz option hover glow ---- */
+.quiz-option:hover:not(:disabled) {
+  box-shadow: 0 0 12px rgba(147,51,234,0.3);
+}
+
+/* ---- Micro: level row hover glow ---- */
+.level-row:not(.locked):hover {
+  box-shadow: 0 4px 20px rgba(147,51,234,0.2);
+}
+
+/* ---- Correct answer flash ---- */
+@keyframes correctFlash {
+  0%   { background: rgba(52,211,153,0.4); }
+  100% { background: rgba(52,211,153,0.15); }
+}
+.quiz-option.opt-correct {
+  animation: correctFlash 0.4s ease forwards;
+}
+
+/* ---- Wrong answer shake ---- */
+@keyframes wrongShake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  40%      { transform: translateX(6px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+.quiz-option.opt-wrong {
+  animation: wrongShake 0.4s ease;
+}
+
+/* ---- Badge pop (profile) ---- */
+.badge-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.badge-item.badge-earned:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 6px 20px rgba(147,51,234,0.3);
+}
+
+/* ---- Score row slide in ---- */
+.score-row {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* ---- Final orb float ---- */
+@keyframes finalOrb {
+  0%   { opacity: 0.2; transform: scale(1)   translate(0, 0); }
+  50%  { opacity: 0.5; transform: scale(1.3) translate(5px, -5px); }
+  100% { opacity: 0.2; transform: scale(1)   translate(0, 0); }
+}
+
+/* ---- Story card hover ---- */
+.story-card {
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.story-card:hover {
+  border-color: rgba(147,51,234,0.5);
+  transform: translateX(3px);
+}
+
+/* ---- Fact card hover ---- */
+.fact-card {
+  transition: border-color 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+.fact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(147,51,234,0.2);
+  border-color: rgba(147,51,234,0.6);
+}
+
+/* ---- Sim object tap ripple ---- */
+.sim-object {
+  transition: transform 0.15s ease, background 0.2s, border-color 0.2s;
+}
+.sim-object:active { transform: scale(0.93); }
+
+/* ---- Match pair hover ---- */
+.match-pair:hover:not(.pair-done) {
+  background: rgba(50,25,100,0.8);
+  border-color: rgba(147,51,234,0.5);
+  transform: translateX(3px);
+}
+
+/* ---- Dialog box typing cursor ---- */
+#typed-text::after {
+  content: '|';
+  animation: blink 0.8s step-end infinite;
+  color: var(--purple-light);
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ---- Reward crystal pulse ---- */
+.crystal-glow {
+  animation: floatCrystal 2s ease-in-out infinite,
+             glowBlue 2s ease-in-out infinite;
+}
+@keyframes glowBlue {
+  0%,100% { filter: drop-shadow(0 0 6px #60a5fa); }
+  50%      { filter: drop-shadow(0 0 18px #60a5fa) drop-shadow(0 0 30px rgba(96,165,250,0.6)); }
+}

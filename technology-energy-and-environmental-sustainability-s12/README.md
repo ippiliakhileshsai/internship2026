@@ -23,6 +23,7 @@ Smart Energy Advisor is a web-based application that helps users understand thei
 - HTML
 - CSS
 - JavaScript
+- React
 
 ## Project Status
 Review-1 Preparation

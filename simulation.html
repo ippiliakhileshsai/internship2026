@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diseases Causing Microorganisms - Simulation</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body data-page="simulation">
+  <div class="background-decor" aria-hidden="true">
+    <span class="blob blob-one"></span>
+    <span class="blob blob-two"></span>
+    <span class="blob blob-three"></span>
+  </div>
+
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Interactive Health Learning App</p>
+        <h2>Diseases Causing Microorganisms</h2>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">MENU</button>
+      <nav class="main-nav" id="mainNav">
+        <a href="home.html" class="nav-link" data-nav="home">Home</a>
+        <a href="microorganisms.html" class="nav-link" data-nav="microorganisms">Microorganisms</a>
+        <a href="select-microorganism.html" class="nav-link" data-nav="select">Select</a>
+        <a href="diseases.html" class="nav-link" data-nav="diseases">Diseases</a>
+        <a href="prevention.html" class="nav-link" data-nav="prevention">Prevention</a>
+        <a href="quiz.html" class="nav-link" data-nav="quiz">Quiz</a>
+        <a href="simulation.html" class="nav-link" data-nav="simulation">Simulation</a>
+        <a href="about.html" class="nav-link" data-nav="about">About Us</a>
+        <a href="conclusion.html" class="nav-link" data-nav="conclusion">Conclusion</a>
+      </nav>
+    </header>
+
+    <main class="page-wrap">
+      <section class="hero-panel simulation-hero">
+        <div class="hero-copy">
+          <span class="section-tag">Interactive Simulation</span>
+          <h1>Save the City From Disease Spread</h1>
+          <p>
+            Watch how infections move through a city and choose the right protection method
+            before the outbreak grows. Each round introduces a new microorganism threat with
+            a prevention method you have already learned elsewhere in the project.
+          </p>
+          <div class="hero-actions">
+            <a href="prevention.html" class="secondary-btn">Review Prevention Tips</a>
+            <a href="quiz.html" class="primary-btn">Take the Quiz Next</a>
+          </div>
+        </div>
+        <div class="simulation-intro-card">
+          <h3>How to Play</h3>
+          <p>Read the current threat, then choose the best prevention tool before the infection spreads.</p>
+          <p>Correct answers stop the outbreak and add 10 points.</p>
+          <p>Wrong answers reduce your score by 5 and let the infection continue moving through the city.</p>
+        </div>
+      </section>
+
+      <section class="simulation-layout">
+        <article class="simulation-stage">
+          <div class="simulation-stage-head">
+            <div>
+              <p class="eyebrow">Current Threat</p>
+              <h3 id="threat">Loading...</h3>
+            </div>
+            <div class="simulation-stats" aria-label="Simulation statistics">
+              <div class="simulation-stat">
+                <span class="simulation-stat-label">Infected</span>
+                <strong id="infectedCount">0 / 40</strong>
+              </div>
+              <div class="simulation-stat">
+                <span class="simulation-stat-label">Score</span>
+                <strong id="scoreValue">0</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="canvas-frame">
+            <canvas id="game" width="800" height="500" aria-label="Disease spread simulation canvas"></canvas>
+          </div>
+
+          <p id="status" class="simulation-status" aria-live="polite">Choose the correct prevention method.</p>
+
+          <div class="button-row">
+            <button id="restartSimulationBtn" class="secondary-btn" type="button">Restart Simulation</button>
+          </div>
+        </article>
+
+        <aside class="simulation-sidebar">
+          <article class="simulation-control-card">
+            <h3>Choose Protection</h3>
+            <div class="simulation-control-grid">
+              <button id="waterBtn" class="protection-btn" type="button" data-protect="water">Clean Water</button>
+              <button id="maskBtn" class="protection-btn" type="button" data-protect="mask">Wear Mask</button>
+              <button id="soapBtn" class="protection-btn" type="button" data-protect="soap">Hygiene</button>
+              <button id="netBtn" class="protection-btn" type="button" data-protect="net">Mosquito Net</button>
+            </div>
+          </article>
+
+          <article class="simulation-control-card">
+            <h3>Protection Guide</h3>
+            <p><strong>Cholera:</strong> choose clean water to stop water-borne infection.</p>
+            <p><strong>Flu:</strong> choose a mask to reduce droplet spread.</p>
+            <p><strong>Ringworm:</strong> choose hygiene to reduce fungal transmission.</p>
+            <p><strong>Malaria:</strong> choose a mosquito net to block mosquito bites.</p>
+          </article>
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>

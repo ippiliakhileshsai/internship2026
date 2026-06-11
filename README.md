@@ -1,43 +1,94 @@
-# internship2026
+# internship2026 (4 Week Project Flow) 
 
-## Mandatory Items to Be Ready for Review-1 
+Topic-> Problem Statement (HMW) → User → Requirement → Story Boarding → Development → Prototype → Testing
 
-### 1. Storyboarding
+## Phase 1 — Topic Selection & User Persona (Primary Research)  
+## Phase 2 — Requirement Gathering
 
-**Format:** 
-* PDF / PPT / Image / Canva link
-Should clearly explain:
+### Functional Requirements
 
-* Problem understanding
-* Flow of solution
-* User journey / screen flow
-* Basic idea representation
+What should the simulation do?
 
-### 2. Requirements & Task Division
+**Example**: Electric Circuit
 
-**File Format Required:**
+Student should:
 
-requirements.txt
+✅ Connect wires
+✅ Turn switch ON/OFF
+✅ Check bulb glowing
+✅ See wrong connection
 
-Should include:
+### Non-Functional Requirements
 
-* Project requirements
-* Features/modules
-* Team task division
+How should it feel?
 
-Also ensure:
+✅ Easy to use
+✅ Mobile friendly
+✅ Works in low internet
+✅ Fun and engaging
+✅ Clear visuals
+
+### Learning Requirements
+
+What learning outcome should happen? 
+After using simulation, student should be able to:
+
+✅ Explain circuit flow
+✅ Identify open/closed circuit
+✅ Predict outcomes
+
+
+## Phase 3 — Problem Statement - HMW Method (How Might We) 
+
+Eg : How might we help Class 7 students visually understand force through interaction instead of memorization?
+
+## Phase 4 — Storyboard (Before Coding) 
+
+## Phase 5 — Task Division 
+
+**Minimum Roles (can be add based on works) :**
+
+1. Research Lead: Gather and analyzes information needed for the project.
+2. UX / Learning Designer: Designs user experience and how users will learn/interact.
+3. Storyboard Designer: creates visual flow and structure of the content or app.
+4. Frontend Developer: builds the user interface using code (UI implementation).
+5. Documentation Lead : Documenting the entire project workflow (maintaining Readme.md)
+6. Testing Lead: checks the product for bugs and ensures quality before release. 
+
+## Phase 6 — Code Development & Define MVP (Minimum Viable Simulation)
+
+Project Structure to be maintained :
+- index.html (Mandatory - Main file)
+- HTML Files (Keep in folder if multiple)
+- CSS Files (Keep in folder if multiple)
+- JS Files (Keep in folder if multiple)
+- Images (Keep in folder if multiple)
+- requirements.txt (Mandatory-for team to maintain) - Get it from ## Phase 2 — Requirement Gathering
+- storyboard file (PNG/JPEG/PDF)
+- Userpersona
+- About my team (teams.txt) - should also include details of ## Phase 5 — Task Division
+- Readme.md - Documentation of simulation
+
+Process of MVP (Minimum Viable Simulation) 
+Example:
+
+❌ Full Science Lab
+
+✅ One concept only:
+“Bulb glows when circuit completes.”
+
+**Build small → test → improve.**
+
+## Phase 7 — Usability Testing 
+
+Ask school students:
+
+- Was it fun?
+- Did you understand?
+- Where did you get confused?
+- What should improve?
+
+**Note :**
+
 - GitHub Issues created
 - Tasks assigned to team members
-
-### 3. Initial Code Base
-
-Be ready with:
-
-* Basic folder structure
-* Initial implementation/code
-* GitHub commits pushed
-
-Minimum expectation:
-- Repository setup
-- Basic project structure
-- Initial progress visible

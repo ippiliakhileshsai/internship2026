@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Science Lab</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="index.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse
+    </a>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="bulb.html">Bulb Test</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="uses.html">Uses</a></li>
+        <li><a class="active" href="lab.html">Virtual Lab</a></li>
+        <li><a href="certificate.html">Certificate</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section class="page-intro">
+        <div class="eyebrow">Drag-and-drop lab</div>
+        <h1>Sort the objects by electric behavior.</h1>
+        <p>
+            Drag each object into the correct zone. Green means the choice matches the
+            science; red means the object belongs in the other zone.
+        </p>
+    </section>
+
+    <div id="score">Score: 0 / 6</div>
+
+    <div class="section-divider"></div>
+
+    <section class="lab-board" aria-label="Virtual sorting lab">
+        <div class="items" aria-label="Objects to sort">
+            <h2>Objects</h2>
+            <div class="item" draggable="true" id="Copper" data-kind="conductor">🧵 Copper Wire</div>
+            <div class="item" draggable="true" id="Coin" data-kind="conductor">🪙 Coin</div>
+            <div class="item" draggable="true" id="Spoon" data-kind="conductor">🥄 Metal Spoon</div>
+            <div class="item" draggable="true" id="Rubber" data-kind="insulator">🧤 Rubber</div>
+            <div class="item" draggable="true" id="Plastic" data-kind="insulator">🔌 Plastic</div>
+            <div class="item" draggable="true" id="Wood" data-kind="insulator">🪵 Wood</div>
+        </div>
+
+        <div class="boxes">
+            <div class="box drop-zone chamber" data-kind="conductor">
+                <div class="scanner-laser"></div>
+                <h2>⚡ Conductors</h2>
+                <p class="drop-hint">Objects that let electricity flow belong here.</p>
+            </div>
+
+            <div class="box drop-zone chamber" data-kind="insulator">
+                <div class="scanner-laser"></div>
+                <h2>🛡️ Insulators</h2>
+                <p class="drop-hint">Objects that block or protect from electricity belong here.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="nextBtn" id="nextBtn">
+        <a href="certificate.html">Get Certificate</a>
+    </div>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script>
+let score = 0;
+const itemsContainer = document.querySelector(".items");
+const totalItems = document.querySelectorAll(".item").length;
+
+document.querySelectorAll(".item").forEach((item) => {
+    item.addEventListener("dragstart", (event) => {
+        if (item.dataset.placed === "true") {
+            event.preventDefault();
+            return;
+        }
+        event.dataTransfer.setData("text/plain", event.target.id);
+        event.target.classList.add("dragging");
+    });
+    
+    item.addEventListener("dragend", (event) => {
+        event.target.classList.remove("dragging");
+    });
+});
+
+document.querySelectorAll(".drop-zone").forEach((zone) => {
+    zone.addEventListener("dragover", (event) => {
+        event.preventDefault();
+    });
+
+    zone.addEventListener("dragenter", (event) => {
+        event.preventDefault();
+        zone.classList.add("drag-hover");
+    });
+
+    zone.addEventListener("dragleave", () => {
+        zone.classList.remove("drag-hover");
+    });
+
+    zone.addEventListener("drop", (event) => {
+        event.preventDefault();
+        zone.classList.remove("drag-hover");
+
+        const itemId = event.dataTransfer.getData("text/plain");
+        const item = document.getElementById(itemId);
+
+        if (!item || item.dataset.placed === "true" || item.classList.contains("scanning-item")) {
+            return;
+        }
+
+        // Temporarily append the item to the zone to show it's being scanned
+        zone.appendChild(item);
+        item.setAttribute("draggable", "false");
+        item.classList.add("scanning-item");
+        
+        // Trigger scanning visual on chamber
+        zone.classList.add("scanning");
+
+        // Wait 1000ms for the "cyber scan" to finish
+        setTimeout(() => {
+            zone.classList.remove("scanning");
+            item.classList.remove("scanning-item");
+
+            const correct = item.dataset.kind === zone.dataset.kind;
+
+            if (correct) {
+                item.classList.add("correct", "chambered");
+                item.dataset.placed = "true";
+                
+                score++;
+                updateScore();
+
+                // Calculate drop offsets for sparkle burst location
+                const rect = zone.getBoundingClientRect();
+                const dropX = event.clientX - rect.left;
+                const dropY = event.clientY - rect.top;
+                triggerExplosion(dropX, dropY, zone);
+            } else {
+                // Eject sequence
+                item.classList.add("wrong", "ejected");
+                
+                const explanation = zone.dataset.kind === "conductor"
+                    ? `Scan Fail! ${item.innerText} is an Insulator (blocks flow). Chamber ejected!`
+                    : `Scan Fail! ${item.innerText} is a Conductor (allows flow). Chamber ejected!`;
+                showFeedbackTooltip(explanation, zone);
+
+                // Wait 600ms for ejection shake animation to complete
+                setTimeout(() => {
+                    item.classList.remove("wrong", "ejected");
+                    // Append back to dispenser tray
+                    itemsContainer.appendChild(item);
+                    item.setAttribute("draggable", "true");
+                }, 600);
+            }
+        }, 1000);
+    });
+});
+
+function triggerExplosion(x, y, container) {
+    container.style.position = "relative";
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement("span");
+        particle.className = "sparkle-particle";
+        particle.textContent = Math.random() > 0.5 ? "✨" : "⚡";
+        Object.assign(particle.style, {
+            position: "absolute",
+            left: `${x}px`,
+            top: `${y}px`,
+            pointerEvents: "none",
+            fontSize: `${12 + Math.random() * 12}px`,
+            transition: "all 0.6s cubic-bezier(0.1, 0.8, 0.3, 1)",
+            opacity: "1",
+            transform: "translate(-50%, -50%)"
+        });
+        container.appendChild(particle);
+
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 40 + Math.random() * 70;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity;
+
+        // Force reflow and animate
+        requestAnimationFrame(() => {
+            particle.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0.2)`;
+            particle.style.opacity = "0";
+        });
+
+        setTimeout(() => particle.remove(), 600);
+    }
+}
+
+function showFeedbackTooltip(text, container) {
+    // Remove existing tooltips first to avoid clutter
+    const oldTips = container.querySelectorAll(".lab-wrong-tip");
+    oldTips.forEach(t => t.remove());
+
+    const tip = document.createElement("div");
+    tip.className = "lab-wrong-tip";
+    tip.innerText = text;
+    container.appendChild(tip);
+    
+    // Smooth slide out
+    setTimeout(() => {
+        tip.classList.add("fade-out");
+        setTimeout(() => tip.remove(), 400);
+    }, 3200);
+}
+
+function updateScore() {
+    document.getElementById("score").textContent = `Score: ${score} / ${totalItems}`;
+
+    if (score === totalItems) {
+        const nextBtn = document.getElementById("nextBtn");
+        if (nextBtn) nextBtn.style.display = "flex";
+        
+        // Final congratulations burst
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                const boxes = document.querySelector(".boxes");
+                if (boxes) {
+                    triggerExplosion(Math.random() * boxes.clientWidth, 150, boxes);
+                }
+            }, i * 300);
+        }
+    }
+}
+</script>
+<script src="js/bg-simulation.js"></script>
+</body>
+</html>

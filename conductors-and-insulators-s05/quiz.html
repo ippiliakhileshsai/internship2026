@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conductors & Insulators Quiz</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="index.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse
+    </a>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="bulb.html">Bulb Test</a></li>
+        <li><a class="active" href="quiz.html">Quiz</a></li>
+        <li><a href="uses.html">Uses</a></li>
+        <li><a href="lab.html">Virtual Lab</a></li>
+        <li><a href="certificate.html">Certificate</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section class="page-intro">
+        <div class="eyebrow">Knowledge check</div>
+        <h1>Quiz the circuit scientist in you.</h1>
+        <p>
+            Choose a mission from the console, then answer the questions. After submitting, 
+            each question card changes color to show if your answer was correct or needs another look.
+        </p>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="container">
+        <!-- Mission Selector Console -->
+        <div class="quiz-level-selector">
+            <div class="level-card active" data-level="1">
+                <span class="level-badge">Level 1</span>
+                <h3>⚡ Electron Basics</h3>
+                <p>Learn about free charges, atomic drift, and basic conduction.</p>
+            </div>
+            <div class="level-card" data-level="2">
+                <span class="level-badge">Level 2</span>
+                <h3>🛡️ Safety Protocols</h3>
+                <p>Explore safe practices, insulation shielding, and moisture hazards.</p>
+            </div>
+            <div class="level-card" data-level="3">
+                <span class="level-badge">Level 3</span>
+                <h3>🔌 Everyday Tech</h3>
+                <p>Understand household circuits, fuses, light bulb structures, and grid equipment.</p>
+            </div>
+        </div>
+
+        <!-- Dynamic Quiz Progress Bar -->
+        <div class="quiz-progress-wrapper">
+            <div class="quiz-progress-bar">
+                <div class="quiz-progress-fill" id="quizProgressFill" style="width: 0%"></div>
+            </div>
+            <span class="quiz-progress-text" id="quizProgressText">0 of 5 Questions Answered</span>
+        </div>
+
+        <form id="quizForm">
+            <div id="hologramQuizContainer" class="hologram-quiz-container">
+                <!-- Dynamic questions will be loaded here -->
+            </div>
+
+            <div class="quiz-actions" style="margin-top: 24px;">
+                <button type="button" onclick="calculateScore()">Submit Quiz</button>
+                <a href="learn.html" class="btn secondary">Review Lesson</a>
+            </div>
+        </form>
+
+        <div id="result"></div>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/bg-simulation.js"></script>
+<script src="js/quiz.js"></script>
+</body>
+</html>
