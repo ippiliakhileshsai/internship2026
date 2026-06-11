@@ -2,7 +2,7 @@
 
 ## Project Modules and Responsibilities
 
-## Manasadevi – Team Lead (SPOC)
+## Manasadevi – Team Lead
 
 ### Responsibilities:
 - Team coordination
