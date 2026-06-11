@@ -43,15 +43,15 @@ export function navigate(screenName, params = {}) {
   // Exit animation
   app.classList.add(type === 'fade' ? 'exit-fade' : 'exit-slide');
 
-  setTimeout(() => {
+  setTimeout(async () => {
     app.innerHTML = '';
     app.classList.remove('exit-fade', 'exit-slide');
 
     // Enter animation
     app.classList.add(type === 'fade' ? 'enter-fade' : 'enter-slide');
 
-    // Render the screen
-    screenDef.render(app, params);
+    // Render the screen (awaiting fetch of HTML template)
+    await screenDef.render(app, params);
 
     // Remove enter class after animation
     setTimeout(() => {

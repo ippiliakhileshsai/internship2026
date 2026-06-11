@@ -4,7 +4,9 @@ import { levelsData } from '../data/levels.js';
 import { badgesData } from '../data/badges.js';
 import { audio } from '../utils/audio.js';
 
-export function renderReward(container, { levelId }) {
+import { loadTemplate } from '../utils/template.js';
+
+export async function renderReward(container, { levelId }) {
   const lvl = levelsData.find(l => l.id === levelId);
   const stars = gameState.simStars;
   const score = gameState.quizScore;
@@ -13,72 +15,7 @@ export function renderReward(container, { levelId }) {
   const coinsGain = stars * 50 + score * 20;
   const isLast = levelId === 6;
 
-  container.innerHTML = `
-    <div class="screen reward-screen" style="--accent:${lvl.color}">
-      <div class="starfield" id="starfield-rew"></div>
-      <div class="reward-glow-orb" style="background:radial-gradient(circle,${lvl.color}60,transparent 70%)"></div>
-
-      <!-- Confetti particles -->
-      <div class="confetti-container" id="confetti"></div>
-
-      <!-- Level complete banner -->
-      <div class="reward-banner">
-        <div class="reward-level-tag" style="color:${lvl.color}">LEVEL ${levelId} COMPLETE!</div>
-        <h2 class="reward-title">Amazing Work!</h2>
-      </div>
-
-      <!-- Stars -->
-      <div class="reward-stars" id="reward-stars">
-        ${[1,2,3].map(s => `
-          <div class="rew-star ${s <= stars ? 'star-earned' : 'star-grey'}" style="--delay:${0.5 + s * 0.15}s">
-            <div class="rew-star-emoji" style="${s <= stars ? 'filter:drop-shadow(0 0 10px #ffd700)' : 'opacity:0.3'}">⭐</div>
-          </div>
-        `).join('')}
-      </div>
-
-      <!-- Stats row -->
-      <div class="reward-stats">
-        <div class="rew-stat" style="border-color:${lvl.color}40">
-          <div class="rew-stat-icon">⭐</div>
-          <div class="rew-stat-val" style="color:${lvl.color}">${stars * 100}</div>
-          <div class="rew-stat-label">Stars</div>
-        </div>
-        <div class="rew-stat" style="border-color:${lvl.color}40">
-          <div class="rew-stat-icon">⚡</div>
-          <div class="rew-stat-val" style="color:#c084fc">+${xpGain}</div>
-          <div class="rew-stat-label">XP</div>
-        </div>
-        <div class="rew-stat" style="border-color:${lvl.color}40">
-          <div class="rew-stat-icon">🪙</div>
-          <div class="rew-stat-val" style="color:#ffd700">+${coinsGain}</div>
-          <div class="rew-stat-label">Coins</div>
-        </div>
-      </div>
-
-      <!-- Badge unlocked -->
-      <div class="badge-unlocked-card" style="background:linear-gradient(135deg,${lvl.color}20,rgba(22,13,48,0.9));border-color:${lvl.color}50">
-        <div class="badge-card-icon">${badge?.icon || '🏅'}</div>
-        <div class="badge-card-info">
-          <div class="badge-card-tag" style="color:${lvl.color}">🏅 Badge Unlocked!</div>
-          <div class="badge-card-name">${badge?.name}</div>
-          <div class="badge-card-desc">${badge?.desc}</div>
-        </div>
-      </div>
-
-      <!-- Crystal restored -->
-      <div class="crystal-row">
-        <span class="crystal-label" style="color:${lvl.color}">Crystal Restored:</span>
-        <span class="crystal-glow" id="crystal-glow">${lvl.crystal}</span>
-        <span style="font-size:12px;color:#a78bca">💎</span>
-      </div>
-
-      <!-- CTA Button -->
-      <button class="btn-primary shimmer-btn rew-btn" id="btn-next-level">
-        <div class="shimmer-sweep"></div>
-        ${isLast ? '🏰 Finish Quest!' : '🗺️ Next Level →'}
-      </button>
-    </div>
-  `;
+  container.innerHTML = await loadTemplate('reward', { lvl, levelId, stars, score, badge, xpGain, coinsGain, isLast });
 
   generateStarfield('starfield-rew');
   spawnConfetti(container);

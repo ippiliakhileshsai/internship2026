@@ -1,55 +1,10 @@
 import { navigate } from '../app.js';
 import { audio } from '../utils/audio.js';
 
-export function renderWelcome(container) {
-  container.innerHTML = `
-    <div class="screen welcome-screen">
-      <div class="starfield" id="starfield"></div>
+import { loadTemplate } from '../utils/template.js';
 
-      <div class="welcome-glow-orb top-left"></div>
-      <div class="welcome-glow-orb bottom-right"></div>
-
-      <div class="welcome-content">
-        <div class="welcome-crystals">
-          <span class="float-crystal" style="--d:0s">💎</span>
-          <span class="float-crystal" style="--d:0.4s">💎</span>
-          <span class="float-crystal" style="--d:0.8s">💎</span>
-          <span class="float-crystal" style="--d:1.2s">💎</span>
-          <span class="float-crystal" style="--d:1.6s">💎</span>
-        </div>
-
-        <div class="welcome-castle glow-pulse">🏰</div>
-
-        <div class="welcome-stars-row">
-          <span class="bounce-star" style="--d:0s">🌟</span>
-          <span class="bounce-star" style="--d:0.2s">✨</span>
-          <span class="bounce-star" style="--d:0.4s">💫</span>
-          <span class="bounce-star" style="--d:0.6s">⭐</span>
-          <span class="bounce-star" style="--d:0.8s">✨</span>
-        </div>
-
-        <div class="welcome-label">QUEST FOR THE LOST LIGHT</div>
-        <h1 class="welcome-title">Kingdom<br>of Light</h1>
-        <p class="welcome-subtitle">Restore the magical crystals by<br>mastering the power of Light!</p>
-
-        <div class="welcome-badges-row">
-          <span title="Sources">💡</span>
-          <span title="Rays">🔦</span>
-          <span title="Reflection">🪞</span>
-          <span title="Refraction">💎</span>
-          <span title="Dispersion">🌈</span>
-          <span title="Energy">🌞</span>
-        </div>
-
-        <button class="btn-primary shimmer-btn" id="btn-start">
-          <div class="shimmer-sweep"></div>
-          ⚔️ Begin Your Quest
-        </button>
-
-        <p class="welcome-footer">7th Grade Science · Light Chapter</p>
-      </div>
-    </div>
-  `;
+export async function renderWelcome(container) {
+  container.innerHTML = await loadTemplate('welcome');
 
   generateStarfield('starfield');
 

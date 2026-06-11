@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spidey Civics Guardian - Rights & Duties Simulator</title>
+  <!-- Beautiful Google Fonts and Tailwind CDN for immediate local double-click rendering! -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./gameStyle.css" />
+</head>
+<body class="bg-slate-900 halftone-bg text-slate-100 font-sans selection:bg-amber-400 selection:text-slate-950">
+  
+  <!-- Interactive web action particle canvas layer overlay -->
+  <div id="particles-overlay" class="absolute inset-0 pointer-events-none z-50 overflow-hidden"></div>
+  
+  <!-- SVG overlay for dynamic interactive web shooting laser line vectors -->
+  <svg id="web-vector-overlay" class="absolute inset-0 pointer-events-none z-30 w-full h-full overflow-hidden"></svg>
+  
+  <!-- Decorative Background Webs on top corners -->
+  <div class="absolute top-0 right-0 w-48 h-48 pointer-events-none select-none z-0">
+    <svg viewBox="0 0 100 100" class="w-full h-full text-white/5 stroke-current fill-none">
+      <path d="M100 0 L0 100 M100 25 L25 100 M100 50 L50 100 M100 75 L75 100" stroke-width="0.5"/>
+      <circle cx="100" cy="0" r="20" stroke-width="0.5"/>
+      <circle cx="100" cy="0" r="40" stroke-width="0.5"/>
+      <circle cx="100" cy="0" r="60" stroke-width="0.5"/>
+      <circle cx="100" cy="0" r="80" stroke-width="0.5"/>
+    </svg>
+  </div>
+  <div class="absolute top-0 left-0 w-48 h-48 pointer-events-none select-none z-0 scale-x-[-1]">
+    <svg viewBox="0 0 100 100" class="w-full h-full text-white/5 stroke-current fill-none">
+      <path d="M100 0 L0 100 M100 25 L25 100 M100 50 L50 100 M100 75 L75 100" stroke-width="0.5"/>
+      <circle cx="100" cy="0" r="20" stroke-width="0.5"/>
+      <circle cx="100" cy="0" r="40" stroke-width="0.5"/>
+      <circle cx="100" cy="0" r="60" stroke-width="0.5"/>
+      <circle cx="100" cy="0" r="80" stroke-width="0.5"/>
+    </svg>
+  </div>
+
+  <!-- Main Game Mount Node -->
+  <div id="game-root" class="relative z-10 w-full min-h-screen"></div>
+
+  <!-- Pure offline-friendly JavaScript Modules -->
+  <script src="./scenarios.js"></script>
+  <script src="./gameApp.js"></script>
+</body>
+</html>

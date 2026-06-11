@@ -10,39 +10,10 @@ const facts = [
   { icon: "🌊", title: "Light Bends!", body: "When light passes from air to water or glass, it bends — this is called refraction." }
 ];
 
-export function renderBasics(container) {
-  container.innerHTML = `
-    <div class="screen basics-screen">
-      <div class="starfield" id="starfield-basics"></div>
+import { loadTemplate } from '../utils/template.js';
 
-      <div class="screen-header">
-        <div class="label-tag">💡 Light Basics</div>
-        <h2 class="screen-title">Before You Begin...</h2>
-        <p class="screen-subtitle">Here are 6 key facts about light you'll use on your quest!</p>
-      </div>
-
-      <div class="facts-grid">
-        ${facts.map((f, i) => `
-          <div class="fact-card pop-in" style="--delay:${i * 80}ms">
-            <div class="fact-icon">${f.icon}</div>
-            <div class="fact-title">${f.title}</div>
-            <div class="fact-body">${f.body}</div>
-          </div>
-        `).join('')}
-      </div>
-
-      <div class="basics-bottom">
-        <div class="ready-badge">
-          <span>🧙‍♂️</span>
-          <span style="font-family:'Cinzel',serif; font-size:12px; color:#c084fc">Luminus says: "Remember these well, young hero!"</span>
-        </div>
-        <button class="btn-primary shimmer-btn" id="btn-play">
-          <div class="shimmer-sweep"></div>
-          🗺️ Let's Play! →
-        </button>
-      </div>
-    </div>
-  `;
+export async function renderBasics(container) {
+  container.innerHTML = await loadTemplate('basics', { facts });
 
   generateStarfield('starfield-basics');
 

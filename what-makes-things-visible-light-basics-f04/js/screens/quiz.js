@@ -3,68 +3,20 @@ import { updateState, gameState } from '../utils/state.js';
 import { quizData } from '../data/quizData.js';
 import { levelsData } from '../data/levels.js';
 import { audio } from '../utils/audio.js';
+import { loadTemplate } from '../utils/template.js';
 
-export function renderQuiz(container, { levelId }) {
+export async function renderQuiz(container, { levelId }) {
   const lvl = levelsData.find(l => l.id === levelId);
   const questions = quizData[levelId]?.questions || [];
   let currentQ = 0;
   let score = 0;
   let answered = false;
 
-  function renderQuestion() {
+  async function renderQuestion() {
     const q = questions[currentQ];
     const progress = ((currentQ) / questions.length) * 100;
 
-    container.innerHTML = `
-      <div class="screen quiz-screen" style="--accent:${lvl.color}">
-        <div class="starfield" id="starfield-quiz"></div>
-
-        <!-- Header -->
-        <div class="quiz-header">
-          <div class="quiz-meta">
-            <span class="quiz-topic" style="color:${lvl.color}">${lvl.icon} ${lvl.name}</span>
-            <span class="quiz-counter" style="color:#a78bca">Q${currentQ + 1}/${questions.length}</span>
-          </div>
-          <div class="quiz-progress-bar-bg">
-            <div class="quiz-progress-fill" style="width:${progress}%; background:${lvl.color}; transition:width 0.5s ease"></div>
-          </div>
-          <div class="quiz-score-row">
-            <span style="color:#ffd700">⭐ Score: ${score}/${currentQ}</span>
-            <span style="color:#c084fc">💎 ${lvl.name}</span>
-          </div>
-        </div>
-
-        <!-- Question -->
-        <div class="quiz-card" id="quiz-card">
-          <div class="quiz-q-num" style="color:${lvl.color}">Question ${currentQ + 1}</div>
-          <div class="quiz-question">${q.q}</div>
-        </div>
-
-        <!-- Options -->
-        <div class="quiz-options" id="quiz-options">
-          ${q.options.map((opt, i) => `
-            <button class="quiz-option" data-index="${i}" style="--accent:${lvl.color}">
-              <span class="opt-letter">${['A','B','C','D'][i]}</span>
-              <span class="opt-text">${opt}</span>
-            </button>
-          `).join('')}
-        </div>
-
-        <!-- Explanation (hidden initially) -->
-        <div class="quiz-explanation hidden" id="quiz-explanation">
-          <span class="exp-icon" id="exp-icon">✅</span>
-          <p id="exp-text">${q.explanation}</p>
-        </div>
-
-        <!-- Next button (hidden initially) -->
-        <div class="quiz-bottom">
-          <button class="btn-primary shimmer-btn hidden" id="btn-next" style="background:linear-gradient(135deg,${lvl.colorDark},#4c1d95)">
-            <div class="shimmer-sweep"></div>
-            <span id="next-label">${currentQ + 1 < questions.length ? 'Next Question →' : '📊 See Results →'}</span>
-          </button>
-        </div>
-      </div>
-    `;
+    container.innerHTML = await loadTemplate('quiz', { lvl, q, currentQ, questions, progress, score });
 
     generateStarfield('starfield-quiz');
 
@@ -122,12 +74,12 @@ export function renderQuiz(container, { levelId }) {
 
         container.querySelector('#btn-next').classList.remove('hidden');
 
-        container.querySelector('#btn-next').addEventListener('click', () => {
+        container.querySelector('#btn-next').addEventListener('click', async () => {
           audio.click();
           currentQ++;
           answered = false;
           if (currentQ < questions.length) {
-            renderQuestion();
+            await renderQuestion();
           } else {
             updateState({ quizScore: score });
             navigate('analysis', { levelId });
@@ -137,5 +89,5 @@ export function renderQuiz(container, { levelId }) {
     });
   }
 
-  renderQuestion();
+  await renderQuestion();
 }

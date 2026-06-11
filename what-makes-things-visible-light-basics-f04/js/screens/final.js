@@ -3,85 +3,14 @@ import { gameState, getTotalScore, getAccuracy, resetState } from '../utils/stat
 import { badgesData } from '../data/badges.js';
 import { audio } from '../utils/audio.js';
 
-export function renderFinal(container) {
+import { loadTemplate } from '../utils/template.js';
+
+export async function renderFinal(container) {
   const { totalStars, quizScores } = gameState;
   const score = getTotalScore();
   const accuracy = getAccuracy();
 
-  container.innerHTML = `
-    <div class="screen final-screen">
-      <div class="starfield" id="starfield-fin"></div>
-      <div class="confetti-container" id="final-confetti"></div>
-
-      <!-- Glowing orbs background -->
-      <div class="final-orbs">
-        ${['#ffd700','#9333ea','#60a5fa','#34d399','#c084fc','#f59e0b'].map((c,i)=>`
-          <div class="final-orb" style="background:radial-gradient(circle,${c}40,transparent 70%);width:${100+i*30}px;height:${100+i*30}px;left:${10+i*14}%;top:${20+i*8}%;animation-delay:${i*0.5}s;animation-duration:${3+i}s"></div>
-        `).join('')}
-      </div>
-
-      <!-- Crystals row -->
-      <div class="final-crystals">
-        ${['💎','💎','💎','💎','💎','💎'].map((c,i)=>`
-          <span class="final-crystal-item" style="animation-delay:${i*0.15}s">${c}</span>
-        `).join('')}
-      </div>
-
-      <!-- Castle -->
-      <div class="final-castle-wrap">
-        <div class="final-castle glow-pulse-gold">🏰</div>
-        <div class="final-stars-row">
-          ${['🌟','✨','💫','⭐','✨'].map((s,i)=>`<span class="bounce-star" style="--d:${i*0.2}s">${s}</span>`).join('')}
-        </div>
-      </div>
-
-      <!-- Title -->
-      <div class="final-kingdom-text">THE KINGDOM GLOWS ONCE MORE!</div>
-      <h1 class="final-title">Quest Complete!</h1>
-      <p class="final-subtitle">You are the Guardian of Light! 🛡️</p>
-
-      <!-- Certificate -->
-      <div class="certificate-card">
-        <div class="cert-header">
-          <div class="cert-title">🏅 CERTIFICATE OF ACHIEVEMENT</div>
-          <div class="cert-sub">Guardian of Light — Quest for the Lost Light</div>
-        </div>
-        <div class="cert-stats">
-          ${[
-            { icon:'🏆', label:'Total Score', val:score, color:'#ffd700' },
-            { icon:'⭐', label:'Stars',        val:`${totalStars*3}`, color:'#f59e0b' },
-            { icon:'📊', label:'Accuracy',     val:`${accuracy}%`,   color:'#60a5fa' }
-          ].map(s=>`
-            <div class="cert-stat" style="background:${s.color}12;border-color:${s.color}30">
-              <span style="font-size:18px">${s.icon}</span>
-              <span class="cert-stat-val" style="color:${s.color}">${s.val}</span>
-              <span class="cert-stat-label">${s.label}</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-
-      <!-- All crystals restored -->
-      <div class="all-crystals-section">
-        <div class="all-crystals-label">ALL CRYSTALS RESTORED</div>
-        <div class="all-badges-row">
-          ${badgesData.map((b,i)=>`
-            <div class="final-badge-item" style="animation-delay:${1.4+i*0.08}s">
-              <div class="final-badge-circle" style="background:${b.color}15;border-color:${b.color}40">
-                <span style="font-size:18px">${b.icon}</span>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-
-      <!-- Play Again -->
-      <button class="btn-primary shimmer-btn final-btn" id="btn-play-again">
-        <div class="shimmer-sweep"></div>
-        🔄 Play Again
-      </button>
-    </div>
-  `;
+  container.innerHTML = await loadTemplate('final', { totalStars, score, accuracy, badgesData });
 
   generateStarfield('starfield-fin');
   spawnConfettiBurst(container);

@@ -2,61 +2,16 @@ import { navigate } from '../app.js';
 import { updateState, gameState } from '../utils/state.js';
 import { levelsData } from '../data/levels.js';
 import { audio } from '../utils/audio.js';
+import { loadTemplate } from '../utils/template.js';
 
-export function renderLevel(container, { levelId }) {
+export async function renderLevel(container, { levelId }) {
   const lvl = levelsData.find(l => l.id === levelId);
   if (!lvl) { navigate('map'); return; }
 
   let simScore = 0;
   const simObjects = lvl.id === 1 ? lvl.simObjects : [];
 
-  container.innerHTML = `
-    <div class="screen level-screen" style="--accent:${lvl.color}">
-      <div class="starfield" id="starfield-lvl"></div>
-
-      <!-- Header -->
-      <div class="level-header">
-        <button class="back-btn" id="btn-back">←</button>
-        <div>
-          <div class="label-tag" style="color:${lvl.color}">Level ${lvl.id} · ${lvl.name}</div>
-        </div>
-        <div class="level-crystal">${lvl.crystal}</div>
-      </div>
-
-      <!-- Story card -->
-      <div class="story-banner" style="border-color:${lvl.color}40; background:linear-gradient(135deg,${lvl.color}15,rgba(22,13,48,0.9))">
-        <div class="story-banner-wizard">🧙‍♂️</div>
-        <div class="story-banner-text">
-          <div class="story-banner-title" style="color:${lvl.color}">📜 Mission Briefing</div>
-          <p class="story-banner-body">${lvl.story}</p>
-        </div>
-      </div>
-
-      <!-- Simulation area -->
-      <div class="sim-box">
-        <div class="sim-title">🔬 ${lvl.simTitle}</div>
-        <div class="sim-desc">${lvl.simDesc}</div>
-        <div class="sim-content" id="sim-content">
-          ${lvl.id === 1 ? renderLvl1Sim(lvl.simObjects) : renderGenericSim(lvl)}
-        </div>
-        <div class="sim-score-bar">
-          <span class="sim-score-label">Progress:</span>
-          <div class="sim-score-track">
-            <div class="sim-score-fill" id="sim-score-fill" style="background:${lvl.color}"></div>
-          </div>
-          <span id="sim-score-text" style="color:${lvl.color}">0%</span>
-        </div>
-      </div>
-
-      <div class="level-bottom">
-        <div class="sim-stars-preview" id="sim-stars">⭐☆☆</div>
-        <button class="btn-primary shimmer-btn" id="btn-sim-done" style="background:linear-gradient(135deg,${lvl.colorDark},#4c1d95)">
-          <div class="shimmer-sweep"></div>
-          ⚡ Start Quiz →
-        </button>
-      </div>
-    </div>
-  `;
+  container.innerHTML = await loadTemplate('level', { lvl, simObjects, renderLvl1Sim, renderGenericSim });
 
   generateStarfield('starfield-lvl');
 
@@ -138,8 +93,16 @@ function renderGenericSim(lvl) {
     5: `<div class="generic-sim">
       <p style="color:#a78bca;font-size:13px;margin-bottom:12px;text-align:center">Drag/Tap the colours in the correct VIBGYOR order!</p>
       <div class="vibgyor-sort">
-        ${['🟣 Violet','🔵 Indigo','💙 Blue','🟢 Green','🟡 Yellow','🟠 Orange','🔴 Red'].map((c,i)=>`
-          <div class="color-chip" data-pos="${i}">${c}</div>
+        ${[
+          {c:'🟣 Violet', pos:0},
+          {c:'🔵 Indigo', pos:1},
+          {c:'💙 Blue', pos:2},
+          {c:'🟢 Green', pos:3},
+          {c:'🟡 Yellow', pos:4},
+          {c:'🟠 Orange', pos:5},
+          {c:'🔴 Red', pos:6}
+        ].sort(() => Math.random() - 0.5).map((item)=>`
+          <div class="color-chip" data-pos="${item.pos}">${item.c}</div>
         `).join('')}
       </div>
       <p style="color:${levelsData[4]?.color||'#f472b6'};font-size:11px;margin-top:10px;text-align:center">Tap to select in order from shortest to longest wavelength!</p>

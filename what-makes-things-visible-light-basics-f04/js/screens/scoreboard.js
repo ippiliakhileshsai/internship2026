@@ -10,7 +10,9 @@ const LEADERBOARD = [
   { name: 'NeonWave',    avatar: '🌟', baseScore: 2400, stars: 10, rank: 5 }
 ];
 
-export function renderScoreboard(container) {
+import { loadTemplate } from '../utils/template.js';
+
+export async function renderScoreboard(container) {
   const { completedLevels, totalStars, quizScores } = gameState;
   const myScore = getTotalScore();
   const accuracy = getAccuracy();
@@ -24,61 +26,7 @@ export function renderScoreboard(container) {
   const medalColors = ['#ffd700', '#c0c0c0', '#cd7f32'];
   const medals = ['🥇', '🥈', '🥉'];
 
-  container.innerHTML = `
-    <div class="screen score-screen">
-      <div class="starfield" id="starfield-sc"></div>
-
-      <div class="score-header">
-        <button class="back-btn" id="btn-back">←</button>
-        <div class="score-title">🏆 Scoreboard</div>
-      </div>
-
-      <!-- My stats -->
-      <div class="score-my-stats">
-        ${[
-          { icon:'🏆', label:'Total Score',     val: myScore,              color:'#ffd700' },
-          { icon:'⭐', label:'Stars Collected',  val:`${totalStars*3} ⭐`,  color:'#f59e0b' },
-          { icon:'📊', label:'Quiz Accuracy',    val:`${accuracy}%`,        color:'#60a5fa' },
-          { icon:'🗺️', label:'Levels Done',      val:`${completedLevels.length} / 6`, color:'#34d399' }
-        ].map(s => `
-          <div class="my-stat-card" style="border-color:${s.color}30">
-            <span class="my-stat-icon">${s.icon}</span>
-            <div>
-              <div class="my-stat-val" style="color:${s.color}">${s.val}</div>
-              <div class="my-stat-label">${s.label}</div>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-
-      <div class="score-list-label">GLOBAL RANKING</div>
-
-      <!-- Leaderboard -->
-      <div class="score-list">
-        ${board.map((p, i) => `
-          <div class="score-row ${p.isYou ? 'score-you' : ''}" style="animation-delay:${i*80}ms">
-            <div class="rank-badge" style="background:${p.rank<=3 ? medalColors[p.rank-1]+'25' : 'rgba(100,80,180,0.2)'}; border-color:${p.rank<=3 ? medalColors[p.rank-1] : 'rgba(100,80,180,0.4)'}50">
-              <span style="font-size:12px;color:${p.rank<=3 ? medalColors[p.rank-1] : '#a78bca'}">
-                ${p.rank<=3 ? medals[p.rank-1] : '#'+p.rank}
-              </span>
-            </div>
-            <span class="score-avatar">${p.avatar}</span>
-            <div class="score-player-info">
-              <div class="score-player-name" style="color:${p.isYou ? '#ffd700' : '#e9d5ff'}; font-weight:${p.isYou ? 700 : 400}">
-                ${p.name}${p.isYou ? ' (You)' : ''}
-              </div>
-              <div class="score-stars-row">
-                ${'⭐'.repeat(Math.min(p.stars, 5))}${'☆'.repeat(Math.max(0,5-p.stars))}
-              </div>
-            </div>
-            <div class="score-points" style="color:${p.rank<=3 ? medalColors[p.rank-1] : '#c084fc'}">
-              ${p.baseScore.toLocaleString()}
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `;
+  container.innerHTML = await loadTemplate('scoreboard', { myScore, totalStars, accuracy, completedLevels, board, medalColors, medals });
 
   generateStarfield('starfield-sc');
 
