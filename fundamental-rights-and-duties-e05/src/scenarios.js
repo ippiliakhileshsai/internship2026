@@ -15,14 +15,14 @@ const SCENARIOS = [
     },
     options: [
       {
-        isRightChoice: true,
-        illustrativeEmoji: "🕸️📄🎯🗑️",
-        moralFeedback: "Amazing! Tossing crumpled waste inside the recycle bin helps the planet!"
-      },
-      {
         isRightChoice: false,
         illustrativeEmoji: "🚶🏽‍♂️💤📄",
         moralFeedback: "Oh no! A real hero never ignores trash on our shared parks ground!"
+      }
+      ,{
+        isRightChoice: true,
+        illustrativeEmoji: "🕸️📄🎯🗑️",
+        moralFeedback: "Amazing! Tossing crumpled waste inside the recycle bin helps the planet!"
       }
     ]
   },
@@ -63,14 +63,14 @@ const SCENARIOS = [
     },
     options: [
       {
-        isRightChoice: true,
-        illustrativeEmoji: "🕸️🛡️✨🏛️",
-        moralFeedback: "Heroic! Protecting old monuments guards our country's rich history!"
-      },
-      {
         isRightChoice: false,
         illustrativeEmoji: "🧴🖊️💥💔",
         moralFeedback: "Oh no! Drawing graffiti on historical sites damages our public treasures!"
+      }
+      ,{
+        isRightChoice: true,
+        illustrativeEmoji: "🕸️🛡️✨🏛️",
+        moralFeedback: "Heroic! Protecting old monuments guards our country's rich history!"
       }
     ]
   },
@@ -87,14 +87,14 @@ const SCENARIOS = [
     },
     options: [
       {
-        isRightChoice: true,
-        illustrativeEmoji: "🕸️🛡️🗳️✅",
-        moralFeedback: "Magnificent! Honesty and free voting make our democratic country proud!"
-      },
-      {
         isRightChoice: false,
         illustrativeEmoji: "💰🤲🏽💸",
         moralFeedback: "Think again! Taking illegal money bribes destroys democratic fairness!"
+      }
+      ,{
+        isRightChoice: true,
+        illustrativeEmoji: "🕸️🛡️🗳️✅",
+        moralFeedback: "Magnificent! Honesty and free voting make our democratic country proud!"
       }
     ]
   },
@@ -135,14 +135,14 @@ const SCENARIOS = [
     },
     options: [
       {
-        isRightChoice: true,
-        illustrativeEmoji: "🕸️☔🏡🐶",
-        moralFeedback: "Spectacular! Compassion for all living animals is our fundamental duty!"
-      },
-      {
         isRightChoice: false,
         illustrativeEmoji: "🌧️🚶🏽‍♂️🐶😢",
         moralFeedback: "Uh oh! Heroes always stand up and help helpless animals brave the cold!"
+      }
+      ,{
+        isRightChoice: true,
+        illustrativeEmoji: "🕸️☔🏡🐶",
+        moralFeedback: "Spectacular! Compassion for all living animals is our fundamental duty!"
       }
     ]
   },
@@ -183,14 +183,13 @@ const SCENARIOS = [
     },
     options: [
       {
-        isRightChoice: true,
-        illustrativeEmoji: "🕸️🎙️🕊️🔊",
-        moralFeedback: "Perfect! Every individual has a peaceful constitutional right to share their ideas safely!"
-      },
-      {
         isRightChoice: false,
         illustrativeEmoji: "🤐🔇🚫💔",
         moralFeedback: "Oh no! Silencing peaceful ideas goes directly against democratic free speech rights!"
+      },{
+        isRightChoice: true,
+        illustrativeEmoji: "🕸️🎙️🕊️🔊",
+        moralFeedback: "Perfect! Every individual has a peaceful constitutional right to share their ideas safely!"
       }
     ]
   }
