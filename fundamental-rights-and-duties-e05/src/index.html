@@ -1,595 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Constitution Quest: Junior Edition</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spidey Civics Guardian</title>
+
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- ================= WELCOME PAGE ================= -->
+<div class="container">
 
-    <section id="welcome" class="page active">
+    <!-- HEADER -->
+    <header>
+        <h1>Civics Guardian</h1>
 
-        <div class="hero-container">
+        <div class="top-bar">
 
-            <div class="hero-badge">
-                🇮🇳 National Civic Academy
+            <div class="stat-card">
+                ⭐ XP: <span id="xp">0</span>
             </div>
 
-            <h1>Constitution Quest</h1>
-
-            <h3>The Ultimate Interactive Rulebook Guide</h3>
-
-            <div class="name-box">
-                <input type="text" id="studentName" placeholder="Enter Your Name">
+            <div class="stat-card">
+                ❤️ Lives: <span id="lives">3</span>
             </div>
 
-            <p class="hero-subtitle">
-                Become a certified <strong>Constitution Hero</strong>!
-                Explore your 6 core pillars of freedom and discover the
-                11 duties that keep our nation strong and united.
-            </p>
-
-            <div class="action-zone">
-                <button class="btn-main-start" onclick="showPage('modules')">
-                    Launch Quest Map 🚀
-                </button>
-            </div>
-
-            <div class="dashboard-stats">
-
-                <div class="stat-box">
-                    <span class="stat-num">6</span>
-                    <span class="stat-label">Core Rights</span>
-                </div>
-
-                <div class="stat-box">
-                    <span class="stat-num">11</span>
-                    <span class="stat-label">Civic Duties</span>
-                </div>
-
-                <div class="stat-box">
-                    <span class="stat-num">3</span>
-                    <span class="stat-label">Quiz Levels</span>
-                </div>
-
-            </div>
-
-            <div class="feature-strip">
-                <div class="feature-tag">🎯 Real-Life Stories</div>
-                <div class="feature-tag">🧩 Word Games</div>
-                <div class="feature-tag">🏆 Level Up Badges</div>
+            <div class="stat-card">
+                🏆 High Score: <span id="highScore">0</span>
             </div>
 
         </div>
 
-    </section>
+        <!-- Progress -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
 
-    <!-- ================= MODULE PAGE ================= -->
+        <p id="progressText">Question 1 / 10</p>
 
-    <section id="modules" class="page">
+    </header>
 
-        <div class="card">
+    <!-- DARK MODE -->
+    <button id="darkBtn">🌙 Dark Mode</button>
 
-            <h1>Select Your Training Track</h1>
+    <!-- WELCOME SECTION -->
+    <section class="welcome-section" id="welcomeSection">
+        <div class="welcome-content">
+            <div class="welcome-header">
+                <h2>Welcome Hero! 🦸</h2>
+                <p>Enter your name, select an avatar, and choose a cartoon theme to begin your mission!</p>
+                
+                <div class="name-input-container">
+                    <input type="text" id="playerName" placeholder="Enter Your Name" class="player-name-input">
+                </div>
 
-            <p>What would you like to master first, citizen?</p>
-
-            <div class="module-container">
-                <div class="module-container">
-
-                    <div class="module-card track-rights">
-
-                        <img src="../Assets/SVG/Spidey logo.png" alt="Rights">
-
-                        <h2>Civic Spidy</h2>
-
-                        <p>
-                            Learn the 6 protections guaranteed to every citizen.
-                        </p>
-
-                        <button class="btn-main-start" onclick=" window.location.href='./game.html'">
-                            Enter Rights Hub
-                        </button>
-
+                <!-- Avatar Selection -->
+                <div class="avatar-selector-section">
+                    <h4>Choose Your Avatar</h4>
+                    <div class="avatar-container" id="avatarContainer">
+                        <div class="avatar-option selected" onclick="selectAvatar('🦸‍♂️', this)">🦸‍♂️</div>
+                        <div class="avatar-option" onclick="selectAvatar('🕷️', this)">🕷️</div>
+                        <div class="avatar-option" onclick="selectAvatar('🤖', this)">🤖</div>
+                        <div class="avatar-option" onclick="selectAvatar('🎒', this)">🎒</div>
+                        <div class="avatar-option" onclick="selectAvatar('👧', this)">👧</div>
+                        <div class="avatar-option" onclick="selectAvatar('⚡', this)">⚡</div>
+                        <div class="avatar-option" onclick="selectAvatar('🔥', this)">🔥</div>
+                        <div class="avatar-option" onclick="selectAvatar('👑', this)">👑</div>
                     </div>
-
-                    <div class="module-card track-rights">
-
-                        <img src="../Assets/SVG/Rights Shield.png" alt="Rights">
-
-                        <h2>Fundamental Rights</h2>
-
-                        <p>
-                            Learn the 6 protections guaranteed to every citizen.
-                        </p>
-
-                        <button class="btn-main-start" onclick="showPage('rights')">
-                            Enter Rights Hub
-                        </button>
-
-                    </div>
-
-                    <div class="module-card track-duties">
-
-                        <img src="../Assets/SVG/Duties Shield.png" alt="Duties">
-
-                        <h2>Fundamental Duties</h2>
-
-                        <p>
-                            Learn the responsibilities that build a strong nation.
-                        </p>
-
-                        <button class="btn-main-start" onclick="showPage('duties')">
-                            Enter Duties Hub
-                        </button>
-
-                    </div>
-
                 </div>
 
-                <button class="btn-secondary" onclick="showPage('welcome')">
-                    Back to Home
-                </button>
-
-            </div>
-
-    </section>
-
-    <!-- ================= RIGHTS PAGE ================= -->
-
-    <section id="rights" class="page">
-
-        <div class="card">
-
-            <h1>⚖️ The 6 Fundamental Rights</h1>
-
-            <div class="button-grid-list">
-
-                <button onclick="loadTopic('equality')">
-                    Right to Equality
-                </button>
-
-                <button onclick="loadTopic('freedom')">
-                    Right to Freedom
-                </button>
-
-                <button onclick="loadTopic('exploitation')">
-                    Right against Exploitation
-                </button>
-
-                <button onclick="loadTopic('religion')">
-                    Freedom of Religion
-                </button>
-
-                <button onclick="loadTopic('culture')">
-                    Cultural & Educational Rights
-                </button>
-
-                <button onclick="loadTopic('remedies')">
-                    Constitutional Remedies
-                </button>
-
-            </div>
-
-            <button class="btn-secondary" onclick="showPage('modules')">
-                Back
-            </button>
-
-        </div>
-
-    </section>
-
-    <!-- ================= DUTIES PAGE ================= -->
-
-    <section id="duties" class="page">
-
-        <div class="card">
-
-            <h1>🤝 The 11 Fundamental Duties</h1>
-
-            <div class="button-grid-list">
-
-                <button onclick="loadTopic('symbols')">
-                    Respect Flag & Anthem
-                </button>
-
-                <button onclick="loadTopic('ideals')">
-                    Noble Ideals
-                </button>
-
-                <button onclick="loadTopic('sovereignty')">
-                    Unity & Sovereignty
-                </button>
-
-                <button onclick="loadTopic('defense')">
-                    Defend Nation
-                </button>
-
-                <button onclick="loadTopic('harmony')">
-                    Brotherhood & Harmony
-                </button>
-
-                <button onclick="loadTopic('heritage')">
-                    Heritage
-                </button>
-
-                <button onclick="loadTopic('environment')">
-                    Environment
-                </button>
-
-                <button onclick="loadTopic('science')">
-                    Scientific Temper
-                </button>
-
-                <button onclick="loadTopic('property')">
-                    Public Property
-                </button>
-
-                <button onclick="loadTopic('excellence')">
-                    Excellence
-                </button>
-
-                <button onclick="loadTopic('parentDuty')">
-                    Parent Duty
-                </button>
-
-            </div>
-
-            <button class="btn-secondary" onclick="showPage('modules')">
-                Back
-            </button>
-
-        </div>
-
-    </section>
-    <!-- ================= LEARNING PAGE ================= -->
-
-    <section id="learning" class="page">
-
-        <div class="card">
-
-            <h1 id="topicTitle" class="topic-header-title"></h1>
-
-            <div class="info-box">
-
-                <h4>📜 What it means in simple terms:</h4>
-
-                <p id="topicContent"></p>
-
-            </div>
-
-            <div class="scenario-box">
-
-                <h3>📖 Real-Life School Scenario:</h3>
-
-                <p id="scenarioText"></p>
-
-            </div>
-
-            <div class="interactive-forward-dock">
-
-                <button class="btn-action-trigger" onclick="showPage('gameMenu')">
-
-                    🎮 Play Practice Games!
-
-                </button>
-
-                <button class="btn-secondary" onclick="goBackToModuleGroup()">
-
-                    Back to Category
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- ================= GAME MENU ================= -->
-
-    <section id="gameMenu" class="page">
-
-        <div class="card">
-
-            <h1>Mini-Game Training Room</h1>
-
-            <p>
-                Practice before attempting the final challenge.
-            </p>
-
-            <div class="grid-buttons">
-
-                <button class="game-btn" onclick="startMCQ()">
-
-                    💡 Scenario Quiz
-
-                </button>
-
-                <button class="game-btn" onclick="startPuzzle()">
-
-                    🧩 Word Unscramble
-
-                </button>
-
-            </div>
-
-            <hr>
-
-            <button class="btn-accent" onclick="startQuiz()">
-
-                🏆 Launch Final Exam
-
-            </button>
-
-            <button class="btn-secondary" onclick="showPage('modules')">
-
-                Switch Track
-
-            </button>
-
-        </div>
-
-    </section>
-
-    <!-- ================= MCQ GAME ================= -->
-
-    <section id="mcqGame" class="page">
-
-        <div class="card">
-
-            <h2>Scenario Case Analysis</h2>
-
-            <p id="mcqQuestion" class="game-prompt-text"></p>
-
-            <div id="mcqOptions" class="vertical-btn-group"></div>
-
-            <h3 id="mcqFeedback" class="live-feedback"></h3>
-
-            <button class="btn-secondary" onclick="showPage('gameMenu')">
-
-                Return to Training Room
-
-            </button>
-
-        </div>
-
-    </section>
-
-    <!-- ================= WORD PUZZLE ================= -->
-
-    <section id="puzzleGame" class="page">
-
-        <div class="card">
-
-            <h2>🧩 Unscramble the Keyword</h2>
-
-            <p>
-                Rearrange the letters correctly.
-            </p>
-
-            <h1 id="scrambledWord" class="scrambled-text"></h1>
-
-            <input type="text" id="puzzleAnswer" placeholder="Type answer in CAPITAL letters">
-
-            <br>
-
-            <button onclick="checkPuzzle()">
-
-                Verify Vocabulary
-
-            </button>
-
-            <h3 id="puzzleResult" class="live-feedback"></h3>
-
-            <button class="btn-secondary" onclick="showPage('gameMenu')">
-
-                Return to Training Room
-
-            </button>
-
-        </div>
-
-    </section>
-
-    <!-- ================= FINAL QUIZ PAGE ================= -->
-
-    <section id="quizPage" class="page">
-
-        <div class="card">
-
-            <div class="quiz-header">
-
-                <span id="quizLevelBadge" class="level-indicator">
-
-                    Level 1
-
-                </span>
-
-                <span id="quizProgressTracker">
-
-                    Case Study 1 of 9
-
-                </span>
-
-            </div>
-
-            <hr>
-
-            <!-- Progress Bar -->
-
-            <div class="progress-container">
-
-                <div id="progressBar"></div>
-
-            </div>
-
-            <h2 id="question" class="quiz-question-prompt"></h2>
-
-            <div id="answers" class="vertical-btn-group"></div>
-
-            <div id="quizRuntimeFeedback" class="live-feedback"></div>
-
-        </div>
-    </section>
-    <!-- ================= RESULT PAGE ================= -->
-
-    <section id="resultPage" class="page">
-
-        <div class="card">
-
-            <img src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png" width="100" alt="Trophy">
-
-            <h1>Civic Evaluation Report</h1>
-
-            <div class="score-card">
-
-                <h2 id="finalScore">
-                    Score: 0
-                </h2>
-
-                <h3 id="badge">
-                    Evaluation Complete
-                </h3>
-
-            </div>
-
-            <!-- Earned Badges -->
-
-            <div id="earnedBadges">
-
-                <h2>⭐ Earned Badges</h2>
-
-                <div id="badgeCollection">
-
-                    <!-- Filled using JavaScript -->
-
+                <!-- Theme Selection -->
+                <div class="theme-selector-section">
+                    <h4>Select Your Theme</h4>
+                    <div class="theme-grid">
+                        <div class="theme-card active" id="themeCardSpiderman" onclick="selectTheme('spiderman')">
+                          <div class="theme-card-icon">🕷️</div>
+                          <div class="theme-card-name">Spider-Man</div>
+                        </div>
+                        <div class="theme-card" id="themeCardIronman" onclick="selectTheme('ironman')">
+                          <div class="theme-card-icon">🤖</div>
+                          <div class="theme-card-name">Iron Man</div>
+                        </div>
+                        <div class="theme-card" id="themeCardDora" onclick="selectTheme('dora')">
+                          <div class="theme-card-icon">👧</div>
+                          <div class="theme-card-name">Dora Explorer</div>
+                        </div>
+                    </div>
                 </div>
 
+                <button onclick="saveProfileAndStart()" class="set-name-btn" style="font-size: 18px; padding: 15px 40px; margin-top: 15px;">Save Profile & Continue →</button>
+                <p id="displayName" class="display-name"></p>
             </div>
-
-            <p>
-
-                Excellent study habits build strong communities.
-                Share what you learned with your friends!
-
-            </p>
-
-            <button class="btn-main-start" onclick="showCertificate()">
-
-                🏆 View Certificate
-
-            </button>
-
-            <br><br>
-
-            <button class="btn-secondary" onclick="resetStateAndHome()">
-
-                Play Again
-
-            </button>
-
+            <div class="story-box" id="storyBox">
+                <h3>🕸️ Your Mission</h3>
+                <p>A mysterious villain is spreading unfairness and injustice in schools. Help Spidey defend Fundamental Rights and Duties to save the day!</p>
+                <p><strong>Master three levels of challenges to become a Civics Guardian!</strong></p>
+            </div>
         </div>
-
     </section>
 
-
-    <!-- ================= CERTIFICATE PAGE ================= -->
-
-    <section id="certificatePage" class="page">
-
-        <div class="card">
-
-            <h1>🏆 Constitution Hero Certificate</h1>
-
-            <img src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png" width="100" alt="Certificate">
-
-            <div class="certificate-box">
-
-                <p>This certificate is proudly awarded to</p>
-
-                <h2 id="certificateStudentName">
-
-                    Student Name
-
-                </h2>
-
-                <p>for successfully completing</p>
-
-                <h3>
-
-                    Constitution Quest: Junior Edition
-
-                </h3>
-
-                <h2 id="certificateBadge">
-
-                    Constitution Hero
-
-                </h2>
-
-                <p id="certificateScore">
-
-                    Score: 0
-
-                </p>
-
-                <p id="certificateDate">
-
-                    Date
-
-                </p>
-
+    <!-- PROFILE SECTION -->
+    <section class="profile-section" id="profileSection" style="display: none;">
+        <h2>👤 Hero Profile</h2>
+        <div class="profile-card">
+            <div class="profile-avatar-display" id="profileAvatarDisplay">🦸‍♂️</div>
+            <div class="profile-info">
+                <h3 id="profileNameDisplay">Guest Hero</h3>
+                <p>Active Cartoon Theme: <strong id="profileThemeDisplay">Spider-Man</strong></p>
+                
+                <div class="stats-grid">
+                    <div class="profile-stats-card">
+                        <div class="stat-value" id="profileXpValue">0</div>
+                        <div class="stat-label">Total XP</div>
+                    </div>
+                    <div class="profile-stats-card">
+                        <div class="stat-value" id="profileLevelValue">Beginner</div>
+                        <div class="stat-label">Current Level</div>
+                    </div>
+                    <div class="profile-stats-card">
+                        <div class="stat-value" id="profileHighScoreValue">0</div>
+                        <div class="stat-label">High Score</div>
+                    </div>
+                    <div class="profile-stats-card">
+                        <div class="stat-value" id="profileAccuracyValue">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                </div>
             </div>
-
-            <button class="btn-main-start" onclick="window.print()">
-
-                🖨 Print Certificate
-
-            </button>
-
-            <br><br>
-
-            <button class="btn-secondary" onclick="resetStateAndHome()">
-
-                Play Again
-
-            </button>
-
         </div>
-
+        
+        <!-- Quick Theme Switcher in Profile -->
+        <div class="theme-selector-section" style="margin-top: 20px; border-top: 1px solid rgba(128,128,128,0.2); padding-top: 15px;">
+            <h4 style="margin-bottom: 10px;">Quick Theme Switcher</h4>
+            <div class="theme-grid">
+                <div class="theme-card" id="profileThemeCardSpiderman" onclick="selectTheme('spiderman')">
+                    <div class="theme-card-icon">🕷️</div>
+                    <div class="theme-card-name">Spider-Man</div>
+                </div>
+                <div class="theme-card" id="profileThemeCardIronman" onclick="selectTheme('ironman')">
+                    <div class="theme-card-icon">🤖</div>
+                    <div class="theme-card-name">Iron Man</div>
+                </div>
+                <div class="theme-card" id="profileThemeCardDora" onclick="selectTheme('dora')">
+                    <div class="theme-card-icon">👧</div>
+                    <div class="theme-card-name">Dora Explorer</div>
+                </div>
+            </div>
+        </div>
     </section>
 
-
-    <!-- ================= LEVEL COMPLETION POPUP ================= -->
-
-    <div id="levelPopup" class="level-popup">
-
-        <div class="popup-content">
-
-            <div id="popupEmoji" class="popup-emoji">
-                🌟
-            </div>
-            <h2 id="popupTitle">
-                Great Work!
-            </h2>
-            <p id="popupMessage">
-                Keep going! You're becoming a Constitution Champion.
-            </p>
-            <button class="btn-main-start" onclick="closeLevelPopup()">
-                Continue ➜
+    <!-- LEVEL SELECT -->
+    <section class="level-section">
+        <h2>🎯 Select Your Challenge Level</h2>
+        <div class="level-buttons">
+            <button class="level-btn beginner" onclick="setLevel('Beginner')">
+                <span class="level-icon">🌟</span>
+                <span class="level-name">Beginner</span>
+                <span class="level-desc">Easy Questions</span>
+            </button>
+            <button class="level-btn intermediate" onclick="setLevel('Intermediate')">
+                <span class="level-icon">⚡</span>
+                <span class="level-name">Intermediate</span>
+                <span class="level-desc">Moderate Challenge</span>
+            </button>
+            <button class="level-btn advanced" onclick="setLevel('Advanced')">
+                <span class="level-icon">🔥</span>
+                <span class="level-name">Advanced</span>
+                <span class="level-desc">Expert Level</span>
             </button>
         </div>
+        <p id="selectedLevel" class="selected-level-text">
+            Current Level: Beginner
+        </p>
+    </section>
+
+    <!-- SPIDER -->
+    <div class="spider-area">
+        <div id="spider">🕷️</div>
     </div>
-    <!-- ================= CONFETTI CANVAS ================= -->
-    <canvas id="confettiCanvas"></canvas>
-    <!-- ================= JAVASCRIPT ================= -->
-    <script src="script.js"></script>
-</body>
 
+    <!-- START BUTTON -->
+    <div class="start-section" id="startSection">
+        <button id="startBtn" class="start-btn" onclick="startQuiz()">🚀 START QUIZ</button>
+    </div>
+
+    <!-- BADGES -->
+    <section class="badge-section">
+
+        <h2>🎖️ Badges & Achievements</h2>
+        
+        <p class="badge-subtitle">Earn badges by completing challenges! 🌟</p>
+
+        <div id="badgeContainer">
+
+            No Badges Yet
+
+        </div>
+
+    </section>
+
+    <!-- QUIZ -->
+    <section class="quiz-section">
+
+        <h2 id="question">
+
+            Loading...
+
+        </h2>
+
+        <div id="options">
+
+        </div>
+
+        <div class="quiz-controls">
+            <button id="hintBtn">
+                💡 Hint
+            </button>
+
+            <button id="voiceBtn" onclick="toggleVoiceButton()">
+                🔊 Repeat Question
+            </button>
+        </div>
+
+        <div id="hintBox">
+
+        </div>
+
+        <div id="feedback">
+
+        </div>
+
+
+
+    </section>
+
+    <!-- ANALYTICS -->
+    <section class="analytics">
+
+        <h2>📊 Analytics</h2>
+
+        <p>
+            Correct Answers:
+            <span id="correctCount">0</span>
+        </p>
+
+        <p>
+            Wrong Answers:
+            <span id="wrongCount">0</span>
+        </p>
+
+        <p>
+            Games Played:
+            <span id="gamesPlayed">0</span>
+        </p>
+
+    </section>
+
+    <!-- SCORE HISTORY -->
+    <section class="history">
+
+        <h2>📜 Previous Scores</h2>
+
+        <ul id="scoreHistory">
+
+        </ul>
+
+    </section>
+
+    <!-- CONTROL BUTTONS -->
+    <section class="controls">
+
+        <button onclick="restartGame()">
+            🔄 Restart
+        </button>
+
+        <button onclick="resetProgress()">
+            ❌ Reset Progress
+        </button>
+
+    </section>
+
+</div>
+
+<!-- CARTOON CELEBRATION OVERLAY -->
+<div class="celebration-overlay" id="celebrationOverlay">
+    <div class="celebration-card">
+        <div class="celebration-cartoon">
+            <span class="cartoon-img" id="celebrationCartoonImg">🕷️</span>
+            <div class="celebration-badge-container" id="celebrationBadgeImg">⭐</div>
+        </div>
+        <div class="celebration-text">
+            <h2 id="celebrationTitle">Awesome!</h2>
+            <p id="celebrationSubtext">You got it right! Here's a star!</p>
+        </div>
+        <button class="celebration-btn" onclick="closeCelebrationAndContinue()">Continue Quiz →</button>
+    </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="correctSound">
+    <source src="assets/sounds/correct.mp3">
+</audio>
+
+<audio id="wrongSound">
+    <source src="assets/sounds/wrong.mp3">
+</audio>
+
+<audio id="badgeSound">
+    <source src="assets/sounds/badge.mp3">
+</audio>
+
+<audio id="victorySound">
+    <source src="assets/sounds/victory.mp3">
+</audio>
+
+<script src="./script.js"></script>
+
+</body>
 </html>
