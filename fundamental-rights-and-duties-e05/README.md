@@ -53,6 +53,16 @@ An interactive web-based educational game that makes learning Indian Constitutio
 - **CSS3**: Grid layout, flexbox, CSS variables for theming
 - **JavaScript (Vanilla)**: Pure JS, no dependencies
 
+ ### development tools
+- vs code
+- git
+- github
+- copliot
+- chatgpt
+
+### deployment tools 
+- vercel 
+
 ### Data Persistence
 - XP and high score saved to localStorage
 - Player name and selected theme/avatar remembered
