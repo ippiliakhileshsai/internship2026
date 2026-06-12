@@ -11,12 +11,12 @@ body{
     justify-content:center;
     align-items:center;
     padding:20px;
-    background:linear-gradient(
-        135deg,
-        #2D1B69,
-        #5B2D91,
-        #8A2387
-    );
+background:
+radial-gradient(circle at top,
+#071028,
+#020617,
+#000814);
+overflow-x:hidden;
 }
 
 /* Main Container */
@@ -24,42 +24,56 @@ body{
 .container{
     width:min(850px,95%);
     padding:40px;
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.2);
+    background:rgba(15,23,42,.75);
+    border:1px solid rgba(96,165,250,.25);
+    backdrop-filter:blur(12px);
     border-radius:30px;
     color:white;
-    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+    box-shadow:
+    0 20px 50px rgba(0,0,0,.4);
 }
 
 /* Logo */
+.atom-emoji{
+    font-size:100px;
+    text-align:center;
+    animation:floatAtom 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 20px rgba(96,165,250,0.8));
+}
 
 .logo{
     text-align:center;
     margin-bottom:20px;
+
+}
+.atom-emoji{
+    font-size:100px;
+    text-align:center;
+    animation:floatAtom 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 20px rgba(96,165,250,0.8));
 }
 
-.logo img{
-    animation:
-        floatAtom 3s ease-in-out infinite,
-        spinAtom 15s linear infinite;
-}
 
 /* Title */
 
 .title{
-    text-align:center;
     font-size:clamp(50px,5vw,72px);
     font-weight:800;
     color:white;
+    text-align:center;
     margin-bottom:15px;
-    animation:titleGlow 2s ease-in-out infinite alternate;
+    animation:titleGlow 1s ease-in-out infinite alternate;
+    text-shadow:0 0 10px rgba(255,255,255,.2);
+   
 }
 
 .star{
     display:inline-block;
     font-size:40px;
     vertical-align:middle;
-    animation:twinkle 1.5s infinite alternate;
+    text-shadow:0 0 10px rgba(255,255,255,.2);
+    
+   
 }
 
 /* Subtitle */
@@ -101,12 +115,12 @@ input::placeholder{
 .difficulty-card{
     padding:28px;
     border-radius:20px;
-    background:rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.06);
     margin-bottom:20px;
     width:100%;
     max-width:100%;
     transition:0.3s ease;
-    border:1px solid rgba(255,255,255,0.15);
+    border:1px solid rgba(255,255,255,.2);
 
 }
 
@@ -200,51 +214,58 @@ input::placeholder{
 .difficulty-card:has(input[type="radio"]:checked){
     border:2px solid #c084fc;
      margin-top:6px;
-    transform:scale(1.4);
+    transform:translateY(-4px);
     background:rgba(255,255,255,0.18);
     box-shadow:0 0 25px rgba(192,132,252,0.5);
 }
 .difficulty-card.selected{
-    border:2px solid #A855F7;
+    border:2px solid #60a5fa;
     background:rgba(255,255,255,0.18);
-    box-shadow:0 0 20px rgba(168,85,247,.25);
+     box-shadow:
+    0 0 20px rgba(96,165,250,.5);
 
     width:100%;
     max-width:100%;
 
-    transform:none;
+    transform:translateY(-3px);
 }
 /* Button */
 
-button{
+button,
+.start-btn{
+    display:block;
     width:100%;
+    text-align:center;
+    text-decoration:none;
     padding:20px;
     border:none;
     border-radius:18px;
-    font-size:28px;
+    font-size:26px;
     font-weight:bold;
     color:white;
     cursor:pointer;
     background:linear-gradient(
         90deg,
         #4A90E2,
-        #9333EA
+        #33065d
     );
     margin-top:25px;
     box-shadow:0 8px 25px rgba(147,51,234,0.3);
     transition:0.3s ease;
 }
 
-button:hover{
-    transform:translateY(-4px);
-    box-shadow:0 10px 30px rgba(147,51,234,0.5);
+button:hover,
+.start-btn:hover{
+transform:scale(1.03);
+
+box-shadow:
+0 0 30px rgba(168,85,247,.6);
 }
 
-button:active{
+button:active,
+.start-btn:active{
     transform:scale(0.98);
 }
-
-/* Footer */
 
 footer{
     text-align:center;
@@ -287,16 +308,6 @@ footer{
     }
 }
 
-@keyframes titleGlow{
-    from{
-        text-shadow:0 0 10px rgba(255,255,255,0.4);
-    }
-    to{
-        text-shadow:
-            0 0 20px rgba(255,255,255,0.8),
-            0 0 40px rgba(147,51,234,0.8);
-    }
-}
 
 /* Responsive */
 
@@ -324,20 +335,43 @@ footer{
         gap:8px;
     }
 }
-.start-btn{
-    display:block;
-    width:100%;
-    text-align:center;
-    text-decoration:none;
-    padding:18px;
-    border-radius:15px;
-    font-size:22px;
-    font-weight:bold;
-    color:white;
 
-    background:linear-gradient(
-        90deg,
-        #4A90E2,
-        #9333EA
-    );
+.hero-logo{
+width:90px;
+height:90px;
+object-fit:contain;
+
+filter:
+drop-shadow(0 0 15px #60a5fa)
+drop-shadow(0 0 30px #60a5fa);
+
+margin-bottom:20px;
+}
+input:focus{
+outline:none;
+
+border:1px solid #60a5fa;
+
+box-shadow:
+0 0 15px rgba(96,165,250,.5);
+}
+
+input[type="radio"]{
+display:none;
+}
+
+
+
+@keyframes float{
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-8px);
+}
+}
+
+.logo{
+animation:float 3s ease-in-out infinite;
 }

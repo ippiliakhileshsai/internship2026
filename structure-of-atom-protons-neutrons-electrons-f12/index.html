@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atom Universe</title>
+
+    <link rel="stylesheet" href="css/welcome.css">
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <div class="container">
+
+        <div class="logo-wrapper">
+    <img src="images/atom-logo.png" class="main-logo">
+</div>
+
+        <h1>Atom Universe</h1>
+
+        <p class="tagline">
+    Explore • Experiment • Build • Master
+</p>
+
+        <p class="description">
+    Explore atoms, build elements and learn the fascinating world of Atomic Science.
+</p>
+
+       
+
+        <div class="avatar-section">
+    <h3>Choose Your Explorer</h3>
+
+    <div class="avatar-container">
+
+       <div class="avatar-card" onclick="selectAvatar('Student Boy', this)">
+    <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+    <p>Explorer</p>
+    <span>Curious Learner</span>
+</div>
+
+<div class="avatar-card" onclick="selectAvatar('Student Girl', this)">
+    <img src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png">
+    <p>Researcher</p>
+    <span>Knowledge Seeker</span>
+</div>
+
+<div class="avatar-card" onclick="selectAvatar('Scientist', this)">
+    <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png">
+    <p>Scientist</p>
+    <span>Innovation Guide</span>
+</div>
+
+<div class="avatar-card" onclick="selectAvatar('Astronaut', this)">
+   <img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png">
+    <p>Astronaut</p>
+    <span>Space Pioneer</span>
+</div>
+
+<div class="avatar-card" onclick="selectAvatar('Chemist', this)">
+    <img src="https://cdn-icons-png.flaticon.com/512/2784/2784445.png">
+    <p>Chemist</p>
+    <span>Element Creator</span>
+</div>
+
+<div class="avatar-card" onclick="selectAvatar('AI Robot', this)">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png">
+    <p>AI Assistant</p>
+    <span>Smart Companion</span>
+</div>
+
+    </div>
+</div>
+
+       <button class="enter-btn" onclick="enterUniverse()">
+    Enter Universe →
+</button>
+
+    </div>
+
+    <div class="shooting-star"></div>
+    
+<script>
+function selectAvatar(name, element){
+
+    localStorage.setItem("avatar", name);
+
+    document.querySelectorAll(".avatar-card")
+    .forEach(card => card.classList.remove("selected"));
+
+    element.classList.add("selected");
+}
+
+function enterUniverse(){
+
+    const avatar = localStorage.getItem("avatar");
+
+    if(!avatar){
+        alert("Please select an avatar first! 🧑‍🚀");
+        return;
+    }
+
+    window.location.href = "homepage.html";
+}
+</script>
+  
+
+</body>
+</html>
