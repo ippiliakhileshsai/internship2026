@@ -1,0 +1,41 @@
+Project: What Makes Things Visible? (Light Basics)
+
+To ensure smooth development and effective collaboration, the project work has been divided among the team members based on their roles and responsibilities.
+
+UI Design and Wireframing
+
+Jyotshna
+Priya
+
+Responsibilities:
+
+Designing the user interface of the application.
+Creating wireframes and layouts for different screens.
+Ensuring the design is user-friendly and suitable for school students.
+Planning the visual appearance and navigation flow of the project.
+
+Development
+
+Avinash
+Poojitha
+
+Responsibilities:
+
+Implementing the project features and functionality.
+Converting the UI designs into a working application.
+Developing interactive elements, game logic, and educational content.
+Integrating all project components and ensuring proper functionality.
+
+Testing and Quality Assurance
+
+Rawaan
+
+Responsibilities:
+
+Testing the application for bugs and errors.
+Verifying that all features work as expected.
+Checking usability and user experience.
+Reporting issues and providing feedback for improvements.
+
+Team Goal:
+The team is collaboratively working to develop an engaging and educational project that helps students understand the concept of light and visibility through interactive learning experiences.
