@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HeatQuest | Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-quiz">
+  <header class="topbar">
+    <div>
+      <div class="brand">📝 HeatQuest Quiz</div>
+      <div id="quizGreeting" class="subtext"></div>
+    </div>
+    <div class="top-actions">
+      <button id="backBtn" class="btn btn-ghost">Back to Experiment</button>
+    </div>
+  </header>
+
+  <main class="content-page">
+    <section id="introScreen" class="panel quiz-intro">
+      <h1 id="introTitle">HeatQuest Challenge</h1>
+      <p id="introText"></p>
+      <div class="click-hint">Click anywhere to continue</div>
+    </section>
+
+    <section id="quizScreen" class="panel quiz-shell hidden">
+      <div class="quiz-top">
+        <div class="progress">
+          <div id="progressFill"></div>
+        </div>
+        <div id="qCount" class="pill">Question 1 of 7</div>
+      </div>
+
+      <h2 id="questionText" class="question-text"></h2>
+      <div id="optionsBox" class="options-box"></div>
+
+      <div class="quiz-actions">
+        <button id="prevBtn" class="btn btn-ghost">Previous</button>
+        <button id="nextBtn" class="btn btn-primary">Next</button>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="panel result-shell hidden">
+      <div class="score-box">
+        <div>
+          <h1>Your Score</h1>
+          <p id="resultMsg" class="subtext"></p>
+        </div>
+        <div id="scoreText" class="score-num">0/7</div>
+      </div>
+
+      <div class="review-head">
+        <h2>Review</h2>
+      </div>
+      <div id="reviewBox" class="review-box"></div>
+
+      <div class="result-actions">
+        <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
+        <button id="goExperimentBtn" class="btn btn-ghost">Go to Experiment</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <h3>Quiz Instructions</h3>
+      <p>
+        • There are 7 questions.<br />
+        • Choose one answer for each question.<br />
+        • Use Next to move forward.<br />
+        • Your final score and explanations will appear at the end.
+      </p>
+      <div class="modal-actions">
+        <button id="closeModalBtn" class="btn btn-ghost">Cancel</button>
+        <button id="startQuizBtn" class="btn btn-primary">Start Quiz</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="quiz.js"></script>
+</body>
+</html>
