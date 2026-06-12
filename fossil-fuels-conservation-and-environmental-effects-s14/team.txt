@@ -1,0 +1,74 @@
+Naresh
+Role: QA (Quality Assurance) & Project Lead
+Responsibilities:
+- Plan and control the whole project schedule.
+- Delegate responsibilities and make sure everyone meets deadlines.
+- Meet with your team on a regular basis to monitor progress.
+- Identify project risks and resolve conflicts in the team.
+- Review the completed work before it is included in the final product.
+- Develop and execute test plans for the application.
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+
+Nanda Maneeswar
+Role: UI/UX And Front-end Developer
+Responsibilities:
+- Design the visual aspects of the application.
+- Design wireframes, mockups and user flow diagrams.
+- Frontend technologies to develop user friendly interfaces.
+- Ensure responsiveness across different screen sizes.
+- Implement navigation systems and interactive menus.
+- It's a real pleasure to have you, thank you so much for coming.
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+
+Vishnu Ganugula
+Role: Core Backend And Logic Developer
+Responsibilities:
+- Develop the business logic and core application functionality.
+- Implement game mechanics and algorithms for simulation.
+- Handle data manipulation and application state.
+- Connect frontend actions to backend processes.
+- Calculate scores, track progress, and calculate decision results.
+- Enhance code efficiency and maintainability.
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+
+Bhavya
+Role: Graphics & Animation Specialist
+Responsibilities:
+- Design visual assets such as characters, icons, backgrounds, and illustrations.
+- Develop instructional components to deepen understanding.
+- Create animations to add engagement and realism.
+- Maintain a consistent visual style across the project.
+- Speed, not quality, is the thing to optimize for graphics.
+- Work with developers to correctly integrate assets.
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+
+Undi ChandraHarsha 
+Role: Interactive Features Specialist
+Responsibilities:
+- Create and develop interactive elements in the simulation.
+- Create quizzes, challenges and mini-games.
+- Create drag and drop exercises and user interaction mechanisms.
+- Ensure interactions are consistent with learning objectives.
+- Incorporate feedback systems such as hints, rewards and achievements.
+- Test interactive features for usability and functionality.”
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+
+Sravanthi Chowdary
+Role: Documentation and Support Specialist
+Responsibilities:
+- Prepare project reports and documentation .
+- Document project decisions and modifications.
+- Create user manuals & installation guides.
+- Document the system architecture and processes.
+- Create presentation materials for demos.
+- Take notes and action items for meetings.
