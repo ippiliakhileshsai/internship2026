@@ -9,7 +9,6 @@ Responsibilities:
 - Develop and execute test plans for the application.
 
 ----------------------------------------------------------------------------
-----------------------------------------------------------------------------
 
 Nanda Maneeswar
 Role: UI/UX And Front-end Developer
@@ -21,7 +20,6 @@ Responsibilities:
 - Implement navigation systems and interactive menus.
 - It's a real pleasure to have you, thank you so much for coming.
 
-----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
 Vishnu Ganugula
@@ -35,7 +33,6 @@ Responsibilities:
 - Enhance code efficiency and maintainability.
 
 ----------------------------------------------------------------------------
-----------------------------------------------------------------------------
 
 Bhavya
 Role: Graphics & Animation Specialist
@@ -48,7 +45,6 @@ Responsibilities:
 - Work with developers to correctly integrate assets.
 
 ----------------------------------------------------------------------------
-----------------------------------------------------------------------------
 
 Undi ChandraHarsha 
 Role: Interactive Features Specialist
@@ -60,7 +56,6 @@ Responsibilities:
 - Incorporate feedback systems such as hints, rewards and achievements.
 - Test interactive features for usability and functionality.”
 
-----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 
 Sravanthi Chowdary
