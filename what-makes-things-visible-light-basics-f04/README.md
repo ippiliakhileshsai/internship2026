@@ -1,4 +1,4 @@
-# 🏰 Quest for the Lost Light
+#  Quest for the Lost Light
 
 > **An Educational Mobile Adventure Game — Light Chapter · 7th Grade Science**
 
@@ -6,17 +6,17 @@ A fully interactive, browser-based RPG-style game where students restore magical
 
 ---
 
-## 🎮 How to Play
+## How to Play
 
 1. **Open `index.html`** in any modern browser (Chrome, Firefox, Edge)
 2. Click **"Begin Your Quest"** on the welcome screen
 3. Follow the story, complete **simulations** and **quizzes** in each level
-4. Earn ⭐ stars, ⚡ XP, 🪙 coins, and 🏅 badges
+4. Earn stars, XP, coins, and badges
 5. Restore all 6 crystals and become the **Guardian of Light!**
 
 ---
 
-## 📱 Design
+## Design
 
 - Mobile-first UI displayed in a **390×844px phone shell**
 - Dark fantasy theme with purple, gold, and glowing neon accents
@@ -25,20 +25,20 @@ A fully interactive, browser-based RPG-style game where students restore magical
 
 ---
 
-## 📚 Curriculum Coverage
+## Curriculum Coverage
 
 | Level | Topic | Science Concept |
 |-------|-------|----------------|
-| 1 💡 | Sources of Light | Luminous vs Non-luminous objects |
-| 2 🔦 | Rays of Light | Rectilinear propagation, speed |
-| 3 🪞 | Reflection | Laws of reflection, mirrors |
-| 4 💎 | Refraction | Snell's Law, bending of light |
-| 5 🌈 | Dispersion | VIBGYOR, prism, rainbow |
-| 6 🌞 | Light Energy | Photons, solar energy, photosynthesis |
+| 1 | Sources of Light | Luminous vs Non-luminous objects |
+| 2 | Rays of Light | Rectilinear propagation, speed |
+| 3 | Reflection | Laws of reflection, mirrors |
+| 4 | Refraction | Snell's Law, bending of light |
+| 5 | Dispersion | VIBGYOR, prism, rainbow |
+| 6 | Light Energy | Photons, solar energy, photosynthesis |
 
 ---
 
-## 🗂 File Structure
+## File Structure
 
 ```
 what-makes-things-visible-light-basics-f04/
@@ -74,22 +74,22 @@ what-makes-things-visible-light-basics-f04/
 
 ---
 
-## ✨ Features
+## Features
 
-- ✅ **11 screens** with smooth slide/fade transitions
-- ✅ **30 quiz questions** with explanations
-- ✅ **6 interactive simulations** (one per level)
-- ✅ **6 collectible badges** + 3-star rating system
-- ✅ **XP & score system** with leaderboard
-- ✅ **localStorage** progress saving
-- ✅ **Web Audio API** sound effects
-- ✅ **Confetti** on level complete & quest finale
-- ✅ **Typewriter** wizard dialog
-- ✅ Animated **starfield** on every screen
+- **11 screens** with smooth slide/fade transitions
+- **30 quiz questions** with explanations
+- **6 interactive simulations** (one per level)
+- **6 collectible badges** + 3-star rating system
+- **XP & score system** with leaderboard
+- **localStorage** progress saving
+- **Web Audio API** sound effects
+- **Confetti** on level complete & quest finale
+- **Typewriter** wizard dialog
+- Animated **starfield** on every screen
 
 ---
 
-## 🛠 Requirements
+## Requirements
 
 - **No installation needed** — pure HTML, CSS, JavaScript
 - Requires a modern browser with **ES Modules** support

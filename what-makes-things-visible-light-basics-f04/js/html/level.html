@@ -1,20 +1,20 @@
-    <div class="screen level-screen" style="--accent:${lvl.color}">
+    <div class="screen level-screen" ${'style'}="--accent:${lvl.color}">
       <div class="starfield" id="starfield-lvl"></div>
 
       <!-- Header -->
       <div class="level-header">
         <button class="back-btn" id="btn-back">←</button>
         <div>
-          <div class="label-tag" style="color:${lvl.color}">Level ${lvl.id} · ${lvl.name}</div>
+          <div class="label-tag" ${'style'}="color:${lvl.color}">Level ${lvl.id} · ${lvl.name}</div>
         </div>
         <div class="level-crystal">${lvl.crystal}</div>
       </div>
 
       <!-- Story card -->
-      <div class="story-banner" style="border-color:${lvl.color}40; background:linear-gradient(135deg,${lvl.color}15,rgba(22,13,48,0.9))">
+      <div class="story-banner" ${'style'}="border-color:${lvl.color}40; background:linear-gradient(135deg,${lvl.color}15,rgba(22,13,48,0.9))">
         <div class="story-banner-wizard">🧙‍♂️</div>
         <div class="story-banner-text">
-          <div class="story-banner-title" style="color:${lvl.color}">📜 Mission Briefing</div>
+          <div class="story-banner-title" ${'style'}="color:${lvl.color}">📜 Mission Briefing</div>
           <p class="story-banner-body">${lvl.story}</p>
         </div>
       </div>
@@ -24,20 +24,22 @@
         <div class="sim-title">🔬 ${lvl.simTitle}</div>
         <div class="sim-desc">${lvl.simDesc}</div>
         <div class="sim-content" id="sim-content">
-          ${lvl.id === 1 ? renderLvl1Sim(lvl.simObjects) : renderGenericSim(lvl)}
+          <canvas id="sim-canvas" class="sim-canvas"></canvas>
+          <div class="sim-overlay" id="sim-overlay"></div>
+          <div class="sim-instruction" id="sim-instruction"></div>
         </div>
         <div class="sim-score-bar">
           <span class="sim-score-label">Progress:</span>
           <div class="sim-score-track">
-            <div class="sim-score-fill" id="sim-score-fill" style="background:${lvl.color}"></div>
+            <div class="sim-score-fill" id="sim-score-fill" ${'style'}="background:${lvl.color}"></div>
           </div>
-          <span id="sim-score-text" style="color:${lvl.color}">0%</span>
+          <span id="sim-score-text" ${'style'}="color:${lvl.color}">0%</span>
         </div>
       </div>
 
       <div class="level-bottom">
         <div class="sim-stars-preview" id="sim-stars">⭐☆☆</div>
-        <button class="btn-primary shimmer-btn" id="btn-sim-done" style="background:linear-gradient(135deg,${lvl.colorDark},#4c1d95)">
+        <button class="btn-primary shimmer-btn" id="btn-sim-done" ${'style'}="background:linear-gradient(135deg,${lvl.colorDark},#4c1d95)">
           <div class="shimmer-sweep"></div>
           ⚡ Start Quiz →
         </button>

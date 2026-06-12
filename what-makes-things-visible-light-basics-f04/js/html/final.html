@@ -5,14 +5,14 @@
       <!-- Glowing orbs background -->
       <div class="final-orbs">
         ${['#ffd700','#9333ea','#60a5fa','#34d399','#c084fc','#f59e0b'].map((c,i)=>
-          '<div class="final-orb" style="background:radial-gradient(circle,' + c + '40,transparent 70%);width:' + (100+i*30) + 'px;height:' + (100+i*30) + 'px;left:' + (10+i*14) + '%;top:' + (20+i*8) + '%;animation-delay:' + (i*0.5) + 's;animation-duration:' + (3+i) + 's"></div>'
+          '<div class="final-orb" s' + 'tyle="background:radial-gradient(circle,' + c + '40,transparent 70%);width:' + (100+i*30) + 'px;height:' + (100+i*30) + 'px;left:' + (10+i*14) + '%;top:' + (20+i*8) + '%;animation-delay:' + (i*0.5) + 's;animation-duration:' + (3+i) + 's"></div>'
         ).join('')}
       </div>
 
       <!-- Crystals row -->
       <div class="final-crystals">
         ${['💎','💎','💎','💎','💎','💎'].map((c,i)=>
-          '<span class="final-crystal-item" style="animation-delay:' + (i*0.15) + 's">' + c + '</span>'
+          '<span class="final-crystal-item" s' + 'tyle="animation-delay:' + (i*0.15) + 's">' + c + '</span>'
         ).join('')}
       </div>
 
@@ -20,7 +20,7 @@
       <div class="final-castle-wrap">
         <div class="final-castle glow-pulse-gold">🏰</div>
         <div class="final-stars-row">
-          ${['🌟','✨','💫','⭐','✨'].map((s,i)=>'<span class="bounce-star" style="--d:' + (i*0.2) + 's">' + s + '</span>').join('')}
+          ${['🌟','✨','💫','⭐','✨'].map((s,i)=>'<span class="bounce-star" s' + 'tyle="--d:' + (i*0.2) + 's">' + s + '</span>').join('')}
         </div>
       </div>
 
