@@ -1,0 +1,3921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PressureVerse – Learn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FFF6E9;--tomato:#FF5A4E;--leaf:#58B368;--pressure:#A04EF6;
+  --force:#FF9F2E;--area:#3E8BFA;--ink:#3B2B2B;--radius:22px;
+  --nav-h:60px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);font-family:'Nunito',sans-serif;
+  min-width:360px;padding-bottom:60px}
+
+/* NAV */
+.site-nav{position:sticky;top:0;z-index:100;background:rgba(255,246,233,.85);
+  backdrop-filter:blur(10px);border-bottom:2px solid #F2E3CC;height:var(--nav-h);
+  display:flex;align-items:center;justify-content:center}
+.nav-inner{position:relative;display:flex;gap:4px;background:#F2E3CC;
+  border-radius:999px;padding:5px}
+.nav-tab{position:relative;z-index:1;text-decoration:none;color:var(--ink);
+  font-family:'Fredoka One',sans-serif;font-size:1rem;padding:7px 22px;
+  border-radius:999px;transition:color .25s}
+.nav-tab.active{color:#fff}
+.nav-pill{position:absolute;top:5px;height:calc(100% - 10px);background:var(--tomato);
+  border-radius:999px;transition:left .3s cubic-bezier(.4,0,.2,1),width .3s cubic-bezier(.4,0,.2,1);
+  z-index:0}
+
+/* PAGE HEADER */
+.page-header{text-align:center;padding:40px 20px 20px}
+.page-header h1{font-family:'Fredoka One',sans-serif;font-size:2.4rem;color:var(--pressure);
+  line-height:1.1}
+.page-header p{font-size:1.05rem;color:#6b5a5a;margin-top:8px}
+
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:32px;max-width:700px;
+  margin:0 auto;padding:0 16px}
+.card{background:#fff;border-radius:var(--radius);border:3px solid #F2E3CC;
+  box-shadow:0 10px 24px rgba(59,43,43,.12);padding:24px;overflow:hidden}
+.card-title{font-family:'Fredoka One',sans-serif;font-size:1.35rem;color:var(--ink);
+  margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.card-title span.em{display:inline-flex;align-items:center;flex:0 0 auto}
+.card-title span.em svg{height:1.45rem;width:auto;display:block}
+
+/* content flow helpers */
+.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.section-nav{top:60px}
+.section-nav .nav-inner{max-width:calc(100vw - 16px);overflow-x:auto;scrollbar-width:none}
+.section-nav .nav-inner::-webkit-scrollbar{display:none}
+.section-nav .nav-tab{white-space:nowrap;font-size:.9rem;padding:7px 16px}
+.section-label{font-family:'Fredoka One',sans-serif;font-size:.82rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--pressure);margin-bottom:8px}
+.section-theory{font-size:.98rem;line-height:1.6;color:#726565;max-width:58ch;margin-bottom:14px}
+.formula-box{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;
+  border-radius:18px;background:#FFF0DC;border:2px solid #F2E3CC;box-shadow:0 5px 16px rgba(59,43,43,.08);
+  font-family:'Fredoka One',sans-serif;font-size:1.2rem;color:var(--pressure);margin-bottom:18px}
+
+.hook-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.hook-bubble{border-radius:999px;min-height:132px;display:flex;align-items:center;justify-content:center;
+  text-align:center;opacity:0;transform:translateY(18px) scale(.94);transition:opacity .55s ease,transform .55s cubic-bezier(.34,1.56,.64,1)}
+.hook-bubble.visible{opacity:1;transform:none}
+.hook-bubble p{font-family:'Fredoka One',sans-serif;font-size:clamp(1.1rem,3vw,1.5rem);line-height:1.35}
+.hook-thought{margin:18px auto 8px;max-width:680px;text-align:center;font-family:'Fredoka One',sans-serif;
+  font-size:clamp(1.15rem,3.2vw,1.8rem);line-height:1.35;opacity:0;transform:translateY(12px);
+  transition:opacity .55s ease,transform .55s ease}
+.hook-thought.visible{opacity:1;transform:none}
+.hook-arrow{margin-top:10px;text-align:center;font-family:'Fredoka One',sans-serif;font-size:1rem;
+  color:var(--pressure);opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease}
+.hook-arrow.visible{opacity:1;transform:none}
+
+/* concept icons — soft vector replacements for emojis */
+.hook-icon{display:inline-flex;align-items:center;vertical-align:middle;margin-left:10px}
+.hook-icon svg{height:1.1em;width:auto;display:block}
+.hook-icon-force svg{animation:iconNudge 1.9s ease-in-out infinite}
+.hook-icon-area svg{animation:iconBreathe 3s ease-in-out infinite}
+.hook-icon-question svg{animation:iconGlow 2.4s ease-in-out infinite}
+@keyframes iconNudge{0%,100%{transform:translateX(0)}55%{transform:translateX(5px)}}
+@keyframes iconBreathe{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+@keyframes iconGlow{
+  0%,100%{transform:scale(1);filter:drop-shadow(0 0 0 rgba(160,78,246,0))}
+  50%{transform:scale(1.1);filter:drop-shadow(0 0 7px rgba(160,78,246,.6))}
+}
+.badge-icon{height:1em;width:auto;vertical-align:-2px;margin-right:6px}
+
+.pressure-types-flow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0 16px}
+.pressure-type-node{flex:1 1 150px;min-width:150px;background:#fff;border:3px solid #F2E3CC;
+  border-radius:999px;padding:12px 14px;font-family:'Fredoka One',sans-serif;font-size:.9rem;color:var(--ink);
+  box-shadow:0 8px 18px rgba(59,43,43,.08);cursor:pointer;text-align:center}
+.pressure-type-node.active{background:var(--pressure);color:#fff;border-color:transparent}
+.type-connector{width:30px;height:20px;flex:0 0 auto;overflow:visible}
+.type-connector path{fill:none;stroke:#FF9F2E;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:110;stroke-dashoffset:110;transition:stroke-dashoffset .85s ease}
+.pressure-types-flow.flow-drawn .type-connector path{stroke-dashoffset:0}
+.pressure-type-detail{max-height:0;overflow:hidden;opacity:0;transition:max-height .45s ease,opacity .35s ease}
+.pressure-type-detail.open{max-height:560px;opacity:1}
+.pressure-type-panel{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;align-items:center;padding-top:8px}
+.pressure-type-panel svg{width:100%;max-width:180px;display:block}
+.pressure-type-panel h4{font-family:'Fredoka One',sans-serif;font-size:1.1rem;margin-bottom:8px}
+.pressure-type-panel p{font-size:1rem;line-height:1.6;color:#675858}
+.pressure-type-example{margin-top:10px;display:inline-block;background:#FFF0DC;border:2px solid #F2E3CC;
+  border-radius:999px;padding:7px 14px;font-family:'Fredoka One',sans-serif;font-size:.88rem}
+
+.quiz-container{display:flex;flex-direction:column;gap:14px}
+.quiz-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center}
+.quiz-meta{font-family:'Fredoka One',sans-serif;font-size:.86rem;color:var(--pressure)}
+.quiz-progress{height:10px;background:#F2E3CC;border-radius:999px;overflow:hidden}
+.quiz-progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--tomato),var(--pressure));border-radius:999px;transition:width .3s ease}
+.quiz-question-view h3{font-family:'Fredoka One',sans-serif;font-size:1.25rem;line-height:1.35;margin-top:4px}
+.quiz-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.quiz-opt{background:#fff;border:2px solid #F2E3CC;border-radius:18px;padding:12px 14px;text-align:left;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer}
+.quiz-opt:disabled{cursor:default;opacity:.9}
+.opt-correct{border-color:var(--leaf);background:#edf9ef}
+.opt-wrong{border-color:var(--tomato);background:#fff0ef}
+.hint-text,.feedback-box{border-radius:18px;padding:12px 14px;line-height:1.55}
+.hint-text{display:none;background:#FFF0DC;color:#6d5c5c}
+.hint-text.hint-open{display:block}
+.feedback-box{display:none;background:#FFF0DC;color:#6d5c5c}
+.fb-show{display:block}
+.fb-correct{background:#edf9ef;color:#3d6b46}
+.fb-wrong{background:#fff0ef;color:#9b3a34}
+.quiz-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.quiz-results{display:none;text-align:center;padding:10px 0}
+.quiz-results.qr-show{display:block}
+.results-score{font-family:'Fredoka One',sans-serif;font-size:2rem;color:var(--pressure)}
+
+@media(max-width:720px){
+  .hook-grid,.quiz-options{grid-template-columns:1fr}
+  .pressure-types-flow{flex-direction:column;align-items:stretch}
+  .type-connector{width:24px;height:40px;align-self:center;transform:rotate(90deg)}
+  .pressure-type-node{min-width:0}
+  .section-nav .nav-tab{font-size:.78rem;padding:6px 12px}
+}
+
+/* SVG wrappers */
+.sim-svg{width:100%;display:block;overflow:visible}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+.btn{font-family:'Fredoka One',sans-serif;font-size:.95rem;padding:9px 20px;
+  border:none;border-radius:999px;cursor:pointer;transition:transform .1s,box-shadow .1s;
+  user-select:none;-webkit-user-select:none}
+.btn:active{transform:scale(.95)}
+.btn-primary{background:var(--tomato);color:#fff;box-shadow:0 4px 12px rgba(255,90,78,.3)}
+.btn-secondary{background:var(--area);color:#fff;box-shadow:0 4px 12px rgba(62,139,250,.3)}
+.btn-green{background:var(--leaf);color:#fff;box-shadow:0 4px 12px rgba(88,179,104,.3)}
+.btn-purple{background:var(--pressure);color:#fff;box-shadow:0 4px 12px rgba(160,78,246,.3)}
+.btn-outline{background:#fff;color:var(--ink);border:2px solid #E0D0C0}
+
+label.slider-label{font-weight:700;font-size:.9rem;white-space:nowrap}
+input[type=range]{-webkit-appearance:none;height:6px;border-radius:3px;
+  appearance:none;background:#E0D0C0;outline:none;cursor:pointer;flex:1;min-width:120px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;
+  border-radius:50%;background:var(--pressure);cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,.2)}
+
+/* insight pill */
+.insight{margin-top:14px;opacity:0;transition:opacity .6s;
+  pointer-events:none}
+.insight.visible{opacity:1;pointer-events:auto}
+.insight-pill{display:inline-block;background:var(--pressure);color:#fff;
+  font-family:'Fredoka One',sans-serif;font-size:.95rem;border-radius:999px;
+  padding:8px 22px;line-height:1.4}
+
+/* readout chips */
+.readout{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{font-family:'Fredoka One',sans-serif;font-size:.85rem;padding:5px 14px;
+  border-radius:999px;white-space:nowrap}
+.chip-f{background:#FFF0DC;color:var(--force)}
+.chip-a{background:#DCF0FF;color:var(--area)}
+.chip-p{background:#F0DCFF;color:var(--pressure)}
+
+/* footer */
+footer{text-align:center;padding:30px 20px;font-size:.85rem;color:#aaa}
+
+/* ═══ DECORATIVE POLISH ══════════════════════════════════════ */
+
+/* background warm gradient cycle */
+@keyframes bgShift{0%{background-color:#FFF6E9}50%{background-color:#FFF0DC}100%{background-color:#FFFBF5}}
+body{animation:bgShift 8s ease-in-out infinite alternate}
+
+/* floating physics symbols */
+@keyframes floatUp{
+  0%  {transform:translateY(0) translateX(0) rotate(-8deg);opacity:0}
+  8%  {opacity:.13}
+  92% {opacity:.13}
+  100%{transform:translateY(-110vh) translateX(var(--drift,30px)) rotate(14deg);opacity:0}
+}
+.float-sym{position:fixed;bottom:-60px;width:36px;pointer-events:none;z-index:0;opacity:0;user-select:none;
+  animation:floatUp var(--dur,14s) linear infinite;animation-delay:var(--delay,0s)}
+.float-sym svg{display:block;width:100%;height:auto}
+
+/* scroll progress bar */
+.scroll-progress{position:fixed;top:58px;left:0;width:0%;height:3px;z-index:110;
+  background:#58B368;transition:background .3s}
+
+/* page header gradient title */
+@keyframes titleGrad{
+  0%  {background-position:0%   50%}
+  50% {background-position:100% 50%}
+  100%{background-position:0%   50%}
+}
+.title-gradient{
+  background:linear-gradient(90deg,#FF5A4E,#A04EF6,#FF9F2E,#3E8BFA,#FF5A4E);
+  background-size:300% 300%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:titleGrad 5s ease infinite;
+}
+
+.cards > .card,
+.cards > section{scroll-margin-top:120px}
+
+/* typewriter cursor */
+.typewriter-cursor{border-right:2.5px solid #6b5a5a;animation:cursorBlink .75s step-end infinite}
+@keyframes cursorBlink{0%,100%{opacity:0}50%{opacity:1}}
+
+/* stat badges */
+.stat-badges{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.stat-badge{
+  background:#fff;border:2px solid #F2E3CC;border-radius:999px;
+  padding:7px 18px;font-family:'Fredoka One',sans-serif;font-size:.92rem;
+  color:var(--ink);box-shadow:0 4px 14px rgba(59,43,43,.10);
+  opacity:0;transform:scale(.5) translateY(12px);
+  transition:opacity .45s cubic-bezier(.34,1.56,.64,1),transform .45s cubic-bezier(.34,1.56,.64,1);
+}
+.stat-badge.pop{opacity:1;transform:none}
+
+/* section number watermarks */
+.card{position:relative;transition:transform .3s ease,box-shadow .3s ease}
+.card-num{position:absolute;top:4px;right:14px;font-family:'Fredoka One',sans-serif;font-size:120px;
+  line-height:1;color:var(--ink);opacity:.04;pointer-events:none;user-select:none;z-index:0}
+
+/* card hover lift + theme glow */
+.card:hover{transform:translateY(-6px)}
+#card1:hover{box-shadow:0 20px 48px rgba(255,159,46,.28)}
+#card2:hover{box-shadow:0 20px 48px rgba(62,139,250,.28)}
+#card3:hover{box-shadow:0 20px 48px rgba(46,196,182,.28)}
+#card4:hover{box-shadow:0 20px 48px rgba(160,78,246,.28)}
+#card5:hover{box-shadow:0 20px 48px rgba(255,90,78,.28)}
+#card6:hover{box-shadow:0 20px 48px rgba(255,107,53,.28)}
+
+/* between-card dividers */
+.card-divider{display:flex;align-items:center;justify-content:center;height:52px}
+
+/* divider 1 — pulsing orange arrow */
+.div-arrow{font-size:26px;color:#FF9F2E;animation:arrowPulse 1.2s ease-in-out infinite}
+@keyframes arrowPulse{
+  0%,100%{transform:scale(1)   translateY(0);  filter:drop-shadow(0 0 4px rgba(255,159,46,.4))}
+  50%    {transform:scale(1.3) translateY(4px); filter:drop-shadow(0 0 14px rgba(255,159,46,.8))}
+}
+
+/* divider 2 — water ripples */
+.div-ripple{position:relative;width:56px;height:40px}
+.ripple-ring{position:absolute;border:2px solid #3E8BFA;border-radius:50%;
+  left:50%;top:50%;animation:rippleOut 2s ease-out infinite}
+.ripple-ring:nth-child(2){animation-delay:.67s}
+.ripple-ring:nth-child(3){animation-delay:1.33s}
+@keyframes rippleOut{
+  0%  {width:6px; height:6px; margin-left:-3px; margin-top:-3px; opacity:.9}
+  100%{width:54px;height:54px;margin-left:-27px;margin-top:-27px;opacity:0}
+}
+
+/* divider 3 — bouncing gas dots */
+.div-particles{display:flex;gap:10px;align-items:center}
+.gas-dot{width:10px;height:10px;border-radius:50%;animation:gasBounce .7s ease-in-out infinite alternate}
+.gas-dot:nth-child(1){background:#A04EF6;animation-delay:0s}
+.gas-dot:nth-child(2){background:#FF9F2E;animation-delay:.23s}
+.gas-dot:nth-child(3){background:#3E8BFA;animation-delay:.46s}
+@keyframes gasBounce{from{transform:translateY(0)}to{transform:translateY(-18px)}}
+
+/* divider 4 — heartbeat pulse line */
+.div-heartbeat{display:flex;align-items:center}
+.hb-path{stroke:#FF5A4E;stroke-width:2.5;fill:none;
+  stroke-dasharray:240;stroke-dashoffset:240;animation:hbDraw 2s linear infinite}
+@keyframes hbDraw{
+  0%  {stroke-dashoffset:240;opacity:1}
+  80% {stroke-dashoffset:0;  opacity:1}
+  100%{stroke-dashoffset:0;  opacity:0}
+}
+
+/* divider 5 — CSS flame */
+.div-flame{display:flex;gap:5px;align-items:flex-end}
+.flame-bit{border-radius:50% 50% 30% 30%;
+  animation:fDance .35s ease-in-out infinite alternate;transform-origin:bottom center}
+.flame-bit:nth-child(1){width:7px; height:20px;background:#FF5A4E;animation-delay:0s}
+.flame-bit:nth-child(2){width:9px; height:28px;background:#FF9F2E;animation-delay:.08s}
+.flame-bit:nth-child(3){width:11px;height:34px;background:#FFCA28;animation-delay:.04s}
+.flame-bit:nth-child(4){width:9px; height:28px;background:#FF9F2E;animation-delay:.12s}
+.flame-bit:nth-child(5){width:7px; height:20px;background:#FF5A4E;animation-delay:.16s}
+@keyframes fDance{
+  from{transform:scaleY(1)   scaleX(1)    rotate(-3deg)}
+  to  {transform:scaleY(1.3) scaleX(.82)  rotate( 3deg)}
+}
+
+/* reduced motion — kill decorative animations, show badges statically */
+@media(prefers-reduced-motion:reduce){
+  .float-sym{display:none}
+  .stat-badge{opacity:1!important;transform:none!important}
+  body,
+  .title-gradient,
+  .typewriter-cursor,
+  .div-arrow,.ripple-ring,.gas-dot,.hb-path,.flame-bit{animation:none!important}
+}
+
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001s!important;transition-duration:.001s!important}
+}
+
+/* CARD 5 ECG animation — continuous loop */
+@keyframes ecg-travel{
+  0%{stroke-dashoffset:520}
+  100%{stroke-dashoffset:0}
+}
+.ecg-line{
+  stroke-dasharray:520;
+  stroke-dashoffset:520;
+  stroke:#58B368;
+  stroke-width:2.5;
+  fill:none;
+  animation:ecg-travel 0.86s linear infinite; /* 70 bpm default; JS updates duration on stress change */
+}
+
+/* CARD 6 Rocket Launch */
+@keyframes flame-flicker{
+  0%,100%{transform:scaleY(1) scaleX(1)}
+  25%{transform:scaleY(1.3) scaleX(.85)}
+  50%{transform:scaleY(.9) scaleX(1.1)}
+  75%{transform:scaleY(1.2) scaleX(.9)}
+}
+.flame-active{animation:flame-flicker .12s ease-in-out infinite;transform-origin:50% 0%;transform-box:fill-box}
+@keyframes card-shake{
+  0%,100%{transform:none}
+  15%{transform:translateX(-5px) rotate(-.4deg)}
+  30%{transform:translateX(5px) rotate(.4deg)}
+  45%{transform:translateX(-3px)}
+  60%{transform:translateX(3px)}
+  75%{transform:translateX(-2px)}
+  90%{transform:translateX(1px)}
+}
+.card-shake{animation:card-shake .5s ease-out}
+
+/* CARD 6 Rocket Journey — fixed overlay rocket that flies across the page */
+.rocket-journey-layer{position:fixed;inset:0;pointer-events:none;z-index:5000}
+.rocket-journey-layer svg{position:absolute;left:0;top:0;overflow:visible;will-change:transform}
+.rocket-bubble{position:absolute;max-width:min(230px,72vw);background:#fff;border:3px solid #F2E3CC;
+  border-radius:18px;padding:10px 14px;font-family:'Fredoka One',sans-serif;font-size:.95rem;
+  line-height:1.4;color:var(--ink);box-shadow:0 8px 20px rgba(59,43,43,.18);
+  opacity:0;transform:translateY(10px) scale(.92);
+  transition:opacity .3s ease,transform .3s cubic-bezier(.34,1.56,.64,1)}
+.rocket-bubble.rb-show{opacity:1;transform:translateY(0) scale(1)}
+
+/* Global sound toggle — fixed in the nav strip, no layout shift */
+.sound-toggle{position:fixed;top:10px;right:12px;z-index:120;width:40px;height:40px;
+  border-radius:50%;border:2px solid #F2E3CC;background:#FFF0DC;cursor:pointer;
+  font-size:1.1rem;line-height:1;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 10px rgba(59,43,43,.14);padding:0}
+.sound-toggle:active{transform:scale(.9)}
+
+/* Pressure Experience Meter — fixed circular gauge, top-right */
+.pem{position:fixed;top:130px;right:20px;z-index:95;display:flex;flex-direction:column;
+  align-items:center;gap:8px}
+.pem-shake{display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:pemShake var(--pem-dur,.5s) ease-in-out infinite;will-change:transform}
+.pem-dial{pointer-events:auto;position:relative;width:104px;height:104px;border-radius:50%;
+  cursor:pointer;background:rgba(255,246,233,.97);border:3px solid #F2E3CC;
+  box-shadow:0 8px 20px rgba(59,43,43,.16);transition:box-shadow .4s ease,border-color .4s ease}
+.pem-dial:focus-visible{outline:3px solid var(--area);outline-offset:3px}
+.pem-dial svg{position:absolute;inset:4px;width:calc(100% - 8px);height:calc(100% - 8px);
+  transform:rotate(-90deg)}
+.pem-arc-track{fill:none;stroke:#E0D0C0;stroke-width:9}
+.pem-arc{fill:none;stroke:#58B368;stroke-width:9;stroke-linecap:round}
+.pem-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:1px}
+.pem-label{font-family:'Fredoka One',sans-serif;font-size:.55rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--pressure)}
+.pem-value{font-family:'Fredoka One',sans-serif;font-size:.92rem;color:var(--ink);line-height:1}
+.pem-board{pointer-events:auto;width:152px;background:rgba(255,246,233,.97);
+  border:2px solid #F2E3CC;border-radius:14px;padding:8px 10px;text-align:center;
+  box-shadow:0 6px 16px rgba(59,43,43,.13)}
+.pem-board-title{font-family:'Fredoka One',sans-serif;font-size:.72rem;color:#58B368;
+  transition:color .3s ease}
+.pem-board-msg{font-size:.66rem;line-height:1.35;color:#6b5a5a;margin-top:3px}
+/* warning / intensity tiers */
+.pem[data-tier="1"] .pem-dial{border-color:#FFD9A0}
+.pem[data-tier="2"] .pem-dial{border-color:#FF9F2E;
+  box-shadow:0 8px 20px rgba(255,159,46,.3),0 0 16px rgba(255,159,46,.45)}
+.pem[data-tier="3"] .pem-dial{border-color:#FF5A4E;
+  box-shadow:0 8px 20px rgba(255,90,78,.35),0 0 20px rgba(255,90,78,.55);
+  animation:pemPulse 1s ease-in-out infinite}
+.pem[data-tier="4"] .pem-dial{border-color:#FF5A4E;
+  box-shadow:0 0 24px rgba(255,40,30,.65),0 0 46px rgba(255,40,30,.35);
+  animation:pemPulse .55s ease-in-out infinite}
+@keyframes pemPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes pemShake{
+  0%,100%{transform:translate3d(0,0,0)}
+  20%{transform:translate3d(calc(var(--pem-amp,.4)*1px),calc(var(--pem-amp,.4)*-.6px),0)}
+  40%{transform:translate3d(calc(var(--pem-amp,.4)*-.8px),calc(var(--pem-amp,.4)*.5px),0)}
+  60%{transform:translate3d(calc(var(--pem-amp,.4)*.7px),calc(var(--pem-amp,.4)*.8px),0)}
+  80%{transform:translate3d(calc(var(--pem-amp,.4)*-.6px),calc(var(--pem-amp,.4)*-.8px),0)}
+}
+/* hover / tap expand card */
+.pem-card{pointer-events:auto;position:absolute;top:0;right:calc(100% + 12px);width:200px;
+  background:#fff;border:3px solid #F2E3CC;border-radius:16px;padding:12px 14px;
+  box-shadow:0 10px 24px rgba(59,43,43,.18);opacity:0;visibility:hidden;
+  transform:translateX(10px) scale(.94);
+  transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.4,.64,1),visibility .25s}
+.pem.pem-open .pem-card{opacity:1;visibility:visible;transform:none}
+.pem-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  font-size:.7rem;color:#6b5a5a;margin-top:5px}
+.pem-row:first-child{margin-top:0}
+.pem-row b{font-family:'Fredoka One',sans-serif;font-weight:400;color:var(--ink);
+  text-align:right;font-size:.72rem}
+.pem-card-msg{font-size:.68rem;line-height:1.4;color:#6b5a5a;margin-top:8px;
+  padding-top:8px;border-top:2px dashed #F2E3CC}
+.pem-sr{position:absolute;width:1px;height:1px;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+@media(max-width:720px){
+  .pem{top:128px;right:10px}
+  .pem-dial{width:70px;height:70px;border-width:2px}
+  .pem-arc-track,.pem-arc{stroke-width:10}
+  .pem-label{font-size:.42rem}
+  .pem-value{font-size:.68rem}
+  .pem-board{display:none}
+  .pem-card{width:172px;right:calc(100% + 8px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .pem-shake,.pem[data-tier] .pem-dial{animation:none!important}
+}
+
+/* ═══ CUSTOM CURSOR — ENHANCED ════════════════════════ */
+.cursor-dot,.cursor-ring,.cursor-ring2,.cursor-label{display:none}
+.custom-cursor-active{cursor:none!important}
+.custom-cursor-active *{cursor:none!important}
+.custom-cursor-active .cursor-dot,
+.custom-cursor-active .cursor-ring,
+.custom-cursor-active .cursor-ring2,
+.custom-cursor-active .cursor-label{display:block}
+
+/* inner dot — glowing radial gradient with heartbeat pulse */
+.cursor-dot{
+  position:fixed;width:12px;height:12px;
+  background:radial-gradient(circle,#fff 35%,#FF9F2E 110%);
+  border:2px solid rgba(59,43,43,.4);
+  border-radius:50%;pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  left:-100px;top:-100px;will-change:left,top;
+  animation:dotPulse 1.6s ease-in-out infinite;
+}
+@keyframes dotPulse{
+  0%,100%{box-shadow:0 0 4px 2px rgba(255,255,255,.7), 0 0 0 0 rgba(160,78,246,.3)}
+  50%    {box-shadow:0 0 10px 5px rgba(255,255,255,1), 0 0 22px 8px rgba(160,78,246,.55)}
+}
+
+/* ring1 — fast spring via JS, 4-color gradient, glowing */
+.cursor-ring{
+  position:fixed;width:38px;height:38px;border-radius:50%;
+  pointer-events:none;z-index:99997;
+  left:-100px;top:-100px;
+  transform:translate(-50%,-50%);
+  background:conic-gradient(#FF5A4E,#A04EF6,#FF9F2E,#3E8BFA,#FF5A4E);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3.5px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 3.5px));
+  animation:cursorSpin 2s linear infinite;
+  will-change:left,top;
+  filter:drop-shadow(0 0 5px rgba(160,78,246,.75));
+  transition:width .22s cubic-bezier(.34,1.56,.64,1),
+             height .22s cubic-bezier(.34,1.56,.64,1),
+             border-radius .2s ease,
+             filter .2s ease,
+             background .2s ease;
+}
+
+/* ring2 — slow spring, counter-rotates, ghost opacity */
+.cursor-ring2{
+  position:fixed;width:62px;height:62px;border-radius:50%;
+  pointer-events:none;z-index:99995;
+  left:-100px;top:-100px;
+  transform:translate(-50%,-50%);
+  background:conic-gradient(from 180deg,#FF9F2E,#FF5A4E,#3E8BFA,#A04EF6,#FF9F2E);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 2px));
+  opacity:.38;
+  animation:cursorSpin2 5s linear infinite;
+  will-change:left,top;
+  filter:drop-shadow(0 0 7px rgba(255,90,78,.5));
+  transition:width .28s cubic-bezier(.34,1.56,.64,1),
+             height .28s cubic-bezier(.34,1.56,.64,1),
+             opacity .22s ease;
+}
+
+@keyframes cursorSpin {
+  from{transform:translate(-50%,-50%) rotate(0deg)}
+  to  {transform:translate(-50%,-50%) rotate(360deg)}
+}
+@keyframes cursorSpin2{
+  from{transform:translate(-50%,-50%) rotate(360deg)}
+  to  {transform:translate(-50%,-50%) rotate(0deg)}
+}
+
+/* ── hover states ── */
+.cursor-dot.on-btn{background:radial-gradient(circle,#fff 30%,#FF9F2E 110%);border-color:#FF9F2E}
+.cursor-ring.on-btn{width:56px;height:56px;background:#FF9F2E;filter:drop-shadow(0 0 12px rgba(255,159,46,.95))}
+.cursor-ring2.on-btn{width:76px;height:76px;background:#FF9F2E;opacity:.28}
+
+.cursor-ring.on-slider{
+  width:78px;height:26px;border-radius:999px;
+  background:transparent;border:3px solid #3E8BFA;
+  -webkit-mask:none;mask:none;
+  filter:drop-shadow(0 0 9px rgba(62,139,250,.9));
+  animation:none!important;
+}
+.cursor-ring2.on-slider{opacity:0}
+
+.cursor-ring.on-card{
+  background:#A04EF6;
+  filter:drop-shadow(0 0 14px rgba(160,78,246,1));
+  animation:cursorPulse .5s ease-in-out infinite!important;
+}
+.cursor-ring2.on-card{background:#A04EF6;opacity:.3}
+
+.cursor-ring.on-nav{width:52px;height:52px;background:#FF5A4E;filter:drop-shadow(0 0 12px rgba(255,90,78,.95))}
+.cursor-ring2.on-nav{width:74px;height:74px;background:#FF5A4E;opacity:.28}
+
+/* pulse — ring1 only, ring2 handled by on-card size change */
+@keyframes cursorPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  50%    {transform:translate(-50%,-50%) scale(1.45)}
+}
+
+/* click burst on ring1 (AFTER on-card so !important wins) */
+@keyframes cursorBurst{
+  0%  {width:38px;height:38px;opacity:1}
+  55% {width:96px;height:96px;opacity:0}
+  56% {width:38px;height:38px;opacity:1}
+  100%{width:38px;height:38px;opacity:1}
+}
+.cursor-ring.clicking{animation:cursorBurst .42s ease-out!important}
+
+/* ripple rings spawned by JS on click */
+@keyframes rippleClick{
+  from{transform:translate(-50%,-50%) scale(.4);opacity:1}
+  to  {transform:translate(-50%,-50%) scale(4);  opacity:0}
+}
+
+.cursor-label{
+  position:fixed;pointer-events:none;z-index:100000;
+  font-size:16px;line-height:1;display:none;
+  left:-100px;top:-100px;
+  filter:drop-shadow(0 0 4px rgba(255,255,255,.9));
+}
+.custom-cursor-active .cursor-label{display:block}
+
+/* ghost trail dots — sized via inline style in JS */
+.cursor-ghost{
+  position:fixed;border-radius:50%;
+  pointer-events:none;z-index:99994;
+  transform:translate(-50%,-50%);
+  left:-100px;top:-100px;
+  will-change:left,top,opacity;
+}
+
+/* coarse pointer and reduced-motion: restore defaults, hide elements */
+@media(pointer:coarse){
+  .cursor-dot,.cursor-ring,.cursor-ring2,.cursor-ghost,.cursor-label{display:none!important}
+  .custom-cursor-active,.custom-cursor-active *{cursor:auto!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .cursor-dot,.cursor-ring,.cursor-ring2,.cursor-ghost,.cursor-label{display:none!important}
+  .custom-cursor-active,.custom-cursor-active *{cursor:auto!important}
+}
+
+/* ── Hire Assistant — voice tutor ─────────────── */
+.assistant-btn{
+  position:fixed;bottom:20px;right:20px;z-index:1000;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 18px;border-radius:999px;border:3px solid #F2E3CC;
+  background:rgba(255,255,255,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  font-family:'Fredoka One',sans-serif;font-size:.95rem;color:var(--pressure);
+  cursor:pointer;box-shadow:0 6px 16px rgba(59,43,43,.15);
+  transition:transform .2s,box-shadow .2s,background .2s,color .2s;
+  user-select:none;-webkit-tap-highlight-color:transparent}
+.assistant-btn:hover{transform:translateY(-2px);background:#fff;box-shadow:0 8px 24px rgba(59,43,43,.25)}
+.assistant-btn:active{transform:scale(.95)}
+.assistant-btn svg{height:1.25em;width:auto;display:block}
+.assistant-btn.hired{color:#c0392b}
+
+.assistant-card{
+  position:fixed;bottom:80px;right:20px;z-index:999;width:324px;max-width:calc(100vw - 32px);
+  background:#fff;border:3px solid #F2E3CC;border-radius:var(--radius);
+  box-shadow:0 18px 40px rgba(59,43,43,.22);padding:16px;
+  opacity:0;visibility:hidden;transform:translateY(14px) scale(.96);
+  transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1),visibility .35s}
+.assistant-card.open{opacity:1;visibility:visible;transform:none}
+.assistant-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.assistant-avatar{flex:0 0 auto;width:48px;height:48px;border-radius:50%;background:#F6EDFF;
+  border:2px solid #E5D4FA;display:flex;align-items:center;justify-content:center}
+.assistant-avatar svg{width:36px;height:36px;display:block}
+.assistant-name{font-family:'Fredoka One',sans-serif;font-size:1rem;color:var(--ink);line-height:1.15}
+.assistant-role{font-size:.7rem;font-weight:800;color:#9b8a7e;letter-spacing:.07em;text-transform:uppercase}
+.assistant-eq{display:none;align-items:flex-end;gap:3px;height:16px;margin-left:auto}
+.assistant-eq i{width:3.5px;border-radius:2px;background:var(--pressure);height:30%;animation:eqBar 1s ease-in-out infinite}
+.assistant-eq i:nth-child(2){animation-delay:.15s}
+.assistant-eq i:nth-child(3){animation-delay:.3s}
+.assistant-eq i:nth-child(4){animation-delay:.45s}
+@keyframes eqBar{0%,100%{height:30%}50%{height:100%}}
+.assistant-card.speaking .assistant-eq{display:flex}
+.assistant-card.speaking .assistant-avatar{animation:avatarBob 1.6s ease-in-out infinite}
+@keyframes avatarBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.assistant-card.happy .assistant-avatar{animation:avatarHappy .9s cubic-bezier(.34,1.56,.64,1)}
+@keyframes avatarHappy{
+  0%{transform:rotate(0) scale(1)}
+  25%{transform:rotate(-8deg) scale(1.12)}
+  50%{transform:rotate(8deg) scale(1.12)}
+  75%{transform:rotate(-4deg) scale(1.05)}
+  100%{transform:rotate(0) scale(1)}
+}
+.assistant-topic{font-family:'Fredoka One',sans-serif;font-size:.92rem;color:var(--pressure);margin-bottom:6px}
+.assistant-text{font-size:.92rem;line-height:1.55;color:#5d4f4f;max-height:160px;overflow-y:auto;margin-bottom:12px}
+.assistant-controls{display:flex;flex-wrap:wrap;gap:8px}
+.assistant-chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;
+  border:2px solid #F2E3CC;background:#FFF6E9;padding:7px 13px;cursor:pointer;
+  font-family:'Fredoka One',sans-serif;font-size:.78rem;color:var(--ink);
+  transition:transform .15s,background .2s,border-color .2s}
+.assistant-chip:hover{transform:translateY(-1px);background:#fff}
+.assistant-chip:active{transform:scale(.94)}
+.assistant-chip svg{height:1em;width:auto;display:block;flex:0 0 auto}
+.assistant-chip.fire{border-color:#ffd2cd;background:#fff1ef;color:#c0392b}
+.assistant-chip.fire:hover{background:#ffe6e2}
+@media(max-width:720px){
+  .assistant-btn{bottom:14px;right:12px;padding:10px 15px;font-size:.85rem}
+  .assistant-card{right:12px;bottom:70px;width:min(324px,calc(100vw - 24px))}
+  .assistant-text{max-height:130px}
+}
+@media(prefers-reduced-motion:reduce){
+  .assistant-btn,.assistant-card,.assistant-chip{transition:none}
+  .assistant-eq i,.assistant-card.speaking .assistant-avatar,.assistant-card.happy .assistant-avatar{animation:none}
+  .assistant-eq i{height:70%}
+}
+</style>
+</head>
+<body>
+
+<!-- custom cursor elements -->
+<div class="cursor-dot"    id="cursor-dot"></div>
+<div class="cursor-ring"   id="cursor-ring"></div>
+<div class="cursor-ring2"  id="cursor-ring2"></div>
+<span class="cursor-label" id="cursor-label"></span>
+
+<!-- Hire Assistant — voice tutor -->
+<div class="assistant-card" id="assistant-card" role="region" aria-label="Pressure tutor assistant" aria-hidden="true">
+  <div class="assistant-head">
+    <div class="assistant-avatar" aria-hidden="true">
+      <svg viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="30" r="13" fill="#FFE3C9" stroke="#F2C9A0" stroke-width="1.5"/>
+        <polygon points="24,6 40,13 24,20 8,13" fill="#A04EF6"/>
+        <line x1="37" y1="15" x2="37" y2="22" stroke="#FF9F2E" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="37" cy="24" r="2" fill="#FF9F2E"/>
+        <circle cx="19" cy="29" r="4" stroke="#3B2B2B" stroke-width="1.8"/>
+        <circle cx="29" cy="29" r="4" stroke="#3B2B2B" stroke-width="1.8"/>
+        <line x1="23" y1="29" x2="25" y2="29" stroke="#3B2B2B" stroke-width="1.8"/>
+        <circle cx="19" cy="29" r="1.4" fill="#3B2B2B"/>
+        <circle cx="29" cy="29" r="1.4" fill="#3B2B2B"/>
+        <path d="M20 36q4 3 8 0" stroke="#3B2B2B" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <div class="assistant-name">Dr. Pascal</div>
+      <div class="assistant-role">Your Pressure Tutor</div>
+    </div>
+    <div class="assistant-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="assistant-topic" id="assistant-topic">Welcome aboard!</div>
+  <div class="assistant-text" id="assistant-text" aria-live="polite"></div>
+  <div class="assistant-controls">
+    <button class="assistant-chip" id="assistant-repeat" type="button" aria-label="Repeat this explanation"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M20 2.5V7h-4.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Repeat</button>
+    <button class="assistant-chip" id="assistant-pause" type="button" aria-label="Pause voice"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><line x1="9" y1="5" x2="9" y2="19" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="5" x2="15" y2="19" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg><span id="assistant-pause-label">Pause</span></button>
+    <button class="assistant-chip" id="assistant-treat" type="button" aria-label="Treat the assistant to a biscuit"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#E8B173" stroke="#C98F52" stroke-width="1.6"/><circle cx="9" cy="9.5" r="1.3" fill="#9c6b35"/><circle cx="14.5" cy="13.5" r="1.3" fill="#9c6b35"/><circle cx="12.5" cy="8" r="1" fill="#9c6b35"/><circle cx="8.5" cy="14.5" r="1" fill="#9c6b35"/></svg>Treat Biscuit</button>
+    <button class="assistant-chip fire" id="assistant-fire" type="button">Fire Assistant</button>
+  </div>
+</div>
+<button id="assistant-btn" class="assistant-btn" type="button" aria-pressed="false">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><polygon points="12,3 22,8 12,13 2,8" fill="currentColor"/><path d="M6.5 10.8V15c0 1.7 2.5 3 5.5 3s5.5-1.3 5.5-3v-4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+  <span id="assistant-btn-label">Hire Assistant</span>
+</button>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-tab" data-page="play">Play</a>
+    <a href="learn.html"  class="nav-tab active" data-page="learn">Learn</a>
+    <div class="nav-pill" aria-hidden="true"></div>
+  </div>
+</nav>
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- fixed Pressure Experience Meter -->
+<div class="pem" id="pem" data-tier="0">
+  <div class="pem-shake">
+    <div class="pem-dial" id="pem-dial" tabindex="0" role="button" aria-expanded="false"
+         aria-label="Pressure experience meter. Pressure rises as you scroll. Press Enter for details.">
+      <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <circle class="pem-arc-track" cx="50" cy="50" r="44"/>
+        <circle class="pem-arc" id="pem-arc" cx="50" cy="50" r="44"
+                stroke-dasharray="276.46" stroke-dashoffset="276.46"/>
+      </svg>
+      <div class="pem-center">
+        <div class="pem-label">Pressure</div>
+        <div class="pem-value" id="pem-value">0 Pa</div>
+      </div>
+    </div>
+    <div class="pem-board">
+      <div class="pem-board-title" id="pem-title">Tiny Pressure</div>
+      <div class="pem-board-msg" id="pem-msg">About the weight of a few sheets of paper resting on your hand.</div>
+    </div>
+  </div>
+  <div class="pem-card" id="pem-card" role="dialog" aria-label="Pressure details" aria-hidden="true">
+    <div class="pem-row"><span>Current Pressure</span><b id="pem-c-pa">0 Pa</b></div>
+    <div class="pem-row"><span>Scroll Progress</span><b id="pem-c-scroll">0%</b></div>
+    <div class="pem-row"><span>Pressure Level</span><b id="pem-c-level">Tiny Pressure</b></div>
+    <div class="pem-card-msg" id="pem-c-msg">About the weight of a few sheets of paper resting on your hand.</div>
+  </div>
+  <span class="pem-sr" id="pem-sr" aria-live="polite"></span>
+</div>
+
+<nav class="site-nav section-nav" aria-label="Section navigation">
+  <div class="nav-inner">
+    <a href="#section-hook" class="nav-tab active" data-section="section-hook">Hook</a>
+    <a href="#section-pressure" class="nav-tab" data-section="section-pressure">Pressure</a>
+    <a href="#section-types" class="nav-tab" data-section="section-types">Types</a>
+    <a href="#section-pascal" class="nav-tab" data-section="section-pascal">Pascal</a>
+    <a href="#section-underwater" class="nav-tab" data-section="section-underwater">Underwater</a>
+    <a href="#section-boyle" class="nav-tab" data-section="section-boyle">Boyle</a>
+    <a href="#section-blood" class="nav-tab" data-section="section-blood">Blood</a>
+    <a href="#section-apps" class="nav-tab" data-section="section-apps">Apps</a>
+    <a href="#section-quiz" class="nav-tab" data-section="section-quiz">Quiz</a>
+    <div class="nav-pill" aria-hidden="true"></div>
+  </div>
+</nav>
+
+<div class="page-header" id="hero-section">
+  <h1 class="title-gradient">Pressure &amp; Its Applications</h1>
+  <p><span id="subtitle-type"></span><span class="typewriter-cursor">|</span></p>
+  <div class="hero-actions">
+    <button class="btn btn-primary" type="button" onclick="document.getElementById('section-hook').scrollIntoView({behavior:'smooth',block:'start'})">Start Exploring</button>
+    <button class="btn btn-outline" type="button" onclick="document.getElementById('section-quiz').scrollIntoView({behavior:'smooth',block:'start'})">Take Quiz</button>
+  </div>
+  <div class="stat-badges">
+    <span class="stat-badge" id="sbadge-1"><svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M12 2l2.1 7.9L22 12l-7.9 2.1L12 22l-2.1-7.9L2 12l7.9-2.1Z" fill="#FF9F2E"/></svg>6 Simulations</span>
+    <span class="stat-badge" id="sbadge-2"><svg class="badge-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#A04EF6" stroke-width="2.4"/><circle cx="12" cy="12" r="2.4" fill="#A04EF6"/></svg>100% Interactive</span>
+    <span class="stat-badge" id="sbadge-3"><svg class="badge-icon" viewBox="0 0 24 26" aria-hidden="true" fill="none"><path d="M12 2.5a7 7 0 0 0-4 12.7c.9.7 1.5 1.6 1.5 2.5h5c0-.9.6-1.8 1.5-2.5a7 7 0 0 0-4-12.7Z" stroke="#58B368" stroke-width="2.2" stroke-linejoin="round"/><line x1="9.6" y1="21" x2="14.4" y2="21" stroke="#58B368" stroke-width="2.2" stroke-linecap="round"/><line x1="10.4" y1="24" x2="13.6" y2="24" stroke="#58B368" stroke-width="2.2" stroke-linecap="round"/></svg>0% Boring</span>
+  </div>
+</div>
+
+<div class="cards">
+
+<section class="card" id="section-hook" data-section="section-hook">
+  <div class="section-label">01 — Remember This?</div>
+  <div class="hook-grid">
+    <div class="card hook-bubble" data-hook-bubble="0">
+      <p>Do you still remember <strong>Force</strong>?<span class="hook-icon hook-icon-force" aria-hidden="true"><svg viewBox="0 0 60 28" fill="none"><text x="2" y="21" font-family="'Fredoka One',sans-serif" font-size="19" fill="#FF9F2E">F</text><line x1="22" y1="14" x2="50" y2="14" stroke="#FF9F2E" stroke-width="3" stroke-linecap="round"/><path d="M44 7.5 51 14l-7 6.5" stroke="#FF9F2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></p>
+    </div>
+    <div class="card hook-bubble" data-hook-bubble="1">
+      <p>What about <strong>Area</strong>?<span class="hook-icon hook-icon-area" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><rect x="3" y="3" width="34" height="34" rx="5" stroke="#3E8BFA" stroke-width="2.6" fill="rgba(62,139,250,.08)"/><line x1="14.3" y1="3" x2="14.3" y2="37" stroke="#3E8BFA" stroke-width="1.6" opacity=".65"/><line x1="25.7" y1="3" x2="25.7" y2="37" stroke="#3E8BFA" stroke-width="1.6" opacity=".65"/><line x1="3" y1="14.3" x2="37" y2="14.3" stroke="#3E8BFA" stroke-width="1.6" opacity=".65"/><line x1="3" y1="25.7" x2="37" y2="25.7" stroke="#3E8BFA" stroke-width="1.6" opacity=".65"/></svg></span></p>
+    </div>
+  </div>
+  <div class="hook-thought" data-hook-reveal="0">What if Force and Area are <strong>BOTH</strong> involved at the same time...?<span class="hook-icon hook-icon-question" aria-hidden="true"><svg viewBox="0 0 28 36" fill="none"><path d="M7 11c0-4.4 3.1-7 7-7s7 2.6 7 6.6c0 3.4-2.3 4.8-4.3 6.3-1.6 1.2-2.2 2.3-2.2 4.3" stroke="#A04EF6" stroke-width="2.8" stroke-linecap="round"/><circle cx="14.5" cy="29" r="2.4" fill="#A04EF6"/></svg></span></div>
+  <div class="hook-arrow">Let's find out ↓</div>
+</section>
+
+<section class="card" id="section-pressure" data-section="section-pressure">
+  <div class="section-label">02 — Foundation</div>
+  <div class="section-theory">Pressure is the amount of force acting on each unit of area. The smaller the area, the higher the pressure even with the same force.</div>
+  <div class="formula-box">P = F ÷ A</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CARD 1 · Sharp vs Blunt
+════════════════════════════════════════════════ -->
+<div class="card" id="card1">
+  <div class="card-title"><span class="em" aria-hidden="true"><svg viewBox="0 0 60 28" fill="none"><text x="2" y="21" font-family="'Fredoka One',sans-serif" font-size="19" fill="#FF9F2E">F</text><line x1="22" y1="14" x2="50" y2="14" stroke="#FF9F2E" stroke-width="2.6" stroke-linecap="round"/><path d="M44 7.5 51 14l-7 6.5" stroke="#FF9F2E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Sharp vs Blunt – What Changes?</div>
+
+  <svg class="sim-svg" id="knife-svg" viewBox="0 0 560 300" height="300">
+    <defs>
+      <linearGradient id="surface-grad" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#58B368"/>
+        <stop offset="100%" stop-color="#2d7a40"/>
+      </linearGradient>
+    </defs>
+    <rect width="560" height="300" fill="#FFF6E9" rx="14"/>
+    <!-- surface block -->
+    <rect id="surface-rect" x="60" y="200" width="440" height="60" fill="url(#surface-grad)" rx="6"/>
+    <!-- deformation dent -->
+    <ellipse id="dent" cx="280" cy="200" rx="0" ry="0" fill="#2d7a40"/>
+    <!-- heatmap dots -->
+    <g id="heatmap"></g>
+    <!-- SHARP knife -->
+    <g id="knife-sharp" transform="translate(280,20)">
+      <polygon points="-3,0 3,0 1,90 -1,90" fill="#888" stroke="#555" stroke-width="1"/>
+      <rect x="-10" y="-30" width="20" height="35" rx="5" fill="#5c3d2e"/>
+      <rect x="-8" y="-5" width="16" height="5" rx="2" fill="#8B6954"/>
+      <text x="0" y="110" text-anchor="middle" fill="#888" font-family="Nunito" font-size="11">SHARP</text>
+    </g>
+    <!-- BLUNT knife -->
+    <g id="knife-blunt" transform="translate(280,20)" style="display:none">
+      <rect x="-12" y="0" width="24" height="85" rx="3" fill="#888" stroke="#555" stroke-width="1"/>
+      <rect x="-10" y="-30" width="20" height="35" rx="5" fill="#5c3d2e"/>
+      <rect x="-8" y="-5" width="16" height="5" rx="2" fill="#8B6954"/>
+      <text x="0" y="110" text-anchor="middle" fill="#888" font-family="Nunito" font-size="11">BLUNT</text>
+    </g>
+    <!-- labels -->
+    <text id="area-label" x="280" y="285" text-anchor="middle" font-family="Fredoka One" font-size="13" fill="#3E8BFA">Area: 6 mm²</text>
+  </svg>
+
+  <div class="controls">
+    <button class="btn btn-outline" onclick="setKnife('sharp')">Sharp</button>
+    <button class="btn btn-outline" onclick="setKnife('blunt')">Blunt</button>
+    <button class="btn btn-primary" id="btn-push"
+      onpointerdown="startPush()" onpointerup="stopPush()" onpointerleave="stopPush()">
+      Hold to PUSH ↓
+    </button>
+  </div>
+  <div class="readout">
+    <div class="chip chip-f">F = <span id="c1-force">0</span> N</div>
+    <div class="chip chip-a">A = <span id="c1-area">6</span> mm²</div>
+    <div class="chip chip-p">P = <span id="c1-p">0</span> Pa</div>
+  </div>
+  <div class="insight" id="ins1">
+    <div class="insight-pill">Same force, smaller area → pressure skyrockets. That's why sharp knives cut!</div>
+  </div>
+</div>
+
+<section class="card" id="section-types" data-section="section-types">
+  <div class="section-label">03 — Types of Pressure</div>
+  <div class="card-title"><span class="em" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="7" stroke="#2EC4B6" stroke-width="2.6"/><circle cx="24" cy="24" r="14" stroke="#2EC4B6" stroke-width="2.4" opacity=".55"/><circle cx="24" cy="24" r="21" stroke="#2EC4B6" stroke-width="2.2" opacity=".3"/></svg></span> Pressure Comes in Different Forms</div>
+  <div class="section-theory">Depending on where and how we measure it, pressure has different names.</div>
+  <div class="pressure-types-flow" id="pressure-types-flow">
+    <button type="button" class="pressure-type-node active" data-type="atmospheric">Atmospheric Pressure</button>
+    <svg class="type-connector" viewBox="0 0 30 20" aria-hidden="true"><path d="M2,10 C10,10 12,10 18,10 L26,10"/></svg>
+    <button type="button" class="pressure-type-node" data-type="gauge">Gauge Pressure</button>
+    <svg class="type-connector" viewBox="0 0 30 20" aria-hidden="true"><path d="M2,10 C10,10 12,10 18,10 L26,10"/></svg>
+    <button type="button" class="pressure-type-node" data-type="absolute">Absolute Pressure</button>
+    <svg class="type-connector" viewBox="0 0 30 20" aria-hidden="true"><path d="M2,10 C10,10 12,10 18,10 L26,10"/></svg>
+    <button type="button" class="pressure-type-node" data-type="differential">Differential Pressure</button>
+  </div>
+  <div class="pressure-type-detail" id="pressure-type-detail">
+    <div class="pressure-type-panel">
+      <svg id="pressure-type-svg" viewBox="0 0 180 180" aria-hidden="true"></svg>
+      <div>
+        <h4 id="pressure-type-title">Atmospheric Pressure</h4>
+        <p id="pressure-type-text">The weight of the entire air column above you pressing down.</p>
+        <div class="pressure-type-example" id="pressure-type-example">Why your ears pop on a plane</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- divider 1 -->
+<div class="card-divider" aria-hidden="true"><span class="div-arrow">↓</span></div>
+
+<section class="card" id="section-pascal" data-section="section-pascal">
+  <div class="section-label">04 — Fluid Pressure</div>
+  <div class="section-theory">When pressure is applied to a trapped fluid, it spreads equally in every direction. That is why a small input force can create a much larger output force in a hydraulic system.</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CARD 2 · Pascal Hydraulic Lift
+════════════════════════════════════════════════ -->
+<div class="card" id="card2">
+  <div class="card-title"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 28" fill="none"><path d="M12 3c4.5 6 8 9.5 8 14a8 8 0 0 1-16 0c0-4.5 3.5-8 8-14Z" stroke="#3E8BFA" stroke-width="2.4" fill="rgba(62,139,250,.12)" stroke-linejoin="round"/></svg></span> Pascal's Law – Hydraulic Lift</div>
+
+  <svg class="sim-svg" id="pascal-svg" viewBox="0 0 560 310" height="310">
+    <defs>
+      <linearGradient id="fluid-grad" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#3E8BFA" stop-opacity=".9"/>
+        <stop offset="100%" stop-color="#1a5fc8" stop-opacity=".9"/>
+      </linearGradient>
+      <linearGradient id="car-grad" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#FF9F2E"/>
+        <stop offset="100%" stop-color="#d47800"/>
+      </linearGradient>
+      <marker id="ah-pascal" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+        <polygon points="0,0 8,4 0,8" fill="#FF9F2E"/>
+      </marker>
+      <marker id="ah-lift" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+        <polygon points="0,8 4,0 8,8" fill="#58B368"/>
+      </marker>
+    </defs>
+    <rect width="560" height="310" fill="#FFF6E9" rx="14"/>
+    <!-- ground -->
+    <rect x="0" y="270" width="560" height="40" fill="#e8d8c0"/>
+    <!-- left cylinder -->
+    <rect x="80" y="120" width="6" height="150" fill="#aaa"/>
+    <rect x="154" y="120" width="6" height="150" fill="#aaa"/>
+    <rect x="80" y="265" width="80" height="6" fill="#aaa"/>
+    <!-- right cylinder -->
+    <rect x="310" y="80" width="8" height="190" fill="#aaa"/>
+    <rect x="438" y="80" width="8" height="190" fill="#aaa"/>
+    <rect x="310" y="265" width="136" height="6" fill="#aaa"/>
+    <!-- connecting pipe -->
+    <rect x="155" y="246" width="156" height="20" fill="url(#fluid-grad)"/>
+    <!-- fluid -->
+    <rect id="fluid-left"  x="86"  y="200" width="62"  height="65" fill="url(#fluid-grad)"/>
+    <rect id="fluid-right" x="318" y="200" width="120" height="65" fill="url(#fluid-grad)"/>
+    <!-- left piston -->
+    <rect id="piston-left" x="80" y="192" width="80" height="14" rx="4" fill="#5c3d2e" cursor="ns-resize"/>
+    <text x="120" y="188" text-anchor="middle" font-family="Nunito" font-size="10" fill="#666">A=10 cm²</text>
+    <line id="arrow-left" x1="120" y1="155" x2="120" y2="185" stroke="#FF9F2E" stroke-width="3" marker-end="url(#ah-pascal)"/>
+    <text id="lbl-f-in" x="120" y="148" text-anchor="middle" font-family="Fredoka One" font-size="12" fill="#FF9F2E">F in</text>
+    <!-- right piston -->
+    <rect id="piston-right" x="310" y="192" width="136" height="14" rx="4" fill="#5c3d2e"/>
+    <text x="378" y="188" text-anchor="middle" font-family="Nunito" font-size="10" fill="#666">A=100 cm²</text>
+    <!-- car group -->
+    <g id="car-group">
+      <rect x="310" y="178" width="136" height="14" rx="3" fill="#888"/>
+      <rect x="328" y="130" width="100" height="44" rx="10" fill="url(#car-grad)"/>
+      <rect x="348" y="108" width="60" height="30" rx="8" fill="#FFB84E"/>
+      <rect x="354" y="113" width="20" height="18" rx="4" fill="#cde8ff"/>
+      <rect x="380" y="113" width="20" height="18" rx="4" fill="#cde8ff"/>
+      <circle cx="347" cy="178" r="10" fill="#333"/>
+      <circle cx="347" cy="178" r="4"  fill="#888"/>
+      <circle cx="411" cy="178" r="10" fill="#333"/>
+      <circle cx="411" cy="178" r="4"  fill="#888"/>
+      <line id="lift-arrow" x1="378" y1="175" x2="378" y2="150" stroke="#58B368" stroke-width="3" opacity="0" marker-end="url(#ah-lift)"/>
+    </g>
+    <text x="120" y="112" text-anchor="middle" font-family="Fredoka One" font-size="13" fill="#3E8BFA">Small Piston</text>
+    <text x="378" y="72"  text-anchor="middle" font-family="Fredoka One" font-size="13" fill="#3E8BFA">Large Piston</text>
+    <text x="220" y="262" text-anchor="middle" font-family="Fredoka One" font-size="12" fill="#fff">Same P!</text>
+  </svg>
+
+  <div class="controls">
+    <label class="slider-label" for="pascal-slider">Push left piston ↓</label>
+    <input type="range" id="pascal-slider" min="0" max="100" value="0">
+  </div>
+  <div class="readout">
+    <div class="chip chip-f">F in = <span id="c2-fin">0</span> N</div>
+    <div class="chip chip-p">P = <span id="c2-p">0</span> kPa</div>
+    <div class="chip chip-f" style="background:#e6ffe6;color:var(--leaf)">F out = <span id="c2-fout">0</span> N</div>
+  </div>
+  <div class="insight" id="ins2">
+    <div class="insight-pill">Pressure spreads equally — a small push on tiny area lifts a car on big area!</div>
+  </div>
+</div>
+
+<section class="card" id="section-underwater" data-section="section-underwater">
+  <div class="section-label">05 — Depth &amp; Pressure</div>
+  <div class="section-theory">Water pressure increases with depth because more water sits above you. That extra weight pushes harder on everything below the surface.</div>
+</section>
+
+<!-- divider 2 -->
+<div class="card-divider" aria-hidden="true">
+  <div class="div-ripple"><div class="ripple-ring"></div><div class="ripple-ring"></div><div class="ripple-ring"></div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CARD 3 · Underwater Diver
+════════════════════════════════════════════════ -->
+<div class="card" id="card3">
+  <div class="card-title"><span class="em" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none"><path d="M2 7q3-3.5 6 0t6 0t6 0t6 0" stroke="#2EC4B6" stroke-width="2.4" stroke-linecap="round"/><line x1="14" y1="13" x2="14" y2="23" stroke="#3E8BFA" stroke-width="2.4" stroke-linecap="round"/><path d="M9.5 19 14 24l4.5-5" stroke="#3E8BFA" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Deep Dive – Hydrostatic Pressure</div>
+
+  <svg class="sim-svg" id="hydro-svg" viewBox="0 0 560 300" height="300">
+    <defs>
+      <linearGradient id="water-grad" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#3E8BFA" stop-opacity=".55"/>
+        <stop offset="100%" stop-color="#1a3fa0" stop-opacity=".9"/>
+      </linearGradient>
+      <marker id="ah-hydro" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+        <polygon points="0,0 7,3.5 0,7" fill="#FF9F2E"/>
+      </marker>
+    </defs>
+    <rect width="560" height="300" fill="#e8f4ff" rx="14"/>
+    <rect x="40" y="10" width="480" height="35" fill="#cce8ff" rx="6"/>
+    <text x="280" y="31" text-anchor="middle" font-family="Nunito" font-size="11" fill="#4488bb">Surface — 0 m</text>
+    <rect x="40" y="40" width="480" height="240" fill="url(#water-grad)" rx="4"/>
+    <!-- depth ruler -->
+    <g font-family="Nunito" font-size="10" fill="#fff" opacity=".7">
+      <line x1="46" y1="88"  x2="52" y2="88"  stroke="#fff" opacity=".6"/>
+      <line x1="46" y1="136" x2="52" y2="136" stroke="#fff" opacity=".6"/>
+      <line x1="46" y1="184" x2="52" y2="184" stroke="#fff" opacity=".6"/>
+      <line x1="46" y1="232" x2="52" y2="232" stroke="#fff" opacity=".6"/>
+      <text x="54" y="92">10 m</text>
+      <text x="54" y="140">20 m</text>
+      <text x="54" y="188">30 m</text>
+      <text x="54" y="236">40 m</text>
+    </g>
+    <!-- pressure arrows -->
+    <line id="arr-left"  x1="230" y1="120" x2="255" y2="120" stroke="#FF9F2E" stroke-width="3" marker-end="url(#ah-hydro)"/>
+    <line id="arr-right" x1="330" y1="120" x2="305" y2="120" stroke="#FF9F2E" stroke-width="3" marker-end="url(#ah-hydro)"/>
+    <line id="arr-top"   x1="280" y1="90"  x2="280" y2="108" stroke="#FF9F2E" stroke-width="3" marker-end="url(#ah-hydro)"/>
+    <line id="arr-bot"   x1="280" y1="152" x2="280" y2="134" stroke="#FF9F2E" stroke-width="3" marker-end="url(#ah-hydro)"/>
+    <!-- diver -->
+    <g id="diver-group" transform="translate(280,120)">
+      <rect x="8" y="-2" width="10" height="22" rx="4" fill="#888"/>
+      <ellipse cx="0" cy="10" rx="14" ry="18" fill="#1a5fc8"/>
+      <ellipse cx="0" cy="10" rx="9"  ry="13" fill="#1244a0"/>
+      <circle  cx="0" cy="-12" r="12" fill="#FFD97D"/>
+      <rect x="-9" y="-18" width="18" height="10" rx="4" fill="#333"/>
+      <rect x="-7" y="-17" width="14" height="7"  rx="3" fill="#cde8ff" opacity=".8"/>
+      <line x1="9" y1="-15" x2="16" y2="-26" stroke="#FF5A4E" stroke-width="2.5"/>
+      <circle cx="16" cy="-27" r="2" fill="#FF5A4E"/>
+      <text id="diver-face" x="0" y="-9" text-anchor="middle" font-size="9" fill="#5c3d2e">😊</text>
+      <ellipse cx="-18" cy="28" rx="8" ry="4" fill="#1a5fc8" transform="rotate(-20,-18,28)"/>
+      <ellipse cx="18"  cy="28" rx="8" ry="4" fill="#1a5fc8" transform="rotate(20,18,28)"/>
+    </g>
+    <text id="hydro-p-lbl"     x="450" y="170" text-anchor="middle" font-family="Fredoka One" font-size="14" fill="#FFF6E9">P = 0 kPa</text>
+    <text id="hydro-depth-lbl" x="450" y="190" text-anchor="middle" font-family="Nunito"      font-size="11" fill="#cde8ff">depth = 0 m</text>
+  </svg>
+
+  <div class="controls">
+    <label class="slider-label" for="depth-slider">Depth</label>
+    <input type="range" id="depth-slider" min="0" max="40" value="0" step="1">
+    <span id="depth-val" style="font-weight:700;min-width:48px">0 m</span>
+  </div>
+  <div class="readout">
+    <div class="chip chip-p">P = ρgh = <span id="c3-p">0</span> kPa</div>
+    <div class="chip chip-a" style="background:#e6ffe6;color:var(--leaf)">+ atm = <span id="c3-abs">101</span> kPa total</div>
+  </div>
+  <div class="insight" id="ins3">
+    <div class="insight-pill">Every 10 m deeper adds ~100 kPa — equal to the whole atmosphere above!</div>
+  </div>
+</div>
+
+<section class="card" id="section-boyle" data-section="section-boyle">
+  <div class="section-label">06 — Gas Pressure</div>
+  <div class="section-theory">For a trapped gas, pressure rises when the gas is squeezed into a smaller space. More collisions happen in less room, so the pressure goes up.</div>
+</section>
+
+<!-- divider 3 -->
+<div class="card-divider" aria-hidden="true">
+  <div class="div-particles"><div class="gas-dot"></div><div class="gas-dot"></div><div class="gas-dot"></div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CARD 4 · Boyle's Law Bouncing Particles
+════════════════════════════════════════════════ -->
+<div class="card" id="card4">
+  <div class="card-title"><span class="em" aria-hidden="true"><svg viewBox="0 0 26 28" fill="none"><rect x="3" y="4" width="20" height="21" rx="4" stroke="#FF5A4E" stroke-width="2.4"/><circle cx="9" cy="11" r="1.9" fill="#FF5A4E"/><circle cx="16" cy="15" r="1.9" fill="#FF9F2E"/><circle cx="10" cy="20" r="1.9" fill="#A04EF6"/></svg></span> Boyle's Law – Squeeze the Gas</div>
+
+  <svg class="sim-svg" id="boyle-svg" viewBox="0 0 560 300" height="300">
+    <defs>
+      <clipPath id="gas-clip">
+        <rect id="gas-clip-rect" x="80" y="40" width="300" height="220"/>
+      </clipPath>
+    </defs>
+    <rect width="560" height="300" fill="#FFF6E9" rx="14"/>
+    <!-- cylinder walls -->
+    <rect x="80"  y="40"  width="8"   height="220" fill="#aaa" rx="2"/>
+    <rect x="372" y="40"  width="8"   height="220" fill="#aaa" rx="2"/>
+    <rect x="80"  y="256" width="300" height="8"   fill="#aaa" rx="2"/>
+    <rect x="80"  y="36"  width="300" height="8"   fill="#aaa" rx="2"/>
+    <!-- gas region -->
+    <rect id="gas-bg" x="88" y="44" width="280" height="212" fill="#FFF0DC" opacity=".8"/>
+    <!-- particles -->
+    <g id="particles" clip-path="url(#gas-clip)"></g>
+    <!-- piston -->
+    <rect id="boyle-piston" x="352" y="36" width="30" height="228" rx="5" fill="#5c3d2e" cursor="ew-resize"/>
+    <text x="366" y="30" text-anchor="middle" font-family="Nunito" font-size="10" fill="#888">drag ←→</text>
+    <!-- gauge -->
+    <g transform="translate(470,145)">
+      <circle cx="0" cy="0" r="55" fill="#fff"    stroke="#E0D0C0" stroke-width="3"/>
+      <circle cx="0" cy="0" r="45" fill="#F8F0E8" stroke="#E0D0C0" stroke-width="1"/>
+      <g stroke="#ccc" stroke-width="1.5">
+        <line x1="0" y1="-38" x2="0" y2="-45" transform="rotate(-120)"/>
+        <line x1="0" y1="-38" x2="0" y2="-45" transform="rotate(-90)"/>
+        <line x1="0" y1="-38" x2="0" y2="-45" transform="rotate(-60)"/>
+        <line x1="0" y1="-38" x2="0" y2="-45" transform="rotate(-30)"/>
+        <line x1="0" y1="-38" x2="0" y2="-45" transform="rotate(0)"/>
+        <line x1="0" y1="-38" x2="0" y2="-45" transform="rotate(30)"/>
+        <line x1="0" y1="-38" x2="0" y2="-45" transform="rotate(60)"/>
+        <line x1="0" y1="-38" x2="0" y2="-45" transform="rotate(90)"/>
+        <line x1="0" y1="-38" x2="0" y2="-45" transform="rotate(120)"/>
+      </g>
+      <text x="0" y="-28" text-anchor="middle" font-size="7" fill="#999"   transform="rotate(-90)rotate(90,0,-28)">LOW</text>
+      <text x="0" y="-28" text-anchor="middle" font-size="7" fill="#A04EF6" transform="rotate(90)rotate(-90,0,-28)">HIGH</text>
+      <line id="gauge-needle" x1="0" y1="5" x2="0" y2="-38" stroke="#A04EF6" stroke-width="2.5" stroke-linecap="round" transform="rotate(-90)"/>
+      <circle cx="0" cy="0" r="4" fill="#A04EF6"/>
+      <text id="gauge-lbl" x="0" y="18" text-anchor="middle" font-family="Fredoka One" font-size="11" fill="#A04EF6">P₀</text>
+    </g>
+    <text x="470" y="215" text-anchor="middle" font-family="Nunito" font-size="10" fill="#888">PRESSURE</text>
+    <text id="boyle-v-lbl" x="220" y="295" text-anchor="middle" font-family="Fredoka One" font-size="13" fill="#FF9F2E">V = 100%</text>
+  </svg>
+
+  <div class="controls">
+    <span style="font-size:.9rem;font-weight:700">Drag the brown piston left ←</span>
+  </div>
+  <div class="readout">
+    <div class="chip chip-a">V = <span id="c4-v">100</span>%</div>
+    <div class="chip chip-p">P = <span id="c4-p">1.0</span>× P₀</div>
+  </div>
+  <div class="insight" id="ins4">
+    <div class="insight-pill">Halve the volume → double the pressure. P × V = constant!</div>
+  </div>
+</div>
+
+<section class="card" id="section-blood" data-section="section-blood">
+  <div class="section-label">07 — Biology</div>
+  <div class="section-theory">Your heart creates pressure to move blood through a large network of vessels. When the heart beats harder or faster, blood pressure changes too.</div>
+</section>
+
+<!-- divider 4 -->
+<div class="card-divider" aria-hidden="true">
+  <div class="div-heartbeat">
+    <svg width="160" height="32" viewBox="0 0 160 32">
+      <path class="hb-path" d="M0,16 L28,16 L38,4 L43,28 L48,2 L54,16 L80,16 L108,16 L118,8 L123,24 L128,6 L133,16 L160,16"/>
+    </svg>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CARD 5 · Blood Pressure
+════════════════════════════════════════════════ -->
+<div class="card" id="card5">
+  <div class="card-title"><span class="em" aria-hidden="true"><svg viewBox="0 0 32 24" fill="none"><path d="M2 13h7l3-7 5 13 3-6h10" stroke="#FF5A4E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Blood Pressure – Feel Your Pulse</div>
+
+  <svg class="sim-svg" id="bp-svg" viewBox="0 0 560 280" height="280">
+    <defs>
+      <linearGradient id="artery-grad" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0%" stop-color="#ff6b81"/>
+        <stop offset="100%" stop-color="#c0392b"/>
+      </linearGradient>
+      <filter id="glow-red">
+        <feGaussianBlur stdDeviation="4" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <rect width="560" height="280" fill="#FFF6E9" rx="14"/>
+    <!-- heart -->
+    <g id="heart-group" transform="translate(110,130)" cursor="pointer" style="user-select:none">
+      <path d="M0,-20 C20,-50 55,-35 55,0 C55,30 25,55 0,75 C-25,55 -55,30 -55,0 C-55,-35 -20,-50 0,-20Z"
+        fill="#FF5A4E" filter="url(#glow-red)"/>
+      <path d="M-9 -2 L-4 -2 L-1 -8 L3 6 L6 0 L11 0" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,12)"/>
+      <text x="0" y="95" text-anchor="middle" font-family="Fredoka One" font-size="12" fill="#FF5A4E">Click to beat!</text>
+    </g>
+    <!-- artery -->
+    <rect x="200" y="100" width="300" height="50" rx="25" fill="#f4a0a0" opacity=".4"/>
+    <rect id="artery-lumen" x="205" y="108" width="290" height="34" rx="17" fill="url(#artery-grad)" opacity=".7"/>
+    <path id="pulse-wave" d="M205,125 Q280,125 350,125 Q420,125 495,125" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/>
+    <!-- ECG box -->
+    <rect x="200" y="165" width="300" height="90" rx="10" fill="#1a1a2e"/>
+    <text x="210" y="183" font-family="Nunito" font-size="10" fill="#58B368">ECG</text>
+    <line x1="210" y1="215" x2="490" y2="215" stroke="#333" stroke-width="1"/>
+    <path id="ecg-path" class="ecg-line"
+      d="M210,215 L240,215 L250,215 L255,195 L260,240 L265,185 L272,215 L290,215 L300,215 L310,215 L320,215 L340,215 L345,205 L350,230 L355,200 L360,215 L490,215"/>
+    <!-- BP readout -->
+    <text x="110" y="240" text-anchor="middle" font-family="Fredoka One" font-size="14" fill="#FF5A4E">Systolic</text>
+    <text id="sys-val" x="110" y="260" text-anchor="middle" font-family="Fredoka One" font-size="22" fill="#FF5A4E">120</text>
+    <text x="110" y="277" text-anchor="middle" font-family="Nunito" font-size="10" fill="#aaa">mmHg</text>
+    <text id="bp-stress-lbl" x="350" y="265" text-anchor="middle" font-family="Fredoka One" font-size="12" fill="#FF9F2E">Stress: Normal</text>
+  </svg>
+
+  <div class="controls">
+    <button class="btn btn-primary" onclick="triggerHeartbeat()">Beat</button>
+    <label class="slider-label" for="stress-slider">Stress level:</label>
+    <input type="range" id="stress-slider" min="0" max="100" value="0">
+  </div>
+  <div class="readout">
+    <div class="chip chip-f" style="background:#ffe0e0;color:#c0392b">Systolic:  <span id="c5-sys">120</span> mmHg</div>
+    <div class="chip chip-a" style="background:#e0eeff;color:#2980b9">Diastolic: <span id="c5-dia">80</span>  mmHg</div>
+  </div>
+  <div class="insight" id="ins5">
+    <div class="insight-pill">Your heart creates pressure to push blood through 100,000 km of vessels!</div>
+  </div>
+</div>
+
+<section class="card" id="section-apps" data-section="section-apps">
+  <div class="section-label">08 — Real World</div>
+  <div class="card-title"><span class="em" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="5" stroke="#FF9F2E" stroke-width="2.4"/><g stroke="#FF9F2E" stroke-width="2.4" stroke-linecap="round"><line x1="14" y1="2.5" x2="14" y2="6"/><line x1="14" y1="22" x2="14" y2="25.5"/><line x1="2.5" y1="14" x2="6" y2="14"/><line x1="22" y1="14" x2="25.5" y2="14"/><line x1="5.9" y1="5.9" x2="8.4" y2="8.4"/><line x1="19.6" y1="19.6" x2="22.1" y2="22.1"/><line x1="5.9" y1="22.1" x2="8.4" y2="19.6"/><line x1="19.6" y1="8.4" x2="22.1" y2="5.9"/></g></svg></span> Real World Applications</div>
+  <div class="section-theory">Pressure shows up everywhere in daily life, from cutting tools and car tyres to breathing, building machines, and moving vehicles.</div>
+  <div class="app-grid">
+    <div class="app-card"><h4>Sharp Tools</h4><p>Needles and blades use tiny areas to increase pressure.</p></div>
+    <div class="app-card"><h4>Tyres</h4><p>Gauge pressure helps keep cars stable and safe.</p></div>
+    <div class="app-card"><h4>Hydraulics</h4><p>Brakes and lifts move huge loads with fluid pressure.</p></div>
+    <div class="app-card"><h4>Water Depth</h4><p>Divers and submarines feel increasing pressure below the surface.</p></div>
+    <div class="app-card"><h4>Breathing</h4><p>Lungs create pressure changes so air can move in and out.</p></div>
+    <div class="app-card"><h4>Space Rockets</h4><p>Hot gas escaping downward pushes rockets upward.</p></div>
+  </div>
+</section>
+
+<section class="card" id="section-quiz" data-section="section-quiz">
+  <div class="section-label">09 — Knowledge Check</div>
+  <div class="card-title"><span class="em" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="9" stroke="#A04EF6" stroke-width="2.4"/><circle cx="14" cy="14" r="2.3" fill="#A04EF6"/><g stroke="#A04EF6" stroke-width="2.4" stroke-linecap="round"><line x1="14" y1="1.5" x2="14" y2="6"/><line x1="14" y1="22" x2="14" y2="26.5"/><line x1="1.5" y1="14" x2="6" y2="14"/><line x1="22" y1="14" x2="26.5" y2="14"/></g></svg></span> Quiz Challenge</div>
+  <div class="quiz-container" id="quiz-container">
+    <div class="quiz-top">
+      <div class="quiz-meta quiz-meta-q">Question 1 of 7</div>
+      <div class="quiz-meta quiz-meta-score">Score: 0/7</div>
+    </div>
+    <div class="quiz-progress"><div class="quiz-progress-fill"></div></div>
+    <div class="quiz-question-view">
+      <div class="quiz-q-wrap"><h3>Loading question…</h3></div>
+      <div class="quiz-options"></div>
+      <div class="quiz-actions">
+        <button class="btn btn-outline hint-btn" type="button" aria-expanded="false">Hint</button>
+        <button class="btn btn-primary next-btn" type="button">Next Question →</button>
+      </div>
+      <div class="hint-text">Hint text</div>
+      <div class="feedback-box"></div>
+    </div>
+    <div class="quiz-results">
+      <div style="font-family:'Fredoka One',sans-serif;font-size:1.4rem;color:var(--pressure);">Final Score</div>
+      <div class="results-score">0 / 7</div>
+      <div class="results-msg">Great work.</div>
+      <button class="btn btn-primary try-again-btn" type="button">Try Again</button>
+    </div>
+  </div>
+</section>
+
+<!-- divider 5 -->
+<div class="card-divider" aria-hidden="true">
+  <div class="div-flame">
+    <div class="flame-bit"></div><div class="flame-bit"></div><div class="flame-bit"></div>
+    <div class="flame-bit"></div><div class="flame-bit"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CARD 6 · Rocket Launch
+════════════════════════════════════════════════ -->
+<div class="card" id="card6">
+  <div class="card-title"><span class="em" aria-hidden="true"><svg viewBox="0 0 24 28" fill="none"><line x1="12" y1="25" x2="12" y2="6" stroke="#58B368" stroke-width="2.6" stroke-linecap="round"/><path d="M6 11.5 12 4.5l6 7" stroke="#58B368" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="5" y1="22" x2="5" y2="17" stroke="#FF9F2E" stroke-width="2.2" stroke-linecap="round" opacity=".6"/><line x1="19" y1="22" x2="19" y2="17" stroke="#FF9F2E" stroke-width="2.2" stroke-linecap="round" opacity=".6"/></svg></span> Rocket Launch – Pressure Powers Space!</div>
+
+  <svg class="sim-svg" id="rocket-svg" viewBox="0 0 560 320" height="320">
+    <!-- night sky -->
+    <rect width="560" height="320" fill="#0a1628" rx="14"/>
+    <!-- stars -->
+    <g fill="#fff" opacity=".75">
+      <circle cx="40"  cy="20"  r="1.5"/><circle cx="120" cy="45"  r="1"/>
+      <circle cx="200" cy="15"  r="2"/>  <circle cx="300" cy="35"  r="1.5"/>
+      <circle cx="380" cy="22"  r="1"/>  <circle cx="460" cy="50"  r="2"/>
+      <circle cx="530" cy="30"  r="1.5"/><circle cx="80"  cy="60"  r="1"/>
+      <circle cx="160" cy="80"  r="1.5"/><circle cx="250" cy="55"  r="1"/>
+      <circle cx="420" cy="75"  r="2"/>  <circle cx="500" cy="18"  r="1"/>
+      <circle cx="70"  cy="100" r="1"/>  <circle cx="350" cy="70"  r="1.5"/>
+      <circle cx="490" cy="95"  r="1"/>
+    </g>
+    <!-- smoke trail -->
+    <g id="rocket-smoke"></g>
+    <!-- launch pad -->
+    <rect x="200" y="282" width="160" height="16" rx="6" fill="#555"/>
+    <rect x="228" y="268" width="104" height="18" rx="4" fill="#777"/>
+    <rect x="254" y="256" width="52"  height="16" rx="3" fill="#888"/>
+    <!-- support arms -->
+    <g id="launch-arms">
+      <rect x="238" y="218" width="7" height="42" rx="3" fill="#556"/>
+      <rect x="315" y="218" width="7" height="42" rx="3" fill="#556"/>
+    </g>
+    <!-- flames -->
+    <g id="rocket-flames" opacity="0" transform="translate(280,270)">
+      <ellipse cx="0"  cy="0"   rx="18" ry="30" fill="#FF9F2E"/>
+      <ellipse cx="-7" cy="-4"  rx="11" ry="22" fill="#FF5A4E"/>
+      <ellipse cx="7"  cy="-4"  rx="11" ry="22" fill="#FF5A4E"/>
+      <ellipse cx="0"  cy="-8"  rx="7"  ry="16" fill="#FFFDE7"/>
+      <ellipse cx="-5" cy="0"   rx="5"  ry="11" fill="#FFD54F"/>
+      <ellipse cx="5"  cy="0"   rx="5"  ry="11" fill="#FFD54F"/>
+    </g>
+    <!-- rocket -->
+    <g id="rocket-group" transform="translate(280,215)">
+      <ellipse cx="0" cy="0" rx="22" ry="50" fill="#DDE2E8"/>
+      <ellipse cx="0" cy="0" rx="20" ry="48" fill="#F0F4F8"/>
+      <!-- nose cone -->
+      <path d="M-22,-20 Q0,-70 22,-20Z" fill="#FF5A4E"/>
+      <path d="M-12,-20 Q0,-58 12,-20Z" fill="#E2392E"/>
+      <!-- porthole -->
+      <circle cx="0" cy="-8" r="11" fill="#3E8BFA" opacity=".9"/>
+      <circle cx="0" cy="-8" r="8"  fill="#1a5fc8"/>
+      <circle cx="-3" cy="-11" r="3" fill="#7EC8FF" opacity=".7"/>
+      <!-- stripes -->
+      <rect x="-22" y="8"  width="44" height="7" rx="2" fill="#FF9F2E" opacity=".85"/>
+      <rect x="-22" y="21" width="44" height="7" rx="2" fill="#FF9F2E" opacity=".85"/>
+      <!-- fins -->
+      <path d="M-22,32 L-40,58 L-22,52Z" fill="#FF5A4E"/>
+      <path d="M22,32  L40,58  L22,52Z"  fill="#FF5A4E"/>
+      <!-- nozzle -->
+      <ellipse cx="0" cy="52" rx="15" ry="7" fill="#777"/>
+      <ellipse cx="0" cy="52" rx="10" ry="5" fill="#444"/>
+    </g>
+    <!-- thrust gauge panel -->
+    <g transform="translate(496,48)">
+      <rect x="-22" y="-6" width="58" height="216" rx="8" fill="#0d1f33" opacity=".95"/>
+      <text x="7" y="12" text-anchor="middle" font-family="Fredoka One" font-size="9" fill="#8ab">THRUST</text>
+      <rect x="-4"  y="20" width="22" height="152" rx="4" fill="#071020" stroke="#1e3a5a" stroke-width="1"/>
+      <rect id="thrust-gauge-fill" x="-3" y="171" width="20" height="0" rx="3" fill="#58B368"/>
+      <line x1="18" y1="44"  x2="25" y2="44"  stroke="#334" stroke-width="1.5"/>
+      <line x1="18" y1="82"  x2="25" y2="82"  stroke="#334" stroke-width="1.5"/>
+      <line x1="18" y1="120" x2="25" y2="120" stroke="#334" stroke-width="1.5"/>
+      <line x1="18" y1="158" x2="25" y2="158" stroke="#334" stroke-width="1.5"/>
+      <text x="27" y="47"  font-family="Nunito" font-size="7.5" fill="#667">MAX</text>
+      <text x="27" y="161" font-family="Nunito" font-size="7.5" fill="#667">0</text>
+      <text id="thrust-pct-lbl" x="7" y="190" text-anchor="middle" font-family="Fredoka One" font-size="9" fill="#58B368">0%</text>
+    </g>
+    <!-- liftoff badge -->
+    <g id="liftoff-badge" opacity="0">
+      <rect x="28" y="82" width="370" height="60" rx="12" fill="#0d2a1a" stroke="#58B368" stroke-width="2"/>
+      <text x="213" y="108" text-anchor="middle" font-family="Fredoka One" font-size="12" fill="#58B368">Liftoff at 28,000 km/h!</text>
+      <text x="213" y="130" text-anchor="middle" font-family="Nunito" font-size="9.5" fill="#88ee88">Pressure from burning fuel powers the rocket up!</text>
+    </g>
+  </svg>
+
+  <div class="controls">
+    <button class="btn btn-primary" id="btn-ignite" onclick="igniteRocket()">IGNITE</button>
+    <button class="btn btn-outline"  id="btn-rocket-reset" onclick="resetRocket()" style="display:none">Reset</button>
+    <div class="chip chip-p" style="margin-left:8px">Thrust: <span id="c6-thrust">0</span> N</div>
+  </div>
+  <div class="insight" id="ins6">
+    <div class="insight-pill">Burning fuel creates massive pressure — nowhere to go but DOWN, so the rocket goes UP!</div>
+  </div>
+</div>
+
+</div><!-- end .cards -->
+
+<footer>Designed by <b>SWECHA</b> for the <b>BALA SWECHA</b></footer>
+
+<script>
+/* ══════════════════════════════════
+   NAV PILL
+══════════════════════════════════ */
+(function(){
+  document.querySelectorAll('.nav-inner').forEach(inner => {
+    const pill  = inner.querySelector('.nav-pill');
+    if(!pill) return;
+    function pos(){
+      const active = inner.querySelector('.nav-tab.active');
+      if(!active) return;
+      const iR = inner.getBoundingClientRect();
+      const aR = active.getBoundingClientRect();
+      pill.style.left  = (aR.left - iR.left)+'px';
+      pill.style.width = aR.width+'px';
+    }
+    pos();
+    window.addEventListener('resize', pos);
+  });
+})();
+
+/* ══════════════════════════════════
+   HELPER
+══════════════════════════════════ */
+function showInsight(id){
+  const el = document.getElementById(id);
+  if(el && !el.classList.contains('visible')) el.classList.add('visible');
+}
+
+function initSectionNav(){
+  const links = [...document.querySelectorAll('.section-nav .nav-tab[data-section]')];
+  const sections = links.map(link => document.getElementById(link.dataset.section)).filter(Boolean);
+  if(!links.length || !sections.length) return;
+
+  function setActive(id){
+    links.forEach(link => link.classList.toggle('active', link.dataset.section === id));
+    const inner = document.querySelector('.section-nav .nav-inner');
+    if(!inner) return;
+    const pill = inner.querySelector('.nav-pill');
+    const active = inner.querySelector('.nav-tab.active');
+    if(!pill || !active) return;
+    const iR = inner.getBoundingClientRect();
+    const aR = active.getBoundingClientRect();
+    pill.style.left = (aR.left - iR.left) + 'px';
+    pill.style.width = aR.width + 'px';
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin:'-22% 0px -68% 0px', threshold:0.1 });
+
+  sections.forEach(section => io.observe(section));
+  setActive('section-hook');
+}
+
+function initHookSection(){
+  const section = document.getElementById('section-hook');
+  if(!section) return;
+  const bubbles = [...section.querySelectorAll('.hook-bubble')];
+  const thought = section.querySelector('.hook-thought');
+  const arrow = section.querySelector('.hook-arrow');
+  const reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let played = false;
+
+  function reveal(){
+    if(played) return;
+    played = true;
+    bubbles.forEach((bubble, index) => setTimeout(() => bubble.classList.add('visible'), reduced ? 0 : index * 400));
+    if(thought) setTimeout(() => thought.classList.add('visible'), reduced ? 0 : 800);
+    if(arrow) setTimeout(() => arrow.classList.add('visible'), reduced ? 0 : 1200);
+  }
+
+  if(reduced){
+    reveal();
+    return;
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) reveal();
+    });
+  }, { threshold:0.35 });
+  io.observe(section);
+}
+
+function initPressureTypes(){
+  const section = document.getElementById('section-types');
+  if(!section) return;
+  const flow = document.getElementById('pressure-types-flow');
+  const detail = document.getElementById('pressure-type-detail');
+  const svgHost = document.getElementById('pressure-type-svg');
+  const title = document.getElementById('pressure-type-title');
+  const text = document.getElementById('pressure-type-text');
+  const example = document.getElementById('pressure-type-example');
+  const buttons = [...section.querySelectorAll('.pressure-type-node')];
+  const reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  const content = {
+    atmospheric: {
+      title: 'Atmospheric Pressure',
+      text: 'The weight of the entire air column above you pressing down.',
+      example: 'Why your ears pop on a plane',
+      svg: '<svg viewBox="0 0 180 180" width="180" height="180" aria-hidden="true"><rect x="0" y="0" width="180" height="180" rx="18" fill="#FFF6E9"></rect><path d="M20 28 C55 12, 125 12, 160 28 L160 55 C124 38, 56 38, 20 55 Z" fill="#cce8ff" opacity=".9"></path><path d="M24 58 C58 42, 122 42, 156 58" stroke="#3E8BFA" stroke-width="3" stroke-dasharray="7 7" fill="none"></path><circle cx="88" cy="113" r="16" fill="#FFD97D"></circle><rect x="81" y="129" width="14" height="18" rx="6" fill="#5c3d2e"></rect><line x1="88" y1="74" x2="88" y2="98" stroke="#FF9F2E" stroke-width="4" marker-end="url(#atmo-arrow)"></line><defs><marker id="atmo-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#FF9F2E"></polygon></marker></defs></svg>'
+    },
+    gauge: {
+      title: 'Gauge Pressure',
+      text: 'Pressure measured above atmospheric pressure.',
+      example: 'Your car tyre shows gauge pressure — add 14.7 psi for absolute',
+      svg: '<svg viewBox="0 0 180 180" width="180" height="180" aria-hidden="true"><rect x="0" y="0" width="180" height="180" rx="18" fill="#FFF6E9"></rect><circle cx="90" cy="96" r="48" fill="#fff" stroke="#E0D0C0" stroke-width="4"></circle><circle cx="90" cy="96" r="34" fill="#F8F0E8" stroke="#E0D0C0" stroke-width="2"></circle><line x1="90" y1="96" x2="124" y2="72" stroke="#FF9F2E" stroke-width="5" stroke-linecap="round"></line><circle cx="90" cy="96" r="6" fill="#A04EF6"></circle><rect x="80" y="35" width="20" height="30" rx="6" fill="#5c3d2e"></rect></svg>'
+    },
+    absolute: {
+      title: 'Absolute Pressure',
+      text: 'Total pressure measured from absolute zero (perfect vacuum).',
+      example: 'Used in Boyle\'s Law calculations',
+      svg: '<svg viewBox="0 0 180 180" width="180" height="180" aria-hidden="true"><rect x="0" y="0" width="180" height="180" rx="18" fill="#FFF6E9"></rect><rect x="42" y="44" width="96" height="92" rx="22" fill="#fff" stroke="#F2E3CC" stroke-width="4"></rect><rect x="62" y="64" width="56" height="52" rx="14" fill="#1a1a2e"></rect><line x1="90" y1="64" x2="90" y2="42" stroke="#FF5A4E" stroke-width="5" marker-end="url(#abs-arrow)"></line><defs><marker id="abs-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#FF5A4E"></polygon></marker></defs></svg>'
+    },
+    differential: {
+      title: 'Differential Pressure',
+      text: 'The difference in pressure between two points.',
+      example: 'How aircraft speed sensors (pitot tubes) work',
+      svg: '<svg viewBox="0 0 180 180" width="180" height="180" aria-hidden="true"><rect x="0" y="0" width="180" height="180" rx="18" fill="#FFF6E9"></rect><rect x="26" y="70" width="44" height="70" rx="12" fill="#cde8ff" stroke="#3E8BFA" stroke-width="3"></rect><rect x="110" y="52" width="44" height="88" rx="12" fill="#e6ffe6" stroke="#58B368" stroke-width="3"></rect><line x1="70" y1="105" x2="110" y2="98" stroke="#FF9F2E" stroke-width="5" marker-end="url(#diff-arrow)"></line><defs><marker id="diff-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#FF9F2E"></polygon></marker></defs></svg>'
+    }
+  };
+
+  function openType(type){
+    const item = content[type];
+    if(!item) return;
+    buttons.forEach(button => button.classList.toggle('active', button.dataset.type === type));
+    if(svgHost) svgHost.innerHTML = item.svg;
+    if(title) title.textContent = item.title;
+    if(text) text.textContent = item.text;
+    if(example) example.textContent = item.example;
+    if(detail){
+      detail.classList.add('open');
+      detail.style.maxHeight = detail.scrollHeight + 'px';
+    }
+  }
+
+  buttons.forEach(button => button.addEventListener('click', () => openType(button.dataset.type)));
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(!entry.isIntersecting) return;
+      if(flow) setTimeout(() => flow.classList.add('flow-drawn'), reduced ? 0 : 180);
+      openType('atmospheric');
+      io.disconnect();
+    });
+  }, { threshold:0.3 });
+
+  if(reduced){
+    if(flow) flow.classList.add('flow-drawn');
+    openType('atmospheric');
+  } else {
+    io.observe(section);
+  }
+
+  window.addEventListener('resize', () => {
+    if(detail && detail.classList.contains('open')) detail.style.maxHeight = detail.scrollHeight + 'px';
+  });
+}
+
+initSectionNav();
+initHookSection();
+initPressureTypes();
+
+/* ══════════════════════════════════
+   CARD 1 · SHARP VS BLUNT
+══════════════════════════════════ */
+let knifeType    = 'sharp';
+let pushInterval = null;
+let pushForce    = 0;
+let hasPlayedEndSound = false;
+
+const KNIFE_CFG = {
+  sharp:{ area:6,  label:'6 mm²'  },
+  blunt:{ area:60, label:'60 mm²' },
+};
+
+function setKnife(type){
+  knifeType = type;
+  if (window.soundFX) window.soundFX.playButtonSound();
+  document.getElementById('knife-sharp').style.display = type==='sharp' ? '' : 'none';
+  document.getElementById('knife-blunt').style.display = type==='blunt' ? '' : 'none';
+  document.getElementById('area-label').textContent = 'Area: '+KNIFE_CFG[type].label;
+  document.getElementById('c1-area').textContent    = KNIFE_CFG[type].area;
+  updateKnife();
+  showInsight('ins1');
+}
+
+function updateKnife(){
+  const cfg = KNIFE_CFG[knifeType];
+  const P   = cfg.area > 0 ? Math.round(pushForce / (cfg.area * 1e-6)) : 0;
+  document.getElementById('c1-force').textContent = Math.round(pushForce);
+  document.getElementById('c1-p').textContent     = P.toLocaleString();
+  drawHeatmap(P, cfg.area);
+
+  if (window.soundFX) {
+    if (pushForce > 0) {
+      window.soundFX.startForceSound();
+      window.soundFX.updateForceSound(pushForce);
+    } else {
+      window.soundFX.stopForceSound();
+    }
+
+    if (pushForce >= 100 && !hasPlayedEndSound) {
+      hasPlayedEndSound = true;
+      if (knifeType === 'sharp') {
+        window.soundFX.playCutSound();
+      } else {
+        window.soundFX.playSquashSound();
+      }
+    }
+  }
+
+  const pct = Math.min(pushForce/100, 1);
+  const ty  = pct * 60;
+  const el  = document.getElementById(knifeType==='sharp' ? 'knife-sharp' : 'knife-blunt');
+  el.setAttribute('transform', `translate(280,${20+ty})`);
+  const dent = document.getElementById('dent');
+  if(knifeType==='sharp'){
+    dent.setAttribute('rx', pct*30);
+    dent.setAttribute('ry', pct*10);
+    dent.setAttribute('cy', 200 - pct*6);
+  } else {
+    dent.setAttribute('rx', pct*55);
+    dent.setAttribute('ry', pct*4);
+    dent.setAttribute('cy', 200 - pct*2);
+  }
+}
+
+function drawHeatmap(P, areaMM){
+  const g    = document.getElementById('heatmap');
+  g.innerHTML = '';
+  const cols  = knifeType==='sharp' ? 3 : 8;
+  const rows  = knifeType==='sharp' ? 2 : 3;
+  const maxP  = knifeType==='sharp' ? 200000 : 20000;
+  const ratio = Math.min(P/maxP, 1);
+  const sx    = 280 - (cols*14)/2;
+  const sy    = 202;
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const cx = sx + c*14 + 7;
+      const cy = sy + r*12 + 6;
+      const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      circle.setAttribute('cx', cx);
+      circle.setAttribute('cy', cy);
+      circle.setAttribute('r',  4);
+      const red   = Math.round(88  + ratio*(255-88));
+      const green = Math.round(179 + ratio*(60-179));
+      const blue  = Math.round(104 + ratio*(60-104));
+      circle.setAttribute('fill', `rgb(${red},${green},${blue})`);
+      circle.setAttribute('opacity', 0.7 + ratio*0.3);
+      g.appendChild(circle);
+    }
+  }
+}
+
+function startPush(){
+  if(pushInterval) return;
+  hasPlayedEndSound = false;
+  showInsight('ins1');
+  pushInterval = setInterval(()=>{
+    pushForce = Math.min(pushForce + 3, 100);
+    updateKnife();
+  }, 30);
+}
+function stopPush(){
+  clearInterval(pushInterval);
+  pushInterval = null;
+  const decay = setInterval(()=>{
+    pushForce = Math.max(pushForce - 5, 0);
+    updateKnife();
+    if(pushForce <= 0) clearInterval(decay);
+  }, 30);
+}
+
+drawHeatmap(0, 6);
+
+
+/* ══════════════════════════════════
+   CARD 2 · PASCAL
+══════════════════════════════════ */
+(function(){
+  const slider    = document.getElementById('pascal-slider');
+  const pistonL   = document.getElementById('piston-left');
+  const pistonR   = document.getElementById('piston-right');
+  const fluidL    = document.getElementById('fluid-left');
+  const fluidR    = document.getElementById('fluid-right');
+  const carGroup  = document.getElementById('car-group');
+  const liftArrow = document.getElementById('lift-arrow');
+  const arrowL    = document.getElementById('arrow-left');
+
+  const PL_Y0=192, FL_Y0=200, FL_H0=65;
+  const PR_Y0=192, FR_Y0=200, FR_H0=65;
+
+  function update(){
+    const t    = +slider.value / 100;
+    const Fin  = Math.round(t * 200);
+    const Ain  = 10;   // cm²
+    const Aout = 100;  // cm²
+    const P    = Fin / (Ain * 1e-4);
+    const Fout = P * (Aout * 1e-4);
+
+    const dL = t * 50;
+    pistonL.setAttribute('y', PL_Y0 + dL);
+    fluidL.setAttribute('y', FL_Y0 + dL);
+    fluidL.setAttribute('height', Math.max(FL_H0 - dL, 0));
+
+    const dR = dL * (Ain/Aout);
+    pistonR.setAttribute('y', PR_Y0 - dR);
+    fluidR.setAttribute('y', FR_Y0 - dR);
+    fluidR.setAttribute('height', FR_H0 + dR);
+    carGroup.setAttribute('transform', `translate(0,${-dR * 5})`);
+    liftArrow.setAttribute('opacity', t > 0.05 ? '0.9' : '0');
+    arrowL.setAttribute('stroke-width', 1 + t*4);
+
+    document.getElementById('c2-fin').textContent  = Fin;
+    document.getElementById('c2-p').textContent    = (P/1000).toFixed(1);
+    document.getElementById('c2-fout').textContent = Math.round(Fout);
+
+    if(t > 0) {
+      showInsight('ins2');
+      if (window.soundFX) window.soundFX.playHydraulicSound();
+    }
+  }
+
+  slider.addEventListener('input', update);
+  update();
+})();
+
+
+/* ══════════════════════════════════
+   CARD 3 · DIVER
+══════════════════════════════════ */
+(function(){
+  const slider    = document.getElementById('depth-slider');
+  const depthSpan = document.getElementById('depth-val');
+
+  function update(){
+    const depth = +slider.value;
+    depthSpan.textContent = depth + ' m';
+
+    const diverY = 80 + depth * 5;
+    document.getElementById('diver-group').setAttribute('transform', `translate(280,${diverY})`);
+
+    const P_gauge = 1000 * 10 * depth;
+    const P_kPa   = (P_gauge/1000).toFixed(1);
+    const P_abs   = (101 + P_gauge/1000).toFixed(1);
+    document.getElementById('hydro-p-lbl').textContent     = 'P = '+P_kPa+' kPa';
+    document.getElementById('hydro-depth-lbl').textContent = 'depth = '+depth+' m';
+    document.getElementById('c3-p').textContent   = P_kPa;
+    document.getElementById('c3-abs').textContent = P_abs;
+
+    const cx = 280, cy = diverY;
+    const aLen = 15 + depth * 1.5;
+    document.getElementById('arr-left') .setAttribute('x1', cx-40-aLen);
+    document.getElementById('arr-left') .setAttribute('x2', cx-40);
+    document.getElementById('arr-left') .setAttribute('y1', cy);
+    document.getElementById('arr-left') .setAttribute('y2', cy);
+    document.getElementById('arr-right').setAttribute('x1', cx+40+aLen);
+    document.getElementById('arr-right').setAttribute('x2', cx+40);
+    document.getElementById('arr-right').setAttribute('y1', cy);
+    document.getElementById('arr-right').setAttribute('y2', cy);
+    document.getElementById('arr-top')  .setAttribute('x1', cx);
+    document.getElementById('arr-top')  .setAttribute('x2', cx);
+    document.getElementById('arr-top')  .setAttribute('y1', cy-30-aLen*.6);
+    document.getElementById('arr-top')  .setAttribute('y2', cy-30);
+    document.getElementById('arr-bot')  .setAttribute('x1', cx);
+    document.getElementById('arr-bot')  .setAttribute('x2', cx);
+    document.getElementById('arr-bot')  .setAttribute('y1', cy+30+aLen*.6);
+    document.getElementById('arr-bot')  .setAttribute('y2', cy+30);
+
+    const face = document.getElementById('diver-face');
+    face.textContent = depth<10 ? '😊' : depth<25 ? '😐' : depth<35 ? '😰' : '😱';
+
+    if(depth > 0) {
+      showInsight('ins3');
+      if (window.soundFX) {
+        window.soundFX.playBubbleSound();
+        if (depth >= 30) window.soundFX.playSonarPing();
+      }
+    }
+  }
+
+  slider.addEventListener('input', update);
+  update();
+})();
+
+
+/* ══════════════════════════════════
+   CARD 4 · BOYLE'S LAW
+══════════════════════════════════ */
+(function(){
+  const svg       = document.getElementById('boyle-svg');
+  const piston    = document.getElementById('boyle-piston');
+  const clipRect  = document.getElementById('gas-clip-rect');
+  const gasBg     = document.getElementById('gas-bg');
+  const needle    = document.getElementById('gauge-needle');
+  const gaugeLbl  = document.getElementById('gauge-lbl');
+  const vLbl      = document.getElementById('boyle-v-lbl');
+
+  const WALL_L=88, WALL_R0=370, WALL_T=44, WALL_B=256;
+  let pistonX = WALL_R0;
+  let dragging=false, dragSVG0=0, pistonX0=0;
+
+  // particles
+  const NUM=18;
+  let pts=[];
+
+  function initPts(){
+    pts=[];
+    const g=document.getElementById('particles');
+    g.innerHTML='';
+    const cols=['#FF5A4E','#FF9F2E','#A04EF6','#3E8BFA','#58B368'];
+    for(let i=0;i<NUM;i++){
+      const x  = WALL_L+10+Math.random()*(pistonX-WALL_L-20);
+      const y  = WALL_T+10+Math.random()*(WALL_B-WALL_T-20);
+      const vx = (Math.random()-.5)*3;
+      const vy = (Math.random()-.5)*3;
+      const r  = 5+Math.random()*3;
+      const el = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      el.setAttribute('r',    r);
+      el.setAttribute('fill', cols[i%cols.length]);
+      el.setAttribute('opacity','.85');
+      g.appendChild(el);
+      pts.push({x,y,vx,vy,r,el});
+    }
+  }
+
+  function svgX(clientX){
+    const pt=svg.createSVGPoint();
+    pt.x=clientX; pt.y=0;
+    return pt.matrixTransform(svg.getScreenCTM().inverse()).x;
+  }
+
+  function stepPts(){
+    const speed=1+(WALL_R0-pistonX)/100*2.5;
+    for(const p of pts){
+      p.x+=p.vx*speed; p.y+=p.vy*speed;
+      if(p.x-p.r<WALL_L)   { p.x=WALL_L+p.r;    p.vx= Math.abs(p.vx); }
+      if(p.x+p.r>pistonX)  { p.x=pistonX-p.r;   p.vx=-Math.abs(p.vx); }
+      if(p.y-p.r<WALL_T)   { p.y=WALL_T+p.r;    p.vy= Math.abs(p.vy); }
+      if(p.y+p.r>WALL_B)   { p.y=WALL_B-p.r;    p.vy=-Math.abs(p.vy); }
+      p.el.setAttribute('cx',p.x);
+      p.el.setAttribute('cy',p.y);
+    }
+  }
+
+  function updateGauge(){
+    const V0    = WALL_R0-WALL_L;
+    const V     = Math.max(pistonX-WALL_L, 10);
+    const ratio = V0/V;
+    const angle = -90 + Math.min((ratio-1)/3,1)*180;
+    needle.setAttribute('transform',`rotate(${angle})`);
+    gaugeLbl.textContent = ratio.toFixed(2)+'×P₀';
+    const Vpct = Math.round(V/V0*100);
+    vLbl.textContent='V = '+Vpct+'%';
+    document.getElementById('c4-v').textContent=Vpct;
+    document.getElementById('c4-p').textContent=ratio.toFixed(2);
+    const r2=Math.min((ratio-1)/2,1);
+    gasBg.setAttribute('fill',`rgb(255,${Math.round(240-r2*60)},${Math.round(220-r2*60)})`);
+  }
+
+  function getClientX(e){ return e.touches ? e.touches[0].clientX : e.clientX; }
+
+  piston.addEventListener('pointerdown',e=>{
+    dragging=true; dragSVG0=svgX(getClientX(e)); pistonX0=pistonX;
+    piston.setPointerCapture(e.pointerId);
+    showInsight('ins4');
+    if (window.soundFX) window.soundFX.playHissSound();
+  });
+  window.addEventListener('pointermove',e=>{
+    if(!dragging) return;
+    const dx=svgX(getClientX(e))-dragSVG0;
+    pistonX=Math.max(WALL_L+40,Math.min(WALL_R0,pistonX0+dx));
+    piston.setAttribute('x', pistonX-8);
+    clipRect.setAttribute('width', pistonX-WALL_L+2);
+    gasBg.setAttribute('width',    pistonX-WALL_L);
+    updateGauge();
+
+    if (window.soundFX) {
+      const V0    = WALL_R0-WALL_L;
+      const V     = Math.max(pistonX-WALL_L, 10);
+      const ratio = V0/V;
+      window.soundFX.updateHissSound(ratio);
+    }
+  });
+  window.addEventListener('pointerup',()=>{
+    if (dragging) {
+      dragging=false;
+      if (window.soundFX) window.soundFX.stopHissSound();
+    }
+  });
+
+  initPts();
+  updateGauge();
+
+  function loop(){ stepPts(); requestAnimationFrame(loop); }
+  loop();
+})();
+
+
+/* ══════════════════════════════════
+   CARD 5 · BLOOD PRESSURE
+══════════════════════════════════ */
+let heartAnimI = null;
+let card5Used  = false;
+let lastHeartbeatTime = 0;
+
+// one heartbeat: sound + heart pulse + artery wave (no insight side effects,
+// so the automatic loop can reuse it)
+function bpHeartbeatOnce(){
+  const stress = +document.getElementById('stress-slider').value;
+  if (window.soundFX) window.soundFX.playHeartbeatSound(stress);
+
+  // heart pulse
+  clearInterval(heartAnimI);
+  const hg = document.getElementById('heart-group');
+  let t = 0;
+  heartAnimI = setInterval(()=>{
+    t += 0.15;
+    const s = 1 + Math.sin(t) * 0.12 * Math.exp(-t*0.4);
+    hg.setAttribute('transform', `translate(110,130) scale(${s})`);
+    if(t > 4){ clearInterval(heartAnimI); hg.setAttribute('transform','translate(110,130)'); }
+  }, 16);
+
+  // pulse wave
+  const wave  = document.getElementById('pulse-wave');
+  const lumen = document.getElementById('artery-lumen');
+  wave.setAttribute('d','M205,115 Q280,95 350,125 Q420,150 495,125');
+  lumen.setAttribute('height','44');
+  setTimeout(()=>{
+    wave.setAttribute('d','M205,125 Q280,125 350,125 Q420,125 495,125');
+    lumen.setAttribute('height','34');
+  }, 400);
+}
+
+function triggerHeartbeat(){
+  card5Used = true;
+  showInsight('ins5');
+  updateBP();
+  bpHeartbeatOnce();
+  // a manual beat re-syncs the automatic rhythm so beats never pile up
+  if (heartbeatLoopActive) scheduleNextHeartbeat();
+}
+
+function updateBP(){
+  const stress = +document.getElementById('stress-slider').value;
+  const sys = Math.round(120 + stress * 0.6);
+  const dia = Math.round(80  + stress * 0.3);
+  document.getElementById('c5-sys').textContent  = sys;
+  document.getElementById('c5-dia').textContent  = dia;
+  document.getElementById('sys-val').textContent = sys;
+  const lbl = stress<30 ? 'Normal' : stress<60 ? 'Elevated' : 'High!';
+  const col = stress<30 ? '#58B368' : stress<60 ? '#FF9F2E' : '#FF5A4E';
+  const stressEl = document.getElementById('bp-stress-lbl');
+  stressEl.textContent = 'Stress: '+lbl;
+  stressEl.setAttribute('fill', col);
+  if(card5Used) showInsight('ins5');
+  // ECG speed syncs with heart rate: 70 bpm at rest → 150 bpm at full stress
+  const heartRate = 70 + stress * 0.8;
+  const ecg = document.getElementById('ecg-path');
+  if(ecg) ecg.style.animationDuration = (60/heartRate).toFixed(2)+'s';
+}
+
+document.getElementById('heart-group').addEventListener('click', triggerHeartbeat);
+document.getElementById('stress-slider').addEventListener('input', (e)=>{
+  card5Used = true;
+  showInsight('ins5');
+  updateBP();
+
+  // subtle rising/falling tone tracks the BP change
+  if (window.soundFX) window.soundFX.playSliderSound(+e.target.value, 0, 100);
+
+  const now = performance.now();
+  if (now - lastHeartbeatTime > 400) {
+    lastHeartbeatTime = now;
+    triggerHeartbeat();
+  }
+});
+
+/* Continuous heartbeat while the Blood Pressure card is on screen.
+   Rate/volume follow the stress slider (read live each cycle); the sound
+   itself respects the global mute via playHeartbeatSound. */
+let heartbeatLoopActive = false;
+let heartbeatTimer = null;
+
+function scheduleNextHeartbeat(){
+  clearTimeout(heartbeatTimer);
+  const stress = +document.getElementById('stress-slider').value;
+  const bpm = 70 + stress * 0.8;   // same mapping as the ECG trace
+  heartbeatTimer = setTimeout(()=>{
+    if (!heartbeatLoopActive) return;
+    if (!document.hidden) bpHeartbeatOnce();   // no beeping from background tabs
+    scheduleNextHeartbeat();
+  }, 60000 / bpm);
+}
+
+function startBloodPressureHeartbeatLoop(){
+  if (heartbeatLoopActive) return;
+  heartbeatLoopActive = true;
+  bpHeartbeatOnce();
+  scheduleNextHeartbeat();
+}
+
+function stopBloodPressureHeartbeatLoop(){
+  heartbeatLoopActive = false;
+  clearTimeout(heartbeatTimer);
+  heartbeatTimer = null;
+}
+
+new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if (en.isIntersecting) startBloodPressureHeartbeatLoop();
+    else stopBloodPressureHeartbeatLoop();
+  });
+}, { threshold: 0.35 }).observe(document.getElementById('card5'));
+
+
+/* ══════════════════════════════════
+   CARD 6 · ROCKET LAUNCH
+══════════════════════════════════ */
+let rocketLaunched = false;
+let rocketRAF = null;
+let journeyActive = false;
+let journeyRAF = null;
+let journeyEls = null;
+let journeyPad = null;
+let journeyBubbleTimer = null;
+
+function igniteRocket(){
+  if(rocketLaunched) return;
+  rocketLaunched = true;
+  // launch owns the stage: silences assistant + meter narration until landing
+  if(window.VoiceArbiter) window.VoiceArbiter.beginActivity('rocket');
+  document.getElementById('btn-ignite').style.display = 'none';
+  document.getElementById('btn-rocket-reset').style.display = '';
+  showInsight('ins6');
+
+  if (window.soundFX) window.soundFX.playRocketSound();
+
+  const card6     = document.getElementById('card6');
+  const flames    = document.getElementById('rocket-flames');
+  const rocketGrp = document.getElementById('rocket-group');
+  const arms      = document.getElementById('launch-arms');
+  const tFill     = document.getElementById('thrust-gauge-fill');
+  const tPct      = document.getElementById('thrust-pct-lbl');
+  const tDisp     = document.getElementById('c6-thrust');
+  const badge     = document.getElementById('liftoff-badge');
+
+  // remember the exact pad spot (viewport rect + scroll) so the journey can land home
+  journeyPad = { rect: rocketGrp.getBoundingClientRect(), scrollY: window.scrollY };
+
+  /* PHASE 1 — pre-launch countdown: vibration, engine glow, tiny smoke */
+  flames.setAttribute('opacity','0.25');
+  flames.classList.add('flame-active');
+  let preFrame = 0;
+  function prelaunch(){
+    if(!rocketLaunched) return;   // reset pressed during countdown
+    preFrame++;
+    const jx=(Math.random()-.5)*2.6, jy=(Math.random()-.5)*1.4;
+    rocketGrp.setAttribute('transform', `translate(${(280+jx).toFixed(2)},${(215+jy).toFixed(2)})`);
+    // countdown beeps: 3..2..1
+    if((preFrame===1 || preFrame===29 || preFrame===57) && window.soundFX)
+      window.soundFX.tone({ frequency: 760, duration: 0.1, type: 'sine', gain: 0.05 });
+    if(preFrame%10===0) spawnSmoke(280, 282, 0.1);
+    if(preFrame < 85){ rocketRAF = requestAnimationFrame(prelaunch); }
+    else { rocketGrp.setAttribute('transform','translate(280,215)'); liftoff(); }
+  }
+  rocketRAF = requestAnimationFrame(prelaunch);
+
+  /* PHASE 2 — liftoff inside the sim box, hand off to the page-wide journey */
+  function liftoff(){
+    card6.classList.add('card-shake');
+    card6.addEventListener('animationend', ()=>card6.classList.remove('card-shake'), {once:true});
+
+    flames.setAttribute('opacity','1');
+    arms.setAttribute('opacity','0');
+
+    const ROCKET_Y0 = 215, FLAME_Y0 = 270, LIFT = 205, MAX_T = 35000, DUR = 240;
+    let frame = 0;
+
+    function launch(){
+      frame++;
+      const raw   = Math.min(1, frame/DUR);
+      const eased = raw < 0.5 ? 2*raw*raw : -1+(4-2*raw)*raw;
+
+      rocketGrp.setAttribute('transform', `translate(280,${ROCKET_Y0 - eased*LIFT})`);
+      flames.setAttribute('transform',    `translate(280,${FLAME_Y0  - eased*LIFT})`);
+
+      const gaugeH = Math.round(eased*148);
+      tFill.setAttribute('height', gaugeH);
+      tFill.setAttribute('y',      171 - gaugeH);
+      const r=Math.round(88 +eased*(255-88)), g=Math.round(179+eased*(90-179)), b=Math.round(104+eased*(60-104));
+      const col=`rgb(${r},${g},${b})`;
+      tFill.setAttribute('fill', col);
+      tPct.textContent = Math.round(eased*100)+'%';
+      tPct.setAttribute('fill', col);
+      tDisp.textContent = Math.round(eased*MAX_T).toLocaleString();
+
+      if (window.soundFX) window.soundFX.updateRocketSound(eased);
+
+      if(!journeyActive && raw>=0.45) startRocketJourney(rocketGrp, flames);
+      if(!journeyActive && frame%3===0) spawnSmoke(280, FLAME_Y0 - eased*LIFT + 12, eased);
+      if(raw>=0.75) badge.setAttribute('opacity', Math.min(1,(raw-0.75)/0.25).toFixed(2));
+
+      if (raw < 1) {
+        rocketRAF = requestAnimationFrame(launch);
+      } else {
+        // keep the engine rumbling while the overlay journey is in flight
+        if (!journeyActive && window.soundFX) window.soundFX.stopRocketSound();
+      }
+    }
+    rocketRAF = requestAnimationFrame(launch);
+  }
+}
+
+/* PHASES 3–6 — overlay rocket leaves the box, teaches pressure on the way
+   to the hero section, says goodbye, flies back and lands on the pad */
+const JOURNEY_BUBBLES = [
+  'Fuel burns inside the rocket engine!',
+  'Burning fuel creates very hot gases!',
+  'The hot gases get squeezed and create HIGH pressure!',
+  'High-pressure gases rush downward through the nozzle!',
+  'When gases push DOWN, the rocket gets pushed UP!',
+  "That's pressure in action!"
+];
+
+function startRocketJourney(rocketGrp, flames){
+  journeyActive = true;
+  const NS = 'http://www.w3.org/2000/svg';
+  const rectNow = rocketGrp.getBoundingClientRect();
+  const scale = rectNow.height/129;          // rocket art is 129 svg units tall
+
+  // clone rocket + flames before hiding the originals
+  const rk = rocketGrp.cloneNode(true); rk.removeAttribute('id');
+  rk.setAttribute('transform','translate(0,0)');
+  const fl = flames.cloneNode(true); fl.removeAttribute('id');
+  fl.setAttribute('transform','translate(0,55)');
+  fl.setAttribute('opacity','1');
+  fl.classList.add('flame-active');
+  rocketGrp.setAttribute('opacity','0');
+  flames.setAttribute('opacity','0');
+
+  const layer = document.createElement('div');
+  layer.className = 'rocket-journey-layer';
+  const svg = document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox','-45 -75 90 175');
+  svg.setAttribute('width', (90*scale).toFixed(1));
+  svg.setAttribute('height',(175*scale).toFixed(1));
+  const smokeG = document.createElementNS(NS,'g');
+  const glow = document.createElementNS(NS,'ellipse');
+  glow.setAttribute('cx','0'); glow.setAttribute('cy','92');
+  glow.setAttribute('rx','9'); glow.setAttribute('ry','24');
+  glow.setAttribute('fill','#FF9F2E'); glow.setAttribute('opacity','0.3');
+  svg.appendChild(smokeG); svg.appendChild(glow); svg.appendChild(fl); svg.appendChild(rk);
+  const bubble = document.createElement('div');
+  bubble.className = 'rocket-bubble';
+  layer.appendChild(svg); layer.appendChild(bubble);
+  document.body.appendChild(layer);
+  journeyEls = { layer, svg, bubble, fl, glow, smokeG };
+
+  // anchor = rocket origin point (between nose and nozzle) in viewport px
+  const ax0 = rectNow.left + rectNow.width/2;
+  const ay0 = rectNow.top  + (70/129)*rectNow.height;
+  const padR  = journeyPad.rect;
+  const padAx = padR.left + padR.width/2;
+  const padAy = padR.top  + (70/129)*padR.height;
+  const homeScroll = journeyPad.scrollY;
+  const hoverY = Math.max(160, Math.min(250, window.innerHeight*0.36));
+
+  let bubbleText = null;
+  function setBubble(text){
+    if(bubbleText === text) return;
+    bubbleText = text;
+    bubble.classList.remove('rb-show');
+    clearTimeout(journeyBubbleTimer);
+    if(text){
+      journeyBubbleTimer = setTimeout(()=>{
+        bubble.textContent = text;
+        bubble.classList.add('rb-show');
+        if(window.soundFX) window.soundFX.playBubbleSound();
+      }, 280);
+    }
+  }
+
+  let bubX = ax0, bubY = ay0;
+  function placeRocket(x, y, rot){
+    svg.style.transform =
+      `translate3d(${(x-45*scale).toFixed(1)}px,${(y-75*scale).toFixed(1)}px,0) rotate(${rot.toFixed(1)}deg)`;
+    // speech bubble loosely follows the rocket
+    const bw = bubble.offsetWidth || 200;
+    let tx = x + 48*scale + 12, ty = y - 56;
+    if(tx + bw > window.innerWidth - 8) tx = x - 48*scale - bw - 12;
+    if(tx < 8) tx = 8;
+    if(ty < 70) ty = 70;
+    bubX += (tx-bubX)*0.14; bubY += (ty-bubY)*0.14;
+    bubble.style.left = bubX.toFixed(1)+'px';
+    bubble.style.top  = bubY.toFixed(1)+'px';
+  }
+
+  function puff(strength){
+    const c = document.createElementNS(NS,'circle');
+    let cx=(Math.random()-.5)*16, cy=86, r=3+Math.random()*4, op=.4;
+    const grey=Math.round(120+Math.random()*90);
+    c.setAttribute('fill',`rgb(${grey},${grey},${grey})`);
+    smokeG.appendChild(c);
+    const vx=(Math.random()-.5)*1.2, vy=2+Math.random()*2.2*strength;
+    (function drift(){
+      cx+=vx; cy+=vy; op-=0.022; r+=0.35;
+      c.setAttribute('cx',cx.toFixed(1)); c.setAttribute('cy',cy.toFixed(1));
+      c.setAttribute('r',r.toFixed(1)); c.setAttribute('opacity',Math.max(0,op).toFixed(3));
+      if(op>0 && journeyActive) requestAnimationFrame(drift); else c.remove();
+    })();
+  }
+
+  const easeIO = t => t<0.5 ? 2*t*t : -1+(4-2*t)*t;
+  const T_UP=10000, T_HOVER=1300, T_BYE=2400, T_FLIP=800, T_DOWN=7000, T_LAND=650;
+  let phase='up', phaseStart=performance.now(), tick=0, descentFromScroll=0;
+
+  function step(now){
+    if(!journeyActive) return;
+    tick++;
+    const el = now - phaseStart;
+
+    if(phase==='up'){
+      const p = Math.min(1, el/T_UP), e = easeIO(p);
+      window.scrollTo(0, homeScroll*(1-e));
+      const x = ax0 + Math.sin(now/300)*14*Math.sin(Math.PI*Math.min(1,p*1.2));
+      const y = ay0 + (hoverY-ay0)*e;
+      placeRocket(x, y, Math.sin(now/300)*4);
+      glow.setAttribute('opacity',(0.25+0.15*Math.sin(now/90)).toFixed(2));
+      if(tick%3===0) puff(1);
+      const seg = Math.min(5, Math.floor(p*6)), f = p*6-seg;
+      setBubble(f>0.06 && f<0.92 ? JOURNEY_BUBBLES[seg] : null);
+      if(p>=1){
+        phase='hover'; phaseStart=now; setBubble(null); window.scrollTo(0,0);
+        // cheerful arrival ding + engine settles to a quiet idle
+        if(window.soundFX){ window.soundFX.playDingSound(); window.soundFX.updateRocketSound(0.1); }
+      }
+    }
+    else if(phase==='hover' || phase==='bye'){
+      const y = hoverY + Math.sin(now/260)*6;
+      placeRocket(ax0 + Math.sin(now/420)*5, y, Math.sin(now/420)*2);
+      if(tick%5===0) puff(0.4);
+      if(phase==='hover' && el>=T_HOVER){
+        phase='bye'; phaseStart=now;
+        setBubble('Bye! Keep exploring pressure!');
+        if(window.soundFX) window.soundFX.playCorrectSound();
+      } else if(phase==='bye' && el>=T_BYE){
+        phase='flip'; phaseStart=now; setBubble(null);
+      }
+    }
+    else if(phase==='flip'){
+      const p = Math.min(1, el/T_FLIP);
+      placeRocket(ax0, hoverY, easeIO(p)*360);
+      if(p>=1){ phase='down'; phaseStart=now; descentFromScroll=window.scrollY; }
+    }
+    else if(phase==='down'){
+      const p = Math.min(1, el/T_DOWN), e = easeIO(p);
+      window.scrollTo(0, descentFromScroll + (homeScroll-descentFromScroll)*e);
+      const x = ax0 + (padAx-ax0)*e + Math.sin(now/320)*10*(1-e);
+      const y = hoverY + (padAy-hoverY)*e;
+      placeRocket(x, y, Math.sin(now/320)*3*(1-e));
+      fl.setAttribute('opacity', (0.5+0.5*(1-e)).toFixed(2));
+      // lighter engine sound on the way down, fading toward landing
+      if(window.soundFX) window.soundFX.updateRocketSound(0.05 + 0.3*(1-e));
+      if(tick%4===0) puff(0.7);
+      if(p>=1){ phase='land'; phaseStart=now; window.scrollTo(0, homeScroll); }
+    }
+    else if(phase==='land'){
+      const p = Math.min(1, el/T_LAND);
+      const hop = Math.sin(Math.PI*p)*5;     // tiny bounce
+      placeRocket(padAx, padAy - hop, 0);
+      fl.setAttribute('opacity', Math.max(0, 0.5-p*0.6).toFixed(2));
+      glow.setAttribute('opacity', Math.max(0, 0.25*(1-p)).toFixed(2));
+      if(p>=1){ finishRocketJourney(); return; }
+    }
+    journeyRAF = requestAnimationFrame(step);
+  }
+  journeyRAF = requestAnimationFrame(step);
+}
+
+function finishRocketJourney(){
+  endRocketJourney();
+  resetRocket();   // restore pad, gauge and buttons — launch is ready again
+  // landing dust puffs + gentle settle motion
+  for(let i=0;i<7;i++) spawnSmoke(258+Math.random()*44, 276, 0.15);
+  const grp = document.getElementById('rocket-group');
+  let f = 0;
+  (function settle(){
+    f++;
+    const dy = Math.sin(f/14*Math.PI)*2;
+    grp.setAttribute('transform',`translate(280,${(215+dy).toFixed(2)})`);
+    if(f<14 && !rocketLaunched) requestAnimationFrame(settle);
+    else if(!rocketLaunched) grp.setAttribute('transform','translate(280,215)');
+  })();
+}
+
+function endRocketJourney(){
+  journeyActive = false;
+  cancelAnimationFrame(journeyRAF);
+  clearTimeout(journeyBubbleTimer);
+  if(journeyEls){ journeyEls.layer.remove(); journeyEls = null; }
+}
+
+function spawnSmoke(cx, cy, intensity){
+  const g = document.getElementById('rocket-smoke');
+  const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  const sz = 3 + Math.random()*7;
+  c.setAttribute('cx', cx+(Math.random()-.5)*22);
+  c.setAttribute('cy', cy);
+  c.setAttribute('r',  sz);
+  const grey=Math.round(80+Math.random()*100);
+  c.setAttribute('fill',    `rgb(${grey},${grey},${grey})`);
+  c.setAttribute('opacity', '0.5');
+  g.appendChild(c);
+  let ox=parseFloat(c.getAttribute('cx')), oy=cy;
+  let vx=(Math.random()-.5)*1.8, vy=-0.8-Math.random()*1.2, op=0.5, r=sz;
+  (function drift(){
+    ox+=vx; oy+=vy; op-=0.012; r+=0.18;
+    c.setAttribute('cx',ox); c.setAttribute('cy',oy);
+    c.setAttribute('opacity', Math.max(0,op).toFixed(3));
+    c.setAttribute('r',r);
+    if(op>0) requestAnimationFrame(drift); else c.remove();
+  })();
+}
+
+function resetRocket(){
+  rocketLaunched=false;
+  cancelAnimationFrame(rocketRAF);
+  endRocketJourney();
+  // launch is over (landed or reset) — lower-priority narrators may resume
+  if(window.VoiceArbiter) window.VoiceArbiter.endActivity('rocket');
+  if (window.soundFX) {
+    window.soundFX.stopRocketSound();
+    window.soundFX.tone({ frequency: 200, slideTo: 40, duration: 0.3, type: 'sine', gain: 0.055 });
+  }
+  document.getElementById('btn-ignite').style.display='';
+  document.getElementById('btn-rocket-reset').style.display='none';
+  const flames=document.getElementById('rocket-flames');
+  flames.setAttribute('opacity','0');
+  flames.classList.remove('flame-active');
+  flames.setAttribute('transform','translate(280,270)');
+  const rocketGrp=document.getElementById('rocket-group');
+  rocketGrp.setAttribute('transform','translate(280,215)');
+  rocketGrp.setAttribute('opacity','1');
+  document.getElementById('launch-arms').setAttribute('opacity','1');
+  const tFill=document.getElementById('thrust-gauge-fill');
+  tFill.setAttribute('height','0'); tFill.setAttribute('y','171'); tFill.setAttribute('fill','#58B368');
+  const tPct=document.getElementById('thrust-pct-lbl');
+  tPct.textContent='0%'; tPct.setAttribute('fill','#58B368');
+  document.getElementById('c6-thrust').textContent='0';
+  document.getElementById('liftoff-badge').setAttribute('opacity','0');
+  document.getElementById('rocket-smoke').innerHTML='';
+  const ins=document.getElementById('ins6');
+  if(ins) ins.classList.remove('visible');
+}
+
+
+/* ══════════════════════════════════
+   VOICE ARBITER — one narrator at a time
+   priority: rocket (3) > assistant (2) > meter (1)
+══════════════════════════════════ */
+window.VoiceArbiter = (function(){
+  const PRIORITY = { rocket: 3, assistant: 2, meter: 1 };
+  const blockers = new Set();   // running activities that silence lower voices (rocket launch)
+  const listeners = {};
+  let owner = null;             // narration owner — the assistant while hired
+  let speakingSource = null;
+
+  function cancelAll(){
+    if('speechSynthesis' in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+  }
+  function canSpeak(source){
+    const p = PRIORITY[source] || 0;
+    for(const b of blockers) if(PRIORITY[b] > p) return false;
+    if(owner && owner !== source && p < PRIORITY[owner]) return false;
+    return true;
+  }
+  // every narration goes through here — guarantees a cancel() before speaking
+  function request(source){
+    if(!canSpeak(source)) return false;
+    cancelAll();
+    speakingSource = source;
+    return true;
+  }
+  function release(source){ if(speakingSource === source) speakingSource = null; }
+  function setOwner(name){ owner = name; cancelAll(); }
+  function clearOwner(name){ if(owner === name) owner = null; }
+  function on(evt, fn){ (listeners[evt] = listeners[evt] || []).push(fn); }
+  function emit(evt){ (listeners[evt] || []).forEach(fn => { try{ fn(); }catch(e){} }); }
+  function beginActivity(name){
+    if(blockers.has(name)) return;
+    blockers.add(name);
+    cancelAll();                // a higher-priority source takes the stage immediately
+    emit(name + ':start');
+  }
+  function endActivity(name){
+    if(blockers.delete(name)) emit(name + ':end');
+  }
+  return { canSpeak, request, release, setOwner, clearOwner, beginActivity, endActivity, on,
+           isActive: name => blockers.has(name) };
+})();
+
+/* ══════════════════════════════════
+   SCROLL ANIMATIONS
+══════════════════════════════════ */
+(function(){
+  /* 1 — Pressure Experience Meter (fixed circular gauge, top-right) */
+  const pem      = document.getElementById('pem');
+  const pemArc   = document.getElementById('pem-arc');
+  const pemValue = document.getElementById('pem-value');
+  const pemTitle = document.getElementById('pem-title');
+  const pemMsg   = document.getElementById('pem-msg');
+  const pemDial  = document.getElementById('pem-dial');
+  const pemCard  = document.getElementById('pem-card');
+  const pemSR    = document.getElementById('pem-sr');
+  const pemCPa     = document.getElementById('pem-c-pa');
+  const pemCScroll = document.getElementById('pem-c-scroll');
+  const pemCLevel  = document.getElementById('pem-c-level');
+  const pemCMsg    = document.getElementById('pem-c-msg');
+  const ARC_LEN = 276.46;
+  const pemReduced = window.matchMedia('(prefers-reduced-motion:reduce)');
+  const PEM_DURS = ['.5s','.42s','.34s','.26s','.2s'];
+
+  const LEVELS = [
+    {max:100,  title:'Tiny Pressure',       color:'#58B368',
+     msg:'About the weight of a few sheets of paper resting on your hand.'},
+    {max:200,  title:'Light Pressure',      color:'#58B368',
+     msg:'Like holding a smartphone in your palm.'},
+    {max:350,  title:'Building Pressure',   color:'#FF9F2E',
+     msg:'Imagine a thick textbook resting on your head.'},
+    {max:500,  title:'Noticeable Pressure', color:'#FF9F2E',
+     msg:'Similar to carrying a loaded school backpack.'},
+    {max:650,  title:'Strong Pressure',     color:'#FF5A4E',
+     msg:'Like balancing a half-filled bucket of water above your head.'},
+    {max:800,  title:'Heavy Pressure',      color:'#FF5A4E',
+     msg:'Like a completely full bucket of water pushing down on you.'},
+    {max:900,  title:'Extreme Pressure',    color:'#E8352A',
+     msg:'Imagine several full water buckets stacked above you.'},
+    {max:1000, title:'Massive Pressure',    color:'#E8352A',
+     msg:'Pressure this strong starts reaching forces that can feel overwhelming to the human body.'},
+  ];
+
+  let pemRaf = 0, pemLastP = -1, pemLastLvl = -1, pemOpen = false;
+
+  function pemSpeak(lvl){
+    if(!('speechSynthesis' in window)) return;
+    if(window.soundFX && window.soundFX.isMuted()) return;
+    // meter is the lowest-priority narrator: silent while the assistant is
+    // hired or a rocket launch is running (request() also cancels any speech)
+    if(window.VoiceArbiter && !window.VoiceArbiter.request('meter')) return;
+    try{
+      const u = new SpeechSynthesisUtterance(lvl.title + '. ' + lvl.msg);
+      u.rate = 1; u.pitch = 1; u.volume = .9;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function pemUpdateCard(pressure, t, lvl){
+    pemCPa.textContent     = pressure + ' Pa';
+    pemCScroll.textContent = Math.round(t*100) + '%';
+    pemCLevel.textContent  = lvl.title;
+    pemCMsg.textContent    = lvl.msg;
+  }
+
+  const scrollProg = document.getElementById('scroll-progress');
+  function pemRender(){
+    pemRaf = 0;
+    const max = document.body.scrollHeight - window.innerHeight;
+    const t   = max>0 ? Math.min(1, Math.max(0, window.scrollY/max)) : 0;
+    const pressure = Math.round(t*1000);
+
+    // scroll progress bar
+    if(scrollProg){
+      const pct = t*100;
+      scrollProg.style.width = pct+'%';
+      scrollProg.style.background = pct<40 ? '#58B368' : pct<72 ? '#FF9F2E' : '#FF5A4E';
+    }
+
+    if(pressure === pemLastP) return;
+    pemLastP = pressure;
+
+    pemArc.style.strokeDashoffset = (ARC_LEN*(1-t)).toFixed(1);
+    const r=Math.round(88+t*167), g=Math.round(179-t*99), b=Math.round(104-t*54);
+    pemArc.style.stroke = `rgb(${r},${g},${b})`;
+    pemValue.textContent = pressure + ' Pa';
+
+    // continuous vibration: amplitude scales smoothly with pressure
+    if(!pemReduced.matches){
+      pem.style.setProperty('--pem-amp', (0.35 + t*2.65).toFixed(2));
+    }
+
+    // intensity tier: 0 soft → 4 red warning (also sets shake speed)
+    const tier = t>=0.92 ? 4 : t>=0.8 ? 3 : t>=0.6 ? 2 : t>=0.35 ? 1 : 0;
+    if(pem.dataset.tier !== String(tier)){
+      pem.dataset.tier = String(tier);
+      if(!pemReduced.matches) pem.style.setProperty('--pem-dur', PEM_DURS[tier]);
+    }
+
+    let idx = 0;
+    while(idx < LEVELS.length-1 && pressure > LEVELS[idx].max) idx++;
+    if(idx !== pemLastLvl){
+      const lvl = LEVELS[idx];
+      pemTitle.textContent = lvl.title;
+      pemTitle.style.color = lvl.color;
+      pemMsg.textContent   = lvl.msg;
+      pemSR.textContent    = lvl.title + '. ' + pressure + ' pascals.';
+      if(pemLastLvl !== -1) pemSpeak(lvl);   // no narration on initial load
+      pemLastLvl = idx;
+      // publish meter state so the assistant can teach with it
+      window.pemState = {
+        pressure, level: lvl.title,
+        band: idx <= 1 ? 'low' : idx <= 3 ? 'medium' : idx <= 5 ? 'heavy' : 'extreme'
+      };
+      document.dispatchEvent(new CustomEvent('pem:levelchange', { detail: window.pemState }));
+    }
+
+    if(pemOpen) pemUpdateCard(pressure, t, LEVELS[idx]);
+  }
+
+  function pemQueue(){ if(!pemRaf) pemRaf = requestAnimationFrame(pemRender); }
+  window.addEventListener('scroll', pemQueue, {passive:true});
+  window.addEventListener('resize', pemQueue, {passive:true});
+  pemRender();
+
+  function pemSetOpen(open){
+    pemOpen = open;
+    pem.classList.toggle('pem-open', open);
+    pemDial.setAttribute('aria-expanded', String(open));
+    pemCard.setAttribute('aria-hidden', String(!open));
+    if(open){ pemLastP = -1; pemRender(); }   // refresh card contents
+  }
+  let pemPointerType = 'mouse';
+  pem.addEventListener('pointerenter', e=>{ if(e.pointerType==='mouse') pemSetOpen(true); });
+  pem.addEventListener('pointerleave', e=>{ if(e.pointerType==='mouse') pemSetOpen(false); });
+  pemDial.addEventListener('pointerdown', e=>{ pemPointerType = e.pointerType; }, {passive:true});
+  pemDial.addEventListener('click', ()=>{ if(pemPointerType!=='mouse') pemSetOpen(!pemOpen); });
+  pemDial.addEventListener('keydown', e=>{
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); pemSetOpen(!pemOpen); }
+    else if(e.key==='Escape') pemSetOpen(false);
+  });
+  document.addEventListener('pointerdown', e=>{
+    if(pemOpen && pemPointerType!=='mouse' && !pem.contains(e.target)) pemSetOpen(false);
+  }, {passive:true});
+
+  /* 2 — card entrance: slam in from alternating sides */
+  const BURST_COLORS=['#FF5A4E','#58B368','#FF9F2E','#3E8BFA','#A04EF6'];
+  const cards=[...document.querySelectorAll('.card')];
+  cards.forEach((card,i)=>{
+    card.style.opacity   = '0';
+    card.style.transform = i%2===0 ? 'translateX(-80px)' : 'translateX(80px)';
+    card.style.transition= 'opacity .65s cubic-bezier(.34,1.4,.64,1),transform .65s cubic-bezier(.34,1.4,.64,1)';
+  });
+
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      const card=entry.target;
+      requestAnimationFrame(()=>{
+        card.style.opacity='1';
+        card.style.transform='none';
+        // clear inline styles after transition so CSS :hover transform takes over
+        function cleanup(e){
+          if(e.propertyName!=='transform') return;
+          card.style.transition='';
+          card.style.opacity='';
+          card.style.transform='';
+          card.removeEventListener('transitionend',cleanup);
+        }
+        card.addEventListener('transitionend',cleanup);
+      });
+      cardBurst(card);
+      startCounters(card);
+      io.unobserve(card);
+    });
+  },{threshold:0.12});
+  cards.forEach(c=>io.observe(c));
+
+  /* 3 — particle burst */
+  function cardBurst(card){
+    const rect=card.getBoundingClientRect();
+    const cx=rect.left+rect.width/2, cy=rect.top+rect.height/4;
+    for(let i=0;i<10;i++){
+      const el=document.createElement('div');
+      el.style.cssText=`position:fixed;width:7px;height:7px;border-radius:50%;
+        pointer-events:none;z-index:999;background:${BURST_COLORS[i%BURST_COLORS.length]};`;
+      document.body.appendChild(el);
+      const ang=(i/10)*Math.PI*2+Math.random()*.6, sp=4+Math.random()*5;
+      let x=cx, y=cy, vx=Math.cos(ang)*sp, vy=Math.sin(ang)*sp-3, t=0;
+      (function anim(){
+        t++; x+=vx; vy+=0.32; y+=vy;
+        el.style.left=x+'px'; el.style.top=y+'px';
+        el.style.opacity=Math.max(0,1-t/38);
+        if(t<38) requestAnimationFrame(anim); else el.remove();
+      })();
+    }
+  }
+
+  /* 4 — number counters */
+  function startCounters(card){
+    card.querySelectorAll('.chip [id]').forEach(el=>{
+      const n=parseInt(el.textContent,10);
+      if(!isNaN(n) && n>1 && String(n)===el.textContent.trim()){
+        let f=0; const dur=38;
+        (function count(){
+          f++;
+          el.textContent=Math.round(Math.min(1,f/dur)*n);
+          if(f<dur) requestAnimationFrame(count);
+        })();
+      }
+    });
+  }
+})();
+
+/* ══════════════════════════════════
+   DECORATIVE JS
+══════════════════════════════════ */
+(function(){
+  // 1 — floating physics doodles (vector: force arrows, grids, rings, rulers…)
+  const SYMS=[
+    // force arrow
+    '<svg viewBox="0 0 48 24" fill="none"><line x1="4" y1="12" x2="36" y2="12" stroke="#FF9F2E" stroke-width="3" stroke-linecap="round"/><path d="M29 4.5 37.5 12 29 19.5" stroke="#FF9F2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    // F vector
+    '<svg viewBox="0 0 60 28" fill="none"><text x="2" y="21" font-family="Fredoka One, sans-serif" font-size="19" fill="#FF9F2E">F</text><line x1="22" y1="14" x2="50" y2="14" stroke="#FF9F2E" stroke-width="2.6" stroke-linecap="round"/><path d="M44 7.5 51 14l-7 6.5" stroke="#FF9F2E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    // concentric pressure rings
+    '<svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="7" stroke="#A04EF6" stroke-width="2.4"/><circle cx="24" cy="24" r="14" stroke="#A04EF6" stroke-width="2.2" opacity=".55"/><circle cx="24" cy="24" r="21" stroke="#A04EF6" stroke-width="2" opacity=".3"/></svg>',
+    // area grid
+    '<svg viewBox="0 0 40 40" fill="none"><rect x="2" y="2" width="36" height="36" rx="5" stroke="#3E8BFA" stroke-width="2.4"/><line x1="14" y1="2" x2="14" y2="38" stroke="#3E8BFA" stroke-width="1.6" opacity=".7"/><line x1="26" y1="2" x2="26" y2="38" stroke="#3E8BFA" stroke-width="1.6" opacity=".7"/><line x1="2" y1="14" x2="38" y2="14" stroke="#3E8BFA" stroke-width="1.6" opacity=".7"/><line x1="2" y1="26" x2="38" y2="26" stroke="#3E8BFA" stroke-width="1.6" opacity=".7"/></svg>',
+    // measurement ruler
+    '<svg viewBox="0 0 60 22" fill="none"><rect x="2" y="3" width="56" height="16" rx="4" stroke="#58B368" stroke-width="2.4"/><g stroke="#58B368" stroke-width="1.8" opacity=".8"><line x1="12" y1="3" x2="12" y2="10"/><line x1="22" y1="3" x2="22" y2="13"/><line x1="32" y1="3" x2="32" y2="10"/><line x1="42" y1="3" x2="42" y2="13"/><line x1="52" y1="3" x2="52" y2="10"/></g></svg>',
+    // pressure wave ripple
+    '<svg viewBox="0 0 44 30" fill="none"><g stroke="#2EC4B6" stroke-linecap="round"><path d="M14 24a8 8 0 0 1 16 0" stroke-width="2.4"/><path d="M8 26a14 14 0 0 1 28 0" stroke-width="2.2" opacity=".55"/><path d="M2 28a20 20 0 0 1 40 0" stroke-width="2" opacity=".3"/></g></svg>',
+    // particle dots
+    '<svg viewBox="0 0 36 36" fill="none"><circle cx="9" cy="22" r="3" fill="#A04EF6"/><circle cx="22" cy="9" r="2.5" fill="#3E8BFA"/><circle cx="29" cy="25" r="2" fill="#FF9F2E"/><circle cx="17" cy="30" r="1.8" fill="#58B368"/></svg>',
+    // curiosity question mark
+    '<svg viewBox="0 0 28 36" fill="none"><path d="M7 11c0-4.4 3.1-7 7-7s7 2.6 7 6.6c0 3.4-2.3 4.8-4.3 6.3-1.6 1.2-2.2 2.3-2.2 4.3" stroke="#A04EF6" stroke-width="2.6" stroke-linecap="round"/><circle cx="14.5" cy="29" r="2.2" fill="#A04EF6"/></svg>',
+    // formula doodle
+    '<svg viewBox="0 0 64 30" fill="none"><text x="2" y="22" font-family="Fredoka One, sans-serif" font-size="16" fill="#58B368">P = F/A</text></svg>',
+    // motion streaks
+    '<svg viewBox="0 0 48 24" fill="none"><g stroke="#3E8BFA" stroke-width="2.6" stroke-linecap="round"><line x1="6" y1="6" x2="26" y2="6"/><line x1="2" y1="13" x2="34" y2="13" opacity=".65"/><line x1="8" y1="20" x2="22" y2="20" opacity=".4"/></g></svg>',
+    // precision crosshair
+    '<svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="11" stroke="#FF5A4E" stroke-width="2.4"/><circle cx="18" cy="18" r="2.4" fill="#FF5A4E"/><g stroke="#FF5A4E" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="2" x2="18" y2="8"/><line x1="18" y1="28" x2="18" y2="34"/><line x1="2" y1="18" x2="8" y2="18"/><line x1="28" y1="18" x2="34" y2="18"/></g></svg>',
+    // discovery lightbulb
+    '<svg viewBox="0 0 28 36" fill="none"><path d="M14 3a9 9 0 0 0-5.2 16.3c1.2.9 1.9 2 1.9 3.2h6.6c0-1.2.7-2.3 1.9-3.2A9 9 0 0 0 14 3Z" stroke="#FF9F2E" stroke-width="2.4" stroke-linejoin="round"/><line x1="10.5" y1="27" x2="17.5" y2="27" stroke="#FF9F2E" stroke-width="2.4" stroke-linecap="round"/><line x1="11.5" y1="31" x2="16.5" y2="31" stroke="#FF9F2E" stroke-width="2.4" stroke-linecap="round"/></svg>'
+  ];
+  if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    SYMS.forEach(sym=>{
+      const el=document.createElement('span');
+      el.className='float-sym';
+      el.innerHTML=sym;
+      el.setAttribute('aria-hidden','true');
+      const size=26+Math.random()*26;
+      el.style.cssText=`width:${size}px;left:${Math.random()*95}%;`+
+        `--dur:${10+Math.random()*10}s;--delay:-${Math.random()*14}s;`+
+        `--drift:${(Math.random()-.5)*80}px`;
+      document.body.appendChild(el);
+    });
+  }
+
+  // 2 — typewriter subtitle
+  const typeTarget='Start with curiosity, then test pressure in every form.';
+  const typeEl=document.getElementById('subtitle-type');
+  if(typeEl){
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+      typeEl.textContent=typeTarget;
+    } else {
+      let i=0;
+      (function type(){
+        typeEl.textContent=typeTarget.slice(0,i);
+        if(i<typeTarget.length){i++;setTimeout(type,38);}
+      })();
+    }
+  }
+
+  // 3 — stat badge count-up pop
+  const badges=document.querySelectorAll('.stat-badge');
+  badges.forEach((b,i)=>setTimeout(()=>b.classList.add('pop'),900+i*200));
+
+  // 4 — section number watermarks
+  document.querySelectorAll('.card').forEach((card,i)=>{
+    const num=document.createElement('div');
+    num.className='card-num';
+    num.textContent=String(i+1).padStart(2,'0');
+    card.appendChild(num);
+  });
+})();
+
+/* ══════════════════════════════════
+   CUSTOM CURSOR — ENHANCED
+══════════════════════════════════ */
+(function(){
+  if(window.matchMedia('(pointer:coarse)').matches) return;
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+
+  document.body.classList.add('custom-cursor-active');
+
+  const dot   = document.getElementById('cursor-dot');
+  const ring  = document.getElementById('cursor-ring');
+  const ring2 = document.getElementById('cursor-ring2');
+  const lbl   = document.getElementById('cursor-label');
+
+  // Ghost trail — 8 dots, comet style: large+glowing at head, tiny+dim at tail
+  const GHOST_N  = 8;
+  const G_COLORS = ['#FF5A4E','#FF9F2E','#A04EF6','#3E8BFA','#58B368','#FF5A4E','#A04EF6','#3E8BFA'];
+  const ghosts = Array.from({length:GHOST_N}, (_,i)=>{
+    const g = document.createElement('div');
+    g.className = 'cursor-ghost';
+    const sz = Math.max(2, 9 - i);
+    g.style.cssText = `width:${sz}px;height:${sz}px;`+
+      `background:${G_COLORS[i]};`+
+      `box-shadow:0 0 ${6-i}px ${G_COLORS[i]};`;
+    document.body.appendChild(g);
+    return g;
+  });
+
+  let mx=-200, my=-200;
+  // Spring state: two rings with independent physics
+  let r1x=-200,r1y=-200,r1vx=0,r1vy=0;  // ring1 — faster spring
+  let r2x=-200,r2y=-200,r2vx=0,r2vy=0;  // ring2 — slower, bouncier
+  const hist=[];
+
+  document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; }, {passive:true});
+  document.addEventListener('mouseleave', ()=>{ mx=-200; my=-200; });
+
+  // Cursor state — priority: btn > slider > nav > card
+  let curState='default';
+  function setState(type){
+    if(type===curState) return;
+    curState=type;
+    ring.classList.remove('on-btn','on-slider','on-card','on-nav');
+    ring2.classList.remove('on-btn','on-slider','on-card','on-nav');
+    dot.classList.remove('on-btn');
+    lbl.textContent='';
+    if(type==='btn')   { ring.classList.add('on-btn');    ring2.classList.add('on-btn');    dot.classList.add('on-btn'); lbl.textContent='✋'; }
+    if(type==='slider'){ ring.classList.add('on-slider'); ring2.classList.add('on-slider'); lbl.textContent='↔'; }
+    if(type==='card')  { ring.classList.add('on-card');   ring2.classList.add('on-card'); }
+    if(type==='nav')   { ring.classList.add('on-nav');    ring2.classList.add('on-nav'); }
+  }
+
+  document.addEventListener('mouseover', e=>{
+    const b=e.target.closest('button');
+    const s=e.target.closest('input[type=range]');
+    const n=e.target.closest('.nav-tab');
+    const c=e.target.closest('.card');
+    if(b)      setState('btn');
+    else if(s) setState('slider');
+    else if(n) setState('nav');
+    else if(c) setState('card');
+    else       setState('default');
+  });
+
+  // Click: ring1 burst + 3 expanding ripple rings
+  document.addEventListener('mousedown', ()=>{
+    ring.classList.add('clicking');
+    setTimeout(()=>ring.classList.remove('clicking'), 440);
+    ['#FF5A4E','#A04EF6','#FF9F2E'].forEach((col,i)=>{
+      setTimeout(()=>{
+        const r=document.createElement('div');
+        r.style.cssText=`position:fixed;border-radius:50%;pointer-events:none;z-index:99990;`+
+          `left:${mx}px;top:${my}px;width:18px;height:18px;`+
+          `border:2.5px solid ${col};box-shadow:0 0 8px ${col},inset 0 0 4px ${col};`+
+          `animation:rippleClick ${0.5+i*.12}s ease-out forwards;`;
+        document.body.appendChild(r);
+        setTimeout(()=>r.remove(), 700);
+      }, i*70);
+    });
+  });
+
+  // rAF — spring physics, instant dot, comet trail
+  (function tick(){
+    requestAnimationFrame(tick);
+
+    hist.unshift({x:mx, y:my});
+    if(hist.length > GHOST_N*6+2) hist.length = GHOST_N*6+2;
+
+    // Dot: instant
+    dot.style.left = mx+'px';
+    dot.style.top  = my+'px';
+
+    // Ring1: k=0.14, damp=0.72 — medium spring
+    r1vx=(r1vx+(mx-r1x)*.14)*.72; r1vy=(r1vy+(my-r1y)*.14)*.72;
+    r1x+=r1vx; r1y+=r1vy;
+    ring.style.left=r1x+'px'; ring.style.top=r1y+'px';
+
+    // Ring2: k=0.065, damp=0.62 — slow elastic spring
+    r2vx=(r2vx+(mx-r2x)*.065)*.62; r2vy=(r2vy+(my-r2y)*.065)*.62;
+    r2x+=r2vx; r2y+=r2vy;
+    ring2.style.left=r2x+'px'; ring2.style.top=r2y+'px';
+
+    // Label tracks dot with slight offset
+    lbl.style.left=(mx+16)+'px'; lbl.style.top=(my-7)+'px';
+
+    // Comet ghost trail
+    ghosts.forEach((g,i)=>{
+      const p=hist[Math.min((i+1)*5, hist.length-1)];
+      if(!p) return;
+      g.style.left   =p.x+'px';
+      g.style.top    =p.y+'px';
+      g.style.opacity=(0.65*(1-i/GHOST_N)).toFixed(2);
+    });
+  })();
+})();
+
+/* ══════════════════════════════════
+   QUIZ + SOUND FX (LIVE PAGE)
+══════════════════════════════════ */
+(function(){
+  let audioCtx = null;
+  let masterGain = null;
+  const MUTE_KEY = 'pv-sound-muted';
+  let muted = false;
+  try { muted = localStorage.getItem(MUTE_KEY) === '1'; } catch(e) {}
+  let soundToggleBtn = null;
+  let lastSliderSound = 0;
+  let forceOsc = null;
+  let forceGain = null;
+  let hydraulicOsc1 = null;
+  let hydraulicOsc2 = null;
+  let hydraulicGain = null;
+  let hydraulicTimeout = null;
+  let lastBubbleTime = 0;
+  let lastSonarTime = 0;
+  let hissSource = null;
+  let hissFilter = null;
+  let hissGain = null;
+  let rocketOsc = null;
+  let rocketNoise = null;
+  let rocketFilter = null;
+  let rocketGain = null;
+
+  function getAudioContext() {
+    const Ctor = window.AudioContext || window.webkitAudioContext;
+    if (!Ctor) return null;
+    if (!audioCtx) audioCtx = new Ctor();
+    if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+    return audioCtx;
+  }
+
+  function unlockAudio() {
+    const ctx = getAudioContext();
+    if (!ctx || ctx.state === 'running') return;
+    ctx.resume().catch(() => {});
+  }
+
+  // master bus — every sound routes through this so mute controls everything
+  function masterBus(ctx) {
+    if (!masterGain) {
+      masterGain = ctx.createGain();
+      masterGain.gain.setValueAtTime(muted ? 0.0001 : 1, ctx.currentTime);
+      masterGain.connect(ctx.destination);
+    }
+    return masterGain;
+  }
+
+  function setMuted(m) {
+    muted = m;
+    try { localStorage.setItem(MUTE_KEY, m ? '1' : '0'); } catch(e) {}
+    if (audioCtx && masterGain) {
+      masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+      masterGain.gain.setValueAtTime(Math.max(0.0001, masterGain.gain.value), audioCtx.currentTime);
+      masterGain.gain.exponentialRampToValueAtTime(m ? 0.0001 : 1, audioCtx.currentTime + 0.15);
+    }
+    if (soundToggleBtn) {
+      soundToggleBtn.textContent = m ? '🔇' : '🔊';
+      soundToggleBtn.setAttribute('aria-label', m ? 'Sound off — tap to unmute' : 'Sound on — tap to mute');
+    }
+  }
+
+  function tone({ frequency = 440, duration = 0.07, type = 'sine', gain = 0.03, slideTo = null } = {}) {
+    if (muted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const osc = ctx.createOscillator();
+    const amp = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(frequency, ctx.currentTime);
+    if (slideTo !== null) {
+      osc.frequency.exponentialRampToValueAtTime(Math.max(40, slideTo), ctx.currentTime + duration);
+    }
+    amp.gain.setValueAtTime(0.0001, ctx.currentTime);
+    amp.gain.exponentialRampToValueAtTime(gain, ctx.currentTime + 0.01);
+    amp.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+    osc.connect(amp);
+    amp.connect(masterBus(ctx));
+    osc.start();
+    osc.stop(ctx.currentTime + duration + 0.03);
+  }
+
+  function playButtonSound() {
+    tone({ frequency: 520, slideTo: 390, duration: 0.08, type: 'triangle', gain: 0.05 });
+  }
+
+  function playSliderSound(value, min, max) {
+    const now = performance.now();
+    if (now - lastSliderSound < 35) return;
+    lastSliderSound = now;
+    const ratio = (value - min) / Math.max(1, (max - min));
+    const frequency = 240 + ratio * 420;
+    tone({ frequency, slideTo: frequency * 1.1, duration: 0.05, type: 'sine', gain: 0.035 });
+  }
+
+  function playCorrectSound() {
+    tone({ frequency: 660, slideTo: 880, duration: 0.08, type: 'triangle', gain: 0.055 });
+    setTimeout(() => tone({ frequency: 990, slideTo: 1320, duration: 0.06, type: 'triangle', gain: 0.04 }), 70);
+  }
+
+  function playWrongSound() {
+    tone({ frequency: 220, slideTo: 150, duration: 0.12, type: 'sawtooth', gain: 0.035 });
+  }
+
+  function playNoise({ duration = 0.15, gain = 0.05, filterStart = 2000, filterEnd = 100 } = {}) {
+    if (muted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const bufferSize = ctx.sampleRate * duration;
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+    const noise = ctx.createBufferSource();
+    noise.buffer = buffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(filterStart, ctx.currentTime);
+    filter.frequency.exponentialRampToValueAtTime(Math.max(10, filterEnd), ctx.currentTime + duration);
+
+    const amp = ctx.createGain();
+    amp.gain.setValueAtTime(0.0001, ctx.currentTime);
+    amp.gain.exponentialRampToValueAtTime(gain, ctx.currentTime + 0.01);
+    amp.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+    noise.connect(filter);
+    filter.connect(amp);
+    amp.connect(masterBus(ctx));
+    noise.start();
+    noise.stop(ctx.currentTime + duration + 0.03);
+  }
+
+  function playCutSound() {
+    playNoise({ duration: 0.16, gain: 0.06, filterStart: 2500, filterEnd: 150 });
+  }
+
+  function playSquashSound() {
+    playNoise({ duration: 0.28, gain: 0.07, filterStart: 450, filterEnd: 30 });
+    tone({ frequency: 130, slideTo: 40, duration: 0.22, type: 'sawtooth', gain: 0.04 });
+  }
+
+  function startForceSound() {
+    if (muted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    if (forceOsc) return;
+
+    forceOsc = ctx.createOscillator();
+    forceGain = ctx.createGain();
+    
+    forceOsc.type = 'triangle';
+    forceOsc.frequency.setValueAtTime(100, ctx.currentTime);
+    
+    forceGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(300, ctx.currentTime);
+
+    forceOsc.connect(filter);
+    filter.connect(forceGain);
+    forceGain.connect(masterBus(ctx));
+
+    forceOsc.start();
+  }
+
+  function updateForceSound(f) {
+    if (!forceOsc || !forceGain) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    const pitch = 100 + (f / 100) * 100;
+    const volume = (f / 100) * 0.055;
+
+    forceOsc.frequency.setTargetAtTime(pitch, ctx.currentTime, 0.05);
+    forceGain.gain.setTargetAtTime(volume, ctx.currentTime, 0.05);
+  }
+
+  function stopForceSound() {
+    if (!forceOsc || !forceGain) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    
+    const currOsc = forceOsc;
+    const currGain = forceGain;
+    
+    forceOsc = null;
+    forceGain = null;
+    
+    currGain.gain.cancelScheduledValues(ctx.currentTime);
+    currGain.gain.setValueAtTime(currGain.gain.value, ctx.currentTime);
+    currGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
+    
+    setTimeout(() => {
+      try {
+        currOsc.stop();
+        currOsc.disconnect();
+        currGain.disconnect();
+      } catch (err) {}
+    }, 120);
+  }
+
+  function playHydraulicSound() {
+    if (muted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    if (hydraulicTimeout) {
+      clearTimeout(hydraulicTimeout);
+      hydraulicTimeout = null;
+    }
+
+    if (!hydraulicOsc1) {
+      hydraulicOsc1 = ctx.createOscillator();
+      hydraulicOsc2 = ctx.createOscillator();
+      hydraulicGain = ctx.createGain();
+
+      hydraulicOsc1.type = 'triangle';
+      hydraulicOsc1.frequency.setValueAtTime(85, ctx.currentTime);
+
+      hydraulicOsc2.type = 'sine';
+      hydraulicOsc2.frequency.setValueAtTime(170, ctx.currentTime);
+
+      hydraulicGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      hydraulicGain.gain.linearRampToValueAtTime(0.034, ctx.currentTime + 0.05);
+
+      hydraulicOsc1.connect(hydraulicGain);
+      hydraulicOsc2.connect(hydraulicGain);
+      hydraulicGain.connect(masterBus(ctx));
+
+      hydraulicOsc1.start();
+      hydraulicOsc2.start();
+    }
+
+    hydraulicTimeout = setTimeout(() => {
+      stopHydraulicSound();
+    }, 120);
+  }
+
+  function stopHydraulicSound() {
+    if (!hydraulicOsc1 || !hydraulicGain) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    const o1 = hydraulicOsc1;
+    const o2 = hydraulicOsc2;
+    const g = hydraulicGain;
+
+    hydraulicOsc1 = null;
+    hydraulicOsc2 = null;
+    hydraulicGain = null;
+
+    g.gain.cancelScheduledValues(ctx.currentTime);
+    g.gain.setValueAtTime(g.gain.value, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.1);
+
+    setTimeout(() => {
+      try {
+        o1.stop(); o1.disconnect();
+        o2.stop(); o2.disconnect();
+        g.disconnect();
+      } catch(e){}
+    }, 150);
+  }
+
+  function playBubbleSound() {
+    const now = performance.now();
+    if (now - lastBubbleTime < 180) return;
+    lastBubbleTime = now;
+    
+    const startF = 800 + Math.random() * 300;
+    tone({
+      frequency: startF,
+      slideTo: startF * 1.6,
+      duration: 0.06,
+      type: 'sine',
+      gain: 0.03
+    });
+  }
+
+  function playSonarPing() {
+    const now = performance.now();
+    if (now - lastSonarTime < 2200) return;
+    lastSonarTime = now;
+    
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    
+    tone({
+      frequency: 1200,
+      slideTo: 1200,
+      duration: 1.2,
+      type: 'sine',
+      gain: 0.04
+    });
+
+    setTimeout(() => {
+      tone({
+        frequency: 1200,
+        slideTo: 1200,
+        duration: 0.8,
+        type: 'sine',
+        gain: 0.012
+      });
+    }, 350);
+  }
+
+  function playHissSound() {
+    if (muted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    if (hissSource) return;
+
+    const bufferSize = ctx.sampleRate * 2.0;
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+
+    hissSource = ctx.createBufferSource();
+    hissSource.buffer = buffer;
+    hissSource.loop = true;
+
+    hissFilter = ctx.createBiquadFilter();
+    hissFilter.type = 'bandpass';
+    hissFilter.Q.setValueAtTime(3.0, ctx.currentTime);
+    hissFilter.frequency.setValueAtTime(600, ctx.currentTime);
+
+    hissGain = ctx.createGain();
+    hissGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    hissGain.gain.linearRampToValueAtTime(0.028, ctx.currentTime + 0.05);
+
+    hissSource.connect(hissFilter);
+    hissFilter.connect(hissGain);
+    hissGain.connect(masterBus(ctx));
+
+    hissSource.start();
+  }
+
+  function updateHissSound(compressionRatio) {
+    if (!hissFilter || !hissGain) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    const freq = 600 + (compressionRatio - 1) * 500;
+    const vol = 0.024 + (compressionRatio - 1) * 0.014;
+
+    hissFilter.frequency.setTargetAtTime(freq, ctx.currentTime, 0.05);
+    hissGain.gain.setTargetAtTime(vol, ctx.currentTime, 0.05);
+  }
+
+  function stopHissSound() {
+    if (!hissSource || !hissGain) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    const s = hissSource;
+    const g = hissGain;
+
+    hissSource = null;
+    hissFilter = null;
+    hissGain = null;
+
+    g.gain.cancelScheduledValues(ctx.currentTime);
+    g.gain.setValueAtTime(g.gain.value, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
+
+    setTimeout(() => {
+      try {
+        s.stop();
+        s.disconnect();
+        g.disconnect();
+      } catch(e){}
+    }, 100);
+  }
+
+  // one audible heart thump: low boom that stays in the 90-220 Hz speaker range
+  // plus a mid-frequency knock layer; linear envelopes keep the body audible
+  // (the generic tone() envelope decays exponentially and vanishes in ~30ms)
+  function heartThump(ctx, when, freq, peak) {
+    const osc = ctx.createOscillator();
+    const amp = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, when);
+    osc.frequency.exponentialRampToValueAtTime(freq * 0.6, when + 0.18);
+    amp.gain.setValueAtTime(0.0001, when);
+    amp.gain.linearRampToValueAtTime(peak, when + 0.015);
+    amp.gain.linearRampToValueAtTime(peak * 0.4, when + 0.1);
+    amp.gain.linearRampToValueAtTime(0.0001, when + 0.22);
+    osc.connect(amp);
+    amp.connect(masterBus(ctx));
+    osc.start(when);
+    osc.stop(when + 0.25);
+
+    const knock = ctx.createOscillator();
+    const knockAmp = ctx.createGain();
+    knock.type = 'triangle';
+    knock.frequency.setValueAtTime(freq * 3, when);
+    knock.frequency.exponentialRampToValueAtTime(freq * 1.4, when + 0.07);
+    knockAmp.gain.setValueAtTime(0.0001, when);
+    knockAmp.gain.linearRampToValueAtTime(peak * 0.55, when + 0.008);
+    knockAmp.gain.linearRampToValueAtTime(0.0001, when + 0.09);
+    knock.connect(knockAmp);
+    knockAmp.connect(masterBus(ctx));
+    knock.start(when);
+    knock.stop(when + 0.12);
+  }
+
+  function playHeartbeatSound(stress) {
+    if (muted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+
+    const s = Math.max(0, Math.min(100, +stress || 0)) / 100;
+    const peak = 0.22 + s * 0.13;          // clearly audible, stronger at high BP
+    const gap = 0.17 - s * 0.06;           // faster lub-dub when stressed
+    const t0 = ctx.currentTime + 0.02;
+
+    heartThump(ctx, t0, 150 + s * 40, peak);              // LUB
+    heartThump(ctx, t0 + gap, 125 + s * 30, peak * 0.8);  // dub
+  }
+
+  function playRocketSound() {
+    if (muted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    if (rocketOsc) return;
+
+    rocketOsc = ctx.createOscillator();
+    rocketOsc.type = 'sawtooth';
+    rocketOsc.frequency.setValueAtTime(35, ctx.currentTime);
+
+    const bufferSize = ctx.sampleRate * 2.0;
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+    rocketNoise = ctx.createBufferSource();
+    rocketNoise.buffer = buffer;
+    rocketNoise.loop = true;
+
+    rocketFilter = ctx.createBiquadFilter();
+    rocketFilter.type = 'lowpass';
+    rocketFilter.frequency.setValueAtTime(80, ctx.currentTime);
+
+    rocketGain = ctx.createGain();
+    rocketGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    rocketGain.gain.linearRampToValueAtTime(0.03, ctx.currentTime + 0.15);
+
+    rocketOsc.connect(rocketFilter);
+    rocketNoise.connect(rocketFilter);
+    rocketFilter.connect(rocketGain);
+    rocketGain.connect(masterBus(ctx));
+
+    rocketOsc.start();
+    rocketNoise.start();
+  }
+
+  function updateRocketSound(progress) {
+    if (!rocketOsc || !rocketFilter || !rocketGain) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    const oscFreq = 35 + progress * 55;
+    const filterCutoff = 80 + progress * 240;
+    const vol = 0.03 + progress * 0.08;
+
+    rocketOsc.frequency.setTargetAtTime(oscFreq, ctx.currentTime, 0.05);
+    rocketFilter.frequency.setTargetAtTime(filterCutoff, ctx.currentTime, 0.05);
+    rocketGain.gain.setTargetAtTime(vol, ctx.currentTime, 0.05);
+  }
+
+  function stopRocketSound() {
+    if (!rocketOsc || !rocketGain) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    const osc = rocketOsc;
+    const noise = rocketNoise;
+    const g = rocketGain;
+
+    rocketOsc = null;
+    rocketNoise = null;
+    rocketFilter = null;
+    rocketGain = null;
+
+    g.gain.cancelScheduledValues(ctx.currentTime);
+    g.gain.setValueAtTime(g.gain.value, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
+
+    setTimeout(() => {
+      try {
+        osc.stop(); osc.disconnect();
+        noise.stop(); noise.disconnect();
+        g.disconnect();
+      } catch(e){}
+    }, 700);
+  }
+
+  function playPopSound() {
+    tone({ frequency: 700, slideTo: 1000, duration: 0.06, type: 'sine', gain: 0.04 });
+  }
+
+  function playDingSound() {
+    tone({ frequency: 1046, slideTo: 1568, duration: 0.2, type: 'triangle', gain: 0.055 });
+  }
+
+  function playQuizComplete() {
+    const notes = [523.25, 659.25, 783.99, 1046.5];
+    notes.forEach((freq, i) => {
+      setTimeout(() => tone({ frequency: freq, slideTo: freq * 1.02, duration: 0.16, type: 'triangle', gain: 0.05 }), i * 120);
+    });
+    setTimeout(() => tone({ frequency: 1318.5, duration: 0.3, type: 'triangle', gain: 0.045 }), 520);
+  }
+
+  // Expose system globally for other modules in the page
+  window.soundFX = {
+    tone,
+    playButtonSound,
+    playSliderSound,
+    playPopSound,
+    playDingSound,
+    playQuizComplete,
+    playCorrectSound,
+    playWrongSound,
+    playNoise,
+    playCutSound,
+    playSquashSound,
+    startForceSound,
+    updateForceSound,
+    stopForceSound,
+    playHydraulicSound,
+    stopHydraulicSound,
+    playBubbleSound,
+    playSonarPing,
+    playHissSound,
+    updateHissSound,
+    stopHissSound,
+    playHeartbeatSound,
+    testHeartbeat: function(stress) { playHeartbeatSound(stress === undefined ? 50 : stress); },
+    playRocketSound,
+    updateRocketSound,
+    stopRocketSound,
+    setMuted,
+    isMuted: () => muted
+  };
+
+  // Global mute/unmute toggle — fixed position, no layout shift
+  soundToggleBtn = document.createElement('button');
+  soundToggleBtn.className = 'sound-toggle';
+  soundToggleBtn.type = 'button';
+  document.body.appendChild(soundToggleBtn);
+  soundToggleBtn.addEventListener('click', () => {
+    setMuted(!muted);
+    if (!muted) playPopSound();
+  });
+  setMuted(muted);
+
+  document.addEventListener('pointerdown', event => {
+    const button = event.target.closest('button');
+    if (button) playButtonSound();
+    else if (event.target.closest('a.nav-tab')) playPopSound();
+  }, { passive: true, capture: true });
+
+  document.addEventListener('pointerdown', unlockAudio, { passive: true, capture: true, once: true });
+  document.addEventListener('keydown', unlockAudio, { passive: true, capture: true, once: true });
+
+  document.addEventListener('input', event => {
+    const slider = event.target.closest('input[type=range]');
+    if (!slider) return;
+    // Exclude special sliders
+    if (slider.id === 'pascal-slider' || slider.id === 'depth-slider' || slider.id === 'stress-slider') return;
+    playSliderSound(Number(slider.value), Number(slider.min || 0), Number(slider.max || 100));
+  }, { passive: true });
+
+  const QUIZ_DATA = [
+    {
+      q: 'What is the SI unit of pressure?',
+      opts: [')Newton (N)', ')Pascal (Pa)', ')Joule (J)', ')Watt (W)'],
+      ans: 1,
+      hint: 'It is named after Blaise Pascal.',
+      explain: 'The SI unit of pressure is the Pascal (Pa). 1 Pa = 1 N/m².'
+    },
+    {
+      q: 'If the same force acts on a smaller area, the pressure will…',
+      opts: [')Decrease', ')Stay the same', ')Increase', ')Disappear'],
+      ans: 2,
+      hint: 'Use P = F ÷ A.',
+      explain: 'Pressure increases when the area gets smaller while force stays the same.'
+    },
+    {
+      q: 'Which pressure is shown by a car tyre pressure gauge?',
+      opts: [')Atmospheric pressure', ')Gauge pressure', ')Absolute pressure', ')Differential pressure'],
+      ans: 1,
+      hint: 'It measures pressure relative to the air around us.',
+      explain: 'A tyre gauge shows gauge pressure, not absolute pressure.'
+    },
+    {
+      q: 'Pascal’s law is used in which device?',
+      opts: [')Hydraulic lift', ')Thermometer', ')Compass', ')Magnifying glass'],
+      ans: 0,
+      hint: 'It helps lift heavy cars in workshops.',
+      explain: 'Hydraulic systems work because pressure applied to a liquid is transmitted equally.'
+    },
+    {
+      q: 'What happens to pressure as you go deeper under water?',
+      opts: [')It decreases', ')It stays the same', ')It increases', ')It becomes zero'],
+      ans: 2,
+      hint: 'More water above you means more weight.',
+      explain: 'Water pressure increases with depth because more water presses down from above.'
+    },
+    {
+      q: 'Boyle’s law says that when the volume of a gas goes down, its pressure…',
+      opts: [')Goes down', ')Stays the same', ')Goes up', ')Stops'],
+      ans: 2,
+      hint: 'More squeezing means more collisions.',
+      explain: 'For a trapped gas, less volume means more frequent collisions and higher pressure.'
+    },
+    {
+      q: 'The heart creates pressure to…',
+      opts: [')Cool the body', ')Move blood through vessels', ')Make bones grow', ')Stop breathing'],
+      ans: 1,
+      hint: 'Blood must be pumped all around the body.',
+      explain: 'The heart pumps blood by creating pressure inside the blood vessels.'
+    }
+  ];
+
+  function initQuiz() {
+    const container = document.getElementById('quiz-container');
+    if (!container) return;
+
+    let current = 0;
+    let score = 0;
+    let answered = false;
+
+    const progressFill = container.querySelector('.quiz-progress-fill');
+    const metaQ = container.querySelector('.quiz-meta-q');
+    const metaScore = container.querySelector('.quiz-meta-score');
+    const questionWrap = container.querySelector('.quiz-q-wrap');
+    const optionsWrap = container.querySelector('.quiz-options');
+    const hintBtn = container.querySelector('.hint-btn');
+    const hintText = container.querySelector('.hint-text');
+    const feedbackBox = container.querySelector('.feedback-box');
+    const nextBtn = container.querySelector('.next-btn');
+    const resultsEl = container.querySelector('.quiz-results');
+    const resultsScore = container.querySelector('.results-score');
+    const resultsMsg = container.querySelector('.results-msg');
+    const tryAgainBtn = container.querySelector('.try-again-btn');
+    const questionView = container.querySelector('.quiz-question-view');
+
+    function loadQuestion(index) {
+      answered = false;
+      const data = QUIZ_DATA[index];
+      progressFill.style.width = ((index / QUIZ_DATA.length) * 100) + '%';
+      metaQ.textContent = `Question ${index + 1} of ${QUIZ_DATA.length}`;
+      metaScore.textContent = `Score: ${score}/${QUIZ_DATA.length}`;
+      questionWrap.querySelector('h3').textContent = data.q;
+      optionsWrap.innerHTML = '';
+
+      data.opts.forEach((opt, optionIndex) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-opt';
+        btn.innerHTML = `<span class="opt-letter">${String.fromCharCode(65 + optionIndex)}</span>${opt}`;
+        btn.addEventListener('click', () => selectAnswer(optionIndex, btn));
+        optionsWrap.appendChild(btn);
+      });
+
+      hintText.textContent = data.hint;
+      hintText.classList.remove('hint-open');
+      feedbackBox.classList.remove('fb-show', 'fb-correct', 'fb-wrong');
+      feedbackBox.textContent = '';
+      nextBtn.classList.remove('nb-show');
+      nextBtn.textContent = index < QUIZ_DATA.length - 1 ? 'Next Question →' : 'See Results';
+    }
+
+    function selectAnswer(chosenIndex, chosenBtn) {
+      if (answered) return;
+      answered = true;
+      const data = QUIZ_DATA[current];
+      const allOpts = optionsWrap.querySelectorAll('.quiz-opt');
+      allOpts.forEach(button => button.setAttribute('disabled', 'true'));
+
+      if (chosenIndex === data.ans) {
+        score++;
+        chosenBtn.classList.add('opt-correct');
+        feedbackBox.textContent = 'Correct! ' + data.explain;
+        feedbackBox.className = 'feedback-box fb-show fb-correct';
+        playCorrectSound();
+      } else {
+        chosenBtn.classList.add('opt-wrong');
+        allOpts[data.ans].classList.add('opt-correct');
+        feedbackBox.textContent = 'Not quite. ' + data.explain;
+        feedbackBox.className = 'feedback-box fb-show fb-wrong';
+        playWrongSound();
+      }
+
+      metaScore.textContent = `Score: ${score}/${QUIZ_DATA.length}`;
+      nextBtn.classList.add('nb-show');
+    }
+
+    hintBtn.addEventListener('click', () => {
+      const open = hintText.classList.toggle('hint-open');
+      hintBtn.setAttribute('aria-expanded', open);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      current++;
+      if (current >= QUIZ_DATA.length) {
+        questionView.style.display = 'none';
+        resultsEl.classList.add('qr-show');
+        playQuizComplete();
+        progressFill.style.width = '100%';
+        resultsScore.textContent = `${score} / ${QUIZ_DATA.length}`;
+        resultsMsg.textContent = score >= 6 ? 'Outstanding! You are a pressure expert!' : score >= 4 ? 'Great job! A little more practice and you’ll nail it.' : score >= 2 ? 'Good try! Re-read the sections and try again.' : 'Keep going! Every attempt makes you smarter.';
+      } else {
+        loadQuestion(current);
+      }
+    });
+
+    tryAgainBtn.addEventListener('click', () => {
+      current = 0;
+      score = 0;
+      questionView.style.display = '';
+      resultsEl.classList.remove('qr-show');
+      loadQuestion(0);
+    });
+
+    loadQuestion(0);
+  }
+
+  initQuiz();
+})();
+
+/* ══════════════════════════════════
+   HIRE ASSISTANT — voice tutor
+══════════════════════════════════ */
+(function(){
+  const btn       = document.getElementById('assistant-btn');
+  const btnLabel  = document.getElementById('assistant-btn-label');
+  const card      = document.getElementById('assistant-card');
+  const topicEl   = document.getElementById('assistant-topic');
+  const textEl    = document.getElementById('assistant-text');
+  const repeatBtn = document.getElementById('assistant-repeat');
+  const pauseBtn  = document.getElementById('assistant-pause');
+  const pauseLbl  = document.getElementById('assistant-pause-label');
+  const treatBtn  = document.getElementById('assistant-treat');
+  const fireBtn   = document.getElementById('assistant-fire');
+  if(!btn || !card) return;
+
+  const synth = window.speechSynthesis || null;
+  const arbiter = window.VoiceArbiter || null;
+
+  const GREETING   = "Congratulations, you hired me! I'll guide you through pressure concepts as you explore. Keep an eye on the pressure meter on the top-right, because we'll use it together as we learn.";
+  const TREAT_LINE = "Thank you! I love these. I'm fully recharged and ready to help you learn even more.";
+  const ROCKET_RESUME = "Rocket launch completed. Let's continue exploring pressure.";
+  const REVISIT_MS = 120000;   // re-explain a section when revisited after 2 minutes
+
+  // standalone explanations when the meter crosses into a new pressure range
+  const BAND_EXPLAIN = {
+    low:     "As you can see on the pressure meter on the top-right, we're currently at a low pressure level. This is similar to the weight of a few sheets of paper resting on your hand, so the meter remains calm.",
+    medium:  "The pressure meter on the top-right is now entering a stronger range. This is comparable to carrying a loaded backpack. Notice how the meter is becoming more active.",
+    heavy:   "The pressure meter on the top-right is showing heavy pressure. This is similar to a completely full bucket of water pushing downward. That's why the meter is shaking more.",
+    extreme: "We are now approaching extreme pressure. Imagine several full buckets stacked above you. Notice how intensely the meter reacts to demonstrate how powerful pressure can become."
+  };
+  // shorter versions woven into a section explanation when the range is still new
+  const BAND_CONTEXT = {
+    low:     "As you can see on the pressure meter on the top-right, we're still at a low pressure level, about the weight of a few sheets of paper, so the meter stays calm.",
+    medium:  "Take a quick look at the pressure meter on the top-right: it has entered a stronger range, comparable to carrying a loaded backpack, which is why it's becoming more active.",
+    heavy:   "Notice the pressure meter on the top-right. It's showing heavy pressure now, like a completely full bucket of water pushing downward. That's why the ring is shaking more.",
+    extreme: "And look at the pressure meter on the top-right. We're approaching extreme pressure, like several full buckets stacked above you. That's why the meter is reacting so intensely."
+  };
+
+  const LESSONS = {
+    'section-hook': {
+      title: 'Force & Area: The Building Blocks',
+      text: "Let's warm up with two ideas you already know. A force is a push or a pull. Press your thumb on a drawing pin and you're applying one. An area is the amount of surface that push spreads over. Hold on to both, because the question on your screen is exactly the right one to ask: what happens when force and area work together? That's where pressure is born."
+    },
+    'section-pressure': {
+      title: 'Pressure = Force ÷ Area',
+      text: "Pause here, because this is the key idea of the whole lesson. Look at the formula on your screen: pressure equals force divided by area. Same force on a smaller area means bigger pressure. That is why a sharp pin pierces paper easily, but a flat coin cannot. In the knife demo just below, try it yourself: hold the push button with each knife and compare the pressure values you get."
+    },
+    'section-types': {
+      title: 'The Four Types of Pressure',
+      text: "Now, pressure wears different names depending on what we compare it to. As you can see on your screen, there are four. Atmospheric pressure is the weight of the air above you, the reason your ears pop in an aeroplane. Gauge pressure is measured above atmospheric, like a tyre gauge reading. Absolute pressure counts from a perfect vacuum, and differential pressure is the difference between two points, which is how aircraft measure their speed. Click each bubble and look at the real-life example that appears."
+    },
+    'section-pascal': {
+      title: "Pascal's Law: The Power of Fluids",
+      text: "This simulation is one of my favourites. Pascal's Law says that when you squeeze a trapped fluid, the pressure spreads equally in every direction. Now try moving the slider below and look carefully: as the small piston pushes down, the very same pressure appears under the large piston, and because it acts on a bigger area, it lifts the whole car. That is exactly how a mechanic raises a car with one hand."
+    },
+    'section-underwater': {
+      title: 'Hydrostatic Pressure: Deeper Means Stronger',
+      text: "Let's dive. Under water, pressure grows with depth, because every metre of water above you adds its weight. Drag the depth slider slowly and watch the diver. Just ten metres down, the pressure has already roughly doubled. Notice the diver's face as you go deeper! This is why your ears hurt at the bottom of a swimming pool, and why submarines need thick steel hulls."
+    },
+    'section-boyle': {
+      title: "Boyle's Law: Squeeze a Gas",
+      text: "Here is Boyle's Law, live on your screen. Try dragging the brown piston to the left and watch the gas particles carefully. With less space, they hit the walls more often, so the pressure gauge climbs. Squeeze the gas into half the space and the pressure doubles, as long as the temperature stays the same. You can feel this at home: block the end of a bicycle pump and push, and the trapped air pushes back harder and harder."
+    },
+    'section-blood': {
+      title: "Blood Pressure: Your Body's Pump",
+      text: "Your heart is a pump that creates pressure to push blood around your body. Press the Beat button and watch the pulse travel along the artery on your screen. A reading has two numbers: systolic, when the heart squeezes, and diastolic, when it relaxes between beats. Now try raising the stress slider and notice what happens to those numbers. That is why doctors keep such a close eye on stress."
+    },
+    'section-apps': {
+      title: 'Pressure in the Real World',
+      text: "Pause here for a moment and look at these cards. Every one of them is the same idea wearing a different costume. Needles and knives concentrate force onto tiny areas. Tyres hold air at just the right pressure to carry a whole car. Hydraulic brakes turn a light press of your foot into a powerful stop. And rockets fly because high-pressure gas rushes downward, pushing the rocket up. Once you can spot pressure, you will see it everywhere."
+    },
+    'section-quiz': {
+      title: 'Quiz Time: Show What You Know',
+      text: "Time to show what you know. Read each question slowly and picture the simulations you just explored: smaller area means more pressure, deeper water means more pressure, and squeezing a gas raises its pressure. Use the hints if you get stuck. A wrong answer you learn from is worth more than a lucky guess. Good luck, I'm right here with you."
+    }
+  };
+
+  let hired = false;
+  let justHired = false;       // queue the first auto-explanation behind the greeting
+  let currentId = null;        // section currently shown on the card
+  let paused = false;
+  let voice = null;
+  let io = null;
+  let happyTimer = 0;
+  let spokenAt = Object.create(null);      // section id → time it was last voiced
+  let bandsExplained = new Set();          // pressure ranges already covered this hire
+  let lastBand = null;
+
+  function pickVoice(){
+    if(!synth) return;
+    const voices = synth.getVoices();
+    if(!voices.length) return;
+    const prefs = [
+      /Google UK English Female/i,
+      /Microsoft (Aria|Jenny|Sonia|Libby)/i,
+      /Google US English/i,
+      /Samantha/i,
+      /Microsoft Zira/i
+    ];
+    for(const p of prefs){
+      const v = voices.find(v => p.test(v.name));
+      if(v){ voice = v; return; }
+    }
+    voice = voices.find(v => /^en[-_]/i.test(v.lang)) || voices[0];
+  }
+  pickVoice();
+  if(synth) synth.onvoiceschanged = pickVoice;
+
+  function setSpeaking(on){ card.classList.toggle('speaking', on); }
+
+  function updatePauseBtn(){
+    if(pauseLbl) pauseLbl.textContent = paused ? 'Resume' : 'Pause';
+    pauseBtn.setAttribute('aria-label', paused ? 'Resume voice' : 'Pause voice');
+  }
+
+  function speak(text, opts){
+    opts = opts || {};
+    if(!synth) return;
+    // the arbiter is the single gatekeeper: it refuses while the rocket owns
+    // the stage and always calls speechSynthesis.cancel() before narration
+    if(arbiter && !arbiter.canSpeak('assistant')) return;
+    if(!opts.queue){
+      if(arbiter) arbiter.request('assistant');
+      else synth.cancel();
+    }
+    if(paused) synth.resume();   // a cancelled-while-paused synth stays stuck without this
+    paused = false; updatePauseBtn();
+    const u = new SpeechSynthesisUtterance(text);
+    if(voice) u.voice = voice;
+    u.rate = 0.96;
+    u.pitch = 1.04;
+    u.onstart = () => { setSpeaking(true); if(opts.onstart) opts.onstart(); };
+    u.onend = u.onerror = () => {
+      if(!synth.speaking && !synth.pending){
+        setSpeaking(false); paused = false; updatePauseBtn();
+        if(arbiter) arbiter.release('assistant');
+      }
+    };
+    synth.speak(u);
+  }
+
+  function stopSpeaking(){
+    if(synth) synth.cancel();
+    paused = false; setSpeaking(false); updatePauseBtn();
+    if(arbiter) arbiter.release('assistant');
+  }
+
+  function meterBand(){ return (window.pemState && window.pemState.band) || null; }
+
+  function showLesson(id, autoSpeak){
+    const lesson = LESSONS[id];
+    if(!lesson) return;
+    // during a rocket launch the page auto-scrolls — stay silent and untouched
+    if(arbiter && arbiter.isActive('rocket')) return;
+    currentId = id;
+    const now = Date.now();
+    const willSpeak = autoSpeak && (!spokenAt[id] || now - spokenAt[id] > REVISIT_MS);
+    let text = lesson.text;
+    // smart context: weave the meter into the lesson when its range is still new
+    if(willSpeak){
+      const band = meterBand();
+      if(band && !bandsExplained.has(band) && BAND_CONTEXT[band]){
+        text += ' ' + BAND_CONTEXT[band];
+        bandsExplained.add(band);
+      }
+    }
+    topicEl.textContent = lesson.title;
+    textEl.textContent = text;
+    if(willSpeak){
+      spokenAt[id] = now;
+      speak(text, { queue: justHired });
+      justHired = false;
+    }
+  }
+
+  function startWatching(){
+    if(io) return;
+    const sections = Object.keys(LESSONS)
+      .map(id => document.getElementById(id)).filter(Boolean);
+    io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(!entry.isIntersecting) return;
+        if(entry.target.id === currentId) return;
+        showLesson(entry.target.id, true);
+      });
+    }, { rootMargin: '-22% 0px -68% 0px', threshold: 0.1 });
+    sections.forEach(s => io.observe(s));
+    startHintWatch();
+  }
+
+  function stopWatching(){
+    if(io){ io.disconnect(); io = null; }
+    stopHintWatch();
+  }
+
+  function hire(){
+    hired = true;
+    justHired = true;
+    currentId = null;
+    spokenAt = Object.create(null);
+    bandsExplained = new Set();
+    resetCoach();
+    lastBand = meterBand();   // greeting covers the start — no instant range lecture
+    // assistant takes full ownership of narration; meter goes visual-only
+    if(arbiter) arbiter.setOwner('assistant');
+    btn.classList.add('hired');
+    btn.setAttribute('aria-pressed', 'true');
+    btnLabel.textContent = 'Fire Assistant';
+    card.classList.add('open');
+    card.setAttribute('aria-hidden', 'false');
+    topicEl.textContent = 'Welcome aboard!';
+    textEl.textContent = GREETING;
+    speak(GREETING);
+    startWatching();
+  }
+
+  function fire(){
+    hired = false;
+    stopWatching();
+    stopSpeaking();
+    // hand narration back — the meter may speak again on its own
+    if(arbiter) arbiter.clearOwner('assistant');
+    btn.classList.remove('hired');
+    btn.setAttribute('aria-pressed', 'false');
+    btnLabel.textContent = 'Hire Assistant';
+    card.classList.remove('open');
+    card.setAttribute('aria-hidden', 'true');
+  }
+
+  btn.addEventListener('click', () => hired ? fire() : hire());
+  fireBtn.addEventListener('click', fire);
+
+  repeatBtn.addEventListener('click', () => {
+    if(!hired) return;
+    // repeat exactly what's on the board — lesson, pressure check or coach remark
+    if(textEl.textContent) speak(textEl.textContent);
+    else if(currentId && LESSONS[currentId]) speak(LESSONS[currentId].text);
+  });
+
+  pauseBtn.addEventListener('click', () => {
+    if(!synth || !synth.speaking) return;
+    if(paused){ synth.resume(); paused = false; }
+    else { synth.pause(); paused = true; }
+    updatePauseBtn();
+  });
+
+  treatBtn.addEventListener('click', () => {
+    if(!hired) return;
+    topicEl.textContent = 'A little thank-you';
+    textEl.textContent = TREAT_LINE;
+    currentId = null;   // scrolling back into a section restores its lesson text
+    // a small happy wiggle — restart the animation even on rapid clicks
+    card.classList.remove('happy');
+    void card.offsetWidth;
+    card.classList.add('happy');
+    clearTimeout(happyTimer);
+    happyTimer = setTimeout(() => card.classList.remove('happy'), 1000);
+    speak(TREAT_LINE);
+  });
+
+  // ── pressure-range commentary ─────────────────────────────────────────
+  // when the meter crosses into a new range, explain it once per hire —
+  // queued politely behind whatever the assistant is currently saying
+  document.addEventListener('pem:levelchange', e => {
+    const band = e.detail && e.detail.band;
+    if(band === lastBand) return;
+    lastBand = band;
+    if(!hired || !band) return;
+    if(arbiter && arbiter.isActive('rocket')) return;
+    if(bandsExplained.has(band) || !BAND_EXPLAIN[band]) return;
+    bandsExplained.add(band);
+    const line = BAND_EXPLAIN[band];
+    const levelTitle = (e.detail && e.detail.level) || 'Pressure update';
+    speak(line, {
+      queue: !!(synth && (synth.speaking || synth.pending)),
+      onstart: () => {           // update the card only when this line actually plays
+        topicEl.textContent = 'Pressure Check: ' + levelTitle;
+        textEl.textContent = line;
+        currentId = null;
+      }
+    });
+  });
+
+  // ── rocket launch has absolute priority ───────────────────────────────
+  if(arbiter){
+    arbiter.on('rocket:start', () => {
+      if(hired) stopSpeaking();   // tidy UI state; the arbiter already cancelled the voice
+    });
+    arbiter.on('rocket:end', () => {
+      if(!hired) return;
+      currentId = null;           // let the section under us re-show its lesson text
+      speak(ROCKET_RESUME, {
+        onstart: () => {
+          topicEl.textContent = 'Mission complete';
+          textEl.textContent = ROCKET_RESUME;
+        }
+      });
+    });
+  }
+
+  /* ── simulation coach ──────────────────────────────────────────────────
+     Watches the student's hands: sliders, buttons and drags inside every
+     simulation. Explains what they did, what changed on screen and why —
+     each remark once per hire, so the teacher never nags. */
+
+  const COACH_REACT = {
+    'knife:sharp':  "Good choice, the sharp knife. Look at the area value on your screen: only six square millimetres. Now hold the PUSH button and watch how fast the pressure climbs.",
+    'knife:blunt':  "Now the blunt knife. Notice the area jumped to six hundred square millimetres. Hold the PUSH button and compare: same force, far less pressure. That's why it squashes instead of cutting.",
+    'knife:push':   "Keep holding and watch the numbers. The force is rising while the area stays fixed, so the pressure shoots up. Notice the dent growing exactly where the edge concentrates the force.",
+    'types:node':   "Nicely done. Each bubble is a different way of measuring pressure. Look at the real-life example that appeared on your screen, then try the other bubbles and compare them.",
+    'beat':         "There it goes! Watch the pulse travel along the artery on your screen. Each beat is your heart creating a burst of pressure; that peak is the systolic number.",
+    'boyle:start':  "You're squeezing the gas. Watch the particles: with less space they hit the walls more often, and look, the pressure gauge is already climbing.",
+    'boyle:half':   "Pause here and compare the values: the volume is about half, and the pressure is nearly double. That is Boyle's Law exactly, pressure times volume stays constant."
+  };
+
+  const SLIDER_COACH = {
+    'pascal-slider': {
+      first: "You're pushing the small piston down. Now look at the right side of your screen: the large piston rises and lifts the car. The fluid carries your pressure across, and the bigger area turns it into a bigger force."
+    },
+    'depth-slider': {
+      first: "Watch the diver sink as you drag. Every metre of water above adds weight, so the pressure number keeps climbing. Pause here and compare the value now with the value at the surface.",
+      extremeAt: 35,
+      extreme: "Look how deep we are now. The pressure is several times what we feel at the surface. Notice the diver's face! Real divers train carefully for depths like this."
+    },
+    'stress-slider': {
+      first: "You're raising the stress level. Notice both numbers climbing. Stress makes the heart squeeze harder, so the pressure inside the arteries rises.",
+      extremeAt: 80,
+      extreme: "Look at those readings. That is far above a healthy level. This is exactly why managing stress genuinely protects your heart."
+    }
+  };
+
+  const SIM_HINTS = {
+    'card1':         "Here's a little experiment: choose the sharp knife, hold the PUSH button, and watch the pressure value. Then do the same with the blunt knife and compare the two numbers.",
+    'section-types': "Try clicking each pressure type bubble. Every one of them shows a real place where that kind of pressure appears.",
+    'card2':         "Try moving the slider to the right and watch what happens: the small piston pushes down, and the large piston lifts the car.",
+    'card3':         "Drag the depth slider slowly to the right and watch the diver sink, and keep an eye on how the pressure grows with every metre.",
+    'card4':         "Try dragging the brown piston to the left. Watch the particles bounce faster as their space shrinks, and watch what the pressure gauge does.",
+    'card5':         "Press the Beat button to send a pulse along the artery, then raise the stress slider and compare the values before and after.",
+    'card6':         "When you're ready, press IGNITE and watch closely. The thrust gauge shows pressure doing its work, all the way to liftoff."
+  };
+
+  let coachSaid = new Set();        // reactions + hints already given this hire
+  let interacted = new Set();       // sims the student already touched (no hint needed)
+  const sliderTimers = {};
+  let hintIO = null, hintTimer = 0, hintCard = null;
+
+  function resetCoach(){
+    coachSaid = new Set();
+    interacted = new Set();
+    clearTimeout(hintTimer);
+    hintCard = null;
+  }
+
+  function coachSay(key, text){
+    if(!hired || coachSaid.has(key) || !text) return;
+    if(arbiter && arbiter.isActive('rocket')) return;
+    coachSaid.add(key);
+    textEl.textContent = text;     // keep the current topic; the remark is live commentary
+    speak(text);
+  }
+
+  function markInteract(el){
+    const sim = el && el.closest && el.closest('#card1,#card2,#card3,#card4,#card5,#card6,#section-types');
+    if(!sim) return null;
+    interacted.add(sim.id);
+    if(hintCard === sim.id){ clearTimeout(hintTimer); hintCard = null; }
+    return sim.id;
+  }
+
+  // sliders — react when the student settles, not on every tick
+  document.addEventListener('input', e => {
+    const s = e.target;
+    if(!hired || !s || s.type !== 'range') return;
+    markInteract(s);
+    const conf = SLIDER_COACH[s.id];
+    if(!conf) return;
+    clearTimeout(sliderTimers[s.id]);
+    sliderTimers[s.id] = setTimeout(() => {
+      if(!coachSaid.has(s.id + ':first')) coachSay(s.id + ':first', conf.first);
+      else if(conf.extreme && +s.value >= conf.extremeAt) coachSay(s.id + ':extreme', conf.extreme);
+    }, 900);
+  }, true);
+
+  // buttons and clickable nodes
+  document.addEventListener('click', e => {
+    if(!hired) return;
+    const el = e.target.closest('button, .pressure-type-node');
+    if(!el) return;
+    markInteract(el);
+    const oc = el.getAttribute('onclick') || '';
+    if(oc.indexOf("setKnife('sharp')") !== -1)      coachSay('knife:sharp', COACH_REACT['knife:sharp']);
+    else if(oc.indexOf("setKnife('blunt')") !== -1) coachSay('knife:blunt', COACH_REACT['knife:blunt']);
+    else if(oc.indexOf('triggerHeartbeat') !== -1)  coachSay('beat', COACH_REACT['beat']);
+    else if(el.classList.contains('pressure-type-node')) coachSay('types:node', COACH_REACT['types:node']);
+  }, true);
+
+  // holds and drags
+  document.addEventListener('pointerdown', e => {
+    if(!hired) return;
+    const push = e.target.closest && e.target.closest('#btn-push');
+    if(push){ markInteract(push); coachSay('knife:push', COACH_REACT['knife:push']); return; }
+    const piston = e.target.closest && e.target.closest('#boyle-piston');
+    if(piston){ markInteract(piston); coachSay('boyle:start', COACH_REACT['boyle:start']); }
+  }, true);
+
+  document.addEventListener('pointerup', e => {
+    if(!hired) return;
+    if(!(e.target.closest && e.target.closest('#boyle-piston'))) return;
+    const vEl = document.getElementById('c4-v');
+    const v = vEl ? parseInt(vEl.textContent, 10) : NaN;
+    if(!isNaN(v) && v <= 55) coachSay('boyle:half', COACH_REACT['boyle:half']);
+  }, true);
+
+  // gentle one-time hint when the student lingers on a sim without touching it
+  function scheduleHint(id){
+    if(coachSaid.has('hint:' + id) || interacted.has(id)) return;
+    clearTimeout(hintTimer);
+    hintCard = id;
+    hintTimer = setTimeout(function fire(){
+      if(!hired || hintCard !== id || interacted.has(id)) return;
+      // wait politely if a voice is busy, paused, or the rocket owns the stage
+      if(paused || (synth && (synth.speaking || synth.pending)) ||
+         (arbiter && arbiter.isActive('rocket'))){
+        hintTimer = setTimeout(fire, 8000);
+        return;
+      }
+      coachSay('hint:' + id, SIM_HINTS[id]);
+    }, 14000);
+  }
+
+  function startHintWatch(){
+    if(hintIO) return;
+    hintIO = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if(en.isIntersecting) scheduleHint(en.target.id);
+        else if(hintCard === en.target.id){ clearTimeout(hintTimer); hintCard = null; }
+      });
+    }, { rootMargin: '-20% 0px -20% 0px', threshold: 0.25 });
+    Object.keys(SIM_HINTS).forEach(id => {
+      const el = document.getElementById(id);
+      if(el) hintIO.observe(el);
+    });
+  }
+
+  function stopHintWatch(){
+    if(hintIO){ hintIO.disconnect(); hintIO = null; }
+    clearTimeout(hintTimer);
+    hintCard = null;
+  }
+
+  // never leave a voice running after leaving the page
+  window.addEventListener('pagehide', () => { if(synth) synth.cancel(); });
+
+  updatePauseBtn();
+})();
+</script>
+</body>
+</html>

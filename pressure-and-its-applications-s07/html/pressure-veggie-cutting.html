@@ -24,7 +24,6 @@
   --card:#FFFFFF;
   --shadow:0 10px 24px rgba(59,43,43,.12);
   --radius:22px;
-  --nav-h:60px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -39,35 +38,6 @@ body{
   min-height:100vh;
   overflow-x:hidden;
 }
-
-/* ── SHARED NAV (injected; identical pill nav as learn.html) ── */
-.site-nav{
-  position:sticky;top:0;z-index:200;height:var(--nav-h);
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,246,233,.96);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border-bottom:2px solid #F2E3CC;
-}
-.nav-inner{
-  position:relative;display:flex;align-items:center;gap:4px;
-  background:var(--cream-2);border:2px solid #E8D5BA;
-  border-radius:999px;padding:5px 6px;
-}
-.nav-tab{
-  font-family:'Fredoka',sans-serif;font-weight:600;font-size:1rem;
-  color:var(--ink-soft);text-decoration:none;padding:7px 22px;
-  border-radius:999px;position:relative;z-index:1;
-  transition:color .25s;white-space:nowrap;
-}
-.nav-tab:hover{color:var(--ink)}
-.nav-tab.active{color:#fff}
-.nav-pill{
-  position:absolute;top:5px;bottom:5px;border-radius:999px;
-  background:var(--tomato);z-index:0;
-  transition:left .32s cubic-bezier(.34,1.56,.64,1),
-             width .32s cubic-bezier(.34,1.56,.64,1);
-}
-
 /* floating physics doodles */
 .doodle{position:fixed;width:46px;opacity:.2;animation:floaty 7s ease-in-out infinite;pointer-events:none;user-select:none;z-index:0}
 .doodle svg{display:block;width:100%;height:auto}
@@ -228,13 +198,6 @@ h1 .green{color:var(--leaf)}
 /* confetti */
 .confetti{position:fixed;top:0;left:0;width:8px;height:14px;border-radius:3px;z-index:50;pointer-events:none}
 
-/* Global sound toggle — fixed in the nav strip, no layout shift */
-.sound-toggle{position:fixed;top:10px;right:12px;z-index:210;width:40px;height:40px;
-  border-radius:50%;border:2px solid #E8D5BA;background:var(--cream-2);cursor:pointer;
-  font-size:1.1rem;line-height:1;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 10px rgba(59,43,43,.14);padding:0}
-.sound-toggle:active{transform:scale(.9)}
-
 footer{
   text-align:center;padding:10px 16px 30px;color:var(--ink-soft);
   font-weight:700;font-size:.85rem;position:relative;z-index:2;
@@ -245,56 +208,9 @@ footer b{color:var(--tomato)}
   .doodle{animation:none}
   *{transition-duration:.01ms !important;animation-duration:.01ms !important}
 }
-
-/* Music Toggle Button */
-.music-toggle-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.75);
-  border: 3px solid #F2E3CC;
-  box-shadow: 0 6px 16px rgba(59, 43, 43, 0.15);
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1000;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-.music-toggle-btn:hover {
-  transform: scale(1.1);
-  background: #FFF;
-  box-shadow: 0 8px 24px rgba(59, 43, 43, 0.25);
-}
-.music-toggle-btn:active {
-  transform: scale(0.92);
-}
-@media (prefers-reduced-motion: reduce) {
-  .music-toggle-btn { transition: none; }
-}
 </style>
 </head>
 <body>
-
-<!-- Music Toggle Button -->
-<button id="musicToggleBtn" class="music-toggle-btn" aria-label="Toggle background music">🔇</button>
-
-<!-- ========= SHARED NAV ========= -->
-<nav class="site-nav" role="navigation" aria-label="Site navigation">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-tab active" data-page="play">Play</a>
-    <a href="html/learn.html" class="nav-tab" data-page="learn">Learn</a>
-    <div class="nav-pill" aria-hidden="true"></div>
-  </div>
-</nav>
 
 <span class="doodle" style="top:12%;left:4%" aria-hidden="true"><svg viewBox="0 0 60 28" fill="none"><text x="2" y="21" font-family="'Fredoka One',sans-serif" font-size="19" fill="#FF9F2E">F</text><line x1="22" y1="14" x2="50" y2="14" stroke="#FF9F2E" stroke-width="2.6" stroke-linecap="round"/><path d="M44 7.5 51 14l-7 6.5" stroke="#FF9F2E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
 <span class="doodle" style="top:70%;left:6%;animation-delay:1.2s" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="7" stroke="#A04EF6" stroke-width="2.4"/><circle cx="24" cy="24" r="14" stroke="#A04EF6" stroke-width="2.2" opacity=".55"/><circle cx="24" cy="24" r="21" stroke="#A04EF6" stroke-width="2" opacity=".3"/></svg></span>
@@ -441,40 +357,25 @@ footer b{color:var(--tomato)}
   </section>
 </main>
 
-<footer>Designed by <b>SWECHA</b> for the <b>BALA SWECHA</b></footer>
+<footer>Made for <b>PressureVerse</b> · Pressure = Force ÷ Area · Smaller area, bigger pressure!</footer>
+
+<!-- Audio for cutting -->
+<audio id="cutAudio" preload="auto">
+  <source src="../nogod.mp3?v=1" type="audio/mpeg">
+</audio>
+
 <script>
 (function(){
   "use strict";
 
-  // ---------- audio setup ----------
+  // ---------- sound system (Web Audio API, no external files) ----------
   let audioCtx = null;
   let masterGain = null;
   const MUTE_KEY = 'pv-sound-muted';
   let muted = false;
   try { muted = localStorage.getItem(MUTE_KEY) === '1'; } catch(e) {}
-  let soundToggleBtn = null;
   let forceOsc = null;
   let forceGain = null;
-  let musicPlaying = false;
-  let sequencerInterval = null;
-  let sequencerStep = 0;
-  let hasSpokenDonotCut = false;
-
-  const SCALE = {
-    C3: 130.81, D3: 146.83, E3: 164.81, G3: 196.00, A3: 220.00,
-    C4: 261.63, D4: 293.66, E4: 329.63, G4: 392.00, A4: 440.00,
-    C5: 523.25, D5: 587.33, E5: 659.25, G5: 783.99, A5: 880.00
-  };
-
-  const BASS_PATTERN = [
-    'C3', null, 'G3', null, 'C3', null, 'G3', null,
-    'A3', null, 'E3', null, 'F3', null, 'C4', null
-  ];
-
-  const MELODY_PATTERN = [
-    'E4', 'G4', 'C5', null, 'D5', 'C5', 'G4', null,
-    'A4', 'C5', 'E5', 'D5', 'C5', null, 'G4', null
-  ];
 
   function getAudioContext() {
     const Ctor = window.AudioContext || window.webkitAudioContext;
@@ -488,108 +389,6 @@ footer b{color:var(--tomato)}
     const ctx = getAudioContext();
     if (!ctx || ctx.state === 'running') return;
     ctx.resume().catch(() => {});
-    
-    // Auto-start music if preference is not 'off'
-    if (localStorage.getItem('pressurePlaygroundMusic') !== 'off') {
-      startBackgroundMusic();
-      const btn = document.getElementById('musicToggleBtn');
-      if (btn) btn.textContent = '🎵';
-    }
-  }
-
-  function playSequencerStep() {
-    const ctx = getAudioContext();
-    if (!ctx || !musicPlaying) return;
-
-    const time = ctx.currentTime;
-    const step = sequencerStep % 16;
-    
-    const bassNote = BASS_PATTERN[step];
-    const melodyNote = MELODY_PATTERN[step];
-
-    if (bassNote && SCALE[bassNote]) {
-      const osc = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(SCALE[bassNote], time);
-      
-      gainNode.gain.setValueAtTime(0.0001, time);
-      gainNode.gain.exponentialRampToValueAtTime(0.012, time + 0.02);
-      gainNode.gain.exponentialRampToValueAtTime(0.0001, time + 0.28);
-      
-      osc.connect(gainNode);
-      gainNode.connect(ctx.destination);
-      osc.start(time);
-      osc.stop(time + 0.3);
-    }
-
-    if (melodyNote && SCALE[melodyNote]) {
-      const osc = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(SCALE[melodyNote], time);
-      
-      gainNode.gain.setValueAtTime(0.0001, time);
-      gainNode.gain.exponentialRampToValueAtTime(0.006, time + 0.02);
-      gainNode.gain.exponentialRampToValueAtTime(0.0001, time + 0.16);
-      
-      osc.connect(gainNode);
-      gainNode.connect(ctx.destination);
-      osc.start(time);
-      osc.stop(time + 0.18);
-    }
-
-    sequencerStep++;
-  }
-
-  function startBackgroundMusic() {
-    const ctx = getAudioContext();
-    if (!ctx) return;
-    if (sequencerInterval) return;
-
-    musicPlaying = true;
-    sequencerStep = 0;
-    sequencerInterval = setInterval(playSequencerStep, 150);
-  }
-
-  function stopBackgroundMusic() {
-    musicPlaying = false;
-    if (sequencerInterval) {
-      clearInterval(sequencerInterval);
-      sequencerInterval = null;
-    }
-  }
-
-  function toggleMusic() {
-    const btn = document.getElementById('musicToggleBtn');
-    if (!btn) return;
-    const ctx = getAudioContext();
-    if (musicPlaying) {
-      stopBackgroundMusic();
-      btn.textContent = '🔇';
-      localStorage.setItem('pressurePlaygroundMusic', 'off');
-    } else {
-      startBackgroundMusic();
-      btn.textContent = '🎵';
-      localStorage.setItem('pressurePlaygroundMusic', 'on');
-    }
-  }
-
-  // Voice synthesis helper
-  function speak(text) {
-    if (muted || !window.speechSynthesis) return;
-    try {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.pitch = 1.35; // slightly high but natural cartoon pitch
-      utterance.rate = 1.0;   // normal speed
-      const voices = window.speechSynthesis.getVoices();
-      const voice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google US English') || v.name.includes('Zira') || v.name.includes('Microsoft') || v.name.includes('Natural')));
-      if (voice) utterance.voice = voice;
-      window.speechSynthesis.speak(utterance);
-    } catch(err) {
-      console.warn("Speech Synthesis failed:", err);
-    }
   }
 
   // master bus — every sound routes through this so mute controls everything
@@ -609,10 +408,6 @@ footer b{color:var(--tomato)}
       masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
       masterGain.gain.setValueAtTime(Math.max(0.0001, masterGain.gain.value), audioCtx.currentTime);
       masterGain.gain.exponentialRampToValueAtTime(m ? 0.0001 : 1, audioCtx.currentTime + 0.15);
-    }
-    if (soundToggleBtn) {
-      soundToggleBtn.textContent = m ? '🔇' : '🔊';
-      soundToggleBtn.setAttribute('aria-label', m ? 'Sound off — tap to unmute' : 'Sound on — tap to mute');
     }
   }
 
@@ -703,12 +498,12 @@ footer b{color:var(--tomato)}
 
     forceOsc = ctx.createOscillator();
     forceGain = ctx.createGain();
-    
+
     forceOsc.type = 'triangle';
     forceOsc.frequency.setValueAtTime(100, ctx.currentTime);
-    
+
     forceGain.gain.setValueAtTime(0.0001, ctx.currentTime);
-    
+
     const filter = ctx.createBiquadFilter();
     filter.type = 'lowpass';
     filter.frequency.setValueAtTime(300, ctx.currentTime);
@@ -724,7 +519,7 @@ footer b{color:var(--tomato)}
     if (!forceOsc || !forceGain) return;
     const ctx = getAudioContext();
     if (!ctx) return;
-    
+
     const pitch = 100 + (f / 100) * 100;
     const volume = (f / 100) * 0.055;
 
@@ -736,17 +531,17 @@ footer b{color:var(--tomato)}
     if (!forceOsc || !forceGain) return;
     const ctx = getAudioContext();
     if (!ctx) return;
-    
+
     const currOsc = forceOsc;
     const currGain = forceGain;
-    
+
     forceOsc = null;
     forceGain = null;
-    
+
     currGain.gain.cancelScheduledValues(ctx.currentTime);
     currGain.gain.setValueAtTime(currGain.gain.value, ctx.currentTime);
     currGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
-    
+
     setTimeout(() => {
       try {
         currOsc.stop();
@@ -760,40 +555,8 @@ footer b{color:var(--tomato)}
     tone({ frequency: 700, slideTo: 1000, duration: 0.06, type: 'sine', gain: 0.04 });
   }
 
-  /* ── Global mute/unmute toggle — fixed position, no layout shift ── */
-  soundToggleBtn = document.createElement('button');
-  soundToggleBtn.className = 'sound-toggle';
-  soundToggleBtn.type = 'button';
-  document.body.appendChild(soundToggleBtn);
-  soundToggleBtn.addEventListener('click', () => {
-    const next = !muted;
-    if (next) playPopSound();   // brief blip as sound switches off (fades with the bus)
-    setMuted(next);
-    if (!next) playPopSound();  // confirmation pop when sound returns
-  });
-  setMuted(muted);
-
-  /* ── gentle pop on nav tab presses ── */
-  document.addEventListener('pointerdown', event => {
-    if (event.target.closest('a.nav-tab')) playPopSound();
-  }, { passive: true, capture: true });
-
-  /* ── Nav pill positioning ── */
-  (function(){
-    const inner = document.querySelector('.nav-inner');
-    const pill  = document.querySelector('.nav-pill');
-    if(!inner || !pill) return;
-    function pos(){
-      const active = inner.querySelector('.nav-tab.active');
-      if(!active) return;
-      const iR = inner.getBoundingClientRect();
-      const aR = active.getBoundingClientRect();
-      pill.style.left  = (aR.left - iR.left) + 'px';
-      pill.style.width = aR.width + 'px';
-    }
-    pos();
-    window.addEventListener('resize', pos);
-  })();
+  window.addEventListener('pointerdown', unlockAudio, { passive: true, capture: true, once: true });
+  window.addEventListener('keydown', unlockAudio, { passive: true, capture: true, once: true });
 
   // ---------- constants ----------
   const MAX_FORCE = 100;          // N
@@ -900,15 +663,6 @@ footer b{color:var(--tomato)}
         stopForceSound();
       }
 
-      if (holding && force > 45 && !hasSpokenDonotCut) {
-        hasSpokenDonotCut = true;
-        speak("No, please don't cut me");
-        say("No, please don't cut me! I want to live! 😭", 3200);
-      }
-      if (!holding) {
-        hasSpokenDonotCut = false;
-      }
-
       const area = AREAS[knife];
       const pressure = force / area;
 
@@ -950,7 +704,13 @@ footer b{color:var(--tomato)}
   // ---------- cutting ----------
   function doCut(fUsed, pUsed){
     cutting = true; stopHold();
+    stopForceSound();
     playCutSound();
+    const cutAudio = $("cutAudio");
+    if (cutAudio) {
+      cutAudio.currentTime = 0;
+      cutAudio.play().catch(() => {});
+    }
     slices++; sliceCountEl.textContent = slices;
 
     // knife slash down
@@ -1039,27 +799,6 @@ footer b{color:var(--tomato)}
 
   // ---------- friendly nudges ----------
   setTimeout(()=>say("Hi! I'm Tommy the Tomato 🍅 Try to cut me… if you can!"),700);
-
-  // ---------- background music initialization ----------
-  (function initMusic() {
-    const btn = document.getElementById('musicToggleBtn');
-    if (!btn) return;
-    const pref = localStorage.getItem('pressurePlaygroundMusic');
-    if (pref === 'on' || pref === null) {
-      btn.textContent = '🎵';
-    } else {
-      btn.textContent = '🔇';
-    }
-    btn.addEventListener('click', toggleMusic);
-    
-    if (window.speechSynthesis) {
-      window.speechSynthesis.getVoices();
-    }
-  })();
-
-  // ---------- audio unlock events ----------
-  window.addEventListener("pointerdown", unlockAudio, { passive: true, capture: true, once: true });
-  window.addEventListener("keydown", unlockAudio, { passive: true, capture: true, once: true });
 })();
 </script>
 </body>
