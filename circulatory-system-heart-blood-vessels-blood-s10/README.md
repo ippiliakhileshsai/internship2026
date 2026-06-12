@@ -1,39 +1,53 @@
-PulseX – Django-Based Interactive Human Circulatory System Learning Platform
-Team Name: Heart Sync Connectors
-Team Motto: Connecting Knowledge with the Rhythm of Life.
+# PulseX – Django-Based Interactive Human Circulatory System Learning Platform
 
+**Team Name:** Heart Sync Connectors  
+**Team Motto:** Connecting Knowledge with the Rhythm of Life.
 
-PROJECT OVERVIEW
+---
 
-PulseX is a Django-based educational web application designed to help students understand the Human Circulatory System through interactive learning modules, blood flow simulations, quizzes, disease exploration, and certificate generation.
+## 📋 Project Overview
 
-The platform enables users to visualize blood circulation, learn about heart anatomy, understand blood vessels and blood components, and test their knowledge through engaging activities. User progress and quiz scores are stored in a database, making learning interactive and personalized.
+PulseX is a Django-based educational web application designed to help students understand the Human Circulatory System through interactive learning modules, blood flow simulations, quizzes, and disease exploration.
 
-OBJECTIVES
+The platform enables users to visualize blood circulation, learn about heart anatomy, understand blood vessels and blood components, and test their knowledge through engaging activities. User progress is tracked and stored in a database for continuous learning assessment.
 
-• Understand the structure of the circulatory system.
-• Learn the functions of the heart, blood vessels, and blood.
-• Visualize blood circulation through interactive simulations.
-• Explore common cardiovascular diseases.
-• Assess knowledge through quizzes and activities.
-• Generate certificates upon successful completion.
-• Store learning progress using a database.
-• Provide an engaging and modern learning experience.
+---
 
-TECHNOLOGIES USED
+## 🎯 Objectives
 
-• Python
-• Django
-• HTML5
-• CSS3
-• JavaScript
-• Bootstrap
-• SQLite / MySQL
-• GitHub
-• VS Code
+- Understand the structure of the circulatory system
+- Learn the functions of the heart, blood vessels, and blood
+- Visualize blood circulation through interactive simulations
+- Explore common cardiovascular diseases
+- Assess knowledge through quizzes and activities
+- Generate certificates upon successful completion
+- Store learning progress using a database
+- Provide an engaging and modern learning experience
 
-PROJECT STRUCTURE
+---
 
+## 🛠️ Technologies Used
+
+### Frontend (75.9%)
+- **HTML5** (46.3%)
+- **JavaScript** (31.8%)
+- **CSS3** (21.9%)
+- Bootstrap
+
+### Backend & Database
+- Python
+- Django
+- SQLite / MySQL
+
+### Development Tools
+- GitHub
+- VS Code
+
+---
+
+## 📁 Project Structure
+
+```
 PULSEX
 │
 ├── pulsex/
@@ -65,125 +79,108 @@ PULSEX
 ├── requirements.txt
 ├── README.md
 └── manage.py
+```
 
-FEATURES
+---
 
-1. Home Page
-• Project introduction
-• Navigation cards
-• Easy access to all modules
+## ✨ Features
 
-2. Learn Module
-• Introduction to the circulatory system
-• Heart anatomy
-• Blood vessels
-• Blood components
-• Interesting facts
+### 1. Home Page
+- Project introduction
+- Navigation cards
+- Easy access to all modules
 
-3. Blood Flow Simulation
-• Interactive blood circulation animation
-• Heart → Arteries → Body → Veins → Heart
-• Start, Pause, and Reset controls
-• Oxygenated and deoxygenated blood visualization
+### 2. Learn Module
+- Introduction to the circulatory system
+- Heart anatomy
+- Blood vessels
+- Blood components
+- Interesting facts
 
-4. Blood Module
-• Red Blood Cells
-• White Blood Cells
-• Platelets
-• Plasma
-• Blood functions
+### 3. Blood Flow Simulation
+- Interactive blood circulation animation
+- Heart → Arteries → Body → Veins → Heart
+- Start, Pause, and Reset controls
+- Oxygenated and deoxygenated blood visualization
 
-5. Disease Explorer
-• Heart Attack
-• Hypertension
-• Stroke
-• Anemia
-• Prevention methods
+### 4. Blood Module
+- Red Blood Cells
+- White Blood Cells
+- Platelets
+- Plasma
+- Blood functions
 
-6. Quiz Module
-• Multiple-choice questions
-• Automatic score calculation
-• Performance badges
-• Progress tracking
+### 5. Disease Explorer
+- Heart Attack
+- Hypertension
+- Stroke
+- Anemia
+- Prevention methods
 
-7. Certificate Generation
-• Student name input
-• Dynamic certificate creation
-• Achievement recognition
+### 6. Quiz Module
+- Multiple-choice questions
+- Automatic score calculation
+- Performance badges
+- Progress tracking
 
-8. User Authentication
-• Registration
-• Login
-• Logout
-• User profiles
+### 7. Certificate Generation
+- Student name input
+- Dynamic certificate creation
+- Achievement recognition
 
-9. Admin Dashboard
-• Manage quizzes
-• Manage disease information
-• View user progress
-• Monitor learning activities
+### 8. User Authentication
+- Registration
+- Login
+- Logout
+- User profiles
 
-WEBSITE FLOW
+### 9. Admin Dashboard
+- Manage quizzes
+- Manage disease information
+- View user progress
+- Monitor learning activities
 
+---
+
+## 🔄 Website Flow
+
+```
 Home Page
-↓
+    ↓
 Learn Module
-↓
+    ↓
 Blood Flow Simulation
-↓
+    ↓
 Blood Module
-↓
+    ↓
 Disease Explorer
-↓
+    ↓
 Quiz Module
-↓
+    ↓
 Certificate
-↓
+    ↓
 User Dashboard
+```
 
-TEAM MEMBERS & RESPONSIBILITIES
+---
 
-Member 1
-• Project Lead
-• Requirement Analysis
-• Team Coordination
+## 👥 Team Members & Responsibilities
 
-Member 2
-• Documentation
-• Storyboard Design
-• Final Report
+| Member | Role | Responsibilities |
+|--------|------|-----------------|
+| Member 1 | Project Lead | Requirement Analysis, Team Coordination |
+| Member 2 | Documentation | Storyboard Design, Final Report |
+| Member 3 | Backend Developer | Django Backend Development, Routing and Views |
+| Member 4 | Database Designer | Database Design, Models and Data Management |
+| Member 5 | Frontend Developer | Home Page Development, Template Design |
+| Member 6 | UI/UX Designer | UI/UX Design, CSS Styling, Responsive Design |
+| Member 7 | JavaScript Developer | Blood Flow Simulation, JavaScript Development |
+| Member 8 | Feature Developer | Quiz and Certificate Module, Score Management |
+| Member 9 | QA & DevOps | Testing, GitHub Management, Deployment |
 
-Member 3
-• Django Backend Development
-• Routing and Views
+---
 
-Member 4
-• Database Design
-• Models and Data Management
-
-Member 5
-• Home Page Development
-• Template Design
-
-Member 6
-• UI/UX Design
-• CSS Styling
-• Responsive Design
-
-Member 7
-• Blood Flow Simulation
-• JavaScript Development
-
-Member 8
-• Quiz and Certificate Module
-• Score Management
-
-Member 9
-• Testing
-• GitHub Management
-• Deployment
-
-GITHUB ISSUES
+## 📝 GitHub Issues & Tasks
 
 1. Setup Django Project
 2. Create User Authentication
@@ -201,37 +198,40 @@ GITHUB ISSUES
 14. Documentation
 15. Deployment
 
-EXPECTED OUTCOME
+---
+
+## 🎓 Expected Outcomes
 
 After completing the website activities, students will be able to:
 
-• Identify parts of the circulatory system.
-• Explain the functions of the heart and blood vessels.
-• Understand blood circulation.
-• Recognize common cardiovascular diseases.
-• Complete quizzes successfully.
-• Track their learning progress.
-• Earn a completion certificate.
+- Identify parts of the circulatory system
+- Explain the functions of the heart and blood vessels
+- Understand blood circulation
+- Recognize common cardiovascular diseases
+- Complete quizzes successfully
+- Track their learning progress
+- Earn a completion certificate
 
-FUTURE ENHANCEMENTS
+---
 
-• 3D Heart Visualization
-• AI Biology Chatbot
-• Health Risk Assessment
-• Voice-Based Learning
-• Progress Analytics Dashboard
-• Multi-language Support
-• Advanced Simulations
-• Mobile Application Integration
+## 🚀 Future Enhancements
 
-LICENSE
+- 3D Heart Visualization
+- AI Biology Chatbot
+- Health Risk Assessment
+- Voice-Based Learning
+- Progress Analytics Dashboard
+- Multi-language Support
+- Advanced Simulations
+- Mobile Application Integration
+
+---
+
+## 📜 License
 
 This project is developed for educational purposes as part of an academic learning activity.
 
-Team Name: Heart Sync Connectors
+---
 
-Project Title:
-PulseX – Django-Based Interactive Human Circulatory System Learning Platform
-
-Team Motto:
-Connecting Knowledge with the Rhythm of Life.
+**Project Repository:** [swechaap/internship2026](https://github.com/swechaap/internship2026)  
+**Last Updated:** 2026-06-12
