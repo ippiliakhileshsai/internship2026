@@ -140,9 +140,7 @@ Google Fonts is the only external resource. Everything else works fully offline.
 
 ## Team Details
 
-See [teams.md](teams.md) for full team information and Phase 5 task division.
-
-**Lead Developer:** Rameshkumar (Rameshkumar31595)
+See [Team.md](Team.md) for full team information and Phase 5 task division.
 
 ---
 
