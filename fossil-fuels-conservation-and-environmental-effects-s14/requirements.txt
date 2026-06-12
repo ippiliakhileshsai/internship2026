@@ -8,9 +8,9 @@ PROJECT STATEMENT & SCOPE:
 ---> Technical Concept: Build a standalone single-page application (SPA) where high-consumption demands dynamically trigger visual biosphere degradation, which users must balance using real-time green energy toggles.
 ---> Content Source: Derived from school curriculum frameworks mapping resource extraction timelines against actionable ecological preservation principles.
 
-
+------------------------------------------------------------------------
 SIMULATION FEATURES AND CORE MODULES
-
+------------------------------------------------------------------------
 Module 1: Introduction Panel
 --> Core Visual: Stylized Global Earth asset interacting with Coal, Oil, and Natural Gas vectors.
 --> Key Lesson: Emphasize that these non-renewable resources take millions of years to naturally accumulate and cannot replenish within human timescales.
@@ -45,9 +45,9 @@ Module 5: Conservation Methods (System Offsets)
     * [ ] "Plant more trees" (Reforestation carbon-sink calculations)
     * [ ] "Transition to Renewable Energy (Solar & Wind)" (Clean grid swap)
 
-
+------------------------------------------------------------------------
 6-MEMBER TEAM ROLE TASK DIVISION
-
+------------------------------------------------------------------------
 Member 1 – Research Lead
 - Source verified stratigraphic parameters and environmental emission data scales.
 - Aggregate contextual definitions for environmental parameters (Acid rain, CO2, non-renewable limits).
@@ -78,9 +78,9 @@ Member 6 – QA Testing & Review Lead
 - Verify asset loading efficiency over throttled, low-tier 3G network environments.
 - Log interface latency bugs or logic broken flows as traceable issue tickets directly on GitHub.
 
-
+------------------------------------------------------------------------
 PROJECT ISSUES & SPRINT WORKFLOW STATUS
-
+------------------------------------------------------------------------
 Issue #1 – [RESEARCH] Formulate Stratigraphic & Carbon Saturation Datasets
 Assigned To: Member 1  |  Status: Completed
 
@@ -107,4 +107,4 @@ Assigned To: Member 6  |  Status: Pending
 
 Issue #9 – [QA] Final Code Compilation Integration & Pre-Deployment Review
 Assigned To: Member 6  |  Status: Pending
-'
+========================================================================
