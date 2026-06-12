@@ -7,7 +7,7 @@
   const MATERIALS = {
     metal: {
       name: "Metal",
-      image: "images/metal.jpg",
+      image: "metal.jpg",
       conductivity: "High",
       shc: "Low",
       baseTemp: 0,
@@ -20,7 +20,7 @@
     },
     wood: {
       name: "Wood",
-      image: "images/wood.jpg",
+      image: "wood.jpg",
       conductivity: "Low",
       shc: "Medium",
       baseTemp: 0,
@@ -33,7 +33,7 @@
     },
     plastic: {
       name: "Plastic",
-      image: "images/plastic.jpg",
+      image: "plastic.jpg",
       conductivity: "Very Low",
       shc: "Medium",
       baseTemp: 0,
@@ -46,7 +46,7 @@
     },
     water: {
       name: "Water",
-      image: "images/water.jpg",
+      image: "water.jpg",
       conductivity: "Low",
       shc: "Very High",
       baseTemp: 10,
@@ -59,7 +59,7 @@
     },
     ice: {
       name: "Ice",
-      image: "images/ice.jpg",
+      image: "ice.jpg",
       conductivity: "Medium",
       shc: "Medium",
       baseTemp: -5,
@@ -72,7 +72,7 @@
     },
     wax: {
       name: "Wax",
-      image: "images/wax.jpg",
+      image: "wax.jpg",
       conductivity: "Low",
       shc: "Low",
       baseTemp: 0,
@@ -85,7 +85,7 @@
     },
     chocolate: {
       name: "Chocolate",
-      image: "images/chocolate.jpg",
+      image: "chocolate.jpg",
       conductivity: "Low",
       shc: "Low",
       baseTemp: 0,
@@ -98,7 +98,7 @@
     },
     butter: {
       name: "Butter",
-      image: "images/butter.jpg",
+      image: "butter.jpg",
       conductivity: "Low",
       shc: "Low",
       baseTemp: 0,
@@ -111,7 +111,7 @@
     },
     glass: {
       name: "Glass",
-      image: "images/glass.jpg",
+      image: "glass.jpg",
       conductivity: "Medium",
       shc: "Low",
       baseTemp: 0,
@@ -143,21 +143,21 @@
 
   function getImageFor(key, temp) {
     if (key === "water") {
-      if (temp <= 0) return "images/ice.jpg";
-      if (temp >= 100) return "images/steam.jpg";
-      return "images/water.jpg";
+      if (temp <= 0) return "ice.jpg";
+      if (temp >= 100) return "steam.jpg";
+      return "water.jpg";
     }
     if (key === "ice") {
-      return temp > 0 ? "images/water.jpg" : "images/ice.jpg";
+      return temp > 0 ? "water.jpg" : "ice.jpg";
     }
     if (key === "wax") {
-      return temp >= 30 ? "images/melted_wax.jpg" : "images/wax.jpg";
+      return temp >= 30 ? "melted_wax.jpg" : "wax.jpg";
     }
     if (key === "chocolate") {
-      return temp >= 30 ? "images/melted_chocolate.jpg" : "images/chocolate.jpg";
+      return temp >= 30 ? "melted_chocolate.jpg" : "chocolate.jpg";
     }
     if (key === "butter") {
-      return temp >= 30 ? "images/melted_butter.jpg" : "images/butter.jpg";
+      return temp >= 30 ? "melted_butter.jpg" : "butter.jpg";
     }
     return MATERIALS[key].image;
   }
