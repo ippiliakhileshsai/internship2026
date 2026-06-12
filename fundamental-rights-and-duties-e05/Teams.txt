@@ -1,0 +1,37 @@
+                                                          Team Members and Contributions
+
+    Muzaina - Documentation Lead
+    Responsibilities:
+---> Divided tasks among team members
+---> Prepared and maintained project documentation
+---> Organized project requirements
+---> Ensured proper documentation of project progress and deliverables
+---> user persona survey
+
+    Sanjana - UI/UX Designer
+    Responsibilities:
+---> Designed the user interface of the simulation
+---> Planned user experience and navigation flow
+---> Improved usability and accessibility for students
+---> Created visual layouts and interaction designs
+
+    Ajay - Frontend Developer
+    Responsibilities:
+---> Developed the frontend of the simulation
+---> Implemented HTML, CSS, and JavaScript components
+---> Integrated UI designs into a functional application
+---> Ensured responsive and interactive user experience
+
+    Joshita - Research Analyst
+    Responsibilities:
+---> Conducted research on Fundamental Rights and Duties
+---> Collected and organized educational content
+---> Verified information from reliable sources
+---> Assisted in content preparation for the simulation
+
+    Trisha - Testing & Debugging
+    Responsibilities:
+---> Tested the simulation for functionality and usability
+---> Identified bugs and technical issues
+---> Assisted in debugging and issue resolution
+---> Verified the stability and performance of the final product

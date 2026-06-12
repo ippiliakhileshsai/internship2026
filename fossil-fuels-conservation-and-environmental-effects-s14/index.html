@@ -1,176 +1,1123 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="h-full bg-slate-50">
 <head>
-<meta charset="UTF-8">
-<title>Fossil Fuel Simulation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 Fossil Fuels: A Journey of Millions of Years!</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                        comic: ['Comic Neue', 'cursive'],
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02)',
+                        'card': '0 20px 40px -15px rgba(0, 0, 0, 0.06)',
+                        'glow-green': '0 0 15px rgba(16, 185, 129, 0.4)',
+                        'glow-orange': '0 0 15px rgba(245, 158, 11, 0.4)',
+                        'glow-red': '0 0 15px rgba(239, 68, 68, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Keyframe Animations for SVGs and Interactive Elements */
+        @keyframes wave {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-4px) rotate(2deg); }
+        }
+        @keyframes float-particle {
+            0% { transform: translateY(10px) translateX(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-30px) translateX(var(--float-x, 10px)); opacity: 0; }
+        }
+        @keyframes drive {
+            0% { transform: translateX(-10px); }
+            100% { transform: translateX(290px); }
+        }
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+        @keyframes shrink-iceberg {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(0.2); }
+        }
+        @keyframes rain-drip {
+            0% { transform: translateY(-10px); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(40px); opacity: 0; }
+        }
 
-<style>
+        .animate-wave-1 { animation: wave 6s ease-in-out infinite; }
+        .animate-wave-2 { animation: wave 4s ease-in-out infinite; }
+        .animate-spin-slow { animation: spin-slow 12s linear infinite; }
+        .animate-spin-fast { animation: spin-slow 2s linear infinite; }
+        .animate-pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
+        .animate-float-smoke { animation: float-particle 1.8s ease-out infinite; }
+        
+        .road-container {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
+        /* Speed modifiers controlled via CSS variable */
+        .vehicle-drive {
+            animation: drive var(--drive-speed, 5s) linear infinite;
+        }
 
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#e8f5e9;
-}
-
-.container{
-    width:90%;
-    max-width:700px;
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    text-align:center;
-    box-shadow:0 0 15px rgba(0,0,0,0.2);
-}
-
-h1{
-    color:darkgreen;
-    margin-bottom:15px;
-}
-
-.earth{
-    font-size:90px;
-}
-
-.info{
-    display:flex;
-    justify-content:space-around;
-    margin:20px 0;
-    font-size:22px;
-    font-weight:bold;
-}
-
-button{
-    padding:10px 18px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    margin:5px;
-    font-size:16px;
-}
-
-.burn{
-    background:#d32f2f;
-    color:white;
-}
-
-.green{
-    background:#388e3c;
-    color:white;
-}
-
-#status{
-    margin-top:20px;
-    font-size:24px;
-    font-weight:bold;
-}
-
-</style>
+        /* Custom scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
 </head>
+<body class="font-sans antialiased bg-gradient-to-br from-slate-50 to-emerald-50 text-slate-800 min-h-full py-6 px-4 md:py-10 md:px-8">
 
-<body>
+    <div class="max-w-7xl mx-auto space-y-6">
+        
+        <!-- ==========================================
+             1. HEADER & INTRO CARD
+             ========================================== -->
+        <header class="bg-white rounded-3xl p-6 md:p-8 shadow-premium border border-slate-100 relative overflow-hidden">
+            <!-- Decorative colored header blur circles -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-100 rounded-full blur-3xl opacity-60"></div>
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-cyan-100 rounded-full blur-3xl opacity-60"></div>
+            
+            <div class="relative flex flex-col md:flex-row items-center gap-6 z-10">
+                <!-- Mascot & Title Info -->
+                <div class="bg-gradient-to-br from-emerald-400 to-cyan-500 p-4 rounded-2xl shadow-md text-white animate-pulse-soft flex-shrink-0">
+                    <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2.945M11.025 21c-.244-1.69-.9-3.58-1.851-5.061m1.851 5.061a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wider rounded-full border border-emerald-200">Interactive Science Lesson</span>
+                    <h1 class="font-display font-extrabold text-3xl md:text-4xl text-slate-900 mt-2 tracking-tight">
+                        🌍 Fossil Fuels: <span class="bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">A Journey of Millions of Years!</span>
+                    </h1>
+                    <p class="mt-3 text-slate-600 text-sm md:text-base leading-relaxed font-sans max-w-4xl">
+                        Fossil fuels (<strong>Coal, Oil, and Natural Gas</strong>) are created from ancient plants and sea creatures buried deep underground over millions of years. Because humans burn them infinitely faster than they naturally form, they are <strong>non-renewable</strong>! Explore this simulation to see how they form, how we use them, their impact on the climate, and how we can restore balance.
+                    </p>
+                </div>
+            </div>
+        </header>
 
-<div class="container">
+        <!-- Main Dashboard Grid -->
+        <main class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-    <h1>Fossil Fuel Conservation Simulation</h1>
+            <!-- ==========================================
+                 2. THE FORMATION TIMELINE (Left Column)
+                 ========================================== -->
+            <section class="lg:col-span-5 bg-white rounded-3xl p-6 shadow-premium border border-slate-100 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-5">
+                        <h2 class="font-display font-bold text-xl text-slate-900 flex items-center gap-2">
+                            <span class="p-1.5 bg-amber-100 rounded-lg text-lg">⏳</span>
+                            How Fossil Fuels Formed
+                        </h2>
+                        <span class="text-xs font-medium text-slate-400 font-display uppercase tracking-widest">Prehistoric Timeline</span>
+                    </div>
 
-    <div class="earth">🌍</div>
+                    <!-- Step badges chronological indicator -->
+                    <div class="flex justify-between items-center mb-6 relative">
+                        <!-- Horizontal Connecting Line -->
+                        <div class="absolute top-1/2 left-4 right-4 h-1 bg-slate-100 -translate-y-1/2 z-0"></div>
+                        <div id="timeline-progress-bar" class="absolute top-1/2 left-4 w-0 h-1 bg-gradient-to-r from-amber-400 to-amber-600 -translate-y-1/2 z-0 transition-all duration-500"></div>
 
-    <div class="info">
-        <div>
-            Pollution<br>
-            <span id="pollution">20%</span>
-        </div>
+                        <!-- Step 1 Badge -->
+                        <button onclick="setTimelineStage(1)" id="badge-step-1" class="relative z-10 w-10 h-10 rounded-full bg-white border-2 border-slate-200 text-slate-500 font-bold flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-sm">
+                            1
+                        </button>
+                        <!-- Step 2 Badge -->
+                        <button onclick="setTimelineStage(2)" id="badge-step-2" class="relative z-10 w-10 h-10 rounded-full bg-white border-2 border-slate-200 text-slate-500 font-bold flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-sm">
+                            2
+                        </button>
+                        <!-- Step 3 Badge -->
+                        <button onclick="setTimelineStage(3)" id="badge-step-3" class="relative z-10 w-10 h-10 rounded-full bg-white border-2 border-slate-200 text-slate-500 font-bold flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-sm">
+                            3
+                        </button>
+                        <!-- Step 4 Badge -->
+                        <button onclick="setTimelineStage(4)" id="badge-step-4" class="relative z-10 w-10 h-10 rounded-full bg-white border-2 border-slate-200 text-slate-500 font-bold flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-sm">
+                            4
+                        </button>
+                    </div>
 
-        <div>
-            Environment<br>
-            <span id="health">80%</span>
-        </div>
+                    <!-- Timeline Stage Display Viewport -->
+                    <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100 mb-5 relative min-h-[360px] flex flex-col">
+                        
+                        <!-- Dynamic Visual Canvas -->
+                        <div class="w-full h-44 rounded-xl overflow-hidden shadow-inner relative bg-slate-200 flex-shrink-0">
+                            
+                            <!-- STAGE 1 VISUAL: Deep Prehistoric Sea -->
+                            <div id="visual-stage-1" class="absolute inset-0 bg-gradient-to-b from-cyan-400 via-blue-600 to-blue-900 transition-opacity duration-500 flex items-center justify-center overflow-hidden">
+                                <!-- Wavy sunlight filters -->
+                                <svg class="absolute inset-0 w-full h-full opacity-35" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                    <polygon points="10,0 25,0 45,100 20,100" fill="url(#sunray-grad)"></polygon>
+                                    <polygon points="50,0 70,0 90,100 65,100" fill="url(#sunray-grad)"></polygon>
+                                    <defs>
+                                        <linearGradient id="sunray-grad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#fff" stop-opacity="0.8"></stop>
+                                            <stop offset="100%" stop-color="#fff" stop-opacity="0"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                
+                                <!-- Floating seaweed -->
+                                <svg class="absolute bottom-0 left-6 h-24 w-8 text-emerald-500 animate-wave-1" fill="currentColor" viewBox="0 0 20 100">
+                                    <path d="M10,100 C5,75 15,50 5,25 C15,10 10,0 10,0 C10,0 5,10 15,25 C5,50 15,75 10,100 Z"></path>
+                                </svg>
+                                <svg class="absolute bottom-0 right-12 h-20 w-8 text-emerald-400 animate-wave-2" fill="currentColor" viewBox="0 0 20 100">
+                                    <path d="M10,100 C15,80 5,60 15,40 C5,20 10,0 10,0 C10,0 15,20 5,40 C15,60 5,80 10,100 Z"></path>
+                                </svg>
+
+                                <!-- Aquatic Creatures & Plants (Prehistoric SVG shapes) -->
+                                <svg class="absolute w-12 h-8 text-amber-200 top-1/3 left-1/4 animate-bounce" style="animation-duration: 4s;" fill="currentColor" viewBox="0 0 24 24">
+                                    <!-- Cute simple fish -->
+                                    <path d="M2,12 C5,8 10,8 15,10 C18,9 20,7 22,5 C21,9 21,11 22,19 C20,17 18,15 15,14 C10,16 5,16 2,12 Z"></path>
+                                    <circle cx="6" cy="11" r="1" fill="#1e293b"></circle>
+                                </svg>
+                                
+                                <svg class="absolute w-8 h-6 text-orange-200 bottom-1/3 right-1/4 animate-bounce" style="animation-duration: 5s;" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M2,12 C5,8 10,8 15,10 C18,9 20,7 22,5 C21,9 21,11 22,19 C20,17 18,15 15,14 C10,16 5,16 2,12 Z"></path>
+                                    <circle cx="6" cy="11" r="0.8" fill="#1e293b"></circle>
+                                </svg>
+
+                                <!-- Tiny floating organic bubbles -->
+                                <div class="absolute bottom-4 left-1/2 w-2 h-2 bg-white/40 rounded-full animate-bounce" style="animation-duration: 1.5s;"></div>
+                                <div class="absolute bottom-10 left-1/3 w-3.5 h-3.5 bg-white/30 rounded-full animate-bounce" style="animation-duration: 2.2s;"></div>
+                                <div class="absolute bottom-8 right-1/3 w-2.5 h-2.5 bg-white/45 rounded-full animate-bounce" style="animation-duration: 1.8s;"></div>
+                                
+                                <span class="absolute top-2 right-3 text-2xl">🐠🔬</span>
+                                <div class="absolute bottom-2 left-3 bg-black/40 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">Ocean Floor - 300 Million Years Ago</div>
+                            </div>
+                            
+                            <!-- STAGE 2 VISUAL: Sediment Burial -->
+                            <div id="visual-stage-2" class="absolute inset-0 bg-amber-100 transition-opacity duration-500 flex flex-col justify-end overflow-hidden opacity-0">
+                                <!-- Layers of soil/earth -->
+                                <div class="h-8 w-full bg-cyan-700/60 flex items-center justify-center text-[10px] text-white font-medium border-b border-cyan-800">Water Layer</div>
+                                <div class="h-10 w-full bg-yellow-600/30 flex items-center justify-between px-6 border-b border-yellow-700/20">
+                                    <span class="text-stone-600 font-bold text-xs">Sand & Silt Sediment</span>
+                                    <span class="text-base">⏳</span>
+                                </div>
+                                <div class="h-12 w-full bg-amber-700/40 relative flex items-center justify-center">
+                                    <!-- Squished remains / skeletons -->
+                                    <svg class="w-14 h-8 text-amber-900/50" fill="currentColor" viewBox="0 0 24 12">
+                                        <path d="M1 6 L3 4 L6 7 L9 3 L12 8 L15 4 L18 7 L21 2 L23 6 L21 8 L18 5 L15 9 L12 6 L9 10 L6 5 L3 8 Z" stroke="currentColor" stroke-width="1" fill="none"></path>
+                                    </svg>
+                                    <span class="absolute top-1 left-12 text-sm">🍂</span>
+                                    <span class="absolute bottom-2 right-16 text-sm">☠️</span>
+                                </div>
+                                <div class="h-14 w-full bg-amber-900/60 flex items-center justify-center text-amber-200 text-xs font-bold relative">
+                                    Ancient Trapped Organisms (No Oxygen)
+                                    <!-- Compressing down arrows -->
+                                    <div class="absolute -top-3 left-1/4 text-amber-950 animate-bounce">↓</div>
+                                    <div class="absolute -top-3 right-1/4 text-amber-950 animate-bounce">↓</div>
+                                </div>
+                                <span class="absolute top-2 right-3 text-2xl">⏳⛰️</span>
+                                <div class="absolute bottom-2 left-3 bg-black/40 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">Burial - Heavy layers trapping remains</div>
+                            </div>
+                            
+                            <!-- STAGE 3 VISUAL: Intense Heat & Pressure -->
+                            <div id="visual-stage-3" class="absolute inset-0 bg-stone-900 transition-opacity duration-500 flex flex-col justify-end overflow-hidden opacity-0">
+                                <!-- Burning lava glow at bottom -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-red-600/40 via-orange-500/20 to-transparent z-0"></div>
+                                
+                                <div class="h-full w-full relative z-10 flex flex-col justify-between p-3">
+                                    <!-- Squeezing arrows -->
+                                    <div class="flex justify-between items-center text-orange-400 font-extrabold text-xl">
+                                        <span class="animate-pulse">↓↓ PRESSURE ↓↓</span>
+                                        <span class="text-orange-500 text-lg">🌡️ 150°C+</span>
+                                    </div>
+                                    
+                                    <!-- Cooking molecules -->
+                                    <div class="flex justify-around items-center my-auto">
+                                        <div class="w-10 h-10 bg-amber-600/80 rounded-full border border-amber-400 flex items-center justify-center text-white text-xs font-bold animate-pulse">Heat</div>
+                                        <div class="w-12 h-8 bg-zinc-800 rounded-lg border border-red-500 flex items-center justify-center text-red-300 text-[10px] font-bold">Coal</div>
+                                        <div class="w-10 h-10 bg-orange-600/80 rounded-full border border-orange-400 flex items-center justify-center text-white text-xs font-bold animate-pulse">Press</div>
+                                    </div>
+
+                                    <div class="text-center text-orange-200 text-xs font-semibold py-1 bg-red-950/70 rounded-md border border-red-900/50">
+                                        Chemical Conversion over Millions of Years
+                                    </div>
+                                </div>
+                                <span class="absolute top-2 right-3 text-2xl">🔥🌋</span>
+                                <div class="absolute bottom-2 left-3 bg-black/40 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">Deep Earth - Intense Cooking</div>
+                            </div>
+                            
+                            <!-- STAGE 4 VISUAL: Collection in Reservoirs -->
+                            <div id="visual-stage-4" class="absolute inset-0 bg-zinc-800 transition-opacity duration-500 flex flex-col justify-between p-3 overflow-hidden opacity-0">
+                                <!-- Rock layers sealing oil -->
+                                <div class="w-full bg-stone-700/80 text-stone-300 text-[10px] px-2 py-1 rounded border border-stone-600 font-semibold flex justify-between items-center">
+                                    <span>Cap Rock (Non-Porous Shale Layer) - Traps Gas/Oil</span>
+                                    <span class="text-emerald-400 font-bold">🚫 NO ESCAPE</span>
+                                </div>
+
+                                <div class="flex justify-around items-end h-24 relative">
+                                    <!-- Gas pocket (bubbles) -->
+                                    <div class="w-20 h-16 bg-blue-900/70 border border-blue-500 rounded-t-full flex flex-col items-center justify-center relative">
+                                        <span class="text-[10px] text-blue-300 font-bold uppercase">Natural Gas</span>
+                                        <div class="flex gap-1">
+                                            <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce"></span>
+                                            <span class="w-1.5 h-1.5 bg-blue-300 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Drilling pipe -->
+                                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-24 bg-gradient-to-b from-stone-400 to-zinc-600 border-x border-zinc-700 z-10 flex flex-col justify-end">
+                                        <div class="w-4 h-4 bg-zinc-950 rounded-full -ml-1 flex items-center justify-center text-[8px] text-white">⚙️</div>
+                                    </div>
+
+                                    <!-- Oil pocket (dark black) -->
+                                    <div class="w-24 h-16 bg-zinc-950 border-t-2 border-stone-500 rounded-t-3xl flex flex-col items-center justify-center relative">
+                                        <span class="text-[10px] text-amber-500 font-extrabold uppercase">Crude Oil</span>
+                                        <span class="text-xs">🛢️</span>
+                                    </div>
+                                </div>
+                                <span class="absolute top-2 right-3 text-2xl">🛢️🏭</span>
+                                <div class="absolute bottom-2 left-3 bg-black/40 text-white text-[10px] px-2 py-0.5 rounded-full backdrop-blur-sm">Trapped Pocket ready for extraction</div>
+                            </div>
+
+                        </div>
+
+                        <!-- Stage Text Content -->
+                        <div class="mt-4 flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span id="timeline-stage-icon" class="text-2xl">🐠</span>
+                                    <div>
+                                        <h3 id="timeline-stage-title" class="font-display font-bold text-lg text-slate-800">1. Ancient Organisms</h3>
+                                        <p id="timeline-stage-tagline" class="text-xs font-semibold text-amber-600 uppercase tracking-wider">Life in Prehistoric Oceans</p>
+                                    </div>
+                                </div>
+                                <p id="timeline-stage-desc" class="mt-2.5 text-slate-600 text-sm leading-relaxed">
+                                    Millions of years ago, the Earth was covered in warm shallow seas. Tiny sea organisms (plankton) and ancient plants lived, captured energy from the sun, and died. They sank to the muddy ocean floor, forming the base of what would become fossil fuels.
+                                </p>
+                            </div>
+                            
+                            <!-- Fun Fact Badge -->
+                            <div class="mt-3.5 bg-amber-50 border border-amber-200 rounded-xl p-3 flex gap-2.5 items-start">
+                                <span class="text-lg">💡</span>
+                                <div>
+                                    <span class="text-xs font-bold text-amber-800 uppercase block tracking-wider">Fun Discovery Fact:</span>
+                                    <p id="timeline-stage-fact" class="text-xs text-amber-700 leading-snug mt-0.5">
+                                        Did you know? Most oil and natural gas began as tiny sea creatures smaller than a pinhead!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Navigation controls -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="prevStage()" id="btn-prev-stage" class="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm">
+                            ← Previous Stage
+                        </button>
+                        <button onclick="nextStage()" id="btn-next-stage" class="px-4 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl shadow-md transition-all duration-300 flex items-center justify-center gap-2 text-sm">
+                            Next Stage →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ollie the Mascot Helper -->
+                <div class="mt-6 pt-5 border-t border-slate-100 flex gap-3.5 items-center bg-slate-50/50 p-3 rounded-2xl">
+                    <!-- Cute Mascot Avatar -->
+                    <div class="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center text-2xl flex-shrink-0 animate-bounce shadow-md" style="animation-duration: 3s;">
+                        💧
+                    </div>
+                    <div class="text-xs">
+                        <span class="font-bold text-slate-800">Ollie the Mascot says:</span>
+                        <p class="text-slate-500 mt-0.5 leading-normal">
+                            "Fossil fuels are stored solar energy from millions of years ago! That's why burning them releases ancient carbon back into our sky all at once."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Column - Interactive Dashboards -->
+            <div class="lg:col-span-7 flex flex-col gap-6">
+
+                <!-- ==========================================
+                     3. USES & CONSUMPTION DEMAND (Slider Panel)
+                     ========================================== -->
+                <section class="bg-white rounded-3xl p-6 shadow-premium border border-slate-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-display font-bold text-xl text-slate-900 flex items-center gap-2">
+                            <span class="p-1.5 bg-red-100 rounded-lg text-lg">📊</span>
+                            Global Consumption Demand
+                        </h2>
+                        <span class="px-3 py-1 bg-red-50 text-red-700 text-xs font-extrabold rounded-full border border-red-200" id="demand-badge">Demand: 50%</span>
+                    </div>
+
+                    <!-- Main Slider Control -->
+                    <div class="bg-slate-50 rounded-2xl p-4 md:p-5 border border-slate-100">
+                        <label for="demand-slider" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Adjust Human Resource Consumption:</label>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm font-bold text-slate-400">Low</span>
+                            <input type="range" id="demand-slider" min="0" max="100" value="50" oninput="handleDemandInput(this.value)" class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-red-500 transition-all duration-300">
+                            <span class="text-sm font-bold text-red-500">High</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-2">
+                            Increasing global demand requires drilling, mining, and burning more fossil fuels rapidly.
+                        </p>
+                    </div>
+
+                    <!-- 3 Consumption Vectors Visual Grid -->
+                    <div class="grid grid-cols-3 gap-3 md:gap-4 mt-5">
+                        
+                        <!-- Electricity Vector -->
+                        <div class="bg-slate-50 rounded-2xl p-3 border border-slate-100 flex flex-col justify-between items-center text-center relative overflow-hidden group">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Electricity</span>
+                            
+                            <!-- Vector Visual: Lightbulb -->
+                            <div class="my-4 relative w-16 h-16 flex items-center justify-center">
+                                <!-- SVG Lightbulb -->
+                                <svg id="elec-bulb" class="w-12 h-12 text-slate-300 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12,2A7,7,0,0,0,5,9c0,2.38,1.19,4.47,3,5.74V17a1,1,0,0,0,1,1h6a1,1,0,0,0,1-1V14.74c1.81-1.27,3-3.36,3-5.74A7,7,0,0,0,12,2Zm3,14H9V15h6Zm0-2H9V13.38a1,1,0,0,0-.5-.87A5,5,0,1,1,16.5,9a5,5,0,0,1-2,4.13,1,1,0,0,0-.5.87Z"></path>
+                                    <path d="M9,20h6v1a1,1,0,0,1-1,1H10a1,1,0,0,1-1-1Z"></path>
+                                </svg>
+                                <!-- Glow indicator ring -->
+                                <div id="elec-glow" class="absolute inset-0 rounded-full bg-yellow-400/0 transition-all duration-300 scale-75 blur-md -z-10"></div>
+                            </div>
+                            
+                            <div class="text-[10px] text-slate-500 leading-snug">
+                                <span class="font-bold text-slate-700 block" id="elec-level">Normal Use</span>
+                                Powering homes, screens, and toys.
+                            </div>
+                        </div>
+
+                        <!-- Transportation Vector -->
+                        <div class="bg-slate-50 rounded-2xl p-3 border border-slate-100 flex flex-col justify-between items-center text-center relative overflow-hidden group">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Transportation</span>
+                            
+                            <!-- Vector Visual: Road with vehicle -->
+                            <div class="my-4 w-full h-16 bg-zinc-200 border-y border-zinc-300 relative flex items-center road-container">
+                                <!-- Dashed divider -->
+                                <div class="absolute inset-x-0 top-1/2 h-[1px] border-t border-dashed border-white -translate-y-1/2 z-0"></div>
+                                
+                                <!-- Vehicle SVG (Dynamic) -->
+                                <div id="trans-vehicle-container" class="absolute z-10 vehicle-drive" style="--drive-speed: 4s;">
+                                    <svg id="trans-vehicle" class="w-8 h-8 text-sky-500" fill="currentColor" viewBox="0 0 24 24">
+                                        <!-- Car shape -->
+                                        <path d="M19 8h-1V5.5C18 4.67 17.33 4 16.5 4h-9C6.67 4 6 4.67 6 5.5V8H5c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2h1c0 1.66 1.34 3 3 3s3-1.34 3-3h4c0 1.66 1.34 3 3 3s3-1.34 3-3h1c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2zm-12 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM16 8H8V5.5h8V8z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div class="text-[10px] text-slate-500 leading-snug">
+                                <span class="font-bold text-slate-700 block" id="trans-level">Gasoline Fleets</span>
+                                Millions of petrol cars, ships, planes.
+                            </div>
+                        </div>
+
+                        <!-- Heavy Industry Vector -->
+                        <div class="bg-slate-50 rounded-2xl p-3 border border-slate-100 flex flex-col justify-between items-center text-center relative overflow-hidden group">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Heavy Industry</span>
+                            
+                            <!-- Vector Visual: Factory with smoke particles -->
+                            <div class="my-4 relative w-16 h-16 flex items-end justify-center overflow-hidden border-b-2 border-stone-400">
+                                <!-- Floating Smoke Particle container (controlled by JS) -->
+                                <div id="factory-smoke-container" class="absolute inset-0 z-0">
+                                    <!-- Rendered dynamically -->
+                                </div>
+                                
+                                <!-- Factory SVG -->
+                                <svg id="industry-factory" class="w-10 h-10 text-stone-600 z-10 transition-colors duration-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M22 22H2V10l7 4V10l7 4V2l6 4v16zM6 14v6h4v-6H6zm10 4v2h4v-2h-4z"></path>
+                                </svg>
+                            </div>
+                            
+                            <div class="text-[10px] text-slate-500 leading-snug">
+                                <span class="font-bold text-slate-700 block" id="industry-level">Coal & Gas Mills</span>
+                                Factories melting steel and manufacturing.
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- ==========================================
+                     4. ECOSYSTEM DAMAGE CENTER (Ecosystem Health & Live Visualizer)
+                     ========================================== -->
+                <section id="ecosystem-card" class="bg-white rounded-3xl p-6 shadow-premium border border-slate-100 transition-all duration-500 relative">
+                    
+                    <!-- Alert Message Indicator Overlay -->
+                    <div id="eco-emergency-alert" class="hidden absolute top-4 right-4 bg-red-100 text-red-700 px-3 py-1.5 rounded-xl border border-red-200 text-xs font-bold animate-pulse z-20 items-center gap-1.5 shadow-sm">
+                        <span>⚠️ CRITICAL DAMAGE STATUS</span>
+                    </div>
+
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-display font-bold text-xl text-slate-900 flex items-center gap-2">
+                            <span class="p-1.5 bg-emerald-100 rounded-lg text-lg">🌎</span>
+                            Ecosystem Health Center
+                        </h2>
+                        <span class="text-xs font-medium text-slate-400 font-display uppercase tracking-widest">Real-Time Feedback</span>
+                    </div>
+
+                    <!-- Landscape Interactive Visualizer (Changes based on Health) -->
+                    <div id="env-sky" class="w-full h-44 rounded-2xl relative overflow-hidden border border-slate-200 shadow-inner transition-all duration-700 bg-gradient-to-b from-sky-300 to-blue-400">
+                        
+                        <!-- Sun or Smog Clouds -->
+                        <div id="env-sun" class="absolute top-4 right-8 w-12 h-12 bg-amber-300 rounded-full shadow-glow-orange border-2 border-yellow-200 transition-all duration-700 animate-spin-slow">
+                            <!-- Sun rays -->
+                            <div class="absolute inset-0 border-4 border-dashed border-amber-400 rounded-full scale-110"></div>
+                        </div>
+                        <!-- Smog overlays -->
+                        <div id="env-smog-overlay" class="absolute inset-0 bg-stone-900/0 transition-all duration-700 pointer-events-none z-10 mix-blend-multiply"></div>
+                        
+                        <!-- Acid rain cloud overlay -->
+                        <div id="env-acid-cloud" class="absolute top-2 left-1/4 w-32 h-8 bg-zinc-400 rounded-full blur-sm opacity-0 transition-opacity duration-700 flex flex-col justify-end">
+                            <div class="flex justify-around px-4 text-amber-300 text-xs font-bold leading-[2px]">
+                                <span class="animate-bounce">🌧️</span>
+                                <span class="animate-bounce" style="animation-delay: 0.3s">🌧️</span>
+                                <span class="animate-bounce" style="animation-delay: 0.15s">🌧️</span>
+                            </div>
+                        </div>
+
+                        <!-- Floating Bird in Good Health -->
+                        <div id="env-bird" class="absolute top-8 left-10 text-xl transition-all duration-500">🐦</div>
+
+                        <!-- Mountain Backdrop -->
+                        <svg class="absolute bottom-6 left-0 right-0 h-16 w-full text-slate-400/40" preserveAspectRatio="none" fill="currentColor" viewBox="0 0 100 100">
+                            <polygon points="0,100 20,40 45,90 70,25 90,80 100,100"></polygon>
+                        </svg>
+
+                        <!-- Dynamic Pine Trees (Left ground) -->
+                        <div class="absolute bottom-6 left-4 flex gap-1 z-10">
+                            <!-- Tree 1 -->
+                            <svg class="w-8 h-10 transition-colors duration-500" id="env-tree-1" fill="currentColor" viewBox="0 0 24 36">
+                                <polygon points="12,0 2,16 8,16 0,28 10,28 10,36 14,36 14,28 24,28 16,16 22,16" class="text-emerald-600 transition-colors duration-500"></polygon>
+                            </svg>
+                            <!-- Tree 2 -->
+                            <svg class="w-6 h-8 transition-colors duration-500" id="env-tree-2" fill="currentColor" viewBox="0 0 24 36">
+                                <polygon points="12,0 2,16 8,16 0,28 10,28 10,36 14,36 14,28 24,28 16,16 22,16" class="text-emerald-500 transition-colors duration-500"></polygon>
+                            </svg>
+                            
+                            <!-- Extra conservation trees placeholder -->
+                            <div id="bonus-trees" class="flex gap-0.5 opacity-0 transition-all duration-500 translate-y-3">
+                                <svg class="w-5 h-7 text-emerald-400" fill="currentColor" viewBox="0 0 24 36">
+                                    <polygon points="12,0 2,16 8,16 0,28 10,28 10,36 14,36 14,28 24,28 16,16 22,16"></polygon>
+                                </svg>
+                                <svg class="w-6 h-8 text-emerald-500" fill="currentColor" viewBox="0 0 24 36">
+                                    <polygon points="12,0 2,16 8,16 0,28 10,28 10,36 14,36 14,28 24,28 16,16 22,16"></polygon>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Melting Polar Glacier (Left floating) -->
+                        <div id="env-glacier-container" class="absolute bottom-6 right-20 w-16 h-10 origin-bottom transition-all duration-700 z-10">
+                            <!-- Ice block SVG -->
+                            <svg class="w-full h-full text-cyan-100" fill="currentColor" viewBox="0 0 40 25">
+                                <path d="M0,25 L5,5 L15,10 L25,0 L35,15 L40,25 Z"></path>
+                            </svg>
+                        </div>
+
+                        <!-- Water Reservoir / Sea floor (Bottom overlay) -->
+                        <div id="env-water" class="absolute bottom-0 inset-x-0 h-7 bg-blue-500/80 transition-colors duration-700 z-10 flex items-center justify-between px-8 text-white/50 text-[10px]">
+                            <span id="env-fish" class="transition-transform duration-500">🐟 Swimmy Fishy</span>
+                            <span id="env-acid-water-note" class="hidden text-amber-200">⚠️ Water Acidic</span>
+                        </div>
+                    </div>
+
+                    <!-- Split visual layout: Circular Gauge & Parameters -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-5 mt-5 items-center">
+                        
+                        <!-- Circular Health Score Gauge -->
+                        <div class="md:col-span-4 flex flex-col items-center justify-center p-3 bg-slate-50 rounded-2xl border border-slate-100">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Ecosystem Health</span>
+                            
+                            <div class="relative w-28 h-28 flex items-center justify-center">
+                                <!-- SVG Circular Gauge -->
+                                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                                    <circle class="text-slate-200" stroke-width="8" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"></circle>
+                                    <circle id="gauge-circle" class="text-emerald-500 transition-all duration-500" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="0" stroke-linecap="round" stroke="currentColor" fill="transparent" r="40" cx="50" cy="50"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span id="health-value" class="text-2xl font-black font-display text-slate-800">100</span>
+                                    <span id="health-status-text" class="text-[9px] font-extrabold tracking-wider uppercase text-emerald-600">Perfect</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Parameters Status Progress Bars -->
+                        <div class="md:col-span-8 space-y-3.5">
+                            
+                            <!-- Parameter 1: Air Pollution -->
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-600 mb-1">
+                                    <span>💨 Air Pollution (CO2, SO2)</span>
+                                    <span id="val-pollution">0%</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
+                                    <div id="bar-pollution" class="h-full bg-slate-400 w-0 transition-all duration-500"></div>
+                                </div>
+                            </div>
+
+                            <!-- Parameter 2: Global Temperature -->
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-600 mb-1">
+                                    <span>🌡️ Global warming & Weather</span>
+                                    <span id="val-temp">+0.0°C</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
+                                    <div id="bar-temp" class="h-full bg-red-400 w-0 transition-all duration-500"></div>
+                                </div>
+                            </div>
+
+                            <!-- Parameter 3: Melting Polar Ice -->
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-600 mb-1">
+                                    <span>🏔️ Polar Ice Glacier Size</span>
+                                    <span id="val-glacier">100% Remaining</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
+                                    <div id="bar-glacier" class="h-full bg-cyan-400 w-[100%] transition-all duration-500"></div>
+                                </div>
+                            </div>
+
+                            <!-- Parameter 4: Acid Rain Severity -->
+                            <div>
+                                <div class="flex justify-between text-xs font-bold text-slate-600 mb-1">
+                                    <span>🌧️ Acid Rain Severity</span>
+                                    <span id="val-acid">None (pH 5.6)</span>
+                                </div>
+                                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200/50">
+                                    <div id="bar-acid" class="h-full bg-yellow-500 w-0 transition-all duration-500"></div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- ==========================================
+                     5. GREEN CONSERVATION METHODS (Interactive Toggles)
+                     ========================================== -->
+                <section class="bg-white rounded-3xl p-6 shadow-premium border border-slate-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="font-display font-bold text-xl text-slate-900 flex items-center gap-2">
+                            <span class="p-1.5 bg-emerald-100 rounded-lg text-lg">🌲</span>
+                            Green Conservation Actions
+                        </h2>
+                        <span class="text-xs font-medium text-slate-400 font-display uppercase tracking-widest">Student Activations</span>
+                    </div>
+                    
+                    <p class="text-xs text-slate-500 mb-4">
+                        Perform actions to offset pollution penalties. Switch them on to see how green technologies clean up our air and restore natural ecosystems!
+                    </p>
+
+                    <!-- Toggles layout grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        
+                        <!-- Action 1 -->
+                        <label class="flex items-start gap-3.5 p-3.5 bg-slate-50 hover:bg-emerald-50/40 rounded-2xl border border-slate-100 cursor-pointer transition-all duration-300 group">
+                            <input type="checkbox" id="toggle-lights" onchange="updateSimulation()" class="w-5 h-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 mt-1 cursor-pointer">
+                            <div>
+                                <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5 group-hover:text-emerald-700 transition-colors">
+                                    💡 Light Cut-off (-15 Offset)
+                                </span>
+                                <p class="text-[11px] text-slate-500 leading-normal mt-0.5">
+                                    Turn off unused lights, computer monitors, and appliances at home to save domestic electricity!
+                                </p>
+                            </div>
+                        </label>
+
+                        <!-- Action 2 -->
+                        <label class="flex items-start gap-3.5 p-3.5 bg-slate-50 hover:bg-emerald-50/40 rounded-2xl border border-slate-100 cursor-pointer transition-all duration-300 group">
+                            <input type="checkbox" id="toggle-transit" onchange="updateSimulation()" class="w-5 h-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 mt-1 cursor-pointer">
+                            <div>
+                                <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5 group-hover:text-emerald-700 transition-colors">
+                                    🚌 Transit Shift (-20 Offset)
+                                </span>
+                                <p class="text-[11px] text-slate-500 leading-normal mt-0.5">
+                                    Take the school bus, carpool, cycle, or walk to school instead of traveling in single petrol cars.
+                                </p>
+                            </div>
+                        </label>
+
+                        <!-- Action 3 -->
+                        <label class="flex items-start gap-3.5 p-3.5 bg-slate-50 hover:bg-emerald-50/40 rounded-2xl border border-slate-100 cursor-pointer transition-all duration-300 group">
+                            <input type="checkbox" id="toggle-trees" onchange="updateSimulation()" class="w-5 h-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 mt-1 cursor-pointer">
+                            <div>
+                                <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5 group-hover:text-emerald-700 transition-colors">
+                                    🌲 Plant Trees (-15 Offset)
+                                </span>
+                                <p class="text-[11px] text-slate-500 leading-normal mt-0.5">
+                                    Engage in massive reforestation! More green trees actively absorb excess CO2 gas from our air.
+                                </p>
+                            </div>
+                        </label>
+
+                        <!-- Action 4 -->
+                        <label class="flex items-start gap-3.5 p-3.5 bg-slate-50 hover:bg-emerald-50/40 rounded-2xl border border-slate-100 cursor-pointer transition-all duration-300 group">
+                            <input type="checkbox" id="toggle-renewables" onchange="updateSimulation()" class="w-5 h-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 mt-1 cursor-pointer">
+                            <div>
+                                <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5 group-hover:text-emerald-700 transition-colors">
+                                    🌬️ Renewable Tech (-35 Offset)
+                                </span>
+                                <p class="text-[11px] text-slate-500 leading-normal mt-0.5">
+                                    Build solar arrays and wind power generation to fully replace carbon-heavy coal mills.
+                                </p>
+                            </div>
+                        </label>
+
+                    </div>
+
+                    <!-- Eco Math Dashboard breakdown details -->
+                    <div class="mt-5 bg-emerald-500/5 border border-emerald-500/25 rounded-2xl p-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-emerald-700 text-base">🧮</span>
+                            <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider">Ecosystem Math Board</span>
+                        </div>
+                        
+                        <!-- Formula calculations shown to students -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center items-center divide-y md:divide-y-0 md:divide-x divide-emerald-500/10">
+                            <div>
+                                <span class="block text-[10px] font-bold text-slate-400 uppercase">1. Base Pollution</span>
+                                <span id="math-base-calc" class="text-sm font-semibold text-slate-700">Demand x 0.8 = 0.0</span>
+                            </div>
+                            <div class="pt-2.5 md:pt-0">
+                                <span class="block text-[10px] font-bold text-slate-400 uppercase">2. Active Mitigation</span>
+                                <span id="math-offset-calc" class="text-sm font-semibold text-emerald-700">-0 Offset</span>
+                            </div>
+                            <div class="pt-2.5 md:pt-0">
+                                <span class="block text-[10px] font-bold text-slate-400 uppercase">3. final Health Score</span>
+                                <span id="math-final-calc" class="text-sm font-bold text-blue-700">100 - Net = 100</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
     </div>
 
-    <button class="burn" onclick="burnFuel()">
-        Burn Fossil Fuel
-    </button>
+    <!-- ==========================================
+         JAVASCRIPT LOGIC & STATE ENGINE
+         ========================================== -->
+    <script>
+        // Predefined data for stages
+        const STAGES = [
+            {
+                title: "1. Ancient Organisms",
+                emoji: "🐠",
+                tagline: "Life in Prehistoric Oceans",
+                description: "Millions of years ago, the Earth was covered in warm shallow seas. Tiny sea organisms (plankton) and ancient plants lived, captured energy from the sun, and died. They sank to the muddy ocean floor, forming the organic mud layers that would eventually become oil and gas.",
+                funFact: "Most crude oil and natural gas began as tiny microscopic marine organisms smaller than a single grain of sand!"
+            },
+            {
+                title: "2. Burial Under Sediment",
+                emoji: "⏳",
+                tagline: "Trapped in the Earth",
+                description: "Over millions of years, layers of sand, mud, and crushed seashells accumulated over the dead organic remains. Cut off from fresh oxygen, the bodies could not decay completely. Under these heavy sediment blankets, they were locked away from air.",
+                funFact: "As rivers dumped more sediments, the organic matter became sandwiched between rock layers, compressing them into tight beds."
+            },
+            {
+                title: "3. Intense Heat & Pressure",
+                emoji: "🔥",
+                tagline: "Nature's Slow Cooker",
+                description: "Deep beneath the Earth's crust, the weight of the sediments above created crushing pressure, while molten magma below heated things up. This extreme heat and pressure acted as a giant subterranean kitchen, slowly 'cooking' the compressed matter into carbon molecules.",
+                funFact: "Extreme heat creates lighter fluids (Natural Gas), moderate heat cooks oil, and compressed swamp forests form solid Coal!"
+            },
+            {
+                title: "4. Collection in Reservoirs",
+                emoji: "🛢️",
+                tagline: "Trapped Under Cap Rock",
+                description: "Liquid oil and gaseous natural gas squeezed upwards through small cracks in rocks. Eventually, they hit a solid layer of clay or shale rock that trapped them underneath like a giant upside-down bowl. There they remained trapped, forming underground oil pools.",
+                funFact: "Because this process took 300 million years, once we pump these reserves out, they are gone forever. That is why they are called non-renewable!"
+            }
+        ];
 
-    <h3 style="margin-top:20px;">
-        Conservation Methods
-    </h3>
+        // Central State Object
+        const state = {
+            demand: 50,
+            timelineStage: 1,
+            conservation: {
+                lights: false,
+                transit: false,
+                reforestation: false,
+                renewables: false
+            }
+        };
 
-    <button class="green" onclick="improve()">
-        ☀ Solar
-    </button>
+        // Initialize elements once DOM loads
+        window.addEventListener('DOMContentLoaded', () => {
+            // Setup static event handlers and generate initial smoke particle pool
+            const factorySmoke = document.getElementById('factory-smoke-container');
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'absolute bottom-1 w-2.5 h-2.5 bg-stone-500 rounded-full opacity-0 pointer-events-none animate-float-smoke';
+                // random offsets and animations
+                particle.style.left = `${15 + Math.random() * 25}px`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                particle.style.setProperty('--float-x', `${-15 + Math.random() * 30}px`);
+                factorySmoke.appendChild(particle);
+            }
+            
+            // Run initial update
+            setTimelineStage(1);
+            updateSimulation();
+        });
 
-    <button class="green" onclick="improve()">
-        🌳 Trees
-    </button>
+        // Handler for Timeline interaction
+        function setTimelineStage(stageNum) {
+            state.timelineStage = stageNum;
+            
+            // Update active state in JavaScript
+            const maxStages = 4;
+            const progressPct = ((stageNum - 1) / (maxStages - 1)) * 100;
+            document.getElementById('timeline-progress-bar').style.width = `${progressPct}%`;
+            
+            // Cycle Badges Styling
+            for (let idx = 1; idx <= maxStages; idx++) {
+                const badge = document.getElementById(`badge-step-${idx}`);
+                if (idx < stageNum) {
+                    // Passed steps
+                    badge.className = "relative z-10 w-10 h-10 rounded-full bg-amber-500 text-white font-bold flex items-center justify-center transition-all duration-300 scale-95 border-2 border-amber-600 shadow-md";
+                } else if (idx === stageNum) {
+                    // Current active step
+                    badge.className = "relative z-10 w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 text-white font-bold flex items-center justify-center transition-all duration-300 scale-110 border-2 border-amber-700 shadow-glow-orange";
+                } else {
+                    // Future steps
+                    badge.className = "relative z-10 w-10 h-10 rounded-full bg-white border-2 border-slate-200 text-slate-500 font-bold flex items-center justify-center transition-all duration-300 hover:scale-105 shadow-sm";
+                }
 
-    <button class="green" onclick="improve()">
-        🚌 Transport
-    </button>
+                // Show corresponding visual panel, hide others
+                const visualPanel = document.getElementById(`visual-stage-${idx}`);
+                if (idx === stageNum) {
+                    visualPanel.style.opacity = '1';
+                    visualPanel.classList.remove('pointer-events-none');
+                } else {
+                    visualPanel.style.opacity = '0';
+                    visualPanel.classList.add('pointer-events-none');
+                }
+            }
 
-    <div id="status">
-        Earth is Healthy 🌱
-    </div>
+            // Update Timeline Descriptions
+            const stageData = STAGES[stageNum - 1];
+            document.getElementById('timeline-stage-icon').textContent = stageData.emoji;
+            document.getElementById('timeline-stage-title').textContent = stageData.title;
+            document.getElementById('timeline-stage-tagline').textContent = stageData.tagline;
+            document.getElementById('timeline-stage-desc').textContent = stageData.description;
+            document.getElementById('timeline-stage-fact').textContent = stageData.funFact;
 
-</div>
+            // Enable/disable buttons based on step
+            document.getElementById('btn-prev-stage').disabled = (stageNum === 1);
+            document.getElementById('btn-prev-stage').style.opacity = (stageNum === 1) ? '0.5' : '1';
+            document.getElementById('btn-next-stage').disabled = (stageNum === maxStages);
+            document.getElementById('btn-next-stage').style.opacity = (stageNum === maxStages) ? '0.5' : '1';
+        }
 
-<script>
+        function prevStage() {
+            if (state.timelineStage > 1) {
+                setTimelineStage(state.timelineStage - 1);
+            }
+        }
 
-let pollution = 20;
+        function nextStage() {
+            if (state.timelineStage < STAGES.length) {
+                setTimelineStage(state.timelineStage + 1);
+            }
+        }
 
-function burnFuel(){
+        // Handler for Slider interaction
+        function handleDemandInput(value) {
+            state.demand = parseInt(value);
+            document.getElementById('demand-badge').textContent = `Demand: ${state.demand}%`;
+            
+            // Dynamic Updates to Vector Speeds
+            updateSimulation();
+        }
 
-    pollution += 10;
+        // Main Engine to Update state on any interface changes
+        function updateSimulation() {
+            // Update Toggle State from HTML input values
+            state.conservation.lights = document.getElementById('toggle-lights').checked;
+            state.conservation.transit = document.getElementById('toggle-transit').checked;
+            state.conservation.reforestation = document.getElementById('toggle-trees').checked;
+            state.conservation.renewables = document.getElementById('toggle-renewables').checked;
 
-    if(pollution > 100){
-        pollution = 100;
-    }
+            // Math rules:
+            const basePollution = state.demand * 0.8;
+            
+            // Mitigations
+            let offsetPoints = 0;
+            if (state.conservation.lights) offsetPoints += 15;
+            if (state.conservation.transit) offsetPoints += 20;
+            if (state.conservation.reforestation) offsetPoints += 15;
+            if (state.conservation.renewables) offsetPoints += 35;
 
-    update();
-}
+            // Net values
+            const netPollution = Math.max(0, basePollution - offsetPoints);
+            const ecoHealth = Math.round(100 - netPollution);
 
-function improve(){
+            // Update Math Panel
+            document.getElementById('math-base-calc').textContent = `(${state.demand}% × 0.8) = ${basePollution.toFixed(1)}`;
+            document.getElementById('math-offset-calc').textContent = `-${offsetPoints} Offsets`;
+            document.getElementById('math-final-calc').textContent = `100 - ${netPollution.toFixed(1)} = ${ecoHealth}`;
 
-    pollution -= 10;
+            // Update Parameters status indicators
+            // 1. Air Pollution (0% - 100%)
+            const airPollutionPct = Math.min(100, Math.round(netPollution * 1.25)); // scaled to show higher visual severity
+            document.getElementById('val-pollution').textContent = `${airPollutionPct}%`;
+            document.getElementById('bar-pollution').style.width = `${airPollutionPct}%`;
 
-    if(pollution < 0){
-        pollution = 0;
-    }
+            // 2. Global temperature warming delta (+0.0°C to +3.5°C)
+            const tempDelta = (netPollution / 80) * 3.5;
+            document.getElementById('val-temp').textContent = `+${tempDelta.toFixed(1)}°C`;
+            document.getElementById('bar-temp').style.width = `${(tempDelta / 3.5) * 100}%`;
 
-    update();
-}
+            // 3. Ice Glaciers Size (100% down to 10%)
+            const glacierRemaining = Math.max(10, Math.round(100 - (netPollution * 1.125)));
+            document.getElementById('val-glacier').textContent = `${glacierRemaining}% Remaining`;
+            document.getElementById('bar-glacier').style.width = `${glacierRemaining}%`;
+            // Shrink environmental glacier visual
+            document.getElementById('env-glacier-container').style.transform = `scale(${glacierRemaining / 100})`;
 
-function update(){
+            // 4. Acid Rain (None down to pH 4.0)
+            let phValue = 5.6;
+            let acidString = "None (pH 5.6)";
+            let acidBarPct = 0;
+            if (netPollution > 15) {
+                phValue = 5.6 - ((netPollution - 15) / 65) * 1.6;
+                acidBarPct = Math.round(((5.6 - phValue) / 1.6) * 100);
+                acidString = `High Severity (pH ${phValue.toFixed(1)})`;
+            }
+            document.getElementById('val-acid').textContent = acidString;
+            document.getElementById('bar-acid').style.width = `${acidBarPct}%`;
 
-    let health = 100 - pollution;
+            // Update Vector visual states based on Slider & conservation checks
+            // Vector 1 (Electricity): Glow & Solar panels
+            const elecBulb = document.getElementById('elec-bulb');
+            const elecGlow = document.getElementById('elec-glow');
+            const elecLevel = document.getElementById('elec-level');
+            
+            if (state.demand < 30) {
+                elecLevel.textContent = "Eco Mode";
+                elecBulb.style.color = "#a1a1aa"; // light grey
+                elecGlow.style.backgroundColor = "transparent";
+            } else if (state.demand < 70) {
+                elecLevel.textContent = "Standard Grid";
+                elecBulb.style.color = "#fbbf24"; // yellow-400
+                elecGlow.style.backgroundColor = "rgba(251, 191, 36, 0.4)";
+                elecGlow.style.transform = "scale(1)";
+            } else {
+                elecLevel.textContent = "Overloaded";
+                elecBulb.style.color = "#f97316"; // orange-500
+                elecGlow.style.backgroundColor = "rgba(249, 115, 22, 0.6)";
+                elecGlow.style.transform = "scale(1.25)";
+            }
 
-    document.getElementById("pollution").innerHTML =
-    pollution + "%";
+            // Adjust bulbs when conservation cut-off is on
+            if (state.conservation.lights) {
+                elecLevel.textContent = "Lights Off (Saved)";
+                elecBulb.style.color = "#10b981"; // emerald-500
+                elecGlow.style.backgroundColor = "rgba(16, 185, 129, 0.2)";
+                elecGlow.style.transform = "scale(0.8)";
+            }
 
-    document.getElementById("health").innerHTML =
-    health + "%";
+            // Vector 2 (Transportation): Speed & vehicle choice
+            const transVehicleContainer = document.getElementById('trans-vehicle-container');
+            const transVehicle = document.getElementById('trans-vehicle');
+            const transLevel = document.getElementById('trans-level');
+            
+            // If demand is 0, freeze movement
+            if (state.demand === 0) {
+                transVehicleContainer.style.animationPlayState = 'paused';
+                transLevel.textContent = "Zero Commute";
+            } else {
+                transVehicleContainer.style.animationPlayState = 'running';
+                // Calculate animation drive speed in seconds (higher demand = faster/more vehicles)
+                const animSpeed = Math.max(1, 6 - (state.demand / 20)); // range: 6s down to 1s
+                transVehicleContainer.style.setProperty('--drive-speed', `${animSpeed}s`);
+                transLevel.textContent = state.demand > 70 ? "Congested Grid" : "Gasoline Fleets";
+            }
 
-    if(pollution > 60){
+            // Adjust vehicle icon when transit toggle is activated
+            if (state.conservation.transit) {
+                transLevel.textContent = "Green Transit";
+                // Show bus / bicycle emoji instead of standard SVG car
+                transVehicle.innerHTML = `<text y="24" font-size="24">🚌</text>`;
+            } else {
+                // Restore SVG car paths
+                transVehicle.innerHTML = `<path d="M19 8h-1V5.5C18 4.67 17.33 4 16.5 4h-9C6.67 4 6 4.67 6 5.5V8H5c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2h1c0 1.66 1.34 3 3 3s3-1.34 3-3h4c0 1.66 1.34 3 3 3s3-1.34 3-3h1c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2zm-12 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zM16 8H8V5.5h8V8z"></path>`;
+            }
 
-        document.getElementById("status").innerHTML =
-        "Earth is in Danger ⚠️";
+            // Vector 3 (Heavy Industry): Smoke particles rate & industry clean-up
+            const factorySmokeContainer = document.getElementById('factory-smoke-container');
+            const industryLevel = document.getElementById('industry-level');
+            const industryFactory = document.getElementById('industry-factory');
+            
+            // Adjust smoke emission densities
+            const particles = factorySmokeContainer.children;
+            if (state.demand === 0 || state.conservation.renewables) {
+                // Hide all smoke
+                for (let p of particles) p.style.display = 'none';
+            } else {
+                for (let p of particles) {
+                    p.style.display = 'block';
+                    // Speed up animation rate as demand increases
+                    const smokeSpeed = Math.max(0.5, 2.5 - (state.demand / 40)); 
+                    p.style.animationDuration = `${smokeSpeed}s`;
+                }
+            }
 
-    }else{
+            if (state.conservation.renewables) {
+                industryLevel.textContent = "Wind & Solar Farm";
+                // Swap factory to a spinning wind turbine graphic
+                industryFactory.innerHTML = `<text y="24" font-size="28" class="animate-spin-fast">🌬️</text>`;
+                industryFactory.style.color = "#10b981";
+            } else {
+                industryLevel.textContent = state.demand > 70 ? "High Emission Mill" : "Standard Factory";
+                industryFactory.innerHTML = `<path d="M22 22H2V10l7 4V10l7 4V2l6 4v16zM6 14v6h4v-6H6zm10 4v2h4v-2h-4z"></path>`;
+                industryFactory.style.color = "#57534e"; // stone-600
+            }
 
-        document.getElementById("status").innerHTML =
-        "Earth is Healthy 🌱";
-    }
-}
+            // Update Radial Score Circle
+            const gauge = document.getElementById('gauge-circle');
+            const r = 40;
+            const circ = 2 * Math.PI * r;
+            const offset = circ - (ecoHealth / 100) * circ;
+            gauge.style.strokeDashoffset = offset;
+            
+            // Health Value text display
+            document.getElementById('health-value').textContent = ecoHealth;
 
-</script>
+            // UPDATE ENVIRONMENT LANDSCAPE VISUALLY based on Health parameters
+            const sky = document.getElementById('env-sky');
+            const sun = document.getElementById('env-sun');
+            const smog = document.getElementById('env-smog-overlay');
+            const rainCloud = document.getElementById('env-acid-cloud');
+            const bird = document.getElementById('env-bird');
+            const water = document.getElementById('env-water');
+            const fish = document.getElementById('env-fish');
+            const acidWaterNote = document.getElementById('env-acid-water-note');
 
+            const tree1 = document.getElementById('env-tree-1');
+            const tree2 = document.getElementById('env-tree-2');
+
+            // Toggle bonus trees if Reforestation check is active
+            const bonusTrees = document.getElementById('bonus-trees');
+            if (state.conservation.reforestation) {
+                bonusTrees.style.opacity = '1';
+                bonusTrees.style.transform = 'translateY(0)';
+            } else {
+                bonusTrees.style.opacity = '0';
+                bonusTrees.style.transform = 'translateY(12px)';
+            }
+
+            // Update main status card colors & landscape sky based on threshold ranges
+            const ecoCard = document.getElementById('ecosystem-card');
+            const statusText = document.getElementById('health-status-text');
+
+            if (ecoHealth > 75) {
+                // HAPPY STATE: Healthy green environment
+                ecoCard.style.boxShadow = "0 20px 40px -15px rgba(16, 185, 129, 0.1)";
+                ecoCard.className = "bg-white rounded-3xl p-6 shadow-premium border border-emerald-100 transition-all duration-500 relative";
+                statusText.textContent = "Perfect";
+                statusText.className = "text-[9px] font-extrabold tracking-wider uppercase text-emerald-600";
+                gauge.className = "text-emerald-500 transition-all duration-500";
+                
+                // Sky - Bright blue
+                sky.className = "w-full h-44 rounded-2xl relative overflow-hidden border border-slate-200 shadow-inner transition-all duration-700 bg-gradient-to-b from-sky-400 to-blue-500";
+                smog.style.backgroundColor = "transparent";
+                sun.style.display = "block";
+                sun.style.transform = "scale(1)";
+                rainCloud.style.opacity = "0";
+                bird.style.opacity = "1";
+                bird.style.transform = "translateX(0) scale(1)";
+                water.style.backgroundColor = "rgba(59, 130, 246, 0.85)"; // Blue
+                fish.textContent = "🐠 Swimmy Fishy";
+                acidWaterNote.style.display = "none";
+
+                // Green healthy trees
+                tree1.children[0].className.baseVal = "text-emerald-600 transition-all duration-500";
+                tree2.children[0].className.baseVal = "text-emerald-500 transition-all duration-500";
+
+                document.getElementById('eco-emergency-alert').className = "hidden";
+            } 
+            else if (ecoHealth >= 40) {
+                // WARNING STATE: Yellowish dry environment
+                ecoCard.style.boxShadow = "0 20px 40px -15px rgba(245, 158, 11, 0.1)";
+                ecoCard.className = "bg-white rounded-3xl p-6 shadow-premium border border-amber-100 transition-all duration-500 relative";
+                statusText.textContent = "Caution";
+                statusText.className = "text-[9px] font-extrabold tracking-wider uppercase text-amber-600";
+                gauge.className = "text-amber-500 transition-all duration-500";
+
+                // Sky - Yellow/Grey
+                sky.className = "w-full h-44 rounded-2xl relative overflow-hidden border border-slate-200 shadow-inner transition-all duration-700 bg-gradient-to-b from-amber-100 via-amber-200 to-zinc-400";
+                smog.style.backgroundColor = "rgba(120, 113, 108, 0.2)";
+                sun.style.display = "block";
+                sun.style.transform = "scale(0.85)";
+                rainCloud.style.opacity = "0";
+                bird.style.opacity = "0.7";
+                bird.style.transform = "translateX(10px) scale(0.9)";
+                water.style.backgroundColor = "rgba(100, 116, 139, 0.85)"; // Greyish-blue
+                fish.textContent = "🐟 Slow Fishy";
+                acidWaterNote.style.display = "none";
+
+                // Withered trees (Amber colors)
+                tree1.children[0].className.baseVal = "text-amber-600 transition-all duration-500";
+                tree2.children[0].className.baseVal = "text-yellow-600 transition-all duration-500";
+
+                document.getElementById('eco-emergency-alert').className = "hidden";
+            } 
+            else {
+                // CRITICAL DAMAGE STATE: Smokey red-gray wasteland
+                ecoCard.style.boxShadow = "0 20px 40px -15px rgba(239, 68, 68, 0.15)";
+                ecoCard.className = "bg-red-50/50 rounded-3xl p-6 shadow-premium border border-red-200 transition-all duration-500 relative";
+                statusText.textContent = "Danger";
+                statusText.className = "text-[9px] font-extrabold tracking-wider uppercase text-red-600 animate-pulse";
+                gauge.className = "text-red-500 transition-all duration-500";
+
+                // Sky - Dark Grey & Blood Red
+                sky.className = "w-full h-44 rounded-2xl relative overflow-hidden border border-red-200 shadow-inner transition-all duration-700 bg-gradient-to-b from-zinc-800 to-red-950";
+                smog.style.backgroundColor = "rgba(28, 25, 23, 0.6)"; // Dark thick smog
+                sun.style.display = "none"; // Obscured by smoke
+                rainCloud.style.opacity = "1"; // Acid rain starts
+                bird.style.opacity = "0"; // Birds escape
+                water.style.backgroundColor = "rgba(69, 26, 3, 0.9)"; // Dark acid soup water
+                fish.textContent = "💀 No Fish";
+                acidWaterNote.style.display = "block";
+
+                // Bare skeleton trees (Dark grey/dead logs)
+                tree1.children[0].className.baseVal = "text-stone-800 transition-all duration-500";
+                tree2.children[0].className.baseVal = "text-stone-700 transition-all duration-500";
+
+                // Show Blinking Alarms
+                document.getElementById('eco-emergency-alert').className = "absolute top-4 right-4 bg-red-100 text-red-700 px-3 py-1.5 rounded-xl border border-red-200 text-xs font-bold animate-pulse z-20 flex items-center gap-1.5 shadow-sm";
+            }
+        }
+    </script>
 </body>
 </html>

@@ -155,7 +155,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .btn-secondary:hover { background: rgba(147,51,234,0.35); }
 
 /* Shimmer sweep */
-.shimmer-btn { }
 .shimmer-sweep {
   position: absolute;
   inset: 0;

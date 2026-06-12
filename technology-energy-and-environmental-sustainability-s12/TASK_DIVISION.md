@@ -2,49 +2,87 @@
 
 ## Project Modules and Responsibilities
 
-### Member 1 – Project Setup & Homepage
-Responsibilities:
-- Create project folder structure
-- Develop homepage layout
-- Design header and navigation bar
-- Add project introduction section
+## Manasadevi – Team Lead
 
-### Member 2 – Energy Sources Information
-Responsibilities:
-- Research energy sources
-- Create content for Solar Energy
-- Create content for Wind Energy
-- Create content for Hydro Energy
-- Create content for Coal and Petroleum
+### Responsibilities:
+- Team coordination
+- Task allocation
+- Progress monitoring
+- Communication with mentors and reviewers
 
-### Member 3 – Energy Comparison Section
-Responsibilities:
-- Design comparison layout
-- Compare energy sources based on:
-  - Pollution level
-  - Cost
-  - Renewability
-  - Environmental impact
-- Create comparison table/cards
+---
 
-### Member 4 – Sustainability Recommendations
-Responsibilities:
-- Develop sustainability tips section
-- Provide eco-friendly energy recommendations
-- Add sustainable living suggestions
-- Create future energy solutions section
+## Mudunuru Kaushika – Documentation & GitHub Management
 
-### Member 5 – JavaScript Functionality & User Interaction
-Responsibilities:
-- Implement interactive features
-- Add navigation functionality
-- Handle user interactions
-- Improve website responsiveness and usability
+### Responsibilities:
+- Project planning
+- README.md maintenance
+- Requirements documentation
+- GitHub Issues and Milestones management
+- User Persona preparation
+- Review and presentation preparation
 
-### Member 6 – Documentation & GitHub Management
-Responsibilities:
-- Maintain README.md
-- Update requirements.txt
-- Manage GitHub Issues
-- Track project progress
-- Prepare documentation for reviews
+---
+
+## Kovvuri Sri Sai Ram Reddy – Storyboarding & Design Support
+
+### Responsibilities:
+- Storyboard creation
+- User flow planning
+- Design documentation support
+
+---
+
+## Kalyan Vishnu Vardhan – Frontend Development
+
+### Responsibilities:
+- React frontend development
+- UI implementation
+- Responsive design
+- Dashboard development
+
+---
+
+## Parvatham Bhavanarushi – Backend Development
+
+### Responsibilities:
+- FastAPI backend development
+- API creation and integration
+- Sustainability score calculation logic
+
+---
+
+## Tirumala Anusha – Testing & Quality Assurance
+
+### Responsibilities:
+- Functional testing
+- Bug identification
+- User acceptance testing
+
+---
+
+## Vicharapu Darahasini – Content & Data Validation
+
+### Responsibilities:
+- Verify sustainability-related content
+- Validate project outputs
+- Review recommendation accuracy
+
+---
+
+## A. Nikhil Sai Nath – Database Support
+
+### Responsibilities:
+- PostgreSQL database support
+- Data validation
+- Database testing assistance
+
+---
+
+## Abhishek – Deployment & Presentation Support
+
+### Responsibilities:
+- Deployment assistance
+- Demo preparation
+- Presentation support
+- Final review support
