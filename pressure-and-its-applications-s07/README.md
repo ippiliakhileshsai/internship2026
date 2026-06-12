@@ -2,7 +2,7 @@
 
 An interactive, browser-only educational site that teaches **Pressure = Force ÷ Area** to school students (Class 9–11). No server, no build step — just open `index.html` in any modern browser.
 
-**Live on Vercel:** https://dashboard-ashish-coder-gif.vercel.app
+**Live on Vercel:** https://intern-gules-zeta.vercel.app/index.html
 
 ---
 
