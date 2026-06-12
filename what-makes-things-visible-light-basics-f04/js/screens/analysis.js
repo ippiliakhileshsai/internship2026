@@ -11,7 +11,7 @@ export async function renderAnalysis(container, { levelId }) {
   const simStars = gameState.simStars;
   const total = 5;
   const pct = Math.round(score / total * 100);
-  const stars = simStars;
+  const stars = score >= 5 ? 3 : score >= 4 ? 2 : score >= 2 ? 1 : 0;
 
   const grade = pct === 100 ? { label: 'Perfect!', icon: '🏆', color: '#ffd700' }
               : pct >= 80  ? { label: 'Great Job!', icon: '⭐', color: '#c084fc' }

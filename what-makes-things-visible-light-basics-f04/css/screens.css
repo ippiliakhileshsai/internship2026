@@ -339,7 +339,7 @@
   flex: 1;
 }
 .sim-title { font-family: var(--font-label); font-size: 13px; color: var(--gold); margin-bottom: 4px; }
-.sim-desc { font-family: var(--font-body); font-size: 11px; color: var(--purple-muted); margin-bottom: 12px; }
+.sim-desc { font-family: var(--font-body); font-size: 16px; color: #d8b4fe; margin-bottom: 16px; line-height: 1.5; }
 .sim-content {
   min-height: 220px;
   position: relative;

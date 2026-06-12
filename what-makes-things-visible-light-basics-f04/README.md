@@ -53,22 +53,35 @@ what-makes-things-visible-light-basics-f04/
 │   │   ├── quizData.js     ← 30 quiz questions (6 levels × 5)
 │   │   ├── levels.js       ← Level configuration
 │   │   └── badges.js       ← Badge data
+│   ├── html/               ← UI HTML templates
+│   │   ├── analysis.html
+│   │   ├── basics.html
+│   │   ├── final.html
+│   │   ├── guide.html
+│   │   ├── level.html
+│   │   ├── map.html
+│   │   ├── profile.html
+│   │   ├── quiz.html
+│   │   ├── reward.html
+│   │   ├── scoreboard.html
+│   │   └── welcome.html
 │   ├── utils/
+│   │   ├── audio.js        ← Web Audio API sounds
 │   │   ├── state.js        ← Game state + localStorage
-│   │   ├── transitions.js  ← Animation helpers
-│   │   └── audio.js        ← Web Audio API sounds
+│   │   ├── template.js     ← HTML template loader
+│   │   └── transitions.js  ← Animation helpers
 │   └── screens/
-│       ├── welcome.js      ← Welcome / home screen
-│       ├── guide.js        ← Story / wizard guide
-│       ├── basics.js       ← Light facts intro
-│       ├── map.js          ← World map / level select
-│       ├── level.js        ← Simulation gameplay
-│       ├── quiz.js         ← Multiple choice quiz
 │       ├── analysis.js     ← Score breakdown
-│       ├── reward.js       ← Badge + stars reward
+│       ├── basics.js       ← Light facts intro
+│       ├── final.js        ← Quest complete screen
+│       ├── guide.js        ← Story / wizard guide
+│       ├── level.js        ← Simulation gameplay
+│       ├── map.js          ← World map / level select
 │       ├── profile.js      ← Player profile
+│       ├── quiz.js         ← Multiple choice quiz
+│       ├── reward.js       ← Badge + stars reward
 │       ├── scoreboard.js   ← Global leaderboard
-│       └── final.js        ← Quest complete screen
+│       └── welcome.js      ← Welcome / home screen
 └── README.md
 ```
 
