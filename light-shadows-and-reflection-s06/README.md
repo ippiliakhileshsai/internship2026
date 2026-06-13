@@ -4,7 +4,7 @@ An interactive educational physics simulator that helps students understand ligh
 
 ---
 
-Team members and contibutions 
+"""    Team members and contibutions   """
 
 E.Snehith
   - researched and contributed on making story board .
@@ -15,7 +15,7 @@ B.Luhitha
 K.Naga Vyshnavi 
     - developed the light reflection simulation using html,css,js.
 Shaik 
- - developed the light reflection simulation using html,css,js.
+    - developed the light reflection simulation using html,css,js.
 
 
 B.Jayadev 
@@ -23,9 +23,8 @@ B.Jayadev
 B.Mahesh
     - Improved the UI of the simulation . added the simulation of shadow formation of Rainbow.
 
-
-
 P.Manohari
+    - Deployed the project .
 
 ## Project Overview
 
