@@ -219,3 +219,6 @@ MIT License — Free for educational use.
 ---
 
 _Built as an academic project demonstrating the intersection of physics education and AI-assisted learning._
+
+Deployment Link:
+https://lightshadowreflection.netlify.app/
