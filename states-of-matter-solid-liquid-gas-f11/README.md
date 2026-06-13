@@ -45,7 +45,7 @@ Physics concepts like states of matter and phase transitions are often taught th
 
 ---
 
-## 🚀 How to Run the Project
+##  How to Run the Project
 
 1. **Clone the repository**
 ```bash
@@ -75,6 +75,6 @@ Physics concepts like states of matter and phase transitions are often taught th
 
 ---
 
-## 👥 Team
+##  Team
 
 Built as part of a 4-person collaborative project. Member roles included simulation logic, UI design, substance data, multilingual support, quiz mode, and GitHub/deployment integration.
