@@ -7,8 +7,11 @@
  * - Dynamic slot positions (4, 6, 8 slots) inside absolute coordinates.
  * - Selecting and placing components from inventory grid.
  * - Dynamic series circuit resistance calculations and ammeter/voltmeter readings.
- * - safety blow logic on fuse.
- * - Interactive step-by-step tutorial state machine.
+ * - Safety blow logic on fuse.
+ * - Intuitive pulsing hint on first empty slot (replaces old tutorial).
+ * - Electron flow animation via HTML5 Canvas + requestAnimationFrame.
+ * - Time Controls (Play / Pause / Slow Motion) for electron speed.
+ * - Challenge Mode: pre-populated broken circuit with visual spark feedback.
  */
 
 // --- CURRICULUM COMPONENT SPECIFICATION REGISTRY ---
@@ -530,6 +533,91 @@ const SLOT_LAYOUTS = {
   ]
 };
 
+/**
+ * =========================================================================
+ * CHALLENGE_CONFIGS — Leveled Puzzle Definitions
+ * Each key is a grade level with a specific broken/incomplete circuit
+ * the user must fix. Contains:
+ *   - slotCount: how many slots this challenge uses
+ *   - prePopulate: array of component IDs (or null for empty slots)
+ *   - goal: text shown to the user describing the objective
+ *   - hint: detailed hint shown below the goal
+ *   - gradeForInventory: which SYLLABUS inventory to show
+ * =========================================================================
+ */
+const CHALLENGE_CONFIGS = {
+  /**
+   * CLASS 6 — THE BASICS
+   * Scenario: Battery + open switch are placed, two slots are empty.
+   * User must: Place a Light Bulb and a Wire, then close the switch.
+   * Success: All slots filled, has battery + bulb, no open switches or insulators.
+   */
+  "Class 6": {
+    slotCount: 4,
+    prePopulate: ["battery", "switch-open", null, null],
+    goal: "Complete the circuit to light the bulb.",
+    hint: "Place a Light Bulb in an empty slot and fill the rest with Wires. Don't forget to close the switch!",
+    gradeForInventory: "Class 6"
+  },
+
+  /**
+   * CLASS 7 — HEATING & SAFETY
+   * Scenario: Battery connected in a full loop of Wires (dangerous short circuit).
+   * User must: Replace a Wire with a Heating Coil, Fuse, or Bulb to consume power.
+   * Success: Has battery + at least one load component, no short circuit.
+   */
+  "Class 7": {
+    slotCount: 4,
+    prePopulate: ["battery", "wire", "wire", "wire"],
+    goal: "Danger! This circuit is overheating. Fix it by adding a load or safety device.",
+    hint: "Replace one of the Wires with a Heating Coil, Fuse, or Light Bulb to consume the energy safely.",
+    gradeForInventory: "Class 7"
+  },
+
+  /**
+   * CLASS 8 — CONDUCTIVITY
+   * Scenario: Battery, LED, and Rubber Eraser in a loop with a wire.
+   * The Eraser (insulator) blocks all current flow — the LED stays off.
+   * User must: Remove the Eraser and replace it with a Beaker of Saltwater.
+   * Success: Has battery + LED + saltwater, no insulators.
+   */
+  "Class 8": {
+    slotCount: 4,
+    prePopulate: ["battery", "led", "eraser", "wire"],
+    goal: "The LED is off because the current is blocked. Replace the insulator with a liquid conductor.",
+    hint: "Remove the Rubber Eraser and replace it with the Beaker of Saltwater to let current flow.",
+    gradeForInventory: "Class 8"
+  },
+
+  /**
+   * CLASS 10 — ADVANCED SETUP
+   * Scenario: Battery, Resistor, and Ammeter placed, but loop has one empty slot.
+   * User must: Fill the empty slot to complete the series loop.
+   * Success: All slots filled, has battery + resistor + ammeter in a closed series loop, no short circuits.
+   */
+  "Class 10": {
+    slotCount: 4,
+    prePopulate: ["battery", "resistor", "ammeter", null],
+    goal: "Measure the current safely. Connect the Ammeter in series with the Resistor.",
+    hint: "Fill the empty slot with a Wire to complete the loop. The Ammeter must be in series with the Resistor.",
+    gradeForInventory: "Class 10"
+  }
+};
+
+/**
+ * =========================================================================
+ * WIRE PATH POINTS
+ * The rectangular loop's corner coordinates in the 480x480 SVG space.
+ * Electrons travel along line segments connecting these corners.
+ * =========================================================================
+ */
+const WIRE_PATH_POINTS = [
+  { x: 70, y: 70 },   // top-left
+  { x: 410, y: 70 },  // top-right
+  { x: 410, y: 410 }, // bottom-right
+  { x: 70, y: 410 }   // bottom-left
+];
+
 // --- GAME ENGINE CLASS ---
 class CircuitSandbox {
   constructor() {
@@ -543,9 +631,58 @@ class CircuitSandbox {
 
     this.circuitFlowing = false;
 
-    // Guided tutorial state-machine values
-    this.tutorialActive = false;
-    this.tutorialStep = 1;
+    /**
+     * hintActive tracks whether the first-slot pulsing hint is still active.
+     * It starts as true and becomes false once the user places their
+     * very first component, so the hint never reappears.
+     */
+    this.hintActive = true;
+
+    /**
+     * challengeMode tracks whether the "Challenge Mode" UI state is active.
+     * In this mode, slots are pre-populated with a broken circuit.
+     */
+    this.challengeMode = false;
+
+    /**
+     * activeChallengeLevel: which specific class challenge is currently active.
+     * null when no challenge is selected (i.e., level-select screen is showing).
+     */
+    this.activeChallengeLevel = null;
+
+    /**
+     * completedChallenges: Set of challenge level keys the user has solved
+     * during this session. Used to show green checkmarks on level tiles.
+     */
+    this.completedChallenges = new Set();
+
+    // ---- ELECTRON ANIMATION STATE ----
+    /**
+     * electronAnimationId: stores the requestAnimationFrame handle
+     * so we can cancel it when flow stops.
+     */
+    this.electronAnimationId = null;
+
+    /**
+     * electrons: array of electron dot objects, each with a `progress`
+     * value (0–1) indicating position along the total wire path perimeter.
+     */
+    this.electrons = [];
+
+    /**
+     * timeMode: "play" | "paused" | "slow"
+     * Controls electron animation speed via a multiplier:
+     * - play:   speed multiplier = 1.0 (normal)
+     * - paused: speed multiplier = 0.0 (frozen)
+     * - slow:   speed multiplier = 0.3 (slow-mo)
+     */
+    this.timeMode = "play";
+
+    /**
+     * lastFrameTime: timestamp of the previous animation frame,
+     * used to calculate deltaTime for smooth speed-independent movement.
+     */
+    this.lastFrameTime = 0;
 
     // Cache core controls
     this.gradeSelect = document.getElementById("grade-select");
@@ -559,13 +696,33 @@ class CircuitSandbox {
     this.slotsContainer = document.getElementById("slots-container");
     this.btnAddSlot = document.getElementById("btn-add-slot");
     this.btnRemoveSlot = document.getElementById("btn-remove-slot");
-    this.btnStartTutorial = document.getElementById("btn-start-tutorial");
-    
-    this.tutorialOverlay = document.getElementById("tutorial-overlay");
-    this.tutorialStepNum = document.getElementById("tutorial-step-num");
-    this.tutorialStepText = document.getElementById("tutorial-step-text");
-    this.tutorialProgressBar = document.getElementById("tutorial-progress-bar");
-    this.btnSkipTutorial = document.getElementById("btn-skip-tutorial");
+
+    // Challenge Mode elements (level select view)
+    this.btnChallengeMode = document.getElementById("btn-challenge-mode");
+    this.challengeOverlay = document.getElementById("challenge-overlay");
+    this.challengeLevelSelect = document.getElementById("challenge-level-select");
+    this.challengeLevelGrid = document.getElementById("challenge-level-grid");
+    this.btnExitChallenge = document.getElementById("btn-exit-challenge");
+
+    // Challenge Mode elements (active challenge view)
+    this.challengeActiveView = document.getElementById("challenge-active-view");
+    this.challengeActiveBadge = document.getElementById("challenge-active-badge");
+    this.challengeGoalText = document.getElementById("challenge-goal-text");
+    this.challengeHintText = document.getElementById("challenge-hint-text");
+    this.btnBackToLevels = document.getElementById("btn-back-to-levels");
+    this.btnExitChallengeActive = document.getElementById("btn-exit-challenge-active");
+
+    // Success celebration element
+    this.successCelebration = document.getElementById("success-celebration");
+
+    // Time Controls elements
+    this.btnTimePlay = document.getElementById("btn-time-play");
+    this.btnTimePause = document.getElementById("btn-time-pause");
+    this.btnTimeSlow = document.getElementById("btn-time-slow");
+
+    // Electron canvas context
+    this.electronCanvas = document.getElementById("electron-canvas");
+    this.electronCtx = this.electronCanvas.getContext("2d");
 
     // Info Brief panels
     this.briefEmpty = document.getElementById("brief-empty");
@@ -589,10 +746,26 @@ class CircuitSandbox {
     // Slot manipulations
     this.btnAddSlot.addEventListener("click", () => this.adjustSlotCount(2));
     this.btnRemoveSlot.addEventListener("click", () => this.adjustSlotCount(-2));
-    
-    // Tutorial binds
-    this.btnStartTutorial.addEventListener("click", () => this.startTutorial());
-    this.btnSkipTutorial.addEventListener("click", () => this.endTutorial());
+
+    // Challenge Mode bindings
+    this.btnChallengeMode.addEventListener("click", () => this.enterChallengeMode());
+    this.btnExitChallenge.addEventListener("click", () => this.exitChallengeMode());
+    this.btnExitChallengeActive.addEventListener("click", () => this.exitChallengeMode());
+    this.btnBackToLevels.addEventListener("click", () => this.backToLevelSelect());
+
+    // Level tile click handlers (event delegation on the grid)
+    this.challengeLevelGrid.addEventListener("click", (e) => {
+      const tile = e.target.closest(".challenge-level-tile");
+      if (tile) {
+        const level = tile.dataset.level;
+        if (level) this.selectChallengeLevel(level);
+      }
+    });
+
+    // Time Controls bindings — each sets timeMode and updates button styles
+    this.btnTimePlay.addEventListener("click", () => this.setTimeMode("play"));
+    this.btnTimePause.addEventListener("click", () => this.setTimeMode("paused"));
+    this.btnTimeSlow.addEventListener("click", () => this.setTimeMode("slow"));
 
     this.init();
   }
@@ -600,7 +773,7 @@ class CircuitSandbox {
   init() {
     this.renderInventory();
     this.updateWorkspace();
-    this.logMessage("System initialized. Select a grade level and construct your circuit!");
+    this.logMessage("System initialized. Select a component and place it in a slot!");
   }
 
   // Outputs retro digital green/red warnings into terminal
@@ -625,6 +798,7 @@ class CircuitSandbox {
     // Cancel current flows
     this.circuitFlowing = false;
     this.setFlowIntensity(0);
+    this.stopElectronAnimation(); // Stop electron dots when resizing
     this.workspaceArea.classList.remove("short-circuit-flash");
 
     if (delta > 0) {
@@ -672,10 +846,6 @@ class CircuitSandbox {
       card.addEventListener("click", () => this.selectInventoryComponent(id));
       this.inventoryGrid.appendChild(card);
     });
-
-    if (this.tutorialActive) {
-      this.updateTutorialVisuals();
-    }
   }
 
   selectInventoryComponent(id) {
@@ -694,7 +864,6 @@ class CircuitSandbox {
     });
 
     this.updateBrief(COMPONENT_DATA[id]);
-    this.handleTutorialAction("select_component", id);
   }
 
   updateBrief(comp) {
@@ -747,22 +916,39 @@ class CircuitSandbox {
       if (this.selectedComponentId) {
         this.slots[slotIndex] = this.selectedComponentId;
         this.slotStates[slotIndex] = {};
+
+        /**
+         * FEATURE #1: Disable the pulsing hint once the user places
+         * their very first component. After this, the hint never comes back.
+         */
+        if (this.hintActive) {
+          this.hintActive = false;
+        }
+
         this.updateWorkspace();
         
         const comp = COMPONENT_DATA[this.selectedComponentId];
         this.logMessage(`Placed ${comp.name} into Slot ${String.fromCharCode(65 + slotIndex)}.`);
         this.updateBrief(comp);
-        this.handleTutorialAction("place_component", this.selectedComponentId);
       } else {
         this.logMessage("No component selected. Click a component in the inventory first!", "warning");
       }
     }
   }
 
-  // Generates slots dynamically on the coordinate grid
+  /**
+   * =========================================================================
+   * updateWorkspace()
+   * Re-renders all circuit slot DOM elements on the coordinate grid.
+   * Also applies the pulsing hint to the first empty slot when hintActive.
+   * =========================================================================
+   */
   updateWorkspace() {
     const layout = SLOT_LAYOUTS[this.activeSlotCount];
     this.slotsContainer.innerHTML = "";
+
+    // Track whether we've already placed the hint on one slot
+    let hintApplied = false;
     
     for (let i = 0; i < this.activeSlotCount; i++) {
       const item = this.slots[i];
@@ -808,11 +994,21 @@ class CircuitSandbox {
             <span>${slotMeta.name}</span>
           </div>
         `;
+
+        /**
+         * FEATURE #1: Apply the pulsing CSS hint to the FIRST empty slot
+         * only when hintActive is true (user hasn't placed anything yet).
+         */
+        if (this.hintActive && !hintApplied) {
+          slotEl.classList.add("slot-hint-pulse");
+          hintApplied = true;
+        }
       }
 
       this.slotsContainer.appendChild(slotEl);
     }
 
+    // Apply or remove the "flowing" class on the SVG wire loop
     const boardSvg = this.workspaceArea.querySelector(".wire-loop-svg");
     if (this.circuitFlowing) {
       boardSvg.classList.add("flowing");
@@ -820,7 +1016,12 @@ class CircuitSandbox {
       boardSvg.classList.remove("flowing");
     }
 
-    this.updateTutorialVisuals();
+    // Apply paused state to CSS animation if time is paused
+    if (this.timeMode === "paused") {
+      boardSvg.classList.add("electron-paused");
+    } else {
+      boardSvg.classList.remove("electron-paused");
+    }
   }
 
   removeComponentFromSlot(slotIndex) {
@@ -831,6 +1032,7 @@ class CircuitSandbox {
       this.slotStates[slotIndex] = {};
       this.circuitFlowing = false;
       this.setFlowIntensity(0);
+      this.stopElectronAnimation(); // Stop electrons when a component is removed
       this.updateWorkspace();
       this.logMessage(`Removed ${comp.name} from Slot ${String.fromCharCode(65 + slotIndex)}.`);
     }
@@ -841,7 +1043,9 @@ class CircuitSandbox {
     this.slotStates = Array(this.activeSlotCount).fill().map(() => ({}));
     this.circuitFlowing = false;
     this.setFlowIntensity(0);
+    this.stopElectronAnimation(); // Clear electron canvas on reset
     this.workspaceArea.classList.remove("short-circuit-flash");
+    this.clearSparkIndicators(); // Remove any spark visuals
     this.updateWorkspace();
     this.updateBrief(null);
     this.logMessage("Workspace reset. All slots cleared.");
@@ -851,7 +1055,9 @@ class CircuitSandbox {
   testCircuit() {
     this.circuitFlowing = false;
     this.setFlowIntensity(0);
+    this.stopElectronAnimation(); // Always stop electrons before re-evaluating
     this.workspaceArea.classList.remove("short-circuit-flash");
+    this.clearSparkIndicators(); // Clear previous spark feedback
     this.updateWorkspace();
 
     const placedItems = [];
@@ -867,6 +1073,10 @@ class CircuitSandbox {
     let hasAmmeter = false;
     let ammeterIndex = -1;
 
+    /** Track the index of the FIRST slot that causes a break,
+     *  used by Challenge Mode to show spark feedback. */
+    let firstBreakIndex = -1;
+
     let totalVoltage = 0.0;
     let totalResistance = 0.0;
 
@@ -874,6 +1084,7 @@ class CircuitSandbox {
       const itemId = this.slots[i];
       if (!itemId) {
         hasEmptySlot = true;
+        if (firstBreakIndex === -1) firstBreakIndex = i;
         totalResistance = Infinity;
         continue;
       }
@@ -888,14 +1099,17 @@ class CircuitSandbox {
 
       if (itemId === "switch-open") {
         hasOpenSwitch = true;
+        if (firstBreakIndex === -1) firstBreakIndex = i;
         totalResistance = Infinity;
       } else if (comp.type === "insulator") {
         hasInsulator = true;
+        if (firstBreakIndex === -1) firstBreakIndex = i;
         totalResistance = Infinity;
       } else if (itemId === "fuse") {
         hasFuse = true;
         fuseIndex = i;
         if (this.slotStates[i].blown) {
+          if (firstBreakIndex === -1) firstBreakIndex = i;
           totalResistance = Infinity;
         } else {
           totalResistance += comp.resistance;
@@ -920,6 +1134,10 @@ class CircuitSandbox {
     if (!hasBattery) {
       this.logMessage("Circuit Incomplete: No power source. You need a battery to create voltage.", "warning");
       this.updateWorkspaceMeters(0, 0);
+      // In challenge mode, show spark at the first break point
+      if (this.challengeMode && firstBreakIndex >= 0) {
+        this.showSparkAtSlot(firstBreakIndex);
+      }
       return;
     }
 
@@ -928,6 +1146,13 @@ class CircuitSandbox {
     if (isBrokenCircuit && !hasVoltmeter) {
       this.logMessage("Circuit Incomplete: Current cannot flow. Make sure there are no empty slots, open switches, or insulators.", "warning");
       this.updateWorkspaceMeters(0, 0);
+      /**
+       * FEATURE #4 (Challenge Mode): Instead of a simple text message,
+       * show a visual spark indicator at the slot where current stops.
+       */
+      if (this.challengeMode && firstBreakIndex >= 0) {
+        this.showSparkAtSlot(firstBreakIndex);
+      }
       return;
     }
 
@@ -967,6 +1192,12 @@ class CircuitSandbox {
       this.setFlowIntensity(current);
       this.workspaceArea.classList.add("short-circuit-flash");
       this.updateWorkspace();
+
+      /**
+       * FEATURE #2: Start electron flow animation even on short circuit
+       * (electrons DO flow in a short circuit — dangerously fast).
+       */
+      this.startElectronAnimation(current);
       
       if (hasAmmeter) {
         this.slotStates[ammeterIndex].active = true;
@@ -975,6 +1206,15 @@ class CircuitSandbox {
       }
 
       this.logMessage(`Danger: Short Circuit! Current is dangerously high (${current.toFixed(2)} A)! You need a load (like a bulb or resistor) to consume the energy.`, "error");
+
+      /**
+       * FEATURE #4 (Challenge Mode): In challenge mode, a short circuit
+       * is the initial broken state. Show visual feedback that the circuit
+       * is dangerous rather than just red text.
+       */
+      if (this.challengeMode) {
+        this.showShortCircuitSparks();
+      }
       return;
     }
 
@@ -996,8 +1236,34 @@ class CircuitSandbox {
     }
 
     this.updateWorkspace();
-    this.logMessage(`Success: Current is flowing! Measured Current: ${current.toFixed(2)} A. Total Resistance: ${totalResistance.toFixed(2)} Ω.`, "normal");
-    this.handleTutorialAction("test_circuit");
+
+    /**
+     * CHALLENGE MODE: If a leveled challenge is active, check the SPECIFIC
+     * success condition for that class. Electron flow animation ONLY starts
+     * when the challenge's unique success condition is satisfied.
+     * In free sandbox mode, electrons always flow on a valid circuit.
+     */
+    if (this.challengeMode && this.activeChallengeLevel) {
+      const passed = this.checkChallengeSuccess(current, totalResistance);
+      if (passed) {
+        // Start electron flow animation ONLY on challenge success
+        this.startElectronAnimation(current);
+        this.logMessage(`🎉 Challenge Complete! Circuit is safe. Current: ${current.toFixed(2)} A. Great job!`, "normal");
+      } else {
+        // Challenge not yet solved — stop flowing, show failure feedback
+        this.circuitFlowing = false;
+        this.setFlowIntensity(0);
+        this.stopElectronAnimation();
+        this.updateWorkspace();
+      }
+    } else {
+      /**
+       * FEATURE #2: Start the electron flow animation on success.
+       * Small glowing dots travel along the wire path continuously.
+       */
+      this.startElectronAnimation(current);
+      this.logMessage(`Success: Current is flowing! Measured Current: ${current.toFixed(2)} A. Total Resistance: ${totalResistance.toFixed(2)} Ω.`, "normal");
+    }
   }
 
   updateWorkspaceMeters(currentVal, voltVal) {
@@ -1025,110 +1291,699 @@ class CircuitSandbox {
     document.documentElement.style.setProperty('--current-intensity', intensity);
   }
 
-  // --- STATE MACHINE TUTORIAL CONTEXT ---
-  startTutorial() {
-    this.tutorialActive = true;
-    this.tutorialStep = 1;
-    this.tutorialOverlay.style.display = "block";
-    this.resetWorkspace();
-    this.selectGrade("Class 6");
-    this.updateTutorialStep();
-    this.logMessage("Tutorial started! Follow the steps to build your first circuit.");
-  }
+  // =========================================================================
+  // FEATURE #2: ELECTRON FLOW ANIMATION (Canvas-based requestAnimationFrame)
+  // =========================================================================
 
-  endTutorial() {
-    this.tutorialActive = false;
-    this.tutorialOverlay.style.display = "none";
-    this.removeTutorialHighlights();
-    this.logMessage("Tutorial ended.");
-  }
-
-  updateTutorialStep() {
-    if (!this.tutorialActive) return;
-
-    this.tutorialStepNum.innerText = this.tutorialStep;
-    this.tutorialProgressBar.style.width = `${this.tutorialStep * 20}%`;
-
-    let text = "";
-    switch (this.tutorialStep) {
-      case 1:
-        text = "Step 1: Select the 1.5V Battery from the sidebar inventory.";
-        break;
-      case 2:
-        text = "Step 2: Great! Now click any empty slot in the workspace to place the Battery.";
-        break;
-      case 3:
-        text = "Step 3: Excellent. Next, select the Light Bulb from the sidebar.";
-        break;
-      case 4:
-        text = "Step 4: Now, place the Light Bulb in another slot, and fill all remaining empty slots with Wires to close the loop.";
-        break;
-      case 5:
-        text = "Step 5: Perfect! The circuit is now closed. Click the green 'Test Circuit' button to run the flow!";
-        break;
+  /**
+   * calculatePathLength()
+   * Computes the total perimeter length of the rectangular wire loop
+   * by summing the distances between consecutive corner points.
+   */
+  calculatePathLength() {
+    let totalLength = 0;
+    const pts = WIRE_PATH_POINTS;
+    for (let i = 0; i < pts.length; i++) {
+      const next = pts[(i + 1) % pts.length];
+      const dx = next.x - pts[i].x;
+      const dy = next.y - pts[i].y;
+      totalLength += Math.sqrt(dx * dx + dy * dy);
     }
-    this.tutorialStepText.innerText = text;
-    this.updateWorkspace();
+    return totalLength;
   }
 
-  handleTutorialAction(action, data) {
-    if (!this.tutorialActive) return;
+  /**
+   * getPointOnPath(progress)
+   * Given a progress value (0 to 1), returns the {x, y} coordinate
+   * on the rectangular wire loop path at that fractional distance.
+   */
+  getPointOnPath(progress) {
+    const pts = WIRE_PATH_POINTS;
+    const totalLength = this.calculatePathLength();
+    let targetDist = progress * totalLength;
 
-    if (this.tutorialStep === 1 && action === "select_component" && data === "battery") {
-      this.tutorialStep = 2;
-      this.updateTutorialStep();
-    } else if (this.tutorialStep === 2 && action === "place_component" && data === "battery") {
-      this.tutorialStep = 3;
-      this.updateTutorialStep();
-    } else if (this.tutorialStep === 3 && action === "select_component" && data === "bulb") {
-      this.tutorialStep = 4;
-      this.updateTutorialStep();
-    } else if (this.tutorialStep === 4 && action === "place_component") {
-      const allFilled = this.slots.every(slot => slot !== null);
+    for (let i = 0; i < pts.length; i++) {
+      const next = pts[(i + 1) % pts.length];
+      const dx = next.x - pts[i].x;
+      const dy = next.y - pts[i].y;
+      const segLen = Math.sqrt(dx * dx + dy * dy);
+
+      if (targetDist <= segLen) {
+        // Interpolate within this segment
+        const t = targetDist / segLen;
+        return {
+          x: pts[i].x + dx * t,
+          y: pts[i].y + dy * t
+        };
+      }
+      targetDist -= segLen;
+    }
+
+    // Fallback to first point (shouldn't reach here)
+    return { x: pts[0].x, y: pts[0].y };
+  }
+
+  /**
+   * startElectronAnimation(current)
+   * Spawns a set of electron dots spread evenly around the loop
+   * and kicks off the requestAnimationFrame render loop.
+   * @param {number} current - the circuit current in amps, affects speed.
+   */
+  startElectronAnimation(current) {
+    // Cancel any existing animation before starting fresh
+    this.stopElectronAnimation();
+
+    // Number of electron dots scales with current (more current = more dots)
+    const electronCount = Math.max(8, Math.min(20, Math.round(current * 10)));
+
+    // Initialize electron positions evenly distributed around the loop
+    this.electrons = [];
+    for (let i = 0; i < electronCount; i++) {
+      this.electrons.push({
+        progress: i / electronCount,        // 0–1 fractional position
+        speed: 0.08 + (current * 0.04)      // base speed + current boost
+      });
+    }
+
+    this.lastFrameTime = performance.now();
+
+    /**
+     * renderLoop: the core animation tick.
+     * Each frame, move each electron forward by (speed * deltaTime * speedMultiplier),
+     * then redraw all dots on the canvas.
+     */
+    const renderLoop = (timestamp) => {
+      const deltaTime = (timestamp - this.lastFrameTime) / 1000; // seconds
+      this.lastFrameTime = timestamp;
+
+      /**
+       * FEATURE #3: Time Controls — speedMultiplier maps the timeMode
+       * to an animation rate:
+       *   "play"   → 1.0  (normal speed)
+       *   "paused" → 0.0  (frozen in place)
+       *   "slow"   → 0.3  (slow motion)
+       */
+      let speedMultiplier = 1.0;
+      if (this.timeMode === "paused") speedMultiplier = 0.0;
+      else if (this.timeMode === "slow") speedMultiplier = 0.3;
+
+      // Clear the canvas each frame
+      this.electronCtx.clearRect(0, 0, this.electronCanvas.width, this.electronCanvas.height);
+
+      // Update and draw each electron dot
+      for (const electron of this.electrons) {
+        // Advance electron position (wraps around at 1.0)
+        electron.progress += electron.speed * deltaTime * speedMultiplier;
+        if (electron.progress > 1.0) electron.progress -= 1.0;
+
+        // Convert progress to x,y coordinates on the wire path
+        const pos = this.getPointOnPath(electron.progress);
+
+        // Draw the electron as a glowing dot
+        this.drawElectronDot(pos.x, pos.y, current);
+      }
+
+      // Continue the animation loop
+      this.electronAnimationId = requestAnimationFrame(renderLoop);
+    };
+
+    // Kick off the first frame
+    this.electronAnimationId = requestAnimationFrame(renderLoop);
+  }
+
+  /**
+   * drawElectronDot(x, y, current)
+   * Renders a single glowing electron dot at (x, y) on the canvas.
+   * Uses a radial gradient for the glow effect. Glow size scales with current.
+   */
+  drawElectronDot(x, y, current) {
+    const ctx = this.electronCtx;
+    const glowRadius = 6 + Math.min(current * 2, 8); // dynamic glow size
+
+    // Outer glow (transparent halo)
+    const gradient = ctx.createRadialGradient(x, y, 0, x, y, glowRadius);
+    gradient.addColorStop(0, "rgba(251, 191, 36, 0.95)");   // bright yellow core
+    gradient.addColorStop(0.3, "rgba(251, 191, 36, 0.5)");  // mid glow
+    gradient.addColorStop(0.7, "rgba(245, 158, 11, 0.15)"); // fading edge
+    gradient.addColorStop(1, "rgba(245, 158, 11, 0)");      // fully transparent
+
+    ctx.beginPath();
+    ctx.arc(x, y, glowRadius, 0, Math.PI * 2);
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // Inner bright core dot
+    ctx.beginPath();
+    ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = "#fef3c7"; // warm white core
+    ctx.fill();
+  }
+
+  /**
+   * stopElectronAnimation()
+   * Cancels the requestAnimationFrame loop and clears the canvas.
+   * Called when circuit breaks, components are removed, or workspace resets.
+   */
+  stopElectronAnimation() {
+    if (this.electronAnimationId) {
+      cancelAnimationFrame(this.electronAnimationId);
+      this.electronAnimationId = null;
+    }
+    // Clear the canvas to remove all electron dots instantly
+    this.electronCtx.clearRect(0, 0, this.electronCanvas.width, this.electronCanvas.height);
+    this.electrons = [];
+  }
+
+  // =========================================================================
+  // FEATURE #3: TIME CONTROLS (Play / Pause / Slow Motion)
+  // =========================================================================
+
+  /**
+   * setTimeMode(mode)
+   * Updates the timeMode state and refreshes the button UI.
+   * The electron animation render loop reads this.timeMode each frame
+   * to determine the speed multiplier.
+   *
+   * Also updates the CSS --flow-duration variable for dash-based
+   * SVG flow-particles animation (the legacy wire glow).
+   *
+   * @param {"play" | "paused" | "slow"} mode
+   */
+  setTimeMode(mode) {
+    this.timeMode = mode;
+
+    // Update which button shows as "active"
+    this.btnTimePlay.classList.remove("time-btn-active");
+    this.btnTimePause.classList.remove("time-btn-active");
+    this.btnTimeSlow.classList.remove("time-btn-active");
+
+    if (mode === "play") {
+      this.btnTimePlay.classList.add("time-btn-active");
+      // Normal CSS flow animation speed
+      document.documentElement.style.setProperty('--flow-duration', '0.8s');
+    } else if (mode === "paused") {
+      this.btnTimePause.classList.add("time-btn-active");
+    } else if (mode === "slow") {
+      this.btnTimeSlow.classList.add("time-btn-active");
+      // Slow motion: stretch CSS flow animation to 2.5s
+      document.documentElement.style.setProperty('--flow-duration', '2.5s');
+    }
+
+    // Toggle CSS pause state on the SVG wire animation
+    const boardSvg = this.workspaceArea.querySelector(".wire-loop-svg");
+    if (mode === "paused") {
+      boardSvg.classList.add("electron-paused");
+    } else {
+      boardSvg.classList.remove("electron-paused");
+    }
+
+    this.logMessage(`Time control: ${mode === "play" ? "▶ Playing" : mode === "paused" ? "⏸ Paused" : "🐢 Slow Motion"}`);
+  }
+
+  // =========================================================================
+  // FEATURE #4: LEVELED CHALLENGE MODE (Class 6, 7, 8, 10 Puzzles)
+  // =========================================================================
+
+  /**
+   * enterChallengeMode()
+   * Opens the challenge overlay and shows the LEVEL SELECTION grid.
+   * Does NOT pre-populate any circuit — the user must pick a level first.
+   */
+  enterChallengeMode() {
+    this.challengeMode = true;
+    this.activeChallengeLevel = null;
+    this.hintActive = false;
+
+    // Reset workspace state
+    this.circuitFlowing = false;
+    this.setFlowIntensity(0);
+    this.stopElectronAnimation();
+    this.workspaceArea.classList.remove("short-circuit-flash");
+    this.clearSparkIndicators();
+
+    // Show overlay with level-select view, hide active-challenge view
+    this.challengeOverlay.style.display = "block";
+    this.challengeLevelSelect.style.display = "flex";
+    this.challengeActiveView.style.display = "none";
+    this.btnChallengeMode.classList.add("active");
+
+    // Update level tile completed/active states
+    this.updateLevelTileStates();
+
+    this.logMessage("🎯 Challenge Mode: Select a challenge level to begin!");
+  }
+
+  /**
+   * selectChallengeLevel(level)
+   * Loads the specific puzzle configuration for the chosen class level.
+   * Pre-populates the circuit slots, switches the inventory grade,
+   * and transitions the overlay from level-select to active-challenge view.
+   *
+   * @param {string} level - one of "Class 6", "Class 7", "Class 8", "Class 10"
+   */
+  selectChallengeLevel(level) {
+    const config = CHALLENGE_CONFIGS[level];
+    if (!config) return;
+
+    this.activeChallengeLevel = level;
+
+    // Reset any previous circuit state
+    this.circuitFlowing = false;
+    this.setFlowIntensity(0);
+    this.stopElectronAnimation();
+    this.workspaceArea.classList.remove("short-circuit-flash");
+    this.clearSparkIndicators();
+    this.successCelebration.style.display = "none";
+
+    // Configure slot count and pre-populate the circuit array
+    this.activeSlotCount = config.slotCount;
+    this.slots = config.prePopulate.map(id => id); // shallow clone
+    this.slotStates = Array(config.slotCount).fill().map(() => ({}));
+
+    // Switch the inventory sidebar to the appropriate grade
+    this.selectedGrade = config.gradeForInventory;
+    this.gradeSelect.value = config.gradeForInventory;
+    this.selectedComponentId = null;
+    this.renderInventory();
+
+    // Transition overlay: hide level-select, show active-challenge
+    this.challengeLevelSelect.style.display = "none";
+    this.challengeActiveView.style.display = "flex";
+
+    // Populate the active challenge header and text
+    this.challengeActiveBadge.innerText = `🎯 ${level.toUpperCase()}`;
+    this.challengeGoalText.innerText = config.goal;
+    this.challengeHintText.innerText = config.hint;
+
+    // Update level tile states (mark active)
+    this.updateLevelTileStates();
+
+    this.updateWorkspace();
+    this.updateBrief(null);
+    this.logMessage(`🎯 ${level}: ${config.goal}`);
+  }
+
+  /**
+   * backToLevelSelect()
+   * Returns from the active challenge view to the level selection grid.
+   * Resets the workspace but keeps challengeMode active.
+   */
+  backToLevelSelect() {
+    this.activeChallengeLevel = null;
+
+    // Reset workspace
+    this.circuitFlowing = false;
+    this.setFlowIntensity(0);
+    this.stopElectronAnimation();
+    this.workspaceArea.classList.remove("short-circuit-flash");
+    this.clearSparkIndicators();
+    this.successCelebration.style.display = "none";
+
+    // Reset to empty 4 slots
+    this.activeSlotCount = 4;
+    this.slots = Array(4).fill(null);
+    this.slotStates = [{}, {}, {}, {}];
+
+    // Show level-select, hide active view
+    this.challengeLevelSelect.style.display = "flex";
+    this.challengeActiveView.style.display = "none";
+
+    this.updateLevelTileStates();
+    this.updateWorkspace();
+    this.updateBrief(null);
+    this.logMessage("🎯 Select a challenge level to begin!");
+  }
+
+  /**
+   * exitChallengeMode()
+   * Returns to normal sandbox mode: clears all challenge UI and resets workspace.
+   */
+  exitChallengeMode() {
+    this.challengeMode = false;
+    this.activeChallengeLevel = null;
+    this.challengeOverlay.style.display = "none";
+    this.challengeLevelSelect.style.display = "flex";
+    this.challengeActiveView.style.display = "none";
+    this.btnChallengeMode.classList.remove("active");
+    this.clearSparkIndicators();
+    this.successCelebration.style.display = "none";
+    this.resetWorkspace();
+    this.logMessage("Exited Challenge Mode. Free build sandbox restored.");
+  }
+
+  /**
+   * updateLevelTileStates()
+   * Updates the visual state of each level tile in the grid:
+   * - Adds "completed" class to solved levels (green checkmark)
+   * - Adds "active-level" class to the currently active level
+   */
+  updateLevelTileStates() {
+    const tiles = this.challengeLevelGrid.querySelectorAll(".challenge-level-tile");
+    tiles.forEach(tile => {
+      const level = tile.dataset.level;
+
+      // Completed state
+      if (this.completedChallenges.has(level)) {
+        tile.classList.add("completed");
+      } else {
+        tile.classList.remove("completed");
+      }
+
+      // Active state
+      if (this.activeChallengeLevel === level) {
+        tile.classList.add("active-level");
+      } else {
+        tile.classList.remove("active-level");
+      }
+    });
+  }
+
+  /**
+   * =========================================================================
+   * checkChallengeSuccess(current, totalResistance)
+   * Evaluates the SPECIFIC success condition for the active challenge level.
+   * Each class has unique win conditions documented inline.
+   *
+   * Returns true if the challenge is solved, false otherwise.
+   * On failure, shows appropriate visual feedback (sparks, highlights).
+   * On success, triggers the celebration animation and marks level complete.
+   *
+   * @param {number} current - the computed circuit current (amps)
+   * @param {number} totalResistance - total series resistance (ohms)
+   * @returns {boolean} whether the challenge was solved
+   * =========================================================================
+   */
+  checkChallengeSuccess(current, totalResistance) {
+    const level = this.activeChallengeLevel;
+
+    // ---------------------------------------------------------------
+    // CLASS 6 — THE BASICS
+    // Success Condition:
+    //   1. All slots must be filled (no empty slots)
+    //   2. Circuit must contain at least one Battery
+    //   3. Circuit must contain at least one Light Bulb (id: "bulb")
+    //   4. No open switches or insulators (circuit must be closed)
+    //   5. Current must be flowing (current > 0)
+    // ---------------------------------------------------------------
+    if (level === "Class 6") {
+      const hasEmptySlot = this.slots.some(s => s === null);
       const hasBattery = this.slots.includes("battery");
       const hasBulb = this.slots.includes("bulb");
-      
-      if (allFilled && hasBattery && hasBulb) {
-        this.tutorialStep = 5;
-        this.updateTutorialStep();
+      const hasOpenSwitch = this.slots.includes("switch-open");
+      const hasInsulator = this.slots.some(s => s && COMPONENT_DATA[s].type === "insulator");
+
+      // Check for open switch — show spark at the switch slot
+      if (hasOpenSwitch) {
+        const switchIdx = this.slots.indexOf("switch-open");
+        this.showSparkAtSlot(switchIdx);
+        this.logMessage("The switch is still open! Close it to complete the circuit.", "warning");
+        return false;
       }
-    } else if (this.tutorialStep === 5 && action === "test_circuit") {
-      this.tutorialStepText.innerText = "🎉 Success! You've built a functional circuit. Explorer Badge Unlocked! ⚡";
-      this.tutorialProgressBar.style.width = "100%";
-      setTimeout(() => {
-        this.endTutorial();
-      }, 4000);
+
+      // Check for empty slots — show spark at first empty
+      if (hasEmptySlot) {
+        const emptyIdx = this.slots.indexOf(null);
+        this.showSparkAtSlot(emptyIdx);
+        this.logMessage("There are empty slots! Fill all slots to complete the loop.", "warning");
+        return false;
+      }
+
+      // Check for insulators — show spark at insulator slot
+      if (hasInsulator) {
+        const insIdx = this.slots.findIndex(s => s && COMPONENT_DATA[s].type === "insulator");
+        this.showSparkAtSlot(insIdx);
+        this.logMessage("An insulator is blocking the current! Remove it.", "warning");
+        return false;
+      }
+
+      // Must have a bulb specifically
+      if (!hasBulb) {
+        this.logMessage("You need a Light Bulb to complete this challenge!", "warning");
+        return false;
+      }
+
+      // All conditions met — SUCCESS
+      this.completedChallenges.add(level);
+      this.updateLevelTileStates();
+      this.showSuccessCelebration();
+      return true;
+    }
+
+    // ---------------------------------------------------------------
+    // CLASS 7 — HEATING & SAFETY
+    // Success Condition:
+    //   1. Circuit must contain a Battery
+    //   2. Circuit must contain at least one LOAD component
+    //      (type === "load": heater, bulb, LED, or resistor)
+    //      OR a Fuse (which prevents short circuit safely)
+    //   3. No short circuit (i.e., must have a load)
+    //   4. Current must be flowing (current > 0)
+    // The user must replace a wire with a load/fuse to fix it.
+    // ---------------------------------------------------------------
+    if (level === "Class 7") {
+      const hasLoad = this.slots.some(s => s && COMPONENT_DATA[s].type === "load");
+
+      // Still a short circuit — show sparks at all wire-only slots
+      if (!hasLoad) {
+        this.showShortCircuitSparks();
+        this.logMessage("Still a short circuit! Replace a wire with a load (Heating Coil, Bulb, etc.)", "warning");
+        return false;
+      }
+
+      // Has a load — SUCCESS
+      this.completedChallenges.add(level);
+      this.updateLevelTileStates();
+      this.showSuccessCelebration();
+      return true;
+    }
+
+    // ---------------------------------------------------------------
+    // CLASS 8 — CONDUCTIVITY
+    // Success Condition:
+    //   1. Circuit must contain a Battery
+    //   2. Circuit must contain an LED (id: "led")
+    //   3. Circuit must contain a Beaker of Saltwater (id: "saltwater")
+    //   4. Circuit must NOT contain any insulators (eraser, open switch)
+    //   5. All slots must be filled
+    //   6. Current must be flowing
+    // The user must remove the Eraser and replace it with Saltwater.
+    // ---------------------------------------------------------------
+    if (level === "Class 8") {
+      const hasLed = this.slots.includes("led");
+      const hasSaltwater = this.slots.includes("saltwater");
+      const hasInsulator = this.slots.some(s => s && COMPONENT_DATA[s].type === "insulator");
+      const hasEmptySlot = this.slots.some(s => s === null);
+
+      // Still has an insulator — show spark at insulator slot
+      if (hasInsulator) {
+        const insIdx = this.slots.findIndex(s => s && COMPONENT_DATA[s].type === "insulator");
+        this.showSparkAtSlot(insIdx);
+        this.logMessage("An insulator is still blocking current! Replace it with a conductor.", "warning");
+        return false;
+      }
+
+      // Check for empty slots
+      if (hasEmptySlot) {
+        const emptyIdx = this.slots.indexOf(null);
+        this.showSparkAtSlot(emptyIdx);
+        this.logMessage("There are empty slots! Fill all slots to complete the loop.", "warning");
+        return false;
+      }
+
+      // Must have LED
+      if (!hasLed) {
+        this.logMessage("The LED is missing! This challenge requires an LED in the circuit.", "warning");
+        return false;
+      }
+
+      // Must have Saltwater specifically
+      if (!hasSaltwater) {
+        this.logMessage("You need the Beaker of Saltwater to replace the insulator!", "warning");
+        return false;
+      }
+
+      // All conditions met — SUCCESS
+      this.completedChallenges.add(level);
+      this.updateLevelTileStates();
+      this.showSuccessCelebration();
+      return true;
+    }
+
+    // ---------------------------------------------------------------
+    // CLASS 10 — ADVANCED SETUP
+    // Success Condition:
+    //   1. All slots must be filled (no empty slots, no gaps)
+    //   2. Circuit must contain a Battery
+    //   3. Circuit must contain a Resistor (id: "resistor")
+    //   4. Circuit must contain an Ammeter (id: "ammeter")
+    //   5. Must be a valid series loop (no short circuits — must have load)
+    //   6. No insulators or open switches
+    //   7. Current must be flowing
+    // The user must fill the empty slot to complete the series loop.
+    // ---------------------------------------------------------------
+    if (level === "Class 10") {
+      const hasEmptySlot = this.slots.some(s => s === null);
+      const hasResistor = this.slots.includes("resistor");
+      const hasAmmeter = this.slots.includes("ammeter");
+      const hasInsulator = this.slots.some(s => s && COMPONENT_DATA[s].type === "insulator");
+      const hasOpenSwitch = this.slots.includes("switch-open");
+
+      // Check for empty slots
+      if (hasEmptySlot) {
+        const emptyIdx = this.slots.indexOf(null);
+        this.showSparkAtSlot(emptyIdx);
+        this.logMessage("The loop is incomplete! Fill the empty slot to close the circuit.", "warning");
+        return false;
+      }
+
+      // Check for insulators or open switches
+      if (hasInsulator || hasOpenSwitch) {
+        const blockIdx = hasOpenSwitch
+          ? this.slots.indexOf("switch-open")
+          : this.slots.findIndex(s => s && COMPONENT_DATA[s].type === "insulator");
+        this.showSparkAtSlot(blockIdx);
+        this.logMessage("Current is blocked! Remove insulators or close the switch.", "warning");
+        return false;
+      }
+
+      // Must have Resistor
+      if (!hasResistor) {
+        this.logMessage("The Resistor is missing! This challenge requires a Resistor.", "warning");
+        return false;
+      }
+
+      // Must have Ammeter
+      if (!hasAmmeter) {
+        this.logMessage("The Ammeter is missing! This challenge requires an Ammeter.", "warning");
+        return false;
+      }
+
+      // All conditions met — SUCCESS
+      this.completedChallenges.add(level);
+      this.updateLevelTileStates();
+      this.showSuccessCelebration();
+      return true;
+    }
+
+    // Fallback: if level is unknown, just pass
+    return true;
+  }
+
+  /**
+   * showSuccessCelebration()
+   * Triggers the visual celebration overlay with expanding green ripples
+   * and a "CHALLENGE COMPLETE" text popup. Auto-hides after 2.5 seconds.
+   * Re-injects inner HTML to restart CSS animations from scratch.
+   */
+  showSuccessCelebration() {
+    // Re-inject inner HTML to reset and restart all CSS animations
+    this.successCelebration.innerHTML = `
+      <div class="celebration-ripple"></div>
+      <div class="celebration-ripple celebration-ripple-2"></div>
+      <div class="celebration-ripple celebration-ripple-3"></div>
+      <div class="celebration-text">⚡ CHALLENGE COMPLETE ⚡</div>
+    `;
+    this.successCelebration.style.display = "flex";
+
+    // Auto-hide after the animation completes (2.5s)
+    setTimeout(() => {
+      this.successCelebration.style.display = "none";
+    }, 2500);
+  }
+
+  /**
+   * showSparkAtSlot(slotIndex)
+   * Creates an animated spark SVG burst at the center of the specified slot.
+   * Used in Challenge Mode to show WHERE current stops flowing.
+   */
+  showSparkAtSlot(slotIndex) {
+    const layout = SLOT_LAYOUTS[this.activeSlotCount];
+    const slotMeta = layout[slotIndex];
+    if (!slotMeta) return;
+
+    // Highlight the broken slot with a pulsing red border
+    const slotEl = document.getElementById(`slot-${slotIndex}`);
+    if (slotEl) {
+      slotEl.classList.add("slot-broken-highlight");
+    }
+
+    // Create a spark indicator element positioned over the slot
+    const spark = document.createElement("div");
+    spark.className = "spark-indicator";
+    // Position spark at center of the slot (slot is 106x106, so center offset = 33)
+    spark.style.left = `${slotMeta.x + 33}px`;
+    spark.style.top = `${slotMeta.y + 33}px`;
+
+    // Inline SVG spark burst (no external assets)
+    spark.innerHTML = `
+      <svg viewBox="0 0 40 40">
+        <polygon points="20,2 24,14 36,14 26,22 30,34 20,26 10,34 14,22 4,14 16,14"
+                 fill="#fbbf24" stroke="#f59e0b" stroke-width="1" opacity="0.9"/>
+      </svg>
+    `;
+
+    // Append to the circuit board so it overlays correctly
+    const circuitBoard = this.workspaceArea.querySelector(".circuit-board");
+    circuitBoard.appendChild(spark);
+
+    // Remove spark after animation ends (0.6s) and re-trigger for continuous feedback
+    const reSparkInterval = setInterval(() => {
+      if (!this.challengeMode) {
+        clearInterval(reSparkInterval);
+        return;
+      }
+      // Reset animation by briefly removing and re-adding the SVG
+      spark.innerHTML = "";
+      requestAnimationFrame(() => {
+        spark.innerHTML = `
+          <svg viewBox="0 0 40 40">
+            <polygon points="20,2 24,14 36,14 26,22 30,34 20,26 10,34 14,22 4,14 16,14"
+                     fill="#fbbf24" stroke="#f59e0b" stroke-width="1" opacity="0.9"/>
+          </svg>
+        `;
+      });
+    }, 800);
+
+    // Store the interval ID on the element for cleanup
+    spark.dataset.intervalId = reSparkInterval;
+  }
+
+  /**
+   * showShortCircuitSparks()
+   * In Challenge Mode short circuits: shows sparks at multiple wire-only
+   * slots to indicate "electricity is flowing dangerously everywhere."
+   */
+  showShortCircuitSparks() {
+    for (let i = 0; i < this.activeSlotCount; i++) {
+      const itemId = this.slots[i];
+      // Show sparks at conductor-only slots (wires, not the battery)
+      if (itemId && COMPONENT_DATA[itemId].type === "conductor") {
+        this.showSparkAtSlot(i);
+      }
     }
   }
 
-  updateTutorialVisuals() {
-    this.removeTutorialHighlights();
-    if (!this.tutorialActive) return;
+  /**
+   * clearSparkIndicators()
+   * Removes all spark indicator elements and their recurring intervals.
+   * Also removes the broken-slot-highlight class from all slots.
+   */
+  clearSparkIndicators() {
+    // Remove spark DOM elements
+    const sparks = this.workspaceArea.querySelectorAll(".spark-indicator");
+    sparks.forEach(spark => {
+      const intervalId = spark.dataset.intervalId;
+      if (intervalId) clearInterval(Number(intervalId));
+      spark.remove();
+    });
 
-    if (this.tutorialStep === 1) {
-      const batteryCard = this.inventoryGrid.querySelector('[data-id="battery"]');
-      if (batteryCard) batteryCard.classList.add("tutorial-highlight");
-    } else if (this.tutorialStep === 2) {
-      const slots = this.slotsContainer.querySelectorAll(".circuit-slot");
-      slots.forEach(slot => slot.classList.add("tutorial-highlight"));
-    } else if (this.tutorialStep === 3) {
-      const bulbCard = this.inventoryGrid.querySelector('[data-id="bulb"]');
-      if (bulbCard) bulbCard.classList.add("tutorial-highlight");
-    } else if (this.tutorialStep === 4) {
-      const slots = this.slotsContainer.querySelectorAll(".circuit-slot:not(.occupied)");
-      slots.forEach(slot => slot.classList.add("tutorial-highlight"));
-    } else if (this.tutorialStep === 5) {
-      this.btnTest.classList.add("tutorial-highlight");
-    }
-  }
-
-  removeTutorialHighlights() {
-    const elements = document.querySelectorAll(".tutorial-highlight");
-    elements.forEach(el => el.classList.remove("tutorial-highlight"));
+    // Remove red pulse highlights from slots
+    const highlightedSlots = this.slotsContainer.querySelectorAll(".slot-broken-highlight");
+    highlightedSlots.forEach(slot => slot.classList.remove("slot-broken-highlight"));
   }
 }
 
-// Instantiate
+// Instantiate the sandbox engine when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
   window.sandbox = new CircuitSandbox();
 });
