@@ -3,28 +3,44 @@
 An interactive educational physics simulator that helps students understand light reflection, the Law of Reflection, normal lines, shadow formation, and the behavior of plane, convex, and concave mirrors.
 
 ---
+## Team Members & Contributions
 
-"""    Team members and contibutions   """
+### E. Snehith
 
-E.Snehith
-  - researched and contributed on making story board .
-B.Luhitha
-   - researched and contributed on making story board .
+- Researched physics concepts related to light, reflection, shadows, and rainbow formation.
+- Contributed to storyboard planning and experiment design.
 
+### B. Luhitha
 
-K.Naga Vyshnavi 
-    - developed the light reflection simulation using html,css,js.
-Shaik 
-    - developed the light reflection simulation using html,css,js.
+- Researched educational requirements and learning objectives.
+- Contributed to storyboard planning and content organization.
 
+### K. Naga Vyshnavi
 
-B.Jayadev 
-    - Improved the UI of the simulation . added the simulation of shadow formation.
-B.Mahesh
-    - Improved the UI of the simulation . added the simulation of shadow formation of Rainbow.
+- Developed the Light Reflection simulation using HTML, CSS, and JavaScript.
+- Implemented ray visualization and reflection concepts.
 
-P.Manohari
-    - Deployed the project .
+### Shaik
+
+- Developed the Light Reflection simulation using HTML, CSS, and JavaScript.
+- Assisted in implementing interactive reflection features.
+
+### B. Jayadev
+
+- Improved the overall UI/UX of the simulator.
+- Designed and implemented the Shadow Formation simulation.
+- Enhanced visualizations, educational content, and interactive learning features.
+
+### B. Mahesh
+
+- Improved the simulator interface and user experience.
+- Developed the Rainbow Formation simulation and dispersion visualization.
+
+### P. Manohari
+
+- Deployed the project and managed hosting.
+- Assisted with project integration and final testing.
+
 
 ## Project Overview
 
