@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Distillation – ScienceKids</title>
+  <meta name="description" content="Learn about Distillation – separating liquids based on different boiling points. Interactive animation and audio narration for kids."/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body data-page="distillation">
+<div class="bg-bubbles" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<div class="page-wrapper">
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <div class="navbar-logo">🔬</div>
+      <div class="navbar-title"><span data-i18n="nav.brand">ScienceKids</span></div>
+    </a>
+    <div class="navbar-controls">
+      <a href="index.html" class="btn-back" data-i18n="btn.back">← Back</a>
+      <div class="nav-progress">
+        <span class="nav-progress-label">0%</span>
+        <div class="nav-progress-bar"><div class="nav-progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="tts-bar" role="group" aria-label="Audio controls">
+        <span class="tts-label" data-i18n="tts.listen">Listen</span>
+        <button class="tts-btn tts-btn-play"  id="tts-play"  title="Play">▶</button>
+        <button class="tts-btn tts-btn-pause" id="tts-pause" title="Pause">⏸</button>
+        <button class="tts-btn tts-btn-stop"  id="tts-stop"  title="Stop">⏹</button>
+      </div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn"        data-lang="te">తె</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content">
+
+    <!-- ── BANNER ── -->
+    <section class="topic-banner" style="background:linear-gradient(135deg,rgba(108,63,224,0.2),rgba(108,63,224,0.03))">
+      <div class="container">
+        <span class="topic-icon" aria-hidden="true">⚗️</span>
+        <h1 class="topic-title" style="color:var(--primary-light)" data-i18n="distillation.title">Distillation</h1>
+        <p class="topic-subtitle" data-i18n="distillation.subtitle">Separating liquids based on their different boiling points</p>
+      </div>
+    </section>
+
+    <div class="container section tts-content">
+
+      <!-- Definition -->
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon" style="background:linear-gradient(135deg,rgba(108,63,224,0.35),rgba(108,63,224,0.1))">📖</div>
+          <h2 class="content-card-title" data-i18n="section.definition">📖 Definition</h2>
+        </div>
+        <p data-tts data-i18n="distillation.def">
+          Distillation is a separation method where a liquid mixture is heated to form vapor, the vapor
+          is then cooled in a condenser, and the pure liquid is collected. It works because different
+          liquids have different boiling points.
+        </p>
+      </div>
+
+      <!-- How It Works -->
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon" style="background:linear-gradient(135deg,rgba(79,195,247,0.3),rgba(79,195,247,0.1))">⚙️</div>
+          <h2 class="content-card-title" data-i18n="section.howworks">⚙️ How Does It Work?</h2>
+        </div>
+        <p data-tts data-i18n="distillation.how.1">1. The liquid mixture is heated in a distillation flask.</p>
+        <p data-tts data-i18n="distillation.how.2">2. The component with the lowest boiling point evaporates first and rises as vapor.</p>
+        <p data-tts data-i18n="distillation.how.3">3. The vapor passes through a condenser where it is cooled by cold water and turns back into liquid.</p>
+        <p data-tts data-i18n="distillation.how.4">4. The purified liquid is collected in a separate flask.</p>
+      </div>
+
+      <!-- Real-Life Examples -->
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon" style="background:linear-gradient(135deg,rgba(255,215,0,0.25),rgba(255,215,0,0.05))">🌍</div>
+          <h2 class="content-card-title" data-i18n="section.examples">🌍 Real-Life Examples</h2>
+        </div>
+        <div class="examples-grid">
+          <div class="example-pill" data-i18n="distillation.ex.1">⛽ Crude Oil Refining (Petrol/Diesel)</div>
+          <div class="example-pill" data-i18n="distillation.ex.2">🚢 Ships Making Drinking Water</div>
+          <div class="example-pill" data-i18n="distillation.ex.3">🌹 Perfume &amp; Essential Oils</div>
+          <div class="example-pill" data-i18n="distillation.ex.4">🥃 Alcohol Distillation</div>
+          <div class="example-pill" data-i18n="distillation.ex.5">🌊 Desalination Plants</div>
+          <div class="example-pill" data-i18n="distillation.ex.6">🔬 Laboratory Water Purification</div>
+        </div>
+      </div>
+
+      <!-- Fun Facts -->
+      <h2 class="section-title mt-40" style="text-align:left;font-size:1.6rem" data-i18n="section.funfacts">💡 Fun Facts</h2>
+      <div class="fun-fact">
+        <span class="fun-fact-icon">⛽</span>
+        <p data-tts data-i18n="distillation.fact1">Petrol, diesel, kerosene, and LPG are all separated from crude oil using a process called fractional distillation!</p>
+      </div>
+      <div class="fun-fact">
+        <span class="fun-fact-icon">🚢</span>
+        <p data-tts data-i18n="distillation.fact2">Pure drinking water can be made by distilling sea water — ships and submarines use this method!</p>
+      </div>
+      <div class="fun-fact">
+        <span class="fun-fact-icon">🌸</span>
+        <p data-tts data-i18n="distillation.fact3">The perfume industry uses distillation to extract fragrant oils from flowers and plants!</p>
+      </div>
+
+      <!-- Animation Demo -->
+      <h2 class="section-title mt-40" style="text-align:left;font-size:1.6rem" data-i18n="section.demo">🎬 Watch the Animation</h2>
+      <div class="demo-container">
+        <div class="demo-title" data-i18n="distillation.demo.title">⚗️ Distillation – Watch vapor condense into pure liquid!</div>
+        <div style="display:flex;justify-content:center;align-items:center;min-height:390px">
+          <canvas id="dist-demo-canvas" class="anim-canvas"></canvas>
+        </div>
+        <div class="demo-controls">
+          <button class="btn btn-primary"   id="dist-play"   aria-label="Play animation">▶ Play</button>
+          <button class="btn btn-outline"   id="dist-pause"  aria-label="Pause animation">⏸ Pause</button>
+          <button class="btn btn-secondary" id="dist-replay" aria-label="Replay animation">🔁 Replay</button>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:40px">
+        <a href="evaporation.html" class="btn btn-outline">← <span data-i18n="card.evaporation.title">Evaporation</span></a>
+        <a href="lab.html"         class="btn btn-teal"    data-i18n="nav.try.lab">Try in Virtual Lab 🧪</a>
+        <a href="quiz.html"        class="btn btn-secondary" data-i18n="nav.take.quiz">Take the Quiz 🧠 →</a>
+      </div>
+
+      <!-- Complete -->
+      <div class="complete-section">
+        <button class="btn btn-complete" id="btn-complete" aria-label="Mark lesson as complete">
+          <span data-i18n="btn.complete">✅ Mark as Complete</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/animations.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const anim = new DistillationAnimation('dist-demo-canvas');
+    initDemoControls(anim, 'dist');
+  });
+</script>
+</body>
+</html>

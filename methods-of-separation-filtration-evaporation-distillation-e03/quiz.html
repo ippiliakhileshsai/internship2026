@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Science Quiz – ScienceKids</title>
+  <meta name="description" content="Test your knowledge on Filtration, Evaporation and Distillation with 15 interactive quiz questions!"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/quiz.css"/>
+</head>
+<body>
+<div class="bg-bubbles" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<div class="page-wrapper">
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <div class="navbar-logo">🔬</div>
+      <div class="navbar-title"><span data-i18n="nav.brand">ScienceKids</span></div>
+    </a>
+    <div class="navbar-controls">
+      <a href="index.html" class="btn-back" data-i18n="btn.back">← Back</a>
+      <div class="nav-progress">
+        <span class="nav-progress-label">0%</span>
+        <div class="nav-progress-bar"><div class="nav-progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn"        data-lang="te">తె</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content">
+    <section class="topic-banner" style="background:linear-gradient(135deg,rgba(255,215,0,0.12),rgba(255,215,0,0.02));padding-bottom:20px">
+      <div class="container">
+        <span class="topic-icon">🧠</span>
+        <h1 class="topic-title" style="color:var(--accent-yellow)" data-i18n="quiz.title">🧠 Science Quiz</h1>
+        <p class="topic-subtitle" data-i18n="quiz.subtitle">Test what you've learned!</p>
+      </div>
+    </section>
+
+    <div class="container" style="padding-top:20px;padding-bottom:60px">
+
+      <!-- Progress Bar -->
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-header">
+          <span class="quiz-progress-text" id="quiz-prog-text">Question 1 of 15</span>
+          <span class="quiz-progress-score" id="quiz-score-text">Score: 0</span>
+        </div>
+        <div class="quiz-progress-bar">
+          <div class="quiz-progress-fill" id="quiz-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Quiz Card -->
+      <div class="quiz-card" id="quiz-card">
+        <!-- Category -->
+        <div style="margin-bottom:16px">
+          <span class="quiz-category" id="quiz-category">Filtration</span>
+          <span id="quiz-emoji" style="font-size:1.4rem;margin-left:8px">🧪</span>
+        </div>
+
+        <!-- Question -->
+        <div class="quiz-question" id="quiz-question">Loading...</div>
+
+        <!-- Options -->
+        <div class="options-grid" id="quiz-options" role="radiogroup" aria-label="Answer choices">
+          <!-- Rendered by quiz.js -->
+        </div>
+
+        <!-- Feedback + Next -->
+        <div class="quiz-nav">
+          <div class="quiz-feedback" id="quiz-feedback"></div>
+          <button class="btn btn-primary" id="quiz-next" style="display:none" aria-label="Next question">
+            Next Question →
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/quiz.js"></script>
+</body>
+</html>

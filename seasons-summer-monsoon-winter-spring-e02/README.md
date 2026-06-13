@@ -4,7 +4,7 @@
 
 This contains everything you need to run your app locally.
 
-View your app : https://exploring-seasons-313969137390.asia-southeast1.run.app/
+View your app : https://expoler-seasons.vercel.app/
 
 ## Run Locally
 

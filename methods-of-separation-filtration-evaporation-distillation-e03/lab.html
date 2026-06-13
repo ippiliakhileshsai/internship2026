@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Virtual Science Lab – ScienceKids</title>
+  <meta name="description" content="Interactive Virtual Science Lab – perform Filtration, Evaporation and Distillation experiments with drag-and-drop!"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/lab.css"/>
+</head>
+<body data-page="lab">
+<div class="bg-bubbles" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<div class="page-wrapper">
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <div class="navbar-logo">🔬</div>
+      <div class="navbar-title"><span data-i18n="nav.brand">ScienceKids</span></div>
+    </a>
+    <div class="navbar-controls">
+      <a href="index.html" class="btn-back" data-i18n="btn.back">← Back</a>
+      <div class="nav-progress">
+        <span class="nav-progress-label">0%</span>
+        <div class="nav-progress-bar"><div class="nav-progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="tts-bar" role="group">
+        <span class="tts-label" data-i18n="tts.listen">Listen</span>
+        <button class="tts-btn tts-btn-play"  id="tts-play"  title="Play">▶</button>
+        <button class="tts-btn tts-btn-pause" id="tts-pause" title="Pause">⏸</button>
+        <button class="tts-btn tts-btn-stop"  id="tts-stop"  title="Stop">⏹</button>
+      </div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn"        data-lang="te">తె</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content">
+    <section class="topic-banner" style="background:linear-gradient(135deg,rgba(79,195,247,0.15),rgba(79,195,247,0.03))">
+      <div class="container">
+        <span class="topic-icon">🧪</span>
+        <h1 class="topic-title" style="color:var(--accent-blue)" data-i18n="lab.title">🧪 Virtual Science Lab</h1>
+        <p class="topic-subtitle" data-i18n="lab.subtitle">Perform real experiments virtually!</p>
+      </div>
+    </section>
+
+    <div class="container section">
+
+      <!-- Lab Progress Circles -->
+      <div class="lab-progress-row">
+        <div class="lab-progress-item" id="lab-prog-filt-wrap">
+          <div class="lab-progress-circle" id="lab-prog-filt">💧</div>
+          <div class="lab-progress-label">Filtration</div>
+        </div>
+        <div class="lab-progress-item" id="lab-prog-evap-wrap">
+          <div class="lab-progress-circle" id="lab-prog-evap">☀️</div>
+          <div class="lab-progress-label">Evaporation</div>
+        </div>
+        <div class="lab-progress-item" id="lab-prog-dist-wrap">
+          <div class="lab-progress-circle" id="lab-prog-dist">⚗️</div>
+          <div class="lab-progress-label">Distillation</div>
+        </div>
+      </div>
+
+      <!-- ── LAB TABS ── -->
+      <div class="lab-tabs" role="tablist">
+        <button class="lab-tab active" data-target="lab-filtration"   role="tab" aria-selected="true"  id="tab-filt">💧 Filtration</button>
+        <button class="lab-tab"        data-target="lab-evaporation"  role="tab" aria-selected="false" id="tab-evap">☀️ Evaporation</button>
+        <button class="lab-tab"        data-target="lab-distillation" role="tab" aria-selected="false" id="tab-dist">⚗️ Distillation</button>
+      </div>
+
+      <!-- ════════════════════════════════
+           FILTRATION EXPERIMENT
+           ════════════════════════════════ -->
+      <div class="lab-panel active" id="lab-filtration" role="tabpanel">
+        <h2 style="font-family:var(--font-heading);font-size:1.5rem;color:var(--accent-teal);margin-bottom:8px">💧 Filtration Experiment</h2>
+        <p style="color:rgba(255,255,255,0.7);margin-bottom:20px">Drag materials to their positions, then start the experiment!</p>
+
+        <div class="lab-grid">
+          <!-- Materials Tray -->
+          <div class="materials-tray" id="filt-tray">
+            <h3>🧰 Materials</h3>
+            <div class="material-item" draggable="true" data-material="funnel" id="mat-funnel">
+              <span class="material-icon">🫙</span>
+              <span class="material-label">Funnel</span>
+            </div>
+            <div class="material-item" draggable="true" data-material="filterPaper" id="mat-filter">
+              <span class="material-icon">📄</span>
+              <span class="material-label">Filter Paper</span>
+            </div>
+            <div class="material-item" draggable="true" data-material="dirtyWater" id="mat-dirty">
+              <span class="material-icon">🪣</span>
+              <span class="material-label">Dirty Water</span>
+            </div>
+            <div class="material-item" draggable="true" data-material="beaker" id="mat-beaker">
+              <span class="material-icon">🧪</span>
+              <span class="material-label">Beaker</span>
+            </div>
+          </div>
+
+          <!-- Experiment Stage -->
+          <div class="experiment-stage" id="filt-stage">
+            <div class="stage-instruction">Drag materials below to set up your experiment!</div>
+            <!-- Drop Zones -->
+            <div id="filt-drop-zones" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+              <div class="drop-zone" data-accepts="funnel"      data-label="Funnel ✅"       data-empty="🫙 Drop Funnel here">🫙 Drop Funnel here</div>
+              <div class="drop-zone" data-accepts="filterPaper" data-label="Filter Paper ✅" data-empty="📄 Drop Filter Paper here">📄 Drop Filter Paper here</div>
+              <div class="drop-zone" data-accepts="dirtyWater"  data-label="Dirty Water ✅"  data-empty="🪣 Drop Dirty Water here">🪣 Drop Dirty Water here</div>
+              <div class="drop-zone" data-accepts="beaker"      data-label="Beaker ✅"       data-empty="🧪 Drop Beaker here">🧪 Drop Beaker here</div>
+            </div>
+            <!-- Canvas (hidden until started) -->
+            <canvas id="filt-canvas" style="display:none;max-width:100%" class="anim-canvas"></canvas>
+            <!-- Success Overlay -->
+            <div class="success-overlay" id="filt-success">
+              <div class="success-emoji">🎉</div>
+              <div class="success-title">Filtration Complete!</div>
+              <div class="success-msg">The dirty water is now clean! You successfully filtered the mixture using filter paper!</div>
+            </div>
+            <div id="filt-hint" style="text-align:center;color:var(--accent-yellow);font-weight:700;opacity:0;transition:opacity 0.4s;margin-top:8px"></div>
+          </div>
+        </div>
+
+        <!-- Step Guide -->
+        <div class="step-guide">
+          <h4>📋 Steps</h4>
+          <div class="steps-list" id="filt-steps">
+            <div class="step-pill active-step">1. Place Funnel</div>
+            <div class="step-pill">2. Add Filter Paper</div>
+            <div class="step-pill">3. Pour Dirty Water</div>
+            <div class="step-pill">4. Place Beaker</div>
+            <div class="step-pill">5. Start!</div>
+          </div>
+        </div>
+
+        <div class="lab-controls">
+          <button class="btn btn-outline" id="filt-start" disabled aria-label="Start filtration experiment">▶ Start Experiment</button>
+          <button class="btn btn-outline" id="filt-reset" aria-label="Reset filtration experiment">🔄 Reset</button>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════
+           EVAPORATION EXPERIMENT
+           ════════════════════════════════ -->
+      <div class="lab-panel" id="lab-evaporation" role="tabpanel">
+        <h2 style="font-family:var(--font-heading);font-size:1.5rem;color:var(--secondary);margin-bottom:8px">☀️ Evaporation Experiment</h2>
+        <p style="color:rgba(255,255,255,0.7);margin-bottom:20px">Set up the apparatus and heat the salt water!</p>
+
+        <div class="lab-grid">
+          <div class="materials-tray" id="evap-tray">
+            <h3>🧰 Materials</h3>
+            <div class="material-item" draggable="true" data-material="dish">
+              <span class="material-icon">🍽️</span>
+              <span class="material-label">Evaporation Dish</span>
+            </div>
+            <div class="material-item" draggable="true" data-material="saltWater">
+              <span class="material-icon">🧂</span>
+              <span class="material-label">Salt Water</span>
+            </div>
+            <div class="material-item" draggable="true" data-material="heater">
+              <span class="material-icon">🔥</span>
+              <span class="material-label">Bunsen Burner</span>
+            </div>
+          </div>
+
+          <div class="experiment-stage" id="evap-stage">
+            <div class="stage-instruction">Drag materials to set up the evaporation experiment!</div>
+            <div id="evap-drop-zones" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+              <div class="drop-zone" data-accepts="dish"      data-label="Dish ✅"       data-empty="🍽️ Drop Dish here">🍽️ Drop Dish here</div>
+              <div class="drop-zone" data-accepts="saltWater" data-label="Salt Water ✅" data-empty="🧂 Drop Salt Water here">🧂 Drop Salt Water here</div>
+              <div class="drop-zone" data-accepts="heater"    data-label="Burner ✅"     data-empty="🔥 Drop Burner here">🔥 Drop Burner here</div>
+            </div>
+            <canvas id="evap-canvas" style="display:none;max-width:100%" class="anim-canvas"></canvas>
+            <div class="success-overlay" id="evap-success">
+              <div class="success-emoji">⭐</div>
+              <div class="success-title">Evaporation Complete!</div>
+              <div class="success-msg">The water has evaporated and only salt crystals remain! You've successfully separated the mixture!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-guide">
+          <h4>📋 Steps</h4>
+          <div class="steps-list" id="evap-steps">
+            <div class="step-pill active-step">1. Place Dish</div>
+            <div class="step-pill">2. Add Salt Water</div>
+            <div class="step-pill">3. Add Burner</div>
+            <div class="step-pill">4. Heat &amp; Evaporate!</div>
+          </div>
+        </div>
+
+        <div class="lab-controls">
+          <button class="btn btn-outline" id="evap-start" disabled aria-label="Start evaporation experiment">▶ Start Heating</button>
+          <button class="btn btn-outline" id="evap-reset" aria-label="Reset evaporation experiment">🔄 Reset</button>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════
+           DISTILLATION EXPERIMENT
+           ════════════════════════════════ -->
+      <div class="lab-panel" id="lab-distillation" role="tabpanel">
+        <h2 style="font-family:var(--font-heading);font-size:1.5rem;color:var(--primary-light);margin-bottom:8px">⚗️ Distillation Experiment</h2>
+        <p style="color:rgba(255,255,255,0.7);margin-bottom:20px">Assemble the distillation apparatus and purify the liquid!</p>
+
+        <div class="lab-grid">
+          <div class="materials-tray" id="dist-tray">
+            <h3>🧰 Materials</h3>
+            <div class="material-item" draggable="true" data-material="distFlask">
+              <span class="material-icon">⚗️</span>
+              <span class="material-label">Distillation Flask</span>
+            </div>
+            <div class="material-item" draggable="true" data-material="condenser">
+              <span class="material-icon">🌀</span>
+              <span class="material-label">Condenser</span>
+            </div>
+            <div class="material-item" draggable="true" data-material="colFlask">
+              <span class="material-icon">🧫</span>
+              <span class="material-label">Collection Flask</span>
+            </div>
+          </div>
+
+          <div class="experiment-stage" id="dist-stage">
+            <div class="stage-instruction">Drag apparatus to set up distillation!</div>
+            <div id="dist-drop-zones" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+              <div class="drop-zone" data-accepts="distFlask" data-label="Dist. Flask ✅" data-empty="⚗️ Drop Flask here">⚗️ Drop Flask here</div>
+              <div class="drop-zone" data-accepts="condenser"  data-label="Condenser ✅"   data-empty="🌀 Drop Condenser here">🌀 Drop Condenser here</div>
+              <div class="drop-zone" data-accepts="colFlask"   data-label="Collect. Flask ✅" data-empty="🧫 Drop Collection Flask here">🧫 Drop Collection Flask here</div>
+            </div>
+            <canvas id="dist-canvas" style="display:none;max-width:100%" class="anim-canvas"></canvas>
+            <div class="success-overlay" id="dist-success">
+              <div class="success-emoji">🏆</div>
+              <div class="success-title">Distillation Complete!</div>
+              <div class="success-msg">Pure liquid has been collected! You've successfully distilled the mixture using heating and condensation!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-guide">
+          <h4>📋 Steps</h4>
+          <div class="steps-list" id="dist-steps">
+            <div class="step-pill active-step">1. Add Flask</div>
+            <div class="step-pill">2. Attach Condenser</div>
+            <div class="step-pill">3. Place Collection Flask</div>
+            <div class="step-pill">4. Distil!</div>
+          </div>
+        </div>
+
+        <div class="lab-controls">
+          <button class="btn btn-outline" id="dist-start" disabled aria-label="Start distillation experiment">▶ Start Distillation</button>
+          <button class="btn btn-outline" id="dist-reset" aria-label="Reset distillation experiment">🔄 Reset</button>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/lab.js"></script>
+</body>
+</html>
