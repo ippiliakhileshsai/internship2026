@@ -5,7 +5,7 @@
 
 ## Vision
 
-This storyboard presents a comprehensive educational narrative that guides learners through the essential concepts of electric circuits and electrical safety. Through eight progressive scenes, students explore the journey from basic circuit components to mastery of electrical safety principles.
+This storyboard presents a comprehensive educational narrative that guides learners through the essential concepts of electric circuits and electrical safety. Through eight progressive scenes, students embark on a transformative journey from fundamental principles to practical problem-solving.
 
 **Interactive Storyboard Visualization:**  
 [View the complete visual storyboard here](https://excalidraw.com/#room=7740cb2c4a5daf279b9c,nTP5kbEIHbyGmCsfUkNZ_g)
@@ -36,13 +36,13 @@ The storyboard unfolds through a carefully sequenced narrative that builds knowl
 
 **The Foundation of Understanding**
 
-This scene introduces learners to the essential components of an electrical circuit in their most elemental form. Rather than abstract theory, students experience the tangible joy of creating something that works.
+This scene introduces learners to the essential components of an electrical circuit in their most elemental form. Rather than abstract theory, students experience the tangible joy of creating something with their own hands.
 
 **Core Concepts Explored:**
 
-The battery emerges as the heart of the circuit, a silent powerhouse that supplies the electrical energy necessary to drive the entire system. Students come to understand that without this energy source, nothing flows, nothing lights, nothing happens.
+The battery emerges as the heart of the circuit, a silent powerhouse that supplies the electrical energy necessary to drive the entire system. Students come to understand that without this energy source, nothing flows—the circuit remains dormant.
 
-The connecting wires serve as pathways—humble yet vital conduits that channel energy from one component to another. Each wire represents a critical link in the chain of electricity. Without these bridges, the current has nowhere to travel.
+The connecting wires serve as pathways—humble yet vital conduits that channel energy from one component to another. Each wire represents a critical link in the chain of electricity. Without these bridges, the circuit breaks and electricity cannot complete its journey.
 
 The bulb stands as the visible reward, the tangible evidence that electricity has traveled successfully through the circuit. When it glows, it whispers a profound truth: "The circuit is complete. Electricity has arrived."
 
@@ -50,7 +50,7 @@ When all three components connect in proper sequence, something magical happens�
 
 **What Learners Discover:**
 
-Through hands-on experience, students grasp a fundamental truth: electricity requires a complete path. They learn that circuits are not mysterious or intimidating—they are logical, purposeful systems designed to accomplish specific tasks.
+Through hands-on experience, students grasp a fundamental truth: electricity requires a complete path. They learn that circuits are not mysterious or intimidating—they are logical, purposeful systems with clear rules and predictable behavior.
 
 **Learning Outcome:**
 
@@ -63,15 +63,15 @@ Current flows through the complete circuit and the bulb glows—a simple yet pro
 
 **Understanding the On and Off**
 
-This scene teaches learners the critical distinction between two states that govern whether electricity can flow or remain blocked. This concept is the foundation of every electrical device they encounter daily.
+This scene teaches learners the critical distinction between two states that govern whether electricity can flow or remain blocked. This concept is the foundation of every electrical device they encounter.
 
 **Core Concepts Explored:**
 
-An open circuit exists when there is a break somewhere in the path—a gap, a separation, an interruption. In this state, no matter how much electrical energy the battery possesses, it cannot reach the bulb because the path is incomplete.
+An open circuit exists when there is a break somewhere in the path—a gap, a separation, an interruption. In this state, no matter how much electrical energy the battery possesses, it cannot reach the other side of the break. The circuit remains incomplete.
 
 A closed circuit provides an unbroken, continuous path for electricity to travel from the battery, through all components, and back again. This complete loop is where electricity thrives and accomplishes its purpose.
 
-The switch emerges as a device of elegant simplicity yet profound power. It is a tool that allows humans to control electricity—to open the path or close it, to allow flow or prevent it. In this way, we become the masters of electricity rather than its passive observers.
+The switch emerges as a device of elegant simplicity yet profound power. It is a tool that allows humans to control electricity—to open the path or close it, to allow flow or prevent it. In this way, we become masters of electricity rather than its victims.
 
 When the switch is in the closed position, the circuit is complete. Current flows freely. The bulb illuminates.
 
@@ -79,11 +79,11 @@ When the switch is in the open position, the circuit breaks. Current stops. The 
 
 **What Learners Discover:**
 
-The realization emerges that electricity is not wild or uncontrollable—it responds to our choices. By opening and closing a switch, we command electricity. This shift from "electricity happens to us" to "we control electricity" is profoundly empowering.
+The realization emerges that electricity is not wild or uncontrollable—it responds to our choices. By opening and closing a switch, we command electricity. This shift from "electricity happens to us" to "we control electricity" is empowering.
 
 **Learning Outcome:**
 
-Closed circuit = Current flows. Open circuit = No current flows. Through this understanding, learners grasp the fundamental principle of electrical control that governs everything from household light switches to industrial power systems.
+Closed circuit = Current flows. Open circuit = No current flows. Through this understanding, learners grasp the fundamental principle of electrical control that governs everything from household lights to industrial machinery.
 
 ---
 
@@ -96,21 +96,21 @@ This scene deepens learners' understanding by introducing them to the profound r
 
 **Core Concepts Explored:**
 
-Conductors are materials that possess a natural affinity for electricity. They welcome the flow of current, providing minimal resistance to its passage. Metals such as copper, iron, and silver are exemplary conductors. They are the highways of the electrical world.
+Conductors are materials that possess a natural affinity for electricity. They welcome the flow of current, providing minimal resistance to its passage. Metals such as copper, iron, and silver are excellent examples.
 
 Coins demonstrate conductivity in a tangible, memorable way. Iron nails do the same. These everyday objects, when incorporated into a circuit, allow electricity to flow as if they were custom-designed for this purpose.
 
-Insulators exist as the opposite—materials that resist the flow of electricity, that create obstacles and impediments. Plastic and rubber are classic insulators. Rather than welcoming current, they actively oppose it, preventing electricity from passing through.
+Insulators exist as the opposite—materials that resist the flow of electricity, that create obstacles and impediments. Plastic and rubber are classic insulators. Rather than welcoming current, they block it, protecting us from dangerous electrical flow.
 
-Different materials behave differently when connected to a circuit. This is not random or mysterious—it is a fundamental property of matter. Some materials are generous with electricity; others are miserly and grudging.
+Different materials behave differently when connected to a circuit. This is not random or mysterious—it is a fundamental property of matter. Some materials are generous with electricity; others are stingy, holding electricity back.
 
 **What Learners Discover:**
 
-The insight crystallizes: we can predict how materials will behave. We can choose materials intentionally based on what we need. If we want electricity to flow, we use conductors. If we want to protect and isolate, we use insulators.
+The insight crystallizes: we can predict how materials will behave. We can choose materials intentionally based on what we need. If we want electricity to flow, we use conductors. If we want to protect ourselves, we use insulators.
 
 **Learning Outcome:**
 
-Conductors carry electricity while insulators provide protection and safety. Through this understanding, learners recognize that electrical safety is not about preventing electricity—it is about directing it wisely.
+Conductors carry electricity while insulators provide protection and safety. Through this understanding, learners recognize that electrical safety is not about preventing electricity—it is about directing and controlling it through proper material selection.
 
 ---
 
@@ -127,17 +127,17 @@ A series circuit has only one path for current flow. Imagine a single highway wi
 
 In a series circuit, there is elegant simplicity but also vulnerability. If one bulb fails or is removed, the entire circuit breaks. The single path is interrupted. All light ceases. One failure cascades into total system failure.
 
-A parallel circuit offers something different—multiple pathways for current to flow simultaneously. Imagine a city with many roads. Traffic can take different routes. Components are connected so that each has its own complete path to the energy source.
+A parallel circuit offers something different—multiple pathways for current to flow simultaneously. Imagine a city with many roads. Traffic can take different routes. Components are connected so that current can flow through multiple branches.
 
 In a parallel circuit, there is resilience and redundancy. If one bulb fails or is removed, the other paths remain active. Other bulbs continue to glow. The system is not dependent on any single component.
 
 **What Learners Discover:**
 
-A profound realization emerges: design decisions matter enormously. The way we configure a circuit determines its reliability and resilience. Series circuits are simple but fragile. Parallel circuits are more complex but robust.
+A profound realization emerges: design decisions matter enormously. The way we configure a circuit determines its reliability and resilience. Series circuits are simple but fragile. Parallel circuits are complex but robust.
 
 **Learning Outcome:**
 
-Parallel circuits are more reliable because other paths remain active. Through this understanding, learners begin to grasp why real-world electrical systems—in homes, businesses, and infrastructure—rely on parallel configurations to ensure consistent, dependable power delivery.
+Parallel circuits are more reliable because other paths remain active. Through this understanding, learners begin to grasp why real-world electrical systems—in homes, businesses, and infrastructure—use parallel configurations whenever reliability matters.
 
 ---
 
@@ -150,21 +150,21 @@ This scene shifts focus from circuits and switches to the microscopic reality un
 
 **Core Concepts Explored:**
 
-Electric current is not abstract or mysterious—it is the movement of electrons. These tiny particles, present in all materials, possess the ability to move from atom to atom, carrying energy as they flow. Billions upon billions of electrons in constant motion, delivering power to our devices.
+Electric current is not abstract or mysterious—it is the movement of electrons. These tiny particles, present in all materials, possess the ability to move from atom to atom, carrying energy as they travel.
 
-Resistance opposes the flow of current. Even as electrons move through conductors, they encounter obstacles—collisions with atoms, friction-like forces that slow their progress. Resistance is not evil; it is a fundamental property of matter.
+Resistance opposes the flow of current. Even as electrons move through conductors, they encounter obstacles—collisions with atoms, friction-like forces that slow their progress. Resistance is not evil; it is simply a property of materials.
 
-Low resistance allows electrons to move easily, with minimal obstruction. They surge through the conductor almost unimpeded. High resistance slows down electron movement, creating bottlenecks and traffic jams in the flow.
+Low resistance allows electrons to move easily, with minimal obstruction. They surge through the conductor almost unimpeded. High resistance slows down electron movement, creating bottlenecks and traffic jams in the flow of electricity.
 
 The relationship between resistance and current is inverse and fundamental: more resistance results in less current flow. Fewer obstacles mean faster, more abundant flow. Many obstacles mean slower, reduced flow.
 
 **What Learners Discover:**
 
-The invisible becomes comprehensible. Electricity, though we cannot see electrons moving, follows predictable patterns based on resistance. By understanding resistance, we can predict how much current will flow and design systems accordingly.
+The invisible becomes comprehensible. Electricity, though we cannot see electrons moving, follows predictable patterns based on resistance. By understanding resistance, we can predict how much current will flow through any material.
 
 **Learning Outcome:**
 
-More resistance results in less current flow. Through this understanding, learners grasp why thick wires carry more current than thin ones (less resistance), why some devices need more power than others, and why resistance management is central to electrical design.
+More resistance results in less current flow. Through this understanding, learners grasp why thick wires carry more current than thin ones (less resistance), why some devices need more power than others, and why resistance generates heat.
 
 ---
 
@@ -177,21 +177,21 @@ This scene introduces learners to what happens when electrical systems go wrong�
 
 **Core Concepts Explored:**
 
-A short circuit occurs when wires touch directly, creating an unintended path for current. Instead of flowing through the intended components—through the resistance and controls built into the system—current takes a shortcut.
+A short circuit occurs when wires touch directly, creating an unintended path for current. Instead of flowing through the intended components—through the resistance and controls built into the system—electricity takes a shortcut.
 
-This creates a path with very low resistance. Remember from Scene 5: low resistance means enormous amounts of current can flow. In a short circuit, this is exactly what happens—excessive current, far beyond what the wires and components are designed to handle.
+This creates a path with very low resistance. Remember from Scene 5: low resistance means enormous amounts of current can flow. In a short circuit, this is exactly what happens—excessive current, far beyond what the system was designed to handle.
 
-The high current generates intense heat and sparks. The insulation around wires melts. Plastic components ignite. The entire system can be destroyed in seconds. More frighteningly, fires can start, putting lives and property at risk.
+The high current generates intense heat and sparks. The insulation around wires melts. Plastic components ignite. The entire system can be destroyed in seconds. More frighteningly, fires can start, putting people and property at risk.
 
 Short circuits are not theoretical dangers—they are practical hazards that occur when electrical systems degrade, when insulation cracks, when wires are damaged, or when connections fail.
 
 **What Learners Discover:**
 
-The stark reality becomes clear: electricity, without proper protection and oversight, can become destructive and dangerous. This is not meant to inspire fear but respect—a recognition that electricity demands understanding and careful handling.
+The stark reality becomes clear: electricity, without proper protection and oversight, can become destructive and dangerous. This is not meant to inspire fear but respect—a recognition that electricity demands our attention and care.
 
 **Learning Outcome:**
 
-Short circuits can damage appliances and cause fires. Through this understanding, learners appreciate why electrical safety is non-negotiable and why the protective devices discussed in Scene 7 are not luxuries but necessities.
+Short circuits can damage appliances and cause fires. Through this understanding, learners appreciate why electrical safety is non-negotiable and why the protective devices discussed in Scene 7 are not optional luxuries but essential requirements.
 
 ---
 
@@ -206,19 +206,19 @@ This scene introduces learners to the ingenious devices and systems that stand b
 
 Electrical safety devices exist to protect both people and equipment from harm. They are deliberate, purposeful inventions born from hard-won experience and tragic lessons.
 
-A fuse is elegant in its simplicity and effectiveness. It is a thin wire, carefully designed to melt when excessive current flows through it. When a short circuit or overload occurs and current surges beyond safe levels, the fuse melts and breaks the circuit, preventing catastrophe.
+A fuse is elegant in its simplicity and effectiveness. It is a thin wire, carefully designed to melt when excessive current flows through it. When a short circuit or overload occurs and current surges beyond safe limits, the fuse wire melts, breaking the circuit and preventing catastrophe.
 
-An MCB—a Miniature Circuit Breaker—performs a similar function but with technological sophistication. Rather than a simple wire that melts, an MCB uses electromagnetic principles to automatically detect excessive current and switch off the circuit in milliseconds.
+An MCB—a Miniature Circuit Breaker—performs a similar function but with technological sophistication. Rather than a simple wire that melts, an MCB uses electromagnetic principles to automatically detect excessive current and instantly open the circuit.
 
-Earthing represents a fundamentally different approach to safety. Instead of stopping electricity, earthing provides it with a safe alternative path. An earth wire connects the metal body of electrical appliances directly to the ground, ensuring that if insulation fails, dangerous voltage is safely discharged into the earth rather than through a person's body.
+Earthing represents a fundamentally different approach to safety. Instead of stopping electricity, earthing provides it with a safe alternative path. An earth wire connects the metal body of electrical equipment to the ground, ensuring that if a fault occurs, dangerous electricity flows safely into the earth rather than through a person.
 
 **What Learners Discover:**
 
-The realization emerges that electricity need not be feared if it is properly managed. Technology offers us solutions. We need not rely on luck or chance—we can engineer safety into our systems. Every device has a guardian watching over it.
+The realization emerges that electricity need not be feared if it is properly managed. Technology offers us solutions. We need not rely on luck or chance—we can engineer safety into our systems. Every protection device is a deliberate choice to care for people.
 
 **Learning Outcome:**
 
-These safety devices prevent shocks, damage, and electrical fires. Through this understanding, learners recognize that safety is not an accident—it is the result of thoughtful design, careful engineering, and purposeful protection.
+These safety devices prevent shocks, damage, and electrical fires. Through this understanding, learners recognize that safety is not an accident—it is the result of thoughtful design, careful engineering, and respect for electricity's power.
 
 ---
 
@@ -227,27 +227,27 @@ These safety devices prevent shocks, damage, and electrical fires. Through this 
 
 **From Student to Problem-Solver**
 
-This final scene brings together all the concepts learned in previous scenes and challenges learners to apply them in an authentic, meaningful context. It is not a test but an invitation—to think like an electrical engineer and problem-solver.
+This final scene brings together all the concepts learned in previous scenes and challenges learners to apply them in an authentic, meaningful context. It is not a test but an invitation—to think like an engineer and a responsible citizen.
 
 **Core Concepts Explored:**
 
-The learner encounters a complex, real-world scenario: a village water pump needs to be connected with proper wiring. This is not a theoretical exercise—it reflects actual challenges faced in communities worldwide.
+The learner encounters a complex, real-world scenario: a village water pump needs to be connected with proper wiring. This is not a theoretical exercise—it reflects actual challenges faced in communities around the world.
 
-Proper wiring is used to connect the village water pump. The learner must choose appropriate conductors, size wires correctly, and ensure all connections are secure. From Scene 3, they understand why copper wire is better than aluminum, and why thick wires are better than thin.
+Proper wiring is used to connect the village water pump. The learner must choose appropriate conductors, size wires correctly, and ensure all connections are secure. From Scene 3, they understand why copper wire is better than string, why wire thickness matters, and how to think systematically about these choices.
 
-Earthing and protective devices ensure safety. The learner must incorporate an earth wire to protect against leakage current. They must specify a fuse or MCB to prevent short circuits from causing catastrophic failure.
+Earthing and protective devices ensure safety. The learner must incorporate an earth wire to protect against leakage current. They must specify a fuse or MCB to prevent short circuits from causing catastrophic failure or fire.
 
 Short circuits are avoided through correct connections. The learner recognizes from Scene 6 that short circuits are serious threats. They design the system to prevent them through careful, thoughtful planning.
 
 **What Learners Discover:**
 
-Through this challenge, the profound truth emerges: knowledge has purpose. Everything learned in the previous seven scenes has direct application. The circuits, the conductors, the resistance, the safety devices—all of it comes together in service of a real goal: providing safe electrical power to a community.
+Through this challenge, the profound truth emerges: knowledge has purpose. Everything learned in the previous seven scenes has direct application. The circuits, the conductors, the resistance, the safety devices—all of it matters because people depend on us to get it right.
 
 The learner may not be a trained electrician, but they have become a thinking, capable problem-solver. They can look at an electrical system and understand its logic. They can identify hazards and envision solutions.
 
 **Learning Outcome:**
 
-A safe and efficient electrical system is successfully installed for the village. Through this accomplishment, learners recognize that they possess the knowledge and capability to engage with electricity as informed, responsible agents of change.
+A safe and efficient electrical system is successfully installed for the village. Through this accomplishment, learners recognize that they possess the knowledge and capability to engage with electricity responsibly and contribute to their communities' wellbeing.
 
 ---
 
