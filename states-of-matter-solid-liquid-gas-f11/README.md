@@ -88,4 +88,4 @@ states-of-matter/
 
 ## Team
 
-Built as a collaborative 6-member project — Interactive States of Matter Explorer.
+Built as a collaborative 4-member project — Interactive States of Matter Explorer.
