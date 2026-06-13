@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earth's Four Spheres - Interactive Learning for Kids</title>
+  <meta name="description" content="Discover and learn about Earth's Lithosphere, Hydrosphere, Atmosphere, and Biosphere through interactive games, dynamic animations, and bilingual English-Telugu lessons!">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Extra styling for homepage hero & dashboard -->
+  <style>
+    .hero-section {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+      background: linear-gradient(135deg, #eef2f3, #e0e0e0);
+      border-radius: var(--radius-rounded);
+      padding: 40px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 40px;
+      border: 3px solid #cbd5e1;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .hero-text h1 {
+      font-size: 3rem;
+      color: var(--text-dark);
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 25px;
+    }
+
+    .earth-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .earth-globe-svg {
+      width: 280px;
+      height: 280px;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .earth-globe-svg:hover {
+      transform: scale(1.05) rotate(15deg);
+    }
+
+    .earth-globe-svg.spinning {
+      animation: spin-earth 3s ease-out;
+    }
+
+    @keyframes spin-earth {
+      0% { transform: scale(1.05) rotate(0deg); }
+      100% { transform: scale(1.05) rotate(360deg); }
+    }
+
+    /* Importance Section styling */
+    .importance-section {
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .importance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .importance-card {
+      background: white;
+      border-radius: var(--radius-card);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      text-align: left;
+      border-left: 6px solid var(--primary-accent);
+      transition: var(--transition-smooth);
+    }
+
+    .importance-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Dashboards and Badges Drawer */
+    .dashboard-container {
+      background: white;
+      border-radius: var(--radius-card);
+      padding: 30px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 40px;
+      border: 3px solid #e2e8f0;
+    }
+
+    .dashboard-title {
+      font-family: var(--font-header);
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 30px;
+      margin-bottom: 25px;
+      align-items: center;
+    }
+
+    .progress-circle-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .progress-bar-container {
+      background-color: #e2e8f0;
+      border-radius: 12px;
+      height: 24px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      background: linear-gradient(90deg, var(--primary-accent), var(--atmo-primary));
+      height: 100%;
+      width: 0%;
+      transition: width 1s ease-out;
+    }
+
+    .progress-bar-text {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      top: 0;
+      left: 0;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      line-height: 24px;
+    }
+
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .badge-card {
+      background: #f8fafc;
+      border-radius: var(--radius-card);
+      padding: 16px;
+      text-align: center;
+      border: 2px dashed var(--border-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.5;
+      filter: grayscale(1);
+      transition: var(--transition-smooth);
+    }
+
+    .badge-card.unlocked {
+      background: #f0fff4;
+      border: 2px solid var(--success);
+      opacity: 1;
+      filter: grayscale(0);
+      transform: scale(1.05);
+      animation: pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .badge-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .badge-name {
+      font-family: var(--font-header);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .nav-card {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .nav-card .card-content {
+      padding: 24px;
+      border-radius: var(--radius-card);
+      color: white;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-card:hover .card-content {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .nav-card.litho-card .card-content {
+      background: linear-gradient(135deg, var(--litho-primary), var(--litho-dark));
+      border: 3px solid var(--litho-primary);
+    }
+    .nav-card.hydro-card .card-content {
+      background: linear-gradient(135deg, var(--hydro-primary), var(--hydro-dark));
+      border: 3px solid var(--hydro-primary);
+    }
+    .nav-card.atmo-card .card-content {
+      background: linear-gradient(135deg, var(--atmo-primary), var(--atmo-dark));
+      border: 3px solid var(--atmo-primary);
+    }
+    .nav-card.bio-card .card-content {
+      background: linear-gradient(135deg, var(--bio-primary), var(--bio-dark));
+      border: 3px solid var(--bio-primary);
+    }
+    .nav-card.explorer-card .card-content {
+      background: linear-gradient(135deg, var(--primary-accent), var(--primary-accent-hover));
+      border: 3px solid var(--primary-accent);
+    }
+    .nav-card.quiz-card .card-content {
+      background: linear-gradient(135deg, #ff9f43, #d35400);
+      border: 3px solid #ff9f43;
+    }
+
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: 5px;
+    }
+
+    .card-title {
+      font-family: var(--font-header);
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .card-desc {
+      font-size: 1rem;
+      line-height: 1.4;
+      opacity: 0.9;
+    }
+
+    .card-btn {
+      align-self: flex-start;
+      margin-top: auto;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-family: var(--font-header);
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+    }
+
+    .nav-card:hover .card-btn {
+      background: white;
+      color: var(--text-dark);
+    }
+
+    @keyframes pop-in {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1.05); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 30px;
+      }
+      .earth-globe-svg {
+        width: 200px;
+        height: 200px;
+      }
+      .progress-stats-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body data-page="home" class="lang-en">
+
+  <main class="container">
+    
+    <!-- Hero Welcomer Section -->
+    <section class="hero-section read-aloud-section">
+      <div class="hero-text">
+        <span class="lesson-badge" style="background-color: var(--primary-accent); color: white;">
+          <span class="lang-en">Ready to Explore?</span>
+          <span class="lang-te">అన్వేషణకు సిద్ధమా?</span>
+        </span>
+        <h1 style="margin-top: 10px;">
+          <span class="lang-en">Meet Earth's Four Spheres!</span>
+          <span class="lang-te">భూమి యొక్క నాలుగు ఆవరణలను కలవండి!</span>
+        </h1>
+        <p>
+          <span class="lang-en">Our planet Earth has four major systems that work together to make life possible. Let's start a fun science journey to understand how they work!</span>
+          <span class="lang-te">మన భూగ్రహంపై జీవం సాధ్యం కావడానికి నాలుగు ప్రధాన వ్యవస్థలు కలిసి పనిచేస్తాయి. అవి ఎలా పనిచేస్తాయో తెలుసుకోవడానికి ఒక ఆహ్లాదకరమైన సైన్స్ ప్రయాణాన్ని ప్రారంభిద్దాం!</span>
+        </p>
+        <a href="#dashboard" class="btn btn-primary">
+          <span class="lang-en">See My Dashboard</span>
+          <span class="lang-te">నా డ్యాష్‌బోర్డ్ చూడండి</span>
+        </a>
+      </div>
+      <div class="earth-container" id="earth-clicker" onclick="triggerEarthSpin(event)">
+        <!-- Beautiful Rotating Earth Cartoon SVG -->
+        <svg class="earth-globe-svg" id="home-earth-svg" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="45" fill="#0077B6" />
+          <!-- Continents -->
+          <path d="M25,30 Q32,22 45,35 T62,25 T75,35 T85,30 T80,48 Q70,45 60,55 T35,50 Z" fill="#2E8B57" />
+          <path d="M15,60 Q30,55 45,65 T70,55 T82,70 T65,85 T30,82 Z" fill="#2E8B57" />
+          <path d="M48,80 Q52,76 58,82 T48,88 Z" fill="#2E8B57" />
+          <!-- Atmosphere outer glow ring -->
+          <circle cx="50" cy="50" r="46.5" fill="none" stroke="#00B4D8" stroke-width="3" opacity="0.6" />
+          <!-- Animated Clouds -->
+          <path d="M22,35 A5,5 0 0,1 32,35 A5,5 0 0,1 42,35 A5,5 0 0,1 22,35" fill="white" opacity="0.8" />
+          <path d="M55,68 A4,4 0 0,1 63,68 A4,4 0 0,1 71,68 A4,4 0 0,1 55,68" fill="white" opacity="0.8" />
+          <!-- Cute Face -->
+          <circle cx="40" cy="48" r="3" fill="#1E293B" />
+          <circle cx="60" cy="48" r="3" fill="#1E293B" />
+          <path d="M46,55 Q50,60 54,55" fill="none" stroke="#1E293B" stroke-width="2.5" stroke-linecap="round" />
+          <ellipse cx="36" cy="51" rx="2" ry="1.2" fill="#FF8FA3" />
+          <ellipse cx="64" cy="51" rx="2" ry="1.2" fill="#FF8FA3" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- Progress Dashboard -->
+    <section class="dashboard-container" id="dashboard">
+      <div class="dashboard-title">
+        <span>📊</span>
+        <span class="lang-en">My Space Cadet Progress</span>
+        <span class="lang-te">నా స్పేస్ క్యాడెట్ పురోగతి</span>
+      </div>
+      
+      <div class="progress-stats-row">
+        <div class="progress-circle-box">
+          <p style="margin: 0; font-weight: 800; font-size: 1.1rem;">
+            <span class="lang-en">Lessons Completed:</span>
+            <span class="lang-te">పూర్తయిన పాఠాలు:</span>
+          </p>
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="overall-progress-bar"></div>
+            <div class="progress-bar-text" id="overall-progress-text">0 / 4</div>
+          </div>
+        </div>
+        <div>
+          <p style="margin: 0; font-weight: 800; font-size: 1.1rem; margin-bottom: 8px;">
+            <span class="lang-en">Latest Quiz Score:</span>
+            <span class="lang-te">చివరి క్విజ్ స్కోరు:</span>
+          </p>
+          <div style="font-family: var(--font-header); font-size: 1.5rem; font-weight: 800; color: var(--primary-accent);">
+            <span id="quiz-score-display">
+              <span class="lang-en">No Quiz taken yet! 🎯</span>
+              <span class="lang-te">ఇంకా క్విజ్ రాయలేదు! 🎯</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top: 2px dashed var(--border-color); padding-top: 20px;">
+        <p style="font-weight: 800; font-size: 1.2rem; margin-bottom: 12px;">
+          <span class="lang-en">My Achievement Badges</span>
+          <span class="lang-te">నా విజయాల బ్యాడ్జ్‌లు</span>
+        </p>
+        <div class="badges-grid" id="badges-grid">
+          <!-- Lithosphere -->
+          <div class="badge-card" id="badge-lithosphere_master">
+            <svg class="badge-icon" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="30" fill="#f8d7da" />
+              <path d="M12,48 L32,18 L52,48 Z" fill="#8B5A2B" />
+              <path d="M24,48 L32,36 L40,48 Z" fill="#cbd5e1" />
+              <circle cx="32" cy="32" r="5" fill="#f59e0b" />
+            </svg>
+            <span class="badge-name">
+              <span class="lang-en">Litho Master</span>
+              <span class="lang-te">శిలావరణ మాస్టర్</span>
+            </span>
+          </div>
+          <!-- Hydrosphere -->
+          <div class="badge-card" id="badge-hydrosphere_master">
+            <svg class="badge-icon" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="30" fill="#cff4fc" />
+              <path d="M32,14 C32,14 46,28 46,38 C46,46 40,50 32,50 C24,50 18,46 18,38 C18,28 32,14 32,14 Z" fill="#0077b6" />
+              <path d="M26,38 Q32,32 38,38" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" />
+            </svg>
+            <span class="badge-name">
+              <span class="lang-en">Hydro Master</span>
+              <span class="lang-te">జలావరణ మాస్టర్</span>
+            </span>
+          </div>
+          <!-- Atmosphere -->
+          <div class="badge-card" id="badge-atmosphere_master">
+            <svg class="badge-icon" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="30" fill="#e0f7fa" />
+              <path d="M20,40 A6,6 0 0,1 26,34 A8,8 0 0,1 38,32 A8,8 0 0,1 48,36 A6,6 0 0,1 44,44 H20" fill="#00b4d8" />
+              <path d="M14,48 L50,48" stroke="#0077b6" stroke-width="3" stroke-linecap="round" />
+            </svg>
+            <span class="badge-name">
+              <span class="lang-en">Atmo Master</span>
+              <span class="lang-te">వాతావరణ మాస్టర్</span>
+            </span>
+          </div>
+          <!-- Biosphere -->
+          <div class="badge-card" id="badge-biosphere_master">
+            <svg class="badge-icon" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="30" fill="#d1e7dd" />
+              <path d="M32,14 L18,40 L46,40 Z" fill="#2d6a4f" />
+              <rect x="29" y="40" width="6" height="12" fill="#5c3a1a" />
+              <circle cx="32" cy="24" r="3" fill="#e74c3c" />
+            </svg>
+            <span class="badge-name">
+              <span class="lang-en">Bio Master</span>
+              <span class="lang-te">జీవావరణ మాస్టర్</span>
+            </span>
+          </div>
+          <!-- Earth Explorer -->
+          <div class="badge-card" id="badge-earth_explorer">
+            <svg class="badge-icon" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="30" fill="#e8dbfc" />
+              <path d="M20,20 L30,30 L22,34 L20,20" fill="#e74c3c" />
+              <path d="M44,44 L34,34 L42,30 L44,44" fill="#cbd5e1" />
+              <circle cx="32" cy="32" r="2" fill="#1e293b" />
+              <circle cx="32" cy="32" r="24" fill="none" stroke="#6c5ce7" stroke-width="3" />
+            </svg>
+            <span class="badge-name">
+              <span class="lang-en">Explorer</span>
+              <span class="lang-te">అన్వేషకుడు</span>
+            </span>
+          </div>
+          <!-- Quiz Champion -->
+          <div class="badge-card" id="badge-quiz_champion">
+            <svg class="badge-icon" viewBox="0 0 64 64">
+              <circle cx="32" cy="32" r="30" fill="#fff3cd" />
+              <path d="M20,22 H44 V34 C44,40 38,44 32,44 C26,44 20,40 20,34 Z" fill="#ffb703" />
+              <path d="M32,44 V52 M24,52 H40" stroke="#ffb703" stroke-width="4" stroke-linecap="round" />
+              <path d="M15,24 H20 V32 H15 Z" fill="#fb8500" />
+              <path d="M44,24 H49 V32 H44 Z" fill="#fb8500" />
+            </svg>
+            <span class="badge-name">
+              <span class="lang-en">Quiz Champion</span>
+              <span class="lang-te">క్విజ్ విజేత</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Navigation Cards -->
+    <section class="cards-grid">
+      
+      <!-- Lithosphere Card -->
+      <a href="lithosphere.html" class="nav-card litho-card">
+        <div class="card-content">
+          <div class="card-icon">⛰️</div>
+          <div class="card-title">
+            <span class="lang-en">Lithosphere</span>
+            <span class="lang-te">శిలావరణం</span>
+          </div>
+          <div class="card-desc">
+            <span class="lang-en">Learn about Earth's rocky crust, massive mountains, soil, and active volcanoes that shape our lands.</span>
+            <span class="lang-te">భూమి యొక్క రాతి పొర, భారీ పర్వతాలు, నేల మరియు మన భూమిని నిర్మించే అగ్నిపర్వతాల గురించి తెలుసుకోండి.</span>
+          </div>
+          <div class="card-btn">
+            <span class="lang-en">Go to Lesson →</span>
+            <span class="lang-te">పాఠానికి వెళ్ళు →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Hydrosphere Card -->
+      <a href="hydrosphere.html" class="nav-card hydro-card">
+        <div class="card-content">
+          <div class="card-icon">🌊</div>
+          <div class="card-title">
+            <span class="lang-en">Hydrosphere</span>
+            <span class="lang-te">జలావరణం</span>
+          </div>
+          <div class="card-desc">
+            <span class="lang-en">Dive deep into oceans, sparkling rivers, glaciers, and groundwater to see how the water cycle flows.</span>
+            <span class="lang-te">సముద్రాలు, ప్రవహించే నదులు, హిమానీనదాలు మరియు నీటి చక్రం ఎలా తిరుగుతుందో తెలుసుకోవడానికి లోతుగా అన్వేషించండి.</span>
+          </div>
+          <div class="card-btn">
+            <span class="lang-en">Go to Lesson →</span>
+            <span class="lang-te">పాఠానికి వెళ్ళు →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Atmosphere Card -->
+      <a href="atmosphere.html" class="nav-card atmo-card">
+        <div class="card-content">
+          <div class="card-icon">☁️</div>
+          <div class="card-title">
+            <span class="lang-en">Atmosphere</span>
+            <span class="lang-te">వాతావరణం</span>
+          </div>
+          <div class="card-desc">
+            <span class="lang-en">Fly high through layers of protective air, learn about the weather, drifting clouds, and the winds.</span>
+            <span class="lang-te">రక్షిత గాలి పొరల గుండా ఎగరండి, వాతావరణం, తేలియాడే మేఘాలు మరియు గాలుల గురించి తెలుసుకోండి.</span>
+          </div>
+          <div class="card-btn">
+            <span class="lang-en">Go to Lesson →</span>
+            <span class="lang-te">పాఠానికి వెళ్ళు →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Biosphere Card -->
+      <a href="biosphere.html" class="nav-card bio-card">
+        <div class="card-content">
+          <div class="card-icon">🌲</div>
+          <div class="card-title">
+            <span class="lang-en">Biosphere</span>
+            <span class="lang-te">జీవావరణం</span>
+          </div>
+          <div class="card-desc">
+            <span class="lang-en">Meet all living things: green plants, animals, humans, and how they live together in balanced ecosystems.</span>
+            <span class="lang-te">అన్ని జీవులను: మొక్కలు, జంతువులు, మానవులు మరియు సమతుల్య పర్యావరణ వ్యవస్థల్లో అవి ఎలా కలిసి జీవిస్తాయో చూడండి.</span>
+          </div>
+          <div class="card-btn">
+            <span class="lang-en">Go to Lesson →</span>
+            <span class="lang-te">పాఠానికి వెళ్ళు →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Earth Explorer Card -->
+      <a href="explorer.html" class="nav-card explorer-card">
+        <div class="card-content">
+          <div class="card-icon">🚀</div>
+          <div class="card-title">
+            <span class="lang-en">Earth Explorer</span>
+            <span class="lang-te">భూమి ఎక్స్‌ప్లోరర్</span>
+          </div>
+          <div class="card-desc">
+            <span class="lang-en">Test your skills in our science lab! Drag and drop, match spheres, and run the sphere simulator.</span>
+            <span class="lang-te">మన సైన్స్ ల్యాబ్‌లో మీ నైపుణ్యాలను పరీక్షించుకోండి! డ్రాగ్ అండ్ డ్రాప్ చేయండి మరియు సిమ్యులేటర్ రన్ చేయండి.</span>
+          </div>
+          <div class="card-btn">
+            <span class="lang-en">Open Explorer →</span>
+            <span class="lang-te">ఎక్స్‌ప్లోరర్ ఓపెన్ చేయి →</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Quiz Card -->
+      <a href="quiz.html" class="nav-card quiz-card">
+        <div class="card-content">
+          <div class="card-icon">🏆</div>
+          <div class="card-title">
+            <span class="lang-en">Fun Quiz</span>
+            <span class="lang-te">ఆహ్లాదకరమైన క్విజ్</span>
+          </div>
+          <div class="card-desc">
+            <span class="lang-en">Are you ready to become an Earth Guardian? Test your knowledge with 15 questions and unlock badges.</span>
+            <span class="lang-te">మీరు ఎర్త్ గార్డియన్ కావడానికి సిద్ధంగా ఉన్నారా? 15 ప్రశ్నలతో మీ జ్ఞానాన్ని పరీక్షించుకోండి.</span>
+          </div>
+          <div class="card-btn">
+            <span class="lang-en">Start Quiz →</span>
+            <span class="lang-te">క్విజ్ ప్రారంభించు →</span>
+          </div>
+        </div>
+      </a>
+
+    </section>
+
+    <!-- Why Spheres are Important Section -->
+    <section class="importance-section read-aloud-section">
+      <h2>
+        <span class="lang-en">Why are these Spheres important?</span>
+        <span class="lang-te">ఈ ఆవరణలు ఎందుకు ముఖ్యమైనవి?</span>
+      </h2>
+      <p style="max-width: 800px; margin: 15px auto;">
+        <span class="lang-en">None of the spheres work alone. They are like a big team. If one sphere changes, it affects all the others! Check out how they connect:</span>
+        <span class="lang-te">ఏ ఆవరణ కూడా ఒంటరిగా పనిచేయదు. అవి ఒక పెద్ద జట్టు లాంటివి. ఒక ఆవరణ మారితే, అది మిగిలిన అన్నిటినీ ప్రభావితం చేస్తుంది! అవి ఎలా కనెక్ట్ అవుతాయో చూడండి:</span>
+      </p>
+
+      <div class="importance-grid">
+        <div class="importance-card">
+          <h3 style="color: var(--litho-primary); margin-bottom: 8px;">
+            <span class="lang-en">⛰️ Litho + Hydro 🌊</span>
+            <span class="lang-te">⛰️ శిలా + జల 🌊</span>
+          </h3>
+          <p style="font-size: 1rem; margin: 0;">
+            <span class="lang-en">Water flowing over rocks washes nutrients into the soil, helping things grow, and shapes rivers.</span>
+            <span class="lang-te">రాతిపై ప్రవహించే నీరు మట్టిలోకి పోషకాలను కడిగివేసి, మొక్కలు పెరగడానికి సహాయపడుతుంది మరియు నదులను మలుస్తుంది.</span>
+          </p>
+        </div>
+        <div class="importance-card">
+          <h3 style="color: var(--hydro-primary); margin-bottom: 8px;">
+            <span class="lang-en">🌊 Hydro + Atmo ☁️</span>
+            <span class="lang-te">🌊 జల + వాతావరణ ☁️</span>
+          </h3>
+          <p style="font-size: 1rem; margin: 0;">
+            <span class="lang-en">The Sun heats water, which turns into vapor, goes up to the air to make clouds, and falls as rain.</span>
+            <span class="lang-te">సూర్యుడు నీటిని వేడి చేయగా, అది ఆవిరిగా మారి, గాలిలోకి వెళ్లి మేఘాలుగా తయారవుతుంది మరియు వర్షంగా కురుస్తుంది.</span>
+          </p>
+        </div>
+        <div class="importance-card">
+          <h3 style="color: var(--atmo-primary); margin-bottom: 8px;">
+            <span class="lang-en">☁️ Atmo + Bio 🌲</span>
+            <span class="lang-te">☁️ వాతావరణ + జీవ 🌲</span>
+          </h3>
+          <p style="font-size: 1rem; margin: 0;">
+            <span class="lang-en">Plants breathe in carbon dioxide from the air and release clean oxygen for humans and animals to breathe.</span>
+            <span class="lang-te">మొక్కలు గాలి నుండి కార్బన్ డై ఆక్సైడ్ పీల్చుకుని, మానవులు, జంతువులు శ్వాసించడానికి స్వచ్ఛమైన ఆక్సిజన్ విడుదల చేస్తాయి.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    // Refresh homepage dashboard stats on load
+    window.addEventListener('DOMContentLoaded', () => {
+      updateDashboard();
+    });
+
+    function updateDashboard() {
+      const stats = getStudentProgress();
+      
+      // Update completion bar
+      const barFill = document.getElementById('overall-progress-bar');
+      const barText = document.getElementById('overall-progress-text');
+      if (barFill && barText) {
+        const percentage = (stats.completedCount / 4) * 100;
+        barFill.style.width = `${percentage}%`;
+        barText.textContent = `${stats.completedCount} / 4`;
+      }
+
+      // Update quiz score display
+      const scoreDisp = document.getElementById('quiz-score-display');
+      if (scoreDisp && stats.quizScore !== null) {
+        scoreDisp.innerHTML = `
+          <span class="lang-en">${stats.quizScore}% 🎯</span>
+          <span class="lang-te">${stats.quizScore}% 🎯</span>
+        `;
+      }
+
+      // Unlock badges in visual grid
+      stats.badges.forEach(badgeId => {
+        const badgeEl = document.getElementById(`badge-${badgeId}`);
+        if (badgeEl) {
+          badgeEl.classList.add('unlocked');
+        }
+      });
+    }
+
+    function triggerEarthSpin(event) {
+      const earthSvg = document.getElementById('home-earth-svg');
+      if (earthSvg && !earthSvg.classList.contains('spinning')) {
+        // Trigger sparkle burst at mouse click coordinates
+        createSparkleBurst(event.clientX, event.clientY);
+        
+        earthSvg.classList.add('spinning');
+        
+        // Play a cute pop sound effect
+        try {
+          const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.15);
+          gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.15);
+        } catch (e) {}
+
+        setTimeout(() => {
+          earthSvg.classList.remove('spinning');
+        }, 3000);
+      }
+    }
+  </script>
+</body>
+</html>

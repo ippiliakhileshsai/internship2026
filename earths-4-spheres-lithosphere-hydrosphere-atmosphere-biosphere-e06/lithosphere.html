@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Lithosphere - Earth's Rocky Layer</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Scoped styles for Lithosphere graphics */
+    .litho-theme {
+      --primary: var(--litho-primary);
+      --light: var(--litho-light);
+      --dark: var(--litho-dark);
+      --glow: var(--litho-glow);
+    }
+    
+    .lesson-header-banner {
+      background: linear-gradient(135deg, var(--litho-light), #f0e6df);
+      border: 3px solid var(--litho-primary);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    /* Earth slice SVG interactivity */
+    .earth-layers-svg {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1));
+    }
+
+    .clickable-layer {
+      cursor: pointer;
+      transition: filter 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-origin: 50% 50%;
+    }
+
+    .clickable-layer:hover {
+      filter: brightness(1.15) drop-shadow(0 0 8px rgba(245, 158, 11, 0.5));
+      transform: scale(1.03);
+    }
+
+    .clickable-layer.active {
+      filter: brightness(1.25) drop-shadow(0 0 12px rgba(239, 68, 68, 0.8));
+      transform: scale(1.05);
+    }
+
+    .layer-info-panel {
+      background-color: var(--litho-light);
+      border: 2px solid var(--litho-primary);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      width: 100%;
+      margin-top: 15px;
+      box-shadow: var(--shadow-sm);
+      min-height: 120px;
+      transition: var(--transition-smooth);
+    }
+
+    /* Landforms Clickable Grid */
+    .landscape-svg-container {
+      width: 100%;
+      height: auto;
+      position: relative;
+      background: linear-gradient(to bottom, #dbeafe, #fed7aa);
+      border-radius: var(--radius-card);
+      border: 3px solid var(--litho-primary);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .landscape-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .landscape-hotspot {
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .landscape-hotspot:hover {
+      filter: drop-shadow(0 0 12px #f59e0b) brightness(1.1);
+    }
+
+    /* Mountain Rising Animation */
+    @keyframes rise-mountain-anim {
+      0% { transform: translateY(15px) scaleY(0.8); }
+      100% { transform: translateY(0) scaleY(1); }
+    }
+
+    .mountain-shape.active {
+      animation: rise-mountain-anim 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    /* Volcano eruption particles */
+    .lava-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: erupt-lava 1.2s ease-out forwards;
+    }
+
+    @keyframes erupt-lava {
+      0% { transform: translate(var(--startX), var(--startY)) scale(1); opacity: 1; }
+      50% { background-color: #f97316; }
+      100% { transform: translate(var(--endX), var(--endY)) scale(0.2); opacity: 0; }
+    }
+  </style>
+</head>
+<body data-page="lithosphere" class="lang-en litho-theme">
+
+  <main class="container">
+    
+    <!-- Title Banner -->
+    <div class="lesson-header-banner read-aloud-section">
+      <span class="lesson-badge" style="background-color: var(--litho-primary); color: white;">
+        <span class="lang-en">Sphere Lesson 1</span>
+        <span class="lang-te">ఆవరణ పాఠం 1</span>
+      </span>
+      <h1 style="color: var(--litho-dark); margin-top: 10px;">
+        <span class="lang-en">The Lithosphere (శిలావరణం)</span>
+        <span class="lang-te">శిలావరణం (The Lithosphere)</span>
+      </h1>
+      <p style="margin: 0; font-size: 1.15rem; color: var(--litho-dark);">
+        <span class="lang-en">The Lithosphere is the solid, rocky outer shell of the Earth. It includes everything from the towering mountains to the deep ocean floors and the soils beneath our feet!</span>
+        <span class="lang-te">శిలావరణం అంటే భూమి యొక్క ఘనమైన, రాతి బాహ్య పొర. ఇందులో ఎత్తైన పర్వతాల నుండి సముద్రాల అడుగుభాగం మరియు మన పాదాల కింద ఉన్న నేలల వరకు అన్నీ ఉంటాయి!</span>
+      </p>
+    </div>
+
+    <!-- Lesson Body Grid -->
+    <div class="lesson-container">
+      
+      <!-- Left side: Interactive Earth Layers -->
+      <div class="sphere-card read-aloud-section">
+        <h2 style="color: var(--litho-primary); margin-bottom: 15px;">
+          <span class="lang-en">1. What's Inside the Earth?</span>
+          <span class="lang-te">1. భూమి లోపల ఏముంది?</span>
+        </h2>
+        <p>
+          <span class="lang-en">Did you know Earth is like a giant hard-boiled egg? It has layers! Click on the colored layers of the Earth slice below to discover what they are.</span>
+          <span class="lang-te">భూమి ఒక పెద్ద ఉడికించిన గుడ్డు లాంటిదని మీకు తెలుసా? దీనికి పొరలు ఉంటాయి! కింద ఉన్న భూమి ముక్కలోని రంగుల పొరలపై క్లిక్ చేసి వాటిని కనుగొనండి.</span>
+        </p>
+
+        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+          <!-- Earth Layers SVG -->
+          <svg class="earth-layers-svg" viewBox="0 0 120 120">
+            <!-- Background atmosphere glow -->
+            <circle cx="60" cy="60" r="55" fill="#f0fdff" stroke="#cbd5e1" stroke-width="1" />
+            
+            <!-- Crust Layer (Outer Ring Segment) -->
+            <path class="clickable-layer" id="layer-crust" onclick="selectLayer('crust', event)" d="M60,10 A50,50 0 0,1 110,60 A10,10 0 0,0 100,60 A40,40 0 0,0 60,20 A10,10 0 0,0 60,10 Z" fill="#8b5a2b" stroke="#5c3a1a" stroke-width="0.8" />
+            
+            <!-- Mantle Layer (Middle segment) -->
+            <path class="clickable-layer" id="layer-mantle" onclick="selectLayer('mantle', event)" d="M60,20 A40,40 0 0,1 100,60 A10,10 0 0,0 90,60 A30,30 0 0,0 60,30 A10,10 0 0,0 60,20 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="0.8" />
+            
+            <!-- Outer Core Layer -->
+            <path class="clickable-layer" id="layer-outer" onclick="selectLayer('outer', event)" d="M60,30 A30,30 0 0,1 90,60 A10,10 0 0,0 80,60 A20,20 0 0,0 60,40 A10,10 0 0,0 60,30 Z" fill="#f97316" stroke="#c2410c" stroke-width="0.8" />
+            
+            <!-- Inner Core Layer (Center Sector) -->
+            <path class="clickable-layer" id="layer-inner" onclick="selectLayer('inner', event)" d="M60,40 A20,20 0 0,1 80,60 H60 Z" fill="#fbbf24" stroke="#d97706" stroke-width="0.8" />
+
+            <!-- Mirror lines to complete the slice look visually -->
+            <line x1="60" y1="10" x2="60" y2="60" stroke="#cbd5e1" stroke-width="2" />
+            <line x1="110" y1="60" x2="60" y2="60" stroke="#cbd5e1" stroke-width="2" />
+
+            <!-- Text Labels on SVG -->
+            <text x="65" y="18" font-size="3.5" font-family="Outfit" font-weight="700" fill="white">CRUST</text>
+            <text x="65" y="27" font-size="3.5" font-family="Outfit" font-weight="700" fill="white">MANTLE</text>
+            <text x="65" y="38" font-size="3" font-family="Outfit" font-weight="700" fill="white">OUTER CORE</text>
+            <text x="63" y="52" font-size="3" font-family="Outfit" font-weight="700" fill="#1e293b">INNER</text>
+          </svg>
+
+          <!-- Layer Description Panel -->
+          <div class="layer-info-panel" id="layer-desc-panel">
+            <h3 style="margin-bottom: 8px; color: var(--litho-dark);" id="layer-title">
+              <span class="lang-en">Click a Layer! 👆</span>
+              <span class="lang-te">ఒక పొరపై క్లిక్ చేయండి! 👆</span>
+            </h3>
+            <p style="margin: 0; font-size: 0.95rem; color: var(--text-dark);" id="layer-text">
+              <span class="lang-en">Click on the crust, mantle, outer core, or inner core in the diagram to learn science facts about each layer!</span>
+              <span class="lang-te">ప్రతి పొర గురించి సైన్స్ విషయాలను తెలుసుకోవడానికి పటంలోని క్రస్ట్, మాంటిల్, బాహ్య కోర్ లేదా అంతర కోర్ పై క్లిక్ చేయండి!</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: Clickable Landform Explorer -->
+      <div class="sphere-card read-aloud-section">
+        <h2 style="color: var(--litho-primary); margin-bottom: 15px;">
+          <span class="lang-en">2. Explore the Rocky Landscape</span>
+          <span class="lang-te">2. రాతి భూభాగాన్ని అన్వేషించండి</span>
+        </h2>
+        <p>
+          <span class="lang-en">The Lithosphere forms beautiful landforms. Click on the <b>Mountain</b>, <b>Volcano</b>, <b>Rocks</b>, or <b>Soil</b> in the landscape below to watch them react and learn more!</span>
+          <span class="lang-te">శిలావరణం అందమైన భూరూపాలను ఏర్పరుస్తుంది. కింద ఉన్న భూభాగంలోని <b>పర్వతం</b>, <b>అగ్నిపర్వతం</b>, <b>రాళ్ళు</b> లేదా <b>మట్టి</b> పై క్లిక్ చేసి, అవి ఎలా స్పందిస్తాయో చూడండి!</span>
+        </p>
+
+        <!-- Interactive Landscape -->
+        <div class="landscape-svg-container" id="landscape-container">
+          <svg class="landscape-svg" viewBox="0 0 200 120">
+            <!-- Sky (already background gradient, we add a sun) -->
+            <circle cx="170" cy="25" r="8" fill="#fbbf24" opacity="0.9" />
+            
+            <!-- Mountain hotspot (Left side) -->
+            <polygon class="landscape-hotspot mountain-shape" id="land-mountain" onclick="exploreLandform('mountain', event)" points="10,95 45,35 80,95" fill="#64748b" stroke="#475569" stroke-width="1" />
+            <polygon points="38,47 45,35 52,47 48,44 45,47 42,44" fill="white" /> <!-- Snow cap -->
+            
+            <!-- Volcano hotspot (Middle) -->
+            <polygon class="landscape-hotspot" id="land-volcano" onclick="exploreLandform('volcano', event)" points="70,95 95,55 105,55 130,95" fill="#78350f" stroke="#451a03" stroke-width="1" />
+            <ellipse cx="100" cy="55" rx="15" ry="3" fill="#ef4444" /> <!-- Volcano Crater -->
+
+            <!-- Ground Dirt & Soil Hotspot (Bottom base layer) -->
+            <rect class="landscape-hotspot" id="land-soil" onclick="exploreLandform('soil', event)" x="0" y="95" width="200" height="25" fill="#783b31" />
+            <!-- Grass Top layer of soil -->
+            <rect x="0" y="92" width="200" height="3" fill="#22c55e" />
+
+            <!-- Rocks Hotspot (Right bottom corner) -->
+            <g class="landscape-hotspot" id="land-rocks" onclick="exploreLandform('rocks', event)">
+              <path d="M150,95 Q155,80 162,95 Z" fill="#94a3b8" stroke="#475569" />
+              <path d="M160,95 Q168,75 178,95 Z" fill="#cbd5e1" stroke="#475569" />
+              <path d="M172,95 Q178,85 185,95 Z" fill="#64748b" stroke="#475569" />
+            </g>
+
+            <!-- Text overlay labels on landscape -->
+            <text x="32" y="75" font-size="5" font-family="Outfit" font-weight="700" fill="white" pointer-events="none">MOUNTAIN</text>
+            <text x="88" y="78" font-size="5" font-family="Outfit" font-weight="700" fill="white" pointer-events="none">VOLCANO</text>
+            <text x="160" y="90" font-size="5" font-family="Outfit" font-weight="700" fill="#1e293b" pointer-events="none">ROCKS</text>
+            <text x="95" y="112" font-size="5" font-family="Outfit" font-weight="700" fill="white" pointer-events="none">SOIL</text>
+          </svg>
+        </div>
+
+        <!-- Landform Description Panel -->
+        <div class="layer-info-panel" id="landform-desc-panel" style="background-color: #fdf6ec; border-color: var(--litho-primary);">
+          <h3 style="margin-bottom: 8px; color: var(--litho-dark);" id="landform-title">
+            <span class="lang-en">Click items in the picture! ⛰️</span>
+            <span class="lang-te">చిత్రంలోని వస్తువులపై క్లిక్ చేయండి! ⛰️</span>
+          </h3>
+          <p style="margin: 0; font-size: 0.95rem; color: var(--text-dark);" id="landform-text">
+            <span class="lang-en">Discover how rocks are formed, what's inside a volcano, how soil is alive, and why mountains stand so tall.</span>
+            <span class="lang-te">రాళ్ళు ఎలా ఏర్పడతాయో, అగ్నిపర్వతం లోపల ఏముంటుందో, నేల ఎలా ప్రాణంతో ఉందో మరియు పర్వతాలు అంత ఎత్తుగా ఎందుకు నిలబడతాయో తెలుసుకోండి.</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Fun Facts Section -->
+    <section class="read-aloud-section" style="margin-top: 40px;">
+      <div class="kids-info-box fun-fact">
+        <span class="icon">💡</span>
+        <div>
+          <h3 style="margin-bottom: 5px;">
+            <span class="lang-en">Lithosphere Fun Fact!</span>
+            <span class="lang-te">శిలావరణం గురించి ఆసక్తికరమైన విషయం!</span>
+          </h3>
+          <p style="margin: 0; font-size: 1.05rem;">
+            <span class="lang-en">The Earth's crust is broken into big puzzle pieces called <b>Tectonic Plates</b>. These plates drift very slowly, at about the same speed as your fingernails grow! When they crash, they create giant mountains and earthquakes.</span>
+            <span class="lang-te">భూమి యొక్క క్రస్ట్ <b>టెక్టోనిక్ ప్లేట్లు</b> అని పిలువబడే పెద్ద పజిల్ ముక్కలుగా విభజించబడింది. ఈ ప్లేట్లు మీ చేతి గోర్లు పెరిగే వేగంతో చాలా నెమ్మదిగా కదులుతాయి! అవి డీకొట్టినప్పుడు, అవి పెద్ద పర్వతాలను మరియు భూకంపాలను సృష్టిస్తాయి.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    // Selected Layer database
+    const layerData = {
+      crust: {
+        title: { en: "The Crust 🪨", te: "భూపటలం (Crust) 🪨" },
+        text: { 
+          en: "This is the thin, rocky outer layer we live on! It is 5 to 70 kilometers thick. It holds all oceans, continents, and life.", 
+          te: "ఇది మనం నివసించే సన్నని, రాతితో కూడిన వెలుపలి పొర! ఇది 5 నుండి 70 కిలోమీటర్ల మందం ఉంటుంది. ఇందులో మహాసముద్రాలు, ఖండాలు మరియు జీవం ఉంటాయి."
+        }
+      },
+      mantle: {
+        title: { en: "The Mantle 🔥", te: "భూప్రావారం (Mantle) 🔥" },
+        text: { 
+          en: "The thickest layer of the Earth, made of hot, heavy, semi-solid rocks. It flows very slowly, moving tectonic plates above it.", 
+          te: "భూమి యొక్క అతి మందపాటి పొర, ఇది వేడి, బరువైన, పాక్షిక ఘన శిలలతో తయారవుతుంది. ఇది చాలా నెమ్మదిగా కదులుతూ దానిపై ఉన్న ప్లేట్లను కదిలిస్తుంది."
+        }
+      },
+      outer: {
+        title: { en: "The Outer Core 🌋", te: "బాహ్య కేంద్రమండలం (Outer Core) 🌋" },
+        text: { 
+          en: "This layer is liquid iron and nickel! It is extremely hot (around 4,500°C) and creates Earth's protective magnetic field.", 
+          te: "ఈ పొర ద్రవ ఇనుము మరియు నికెల్ తో నిండి ఉంటుంది! ఇది చాలా వేడిగా ఉంటుంది (సుమారు 4,500°C) మరియు భూమి యొక్క రక్షిత అయస్కాంత క్షేత్రాన్ని సృష్టిస్తుంది."
+        }
+      },
+      inner: {
+        title: { en: "The Inner Core ☀️", te: "అంతర కేంద్రమండలం (Inner Core) ☀️" },
+        text: { 
+          en: "A solid metal ball of iron and nickel at the very center. It is as hot as the surface of the Sun (5,400°C), but stays solid because of crushing pressure!", 
+          te: "అతి మధ్యలో ఉండే ఇనుము మరియు నికెల్ తో కూడిన ఘన లోహపు బంతి. ఇది సూర్యుడి ఉపరితలం అంత వేడిగా ఉంటుంది (5,400°C), కానీ విపరీతమైన పీడనం వల్ల ఘనంగానే ఉంటుంది!"
+        }
+      }
+    };
+
+    // Selected Landforms database
+    const landformData = {
+      mountain: {
+        title: { en: "Tectonic Mountains ⛰️", te: "టెక్టోనిక్ పర్వతాలు ⛰️" },
+        text: {
+          en: "Mountains rise when tectonic plates crash together, folding the crust upward. Mount Everest is still growing taller every year because of this!",
+          te: "టెక్టోనిక్ ప్లేట్లు ఒకదానికొకటి డీకొట్టినప్పుడు క్రస్ట్ పైకి మడవబడి పర్వతాలు ఏర్పడతాయి. దీనివల్ల ఎవరెస్ట్ పర్వతం ప్రతి సంవత్సరం ఇంకా ఎత్తుగా పెరుగుతోంది!"
+        }
+      },
+      volcano: {
+        title: { en: "Volcanoes 🌋", te: "అగ్నిపర్వతాలు 🌋" },
+        text: {
+          en: "A volcano is an opening in the crust that lets hot magma, ash, and gases escape from the mantle. When magma flows out, it is called lava!",
+          te: "అగ్నిపర్వతం అనేది క్రస్ట్‌లోని ఒక ద్వారం, ఇది మాంటిల్ నుండి వేడి శిలాద్రవం (magma), బూడిద మరియు వాయువులను బయటకు పంపుతుంది. అది బయటకు వచ్చినప్పుడు దాన్ని లావా అంటారు!"
+        }
+      },
+      rocks: {
+        title: { en: "Three Types of Rocks 🪨", te: "మూడు రకాల శిలలు 🪨" },
+        text: {
+          en: "Rocks change constantly! Igneous rocks are made from cooled lava. Sedimentary rocks form from layers of sand/mud. Metamorphic rocks change due to high heat and pressure.",
+          te: "శిలలు నిరంతరం మారుతుంటాయి! వేడి లావా చల్లారినప్పుడు అగ్నిశిలలు ఏర్పడతాయి. ఇసుక/మట్టి పొరల ఒత్తిడి వల్ల అవక్షేప శిలలు ఏర్పడతాయి. వేడి మరియు పీడనం వల్ల రూపాంతర శిలలు ఏర్పడతాయి."
+        }
+      },
+      soil: {
+        title: { en: "The Living Soil 🌱", te: "జీవంతో కూడిన మట్టి 🌱" },
+        text: {
+          en: "Soil is the thin top layer of the Lithosphere. It is made of crumbled rocks, air, water, and dead organic matter. It supports all land plants and crops!",
+          te: "మట్టి అనేది శిలావరణం యొక్క సన్నని పై పొర. ఇది పొడి రాళ్ళు, గాలి, నీరు మరియు కుళ్ళిన సేంద్రీయ పదార్థాల మిశ్రమం. ఇది భూమిపై ఉన్న అన్ని రకాల మొక్కల పెరుగుదలకు తోడ్పడుతుంది!"
+        }
+      }
+    };
+
+    function selectLayer(layerId, event) {
+      // Clear active classes from other layers
+      document.querySelectorAll('.clickable-layer').forEach(l => l.classList.remove('active'));
+      
+      const layerEl = document.getElementById(`layer-${layerId}`);
+      if (layerEl) layerEl.classList.add('active');
+
+      // Update text details
+      const titleEl = document.getElementById('layer-title');
+      const textEl = document.getElementById('layer-text');
+      
+      titleEl.innerHTML = `
+        <span class="lang-en">${layerData[layerId].title.en}</span>
+        <span class="lang-te">${layerData[layerId].title.te}</span>
+      `;
+      textEl.innerHTML = `
+        <span class="lang-en">${layerData[layerId].text.en}</span>
+        <span class="lang-te">${layerData[layerId].text.te}</span>
+      `;
+
+      // Sparkles
+      if (event) {
+        createSparkleBurst(event.clientX, event.clientY);
+      }
+    }
+
+    function exploreLandform(type, event) {
+      const titleEl = document.getElementById('landform-title');
+      const textEl = document.getElementById('landform-text');
+
+      titleEl.innerHTML = `
+        <span class="lang-en">${landformData[type].title.en}</span>
+        <span class="lang-te">${landformData[type].title.te}</span>
+      `;
+      textEl.innerHTML = `
+        <span class="lang-en">${landformData[type].text.en}</span>
+        <span class="lang-te">${landformData[type].text.te}</span>
+      `;
+
+      // Sparkles
+      if (event) {
+        createSparkleBurst(event.clientX, event.clientY);
+      }
+
+      // Specific Animations
+      if (type === 'volcano') {
+        eruptVolcanoEffect();
+      } else if (type === 'mountain') {
+        const mountainEl = document.getElementById('land-mountain');
+        mountainEl.classList.remove('active');
+        void mountainEl.offsetWidth; // trigger reflow
+        mountainEl.classList.add('active');
+      }
+    }
+
+    // Dynamic Volcano Eruption Particle generator
+    function eruptVolcanoEffect() {
+      const container = document.getElementById('landscape-container');
+      const rect = container.getBoundingClientRect();
+      
+      // Approximate center of volcano crater in SVG coordinates mapped to container pixel dimensions
+      // Volcano crater is at (100, 55) in SVG viewbox (0 0 200 120)
+      const craterX = (100 / 200) * rect.width;
+      const craterY = (55 / 120) * rect.height;
+
+      for (let i = 0; i < 20; i++) {
+        const lava = document.createElement('div');
+        lava.className = 'lava-particle';
+        
+        // Random trajectory values
+        const angle = Math.PI + Math.random() * Math.PI; // Upwards semi-circle
+        const velocity = 20 + Math.random() * 60;
+        const endX = Math.cos(angle) * velocity;
+        const endY = Math.sin(angle) * velocity + 15; // fall back down slightly
+
+        lava.style.setProperty('--startX', `${craterX}px`);
+        lava.style.setProperty('--startY', `${craterY}px`);
+        lava.style.setProperty('--endX', `${craterX + endX}px`);
+        lava.style.setProperty('--endY', `${craterY + endY}px`);
+        
+        // Random sizes and speed
+        const size = 5 + Math.random() * 6;
+        lava.style.width = `${size}px`;
+        lava.style.height = `${size}px`;
+        lava.style.animationDuration = `${0.6 + Math.random() * 0.8}s`;
+
+        container.appendChild(lava);
+        setTimeout(() => lava.remove(), 1500);
+      }
+
+      // Play tiny explosion sound
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+        osc.frequency.linearRampToValueAtTime(30, audioCtx.currentTime + 0.3);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+      } catch (e) {}
+    }
+  </script>
+</body>
+</html>

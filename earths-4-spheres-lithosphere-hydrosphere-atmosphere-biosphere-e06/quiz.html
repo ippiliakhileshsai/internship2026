@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earth Guardian Quiz - Test Your Knowledge</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body data-page="quiz" class="lang-en">
+
+  <main class="container">
+    
+    <!-- Quiz Header Progress Card -->
+    <div class="sphere-card quiz-progress-section">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="lesson-badge" style="background-color: #ff9f43; color: white;">
+          <span class="lang-en">Earth Guardian Quest</span>
+          <span class="lang-te">ఎర్త్ గార్డియన్ అన్వేషణ</span>
+        </span>
+        <h4 id="quiz-progress-text" style="color: var(--text-muted); margin:0;">
+          <span class="lang-en">Question 1 of 15</span>
+          <span class="lang-te">ప్రశ్న 1 / 15</span>
+        </h4>
+      </div>
+      
+      <!-- Custom progress bar -->
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Active Question Card -->
+    <div class="sphere-card read-aloud-section" style="border: 3px solid #ff9f43;">
+      
+      <!-- Question title -->
+      <h2 id="quiz-question-title" style="margin-bottom: 20px; font-size: 1.5rem; line-height: 1.4;">
+        <!-- Filled by JS -->
+      </h2>
+
+      <!-- Multiple choices grid -->
+      <div class="quiz-options-container" id="quiz-options-grid">
+        <!-- Filled by JS -->
+      </div>
+
+      <!-- Educational Explanation (shows after option select) -->
+      <div class="quiz-explanation-box" id="quiz-explanation-panel" style="display: none;">
+        <h4 style="color: #92400e; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+          <span>💡</span>
+          <span class="lang-en">Science Fact Explorer</span>
+          <span class="lang-te">సైన్స్ ఫ్యాక్ట్ అన్వేషకుడు</span>
+        </h4>
+        <p id="quiz-explanation-text" style="margin: 0; font-size: 1.05rem; color: #92400e;">
+          <!-- Filled by JS -->
+        </p>
+      </div>
+
+      <!-- Footer Buttons navigation -->
+      <div style="margin-top: 30px; text-align: right;">
+        <button class="btn btn-primary" id="quiz-next-btn" style="display: none;" onclick="nextQuestion()">
+          <span class="lang-en">Next Question ➔</span>
+          <span class="lang-te">తర్వాతి ప్రశ్న ➔</span>
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
