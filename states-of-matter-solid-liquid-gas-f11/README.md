@@ -12,7 +12,7 @@ Physics concepts like states of matter and phase transitions are often taught th
 
 ##  Solution
 
-The Interactive States of Matter Explorer provides a live particle simulation where users can manipulate temperature and pressure to observe phase transitions instantly. It supports substance-specific data (real melting/boiling points), multilingual labels, and a quiz mode — making it a practical learning tool for students at any level.
+ States of Matter — Interactive Particle Simulator provides a live particle simulation where users can manipulate temperature and pressure to observe phase transitions instantly. It supports substance-specific data (real melting/boiling points), multilingual labels, and a quiz mode — making it a practical learning tool for students at any level.
 
 ---
 
