@@ -23,6 +23,10 @@
   --glow-yellow: 0 0 15px rgba(251, 191, 36, 0.5);
   --glass-bg: rgba(17, 24, 39, 0.7);
   --glass-blur: blur(12px);
+
+  /* Electron flow animation speed (controlled by Time Controls) */
+  --electron-speed: 1;
+  --flow-duration: 0.8s;
 }
 
 * {
@@ -506,13 +510,33 @@ aside.sidebar {
 
 .flowing .flow-particles {
   opacity: 1;
-  animation: flow-animation calc(0.8s / var(--current-intensity, 1)) linear infinite;
+  animation: flow-animation calc(var(--flow-duration) / var(--current-intensity, 1)) linear infinite;
+}
+
+/* Electron animation paused state (controlled by time controls) */
+.flowing.electron-paused .flow-particles {
+  animation-play-state: paused;
 }
 
 @keyframes flow-animation {
   to {
     stroke-dashoffset: -28;
   }
+}
+
+/* ===================================================================
+   ELECTRON CANVAS OVERLAY
+   Transparent canvas layer positioned directly over the SVG wire loop.
+   Electron dots are drawn via requestAnimationFrame in app.js.
+   =================================================================== */
+.electron-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* Slots overlays styles */
@@ -527,7 +551,7 @@ aside.sidebar {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 2;
+  z-index: 3;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: visible;
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
@@ -785,13 +809,20 @@ aside.sidebar {
   }
 }
 
-/* Dynamic Slot highlights & Tutorial overlays */
-@keyframes pulse-highlight {
-  0%, 100% { border-color: var(--accent-purple); box-shadow: 0 0 8px rgba(139, 92, 246, 0.4); }
-  50% { border-color: var(--accent-cyan); box-shadow: 0 0 20px rgba(6, 182, 212, 0.8); }
+/* ===================================================================
+   PULSING HINT ANIMATION for empty slots (Feature #1)
+   Applied to the FIRST empty slot on page load to guide the user
+   without text. Stops once a component is placed.
+   =================================================================== */
+@keyframes slot-pulse-hint {
+  0%   { border-color: rgba(139, 92, 246, 0.3); box-shadow: 0 0 8px rgba(139, 92, 246, 0.2), inset 0 2px 8px rgba(0,0,0,0.5); }
+  50%  { border-color: rgba(6, 182, 212, 0.9); box-shadow: 0 0 24px rgba(6, 182, 212, 0.6), inset 0 0 12px rgba(6, 182, 212, 0.15); }
+  100% { border-color: rgba(139, 92, 246, 0.3); box-shadow: 0 0 8px rgba(139, 92, 246, 0.2), inset 0 2px 8px rgba(0,0,0,0.5); }
 }
-.tutorial-highlight {
-  animation: pulse-highlight 1.5s infinite alternate !important;
+
+.slot-hint-pulse {
+  animation: slot-pulse-hint 2s ease-in-out infinite !important;
+  border-style: dashed !important;
   border-width: 2.5px !important;
 }
 
@@ -817,19 +848,6 @@ aside.sidebar {
   background: rgba(139, 92, 246, 0.1);
   transform: translateX(-2px);
   box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
-}
-
-.btn-tutorial {
-  background-color: rgba(139, 92, 246, 0.15);
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  color: var(--accent-purple);
-}
-
-.btn-tutorial:hover {
-  background-color: rgba(139, 92, 246, 0.25);
-  border-color: var(--accent-purple);
-  box-shadow: var(--glow-purple);
-  transform: translateY(-1px);
 }
 
 .btn-add {
@@ -863,100 +881,483 @@ aside.sidebar {
   pointer-events: auto;
 }
 
-/* Tutorial Overlay Banner Card */
-.tutorial-overlay {
+/* ===================================================================
+   CHALLENGE MODE BUTTON & OVERLAY
+   Prominent orange/amber button + overlay banner
+   =================================================================== */
+.btn-challenge {
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(245, 158, 11, 0.2));
+  border: 1px solid rgba(251, 146, 60, 0.5);
+  color: #fb923c;
+}
+
+.btn-challenge:hover {
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.35), rgba(245, 158, 11, 0.35));
+  border-color: #fb923c;
+  box-shadow: 0 0 14px rgba(251, 146, 60, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-challenge.active {
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.4), rgba(245, 158, 11, 0.4));
+  border-color: #f59e0b;
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.6);
+}
+
+.challenge-overlay {
   position: absolute;
-  top: 20px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
-  max-width: 650px;
+  max-width: 520px;
   background: rgba(17, 24, 39, 0.95);
-  border: 1.5px solid var(--accent-purple);
-  box-shadow: 0 4px 25px rgba(139, 92, 246, 0.25), 0 0 15px rgba(139, 92, 246, 0.15);
+  border: 1.5px solid #f59e0b;
+  box-shadow: 0 4px 25px rgba(245, 158, 11, 0.25), 0 0 15px rgba(245, 158, 11, 0.15);
   border-radius: 10px;
-  padding: 16px 20px;
+  padding: 14px 18px;
   z-index: 100;
   backdrop-filter: blur(10px);
-  box-sizing: border-box;
 }
 
-.tutorial-card {
+.challenge-card {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
-.tutorial-card-header {
+.challenge-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.challenge-badge {
+  font-family: 'Orbitron', sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1px;
-  font-family: 'Orbitron', sans-serif;
-}
-
-.tutorial-badge {
-  background: rgba(139, 92, 246, 0.15);
-  color: var(--accent-purple);
-  padding: 3px 8px;
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  padding: 4px 10px;
   border-radius: 4px;
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
-.tutorial-steps {
-  color: var(--text-secondary);
+.challenge-exit-btn {
+  background: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: var(--accent-red);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.tutorial-text {
-  font-size: 13px;
+.challenge-exit-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: var(--accent-red);
+}
+
+.challenge-text {
+  font-size: 14px;
+  font-weight: 600;
   color: var(--text-primary);
-  line-height: 1.5;
-  font-weight: 500;
+  line-height: 1.4;
+}
+
+.challenge-hint {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
   background: rgba(255, 255, 255, 0.02);
-  padding: 10px 14px;
-  border-left: 3px solid var(--accent-purple);
+  padding: 8px 12px;
+  border-left: 3px solid #f59e0b;
   border-radius: 0 4px 4px 0;
 }
 
-.tutorial-footer {
+/* ===================================================================
+   TIME CONTROLS PANEL (Feature #3)
+   Floating panel positioned above the circuit board.
+   Play / Pause / Slow Motion buttons control electron animation speed.
+   =================================================================== */
+.time-controls-panel {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  gap: 8px;
+  background: rgba(17, 24, 39, 0.92);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 6px 12px;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.time-controls-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  margin-right: 4px;
+}
+
+.time-controls-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.time-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.time-btn:hover {
+  border-color: var(--accent-purple);
+  color: var(--text-primary);
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.time-btn.time-btn-active {
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  background: rgba(16, 185, 129, 0.12);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+/* ===================================================================
+   SPARK / CURRENT-STOP VISUAL FEEDBACK (Feature #4)
+   Shown in Challenge Mode when the user tests a still-broken circuit.
+   A small spark burst CSS animation at the point where current stops.
+   =================================================================== */
+@keyframes spark-burst {
+  0%   { transform: scale(0.3); opacity: 1; }
+  50%  { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+.spark-indicator {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.spark-indicator svg {
+  width: 100%;
+  height: 100%;
+  animation: spark-burst 0.6s ease-out forwards;
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.9));
+}
+
+/* Pulsing red ring around the broken slot to show where current stops */
+@keyframes broken-slot-pulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(239, 68, 68, 0.3), inset 0 0 4px rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.4); }
+  50%      { box-shadow: 0 0 20px rgba(239, 68, 68, 0.7), inset 0 0 10px rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.9); }
+}
+
+.slot-broken-highlight {
+  animation: broken-slot-pulse 1s ease-in-out infinite !important;
+  border-style: solid !important;
+  border-width: 2.5px !important;
+}
+
+/* ===================================================================
+   CHALLENGE LEVEL SELECTOR GRID (Leveled Puzzle System)
+   2x2 grid of class-specific challenge tiles inside the overlay.
+   =================================================================== */
+.challenge-select-prompt {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
   margin-top: 4px;
 }
 
-.tutorial-progress-bg {
-  flex-grow: 1;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 3px;
+.challenge-level-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.challenge-level-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+  outline: none;
+  font-family: 'Inter', sans-serif;
   overflow: hidden;
 }
 
-.tutorial-progress-fill {
-  height: 100%;
-  background: linear-gradient(to right, var(--accent-purple), var(--accent-blue));
-  border-radius: 3px;
-  transition: width 0.3s ease;
+.challenge-level-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-.tutorial-skip-btn {
-  background: transparent;
-  border: none;
+/* Difficulty color-coding on hover */
+.challenge-level-tile[data-level="Class 6"]:hover {
+  border-color: #06b6d4;
+  box-shadow: 0 0 18px rgba(6, 182, 212, 0.35);
+  background: rgba(6, 182, 212, 0.08);
+}
+.challenge-level-tile[data-level="Class 7"]:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.08);
+}
+.challenge-level-tile[data-level="Class 8"]:hover {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 18px rgba(139, 92, 246, 0.35);
+  background: rgba(139, 92, 246, 0.08);
+}
+.challenge-level-tile[data-level="Class 10"]:hover {
+  border-color: #ef4444;
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* Active tile highlight */
+.challenge-level-tile.active-level {
+  border-width: 2px;
+}
+.challenge-level-tile.active-level[data-level="Class 6"] {
+  border-color: #06b6d4;
+  background: rgba(6, 182, 212, 0.12);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+}
+.challenge-level-tile.active-level[data-level="Class 7"] {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+}
+.challenge-level-tile.active-level[data-level="Class 8"] {
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.12);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+}
+.challenge-level-tile.active-level[data-level="Class 10"] {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.12);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Completed tile state — green overlay with checkmark */
+.challenge-level-tile.completed {
+  border-color: rgba(16, 185, 129, 0.4) !important;
+  background: rgba(16, 185, 129, 0.06) !important;
+}
+
+.challenge-level-tile.completed .level-check {
+  display: flex;
+}
+
+.level-difficulty {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.level-diff-easy {
+  background: rgba(6, 182, 212, 0.15);
+  color: #06b6d4;
+  border: 1px solid rgba(6, 182, 212, 0.25);
+}
+
+.level-diff-medium {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.level-diff-hard {
+  background: rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+.level-diff-expert {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.level-class-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+.level-title {
+  font-size: 11px;
+  font-weight: 600;
   color: var(--text-secondary);
+  line-height: 1.2;
+}
+
+.level-desc {
+  font-size: 10px;
+  color: rgba(148, 163, 184, 0.7);
+  line-height: 1.3;
+}
+
+/* Hidden checkmark — shown only when .completed */
+.level-check {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
+/* Back to levels button in active challenge view */
+.challenge-back-btn {
+  background: transparent;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  color: var(--accent-purple);
+  font-family: 'Inter', sans-serif;
   font-size: 10px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: color 0.2s;
-  padding: 4px 8px;
+  transition: all 0.2s;
+  margin-left: auto;
+  margin-right: 6px;
 }
 
-.tutorial-skip-btn:hover {
-  color: var(--accent-red) !important;
+.challenge-back-btn:hover {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: var(--accent-purple);
 }
 
+/* ===================================================================
+   SUCCESS CELEBRATION OVERLAY
+   Green ripple pulse + congratulatory text on challenge completion.
+   Purely CSS-driven, triggered by JS adding display:flex.
+   =================================================================== */
+.success-celebration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 90;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.celebration-ripple {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid rgba(16, 185, 129, 0.6);
+  animation: celebration-ripple-expand 1.5s ease-out forwards;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.celebration-ripple-2 {
+  animation-delay: 0.2s;
+  border-color: rgba(6, 182, 212, 0.5);
+}
+
+.celebration-ripple-3 {
+  animation-delay: 0.4s;
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+@keyframes celebration-ripple-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(8);
+    opacity: 0;
+  }
+}
+
+.celebration-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #10b981;
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.8), 0 0 60px rgba(16, 185, 129, 0.3);
+  animation: celebration-text-pop 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+  z-index: 91;
+}
+
+@keyframes celebration-text-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+    filter: blur(8px);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: blur(0px);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+  80% {
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
