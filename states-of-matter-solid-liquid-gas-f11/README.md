@@ -75,6 +75,6 @@ Physics concepts like states of matter and phase transitions are often taught th
 
 ---
 
-##  Team
+##  Team (F11)
 
 Built as part of a 4-person collaborative project. Member roles included simulation logic, UI design, substance data, multilingual support, quiz mode, and GitHub/deployment integration.
