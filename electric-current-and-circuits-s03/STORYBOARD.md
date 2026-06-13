@@ -321,19 +321,7 @@ Upon completing this educational journey, learners will have achieved profound u
 
 ---
 
-## The Deeper Purpose
-
----
-
-## How to Use This Storyboard
-
----
-
-## Final Reflection
-
----
-
-*Electric Current and Circuit StoryBoard*  
+*StoryBoard of Electric Current and Circuit*  
 *Last Updated: June 2026*  
 *Project: Electric Current and Circuit Safety*  
 *Institution: Internship 2026 Program*
