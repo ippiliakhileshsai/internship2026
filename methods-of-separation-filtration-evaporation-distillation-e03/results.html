@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Results – ScienceKids</title>
+  <meta name="description" content="See your quiz results, earn achievement badges and review your answers on the ScienceKids learning platform."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/quiz.css"/>
+</head>
+<body>
+<div class="bg-bubbles" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<!-- Confetti Canvas -->
+<canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+<div class="page-wrapper">
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <div class="navbar-logo">🔬</div>
+      <div class="navbar-title"><span data-i18n="nav.brand">ScienceKids</span></div>
+    </a>
+    <div class="navbar-controls">
+      <div class="nav-progress">
+        <span class="nav-progress-label">0%</span>
+        <div class="nav-progress-bar"><div class="nav-progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn"        data-lang="te">తె</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content">
+    <div class="container">
+
+      <!-- ── RESULTS HERO ── -->
+      <div class="results-hero">
+        <!-- Trophy -->
+        <span class="results-trophy" id="res-trophy">🏆</span>
+
+        <!-- Badge Label -->
+        <div class="results-badge-label" id="res-badge-label">Science Champion!</div>
+
+        <!-- Stars -->
+        <div class="results-stars">
+          <span class="results-star" aria-label="star 1">⭐</span>
+          <span class="results-star" aria-label="star 2">⭐</span>
+          <span class="results-star" aria-label="star 3">⭐</span>
+        </div>
+
+        <!-- Message -->
+        <p class="results-msg" id="res-msg">Outstanding! You've mastered the methods of separation!</p>
+      </div>
+
+      <!-- ── SCORE BOARD ── -->
+      <div class="score-board">
+        <div class="score-stat">
+          <div class="score-value color-yellow" id="res-score">0/15</div>
+          <div class="score-label" data-i18n="results.score">Score</div>
+        </div>
+        <div class="score-stat">
+          <div class="score-value color-teal" id="res-correct">0</div>
+          <div class="score-label" data-i18n="results.correct">Correct</div>
+        </div>
+        <div class="score-stat">
+          <div class="score-value" style="color:var(--danger)" id="res-wrong">0</div>
+          <div class="score-label" data-i18n="results.wrong">Wrong</div>
+        </div>
+        <div class="score-stat">
+          <!-- SVG Percentage Circle -->
+          <div style="position:relative;width:70px;height:70px;margin:0 auto">
+            <svg width="70" height="70" viewBox="0 0 120 120" style="transform:rotate(-90deg)">
+              <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="10"/>
+              <circle id="pct-circle-fill" cx="60" cy="60" r="54" fill="none"
+                stroke="url(#pctGrad)" stroke-width="10"
+                stroke-dasharray="339.3" stroke-dashoffset="339.3"
+                style="transition:stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1)"/>
+              <defs>
+                <linearGradient id="pctGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%"   stop-color="#6C3FE0"/>
+                  <stop offset="100%" stop-color="#00C9A7"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:0.9rem;color:#fff" id="res-pct">0%</div>
+          </div>
+          <div class="score-label" data-i18n="results.percent">Percentage</div>
+        </div>
+      </div>
+
+      <!-- ── ACTION BUTTONS ── -->
+      <div class="results-actions">
+        <button class="btn btn-outline"    id="btn-review" aria-label="Review answers">
+          <span data-i18n="results.btn.review">📋 Review Answers</span>
+        </button>
+        <button class="btn btn-secondary"  id="btn-retake" aria-label="Retake quiz">
+          <span data-i18n="results.btn.retake">🔄 Retake Quiz</span>
+        </button>
+        <button class="btn btn-primary"    id="btn-home"   aria-label="Go to home page">
+          <span data-i18n="results.btn.home">🏠 Go Home</span>
+        </button>
+      </div>
+
+      <!-- ── REVIEW TABLE ── -->
+      <div id="review-section" style="display:none;margin-top:48px">
+        <h2 class="section-title" id="review-title" style="text-align:left;font-size:1.6rem;margin-bottom:24px">📋 Answer Review</h2>
+        <div style="overflow-x:auto;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.1)">
+          <table class="review-table" aria-label="Quiz answer review">
+            <thead>
+              <tr>
+                <th data-i18n="results.review.num">#</th>
+                <th data-i18n="results.review.question">Question</th>
+                <th data-i18n="results.review.your_ans">Your Answer</th>
+                <th data-i18n="results.review.correct_ans">Correct Answer</th>
+              </tr>
+            </thead>
+            <tbody id="review-tbody">
+              <!-- Populated by results.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── EXPLORE MORE ── -->
+      <div style="text-align:center;margin-top:56px;padding-bottom:40px">
+        <h3 style="font-family:var(--font-heading);font-size:1.5rem;margin-bottom:20px" data-i18n="results.continue">📚 Continue Learning</h3>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+          <a href="filtration.html"   class="btn btn-outline">💧 <span data-i18n="card.filtration.title">Filtration</span></a>
+          <a href="evaporation.html"  class="btn btn-outline">☀️ <span data-i18n="card.evaporation.title">Evaporation</span></a>
+          <a href="distillation.html" class="btn btn-outline">⚗️ <span data-i18n="card.distillation.title">Distillation</span></a>
+          <a href="lab.html"          class="btn btn-teal">🧪 <span data-i18n="card.lab.title">Virtual Lab</span></a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/results.js"></script>
+</body>
+</html>
