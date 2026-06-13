@@ -1,0 +1,17 @@
+ Team Members & Responsibilities
+👩‍💻 1. Bharathi – Team Lead, Content Design & Development
+Gathered and analyzed project requirements related to Energy and Its Types.
+Designed the overall website structure, navigation, and learning flow.
+Created the storyboard, educational content, and interactive learning activities.
+Developed and integrated HTML, CSS, and JavaScript components.
+Coordinated project activities and monitored overall progress.
+Conducted testing and ensured the website met project objectives.
+👨‍💻 2. Team Member – Prompt Engineering, Development & Deployment
+Designed and refined prompts for AI-assisted website generation.
+Generated and modified HTML, CSS, and JavaScript code using AI tools.
+Implemented interactive features, simulations, and quizzes.
+Identified and fixed bugs to improve website performance.
+Managed the GitHub repository and version control.
+Deployed and maintained the live website using Vercel.
+Assisted in testing, optimization, and final project documentation.
+This format looks professional for a 2-member project on "Energy and Its Types Interactive Learning Platform."
