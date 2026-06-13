@@ -55,6 +55,7 @@ Understand common vision conditions:
 * JavaScript (ES6)
 * GitHub
 * Vercel
+  
 👨‍💻 Team Members & Responsibilities
 
 👩‍💻 1. Poorvitha – Team Lead (Project Setup & Development)
@@ -68,6 +69,7 @@ Understand common vision conditions:
 *Coordinated team activities and monitored project progress.
 
 
+
 👨‍💻 2. Vamsi – Prompt Engineering & Modification Crew
 
 *Designed and refined prompts for AI-assisted website generation.
@@ -77,6 +79,7 @@ Understand common vision conditions:
 *Assisted in improving website functionality through prompt optimization.
 
 *Contributed to code modifications and feature enhancements.
+
 
 
 👨‍💻 3. Siddhartha – Prompt Engineering & Modification Crew
@@ -90,6 +93,7 @@ Understand common vision conditions:
 *Supported testing and modification of generated outputs.
 
 
+
 👨‍💻 4. Kartheek – Website Features 
 
 *Generated HTML, CSS, and JavaScript code using AI tools.
@@ -99,6 +103,7 @@ Understand common vision conditions:
 *Managed the GitHub repository and version control.
 
 *Deployed and maintained the live website using Vercel.
+
 
 
 Deployment Link : (https://projecte01.vercel.app/)
