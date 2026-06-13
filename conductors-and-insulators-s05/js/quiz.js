@@ -98,6 +98,7 @@ const questionsDatabase = {
 };
 
 let currentLevel = 1;
+let quizLevelStartTime = Date.now();
 
 document.addEventListener("DOMContentLoaded", () => {
     // Level cards click listener
@@ -127,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadLevel(levelNum) {
+    quizLevelStartTime = Date.now();
     const container = document.getElementById("hologramQuizContainer");
     const result = document.getElementById("result");
     if (result) result.innerHTML = ""; // Clear results
@@ -225,6 +227,7 @@ function calculateScore() {
     });
 
     const percent = Math.round((score / total) * 100);
+    const secondsSpent = Math.max(1, Math.round((Date.now() - quizLevelStartTime) / 1000));
     let badge = "Keep exploring";
     let message = "Review the lesson and try again. Every scientist improves by testing.";
 
@@ -238,7 +241,7 @@ function calculateScore() {
 
     let certificateLinkHtml = "";
     if (score >= 4) {
-        certificateLinkHtml = `<a class="btn" href="certificate.html">Claim Your Certificate 🏆</a>`;
+        certificateLinkHtml = `<a class="btn" href="results.html">Claim Your Certificate 🏆</a>`;
     }
 
     result.innerHTML = `
@@ -254,6 +257,15 @@ function calculateScore() {
             <button class="btn secondary" type="button" onclick="loadLevel(currentLevel)">Try Again</button>
         </div>
     `;
+
+    localStorage.setItem("conductoverseQuizResult", JSON.stringify({
+        level: currentLevel,
+        score,
+        total,
+        percent,
+        secondsSpent,
+        completedAt: new Date().toISOString()
+    }));
     
     // Smooth scroll to results panel
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

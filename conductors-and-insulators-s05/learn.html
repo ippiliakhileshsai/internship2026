@@ -21,7 +21,7 @@
         <li><a href="quiz.html">Quiz</a></li>
         <li><a href="uses.html">Uses</a></li>
         <li><a href="lab.html">Virtual Lab</a></li>
-        <li><a href="certificate.html">Certificate</a></li>
+        <li><a href="results.html">Results</a></li>
     </ul>
 </nav>
 
@@ -111,46 +111,66 @@
             <p>Use this table as the memory checkpoint before the experiment.</p>
         </div>
 
-        <div class="comparison">
-            <div class="comparison-row">
-                <div class="comparison-cell good">
-                    <h3>Conductors</h3>
-                    <p>Allow electricity to pass through easily.</p>
+        <div class="visual-memory-board">
+            <article class="memory-card conductor-memory">
+                <div class="memory-visual" aria-hidden="true">
+                    <svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="22" y="58" width="250" height="28" rx="14" fill="#fff4d6" stroke="#f59e0b" stroke-width="3"/>
+                        <circle r="8" fill="#00b4d8"><animate attributeName="cx" values="38;256;38" dur="2s" repeatCount="indefinite"/><animate attributeName="cy" values="72;72;72" dur="2s" repeatCount="indefinite"/></circle>
+                        <circle r="7" fill="#38bdf8"><animate attributeName="cx" values="115;256;38;115" dur="2.5s" repeatCount="indefinite"/><animate attributeName="cy" values="72;72;72;72" dur="2.5s" repeatCount="indefinite"/></circle>
+                        <circle cx="306" cy="72" r="30" fill="#fff6a8" stroke="#f59e0b" stroke-width="4"/>
+                        <path d="M296 72 Q306 54 316 72" fill="none" stroke="#8a4d16" stroke-width="4" stroke-linecap="round"/>
+                        <text x="180" y="122" text-anchor="middle" fill="#8c5a14" font-size="15" font-weight="800">Open path: current moves and bulb glows</text>
+                    </svg>
                 </div>
-                <div class="comparison-cell safe">
-                    <h3>Insulators</h3>
-                    <p>Do not allow electricity to pass through easily.</p>
+                <h3>Conductors</h3>
+                <p>Allow electricity to pass through easily.</p>
+                <div class="memory-chip-row">
+                    <span>Copper</span><span>Silver</span><span>Aluminum</span><span>Iron</span><span>Coin</span><span>Metal spoon</span>
                 </div>
-            </div>
-            <div class="comparison-row">
-                <div class="comparison-cell good">
-                    <h3>Common examples</h3>
-                    <p>Copper, silver, aluminum, iron, coins, metal spoons.</p>
+                <strong>Real use: carry current inside wires and power lines.</strong>
+            </article>
+
+            <article class="memory-card insulator-memory">
+                <div class="memory-visual" aria-hidden="true">
+                    <svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="22" y="58" width="250" height="28" rx="14" fill="#eef4ff" stroke="#1668ff" stroke-width="3"/>
+                        <rect x="150" y="42" width="34" height="60" rx="8" fill="#ef4444"/>
+                        <line x1="151" y1="43" x2="183" y2="101" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+                        <line x1="183" y1="43" x2="151" y2="101" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+                        <circle cx="56" cy="72" r="8" fill="#94a3b8"><animate attributeName="cx" values="42;132;42" dur="1.4s" repeatCount="indefinite"/></circle>
+                        <circle cx="306" cy="72" r="30" fill="#e5e7eb" stroke="#94a3b8" stroke-width="4"/>
+                        <path d="M296 72 Q306 54 316 72" fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round" opacity="0.45"/>
+                        <text x="180" y="122" text-anchor="middle" fill="#0d3f9d" font-size="15" font-weight="800">Blocked path: current stops and bulb stays off</text>
+                    </svg>
                 </div>
-                <div class="comparison-cell safe">
-                    <h3>Common examples</h3>
-                    <p>Rubber, plastic, glass, wood, paper, safety gloves.</p>
+                <h3>Insulators</h3>
+                <p>Do not allow electricity to pass through easily.</p>
+                <div class="memory-chip-row">
+                    <span>Rubber</span><span>Plastic</span><span>Glass</span><span>Wood</span><span>Paper</span><span>Safety gloves</span>
                 </div>
-            </div>
-            <div class="comparison-row">
-                <div class="comparison-cell good">
-                    <h3>Real use</h3>
-                    <p>Carry current inside wires and power lines.</p>
-                </div>
-                <div class="comparison-cell safe">
-                    <h3>Real use</h3>
-                    <p>Cover wires, switches, and tools to protect people.</p>
-                </div>
-            </div>
+                <strong>Real use: cover wires, switches, and tools to protect people.</strong>
+            </article>
         </div>
     </section>
 
     <div class="section-divider"></div>
 
-    <section class="fun-fact">
-        <h2>Did you know?</h2>
-        <p>Silver conducts electricity extremely well, but copper is used more often because it is cheaper and strong enough for wiring.</p>
-        <p>Rubber and plastic are used around wires because they help keep electricity inside the wire and away from our hands.</p>
+    <section class="fun-fact visual-facts">
+        <div class="fact-tile">
+            <span class="fact-symbol">Ag</span>
+            <div>
+                <h2>Silver conducts very well</h2>
+                <p>Silver conducts electricity extremely well, but copper is used more often because it is cheaper and strong enough for wiring.</p>
+            </div>
+        </div>
+        <div class="fact-tile">
+            <span class="fact-symbol shield-symbol">SAFE</span>
+            <div>
+                <h2>Rubber and plastic protect hands</h2>
+                <p>Rubber and plastic are used around wires because they help keep electricity inside the wire and away from our hands.</p>
+            </div>
+        </div>
     </section>
 
     <div class="section buttons">
