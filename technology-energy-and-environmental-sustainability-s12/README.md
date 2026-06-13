@@ -1,340 +1,434 @@
-# 🌍 Smart Energy Advisor
+# Smart Energy Advisor
 
-## Sustainable Energy Simulation & Recommendation Platform
+## Sustainable Energy Education & Environmental Impact Simulation
 
-Smart Energy Advisor is a full-stack web application that helps users understand the environmental impact of different energy sources through interactive simulations, sustainability scoring, visual analytics, and intelligent recommendations.
+### Live Demo
 
-The platform allows users to create custom energy mixes using renewable and non-renewable energy sources and instantly visualize their impact on pollution, carbon emissions, sustainability, and energy costs.
-
----
-
-## 📌 Project Overview
-
-Energy decisions directly influence environmental sustainability, carbon emissions, and long-term ecological health. However, many people lack a clear understanding of how different energy sources contribute to these outcomes.
-
-Smart Energy Advisor bridges this gap through an interactive simulation-driven platform where users can experiment with energy combinations and immediately observe environmental consequences.
+https://mini-intern.vercel.app/
 
 ---
 
-## 🎯 Objectives
+# Project Overview
 
-* Promote sustainable energy awareness
-* Simulate environmental impact of energy choices
-* Compare renewable and non-renewable energy sources
-* Generate sustainability scores in real time
-* Provide actionable energy-saving recommendations
-* Encourage learning through challenge-based interaction
+Smart Energy Advisor is a full-stack web application that helps users understand how different energy sources impact the environment. The platform provides an interactive simulation where users can create custom energy mixes using Solar, Wind, Hydro, Coal, and Petroleum energy sources and instantly visualize their environmental consequences.
 
----
+The system calculates Pollution Scores, CO₂ Emissions, Sustainability Scores, and Cost Index values while generating personalized recommendations to encourage sustainable energy choices.
 
-## 🚀 Key Features
-
-### ⚡ Energy Mix Simulation
-
-Users can create custom energy portfolios using:
-
-* Solar Energy
-* Wind Energy
-* Hydro Energy
-* Coal Energy
-* Petroleum Energy
-
-The total energy mix must equal 100%.
+The project is designed as an educational sustainability simulation that transforms theoretical concepts into an interactive learning experience.
 
 ---
 
-### 📊 Real-Time Analytics Dashboard
+# Problem Statement
 
-The system calculates:
+Many students and general users lack a clear understanding of how energy source selection affects environmental sustainability. Traditional learning methods often rely on static text and theoretical explanations, making it difficult to visualize the real-world consequences of energy decisions.
+
+As a result, users struggle to compare renewable and non-renewable energy sources and understand their impact on pollution, carbon emissions, and sustainability.
+
+---
+
+# HMW (How Might We)
+
+**How might we help students and general users understand the environmental impact of different energy sources through an interactive simulation instead of relying on traditional theoretical learning methods?**
+
+---
+
+# User Persona
+
+## Primary User
+
+### Name
+
+Rahul Kumar
+
+### Age
+
+20 Years
+
+### Occupation
+
+Engineering Student
+
+### Goals
+
+* Learn about renewable and non-renewable energy sources.
+* Understand environmental sustainability concepts.
+* Compare energy sources based on pollution and carbon emissions.
+* Make informed energy planning decisions.
+
+### Pain Points
+
+* Energy concepts are difficult to visualize.
+* Traditional learning approaches are often boring and theoretical.
+* Environmental impact data is difficult to interpret.
+
+### Needs
+
+* Interactive learning experience.
+* Real-time feedback.
+* Visual representation of sustainability metrics.
+* Easy-to-understand recommendations.
+
+---
+
+# Objectives
+
+* Develop an interactive sustainability simulation platform.
+* Educate users about renewable and non-renewable energy sources.
+* Provide real-time environmental impact analysis.
+* Promote sustainable energy decision-making.
+* Visualize complex energy data using charts and dashboards.
+* Deliver personalized sustainability recommendations.
+
+---
+
+# Functional Requirements
+
+## Energy Source Information
+
+Users should be able to:
+
+✅ View information about Solar, Wind, Hydro, Coal, and Petroleum.
+
+✅ Understand pollution, CO₂, sustainability, and cost characteristics.
+
+✅ Compare renewable and non-renewable energy sources.
+
+---
+
+## Energy Simulation
+
+Users should be able to:
+
+✅ Adjust energy source percentages using sliders.
+
+✅ Create custom energy mixes.
+
+✅ Run sustainability simulations.
+
+✅ Generate environmental impact scores.
+
+✅ Validate total energy percentage equals 100%.
+
+---
+
+## Dashboard & Visualization
+
+Users should be able to:
+
+✅ View Pollution Score.
+
+✅ View CO₂ Score.
+
+✅ View Sustainability Score.
+
+✅ View Cost Index.
+
+✅ Analyze Pie Charts, Bar Charts, and Sustainability Gauges.
+
+---
+
+## Recommendation System
+
+Users should be able to:
+
+✅ Receive personalized sustainability recommendations.
+
+✅ Identify high-pollution energy mixes.
+
+✅ Understand environmental risks.
+
+✅ Learn ways to improve sustainability scores.
+
+---
+
+## Challenge System
+
+Users should be able to:
+
+✅ Participate in sustainability challenges.
+
+✅ Achieve environmental targets.
+
+✅ Track challenge outcomes.
+
+✅ Earn ratings based on performance.
+
+---
+
+# Non-Functional Requirements
+
+The system should be:
+
+✅ User Friendly
+
+✅ Responsive Across Devices
+
+✅ Fast and Interactive
+
+✅ Easy to Learn
+
+✅ Visually Appealing
+
+✅ Reliable and Stable
+
+✅ Maintainable and Scalable
+
+✅ Accessible for Educational Use
+
+---
+
+# Learning Requirements
+
+After using Smart Energy Advisor, users should be able to:
+
+✅ Explain renewable and non-renewable energy concepts.
+
+✅ Compare environmental impacts of different energy sources.
+
+✅ Understand pollution and CO₂ emissions.
+
+✅ Analyze sustainability scores.
+
+✅ Identify environmentally friendly energy mixes.
+
+✅ Make informed energy planning decisions.
+
+---
+
+# Proposed Solution
+
+Smart Energy Advisor provides an interactive simulation platform where users can experiment with different energy source combinations and instantly observe their environmental impact.
+
+The system processes user-defined energy mixes and generates:
 
 * Pollution Score
 * CO₂ Emission Score
 * Sustainability Score
 * Cost Index
+* Personalized Recommendations
 
-Results are updated instantly through interactive visualizations.
-
----
-
-### 📈 Interactive Data Visualization
-
-Built using Chart.js:
-
-* Pie Chart → Energy Mix Distribution
-* Bar Chart → Energy Source Comparison
-* Sustainability Gauge → Overall Sustainability Performance
+This approach enables experiential learning through visualization and interaction rather than memorization.
 
 ---
 
-### 🤖 Recommendation Engine
+# Minimum Viable Product (MVP)
 
-The platform evaluates energy mixes using a rule-based recommendation engine and provides:
+The MVP focuses on one core concept:
 
-* Environmental Risk Alerts
-* High Pollution Warnings
-* Carbon Emission Recommendations
-* Sustainable Energy Suggestions
-* Energy Optimization Tips
+**Understanding how energy source selection influences environmental sustainability.**
 
----
+### MVP Features
 
-### 🏆 Challenge Mode
+✅ Energy Source Selection
 
-Users can participate in sustainability challenges.
+✅ Energy Mix Sliders
 
-Example Targets:
+✅ Sustainability Calculation
 
-* Pollution Score < 30
-* CO₂ Score < 25
-* Sustainability Score > 80
+✅ Pollution Calculation
 
-Successful attempts earn performance ratings and encourage environmentally responsible planning.
+✅ Recommendation Generation
+
+✅ Interactive Dashboard
+
+✅ Real-Time Visualization
 
 ---
 
-## 🌱 Sustainability Model
+# System Workflow
 
-The simulation uses predefined environmental coefficients for each energy source.
-
-| Energy Source | Pollution | CO₂ | Sustainability |
-| ------------- | --------- | --- | -------------- |
-| Solar         | 5         | 5   | 95             |
-| Wind          | 8         | 5   | 90             |
-| Hydro         | 20        | 15  | 80             |
-| Coal          | 95        | 100 | 25             |
-| Petroleum     | 85        | 90  | 20             |
-
-The system calculates weighted averages based on the user-selected energy distribution.
+1. User selects energy source percentages.
+2. Energy mix validation is performed.
+3. User runs the simulation.
+4. Backend calculates environmental metrics.
+5. Results are stored in the database.
+6. Dashboard updates in real time.
+7. Recommendations are generated.
+8. Challenge evaluation is performed.
+9. User analyzes sustainability outcomes.
 
 ---
 
-## 🏗 System Architecture
+# Storyboard
 
-### Frontend Layer
+## Scene 1
+
+User opens Smart Energy Advisor dashboard.
+
+## Scene 2
+
+User explores available energy sources.
+
+## Scene 3
+
+User adjusts energy mix sliders.
+
+## Scene 4
+
+System validates energy percentages.
+
+## Scene 5
+
+User runs simulation.
+
+## Scene 6
+
+Environmental scores are calculated.
+
+## Scene 7
+
+Charts and dashboards update.
+
+## Scene 8
+
+Recommendations are displayed.
+
+## Scene 9
+
+User attempts sustainability challenge.
+
+## Scene 10
+
+Challenge result and rating are shown.
+
+### Storyboard File
+
+storyboard.jpeg
+
+---
+
+# Technology Stack
+
+## Frontend
 
 * React.js
 * Vite
-* Chart.js
-* Axios
+* JavaScript
+* HTML5
 * CSS3
+* Axios
+* Chart.js
 
-### Backend Layer
+## Backend
 
 * FastAPI
+* Python
 * Pydantic
 * SQLAlchemy
 
-### Database Layer
+## Database
 
 * PostgreSQL
 
-### Communication
+## Version Control
 
-Frontend ↔ REST API ↔ FastAPI ↔ PostgreSQL
+* Git
+* GitHub
 
----
+## Deployment
 
-## 🗄 Database Design
-
-Core Tables:
-
-### Energy Sources
-
-Stores metadata for all available energy sources.
-
-### Simulation Results
-
-Stores energy mixes and calculated sustainability metrics.
-
-### Recommendations
-
-Stores recommendation outputs generated by the rule engine.
-
-### Challenges
-
-Stores challenge attempts and outcomes.
+* Vercel
 
 ---
 
-## 🔌 REST API Endpoints
-
-### Get Energy Sources
-
-```http
-GET /energy-sources
-```
-
-Returns available energy sources and environmental metrics.
-
-### Run Simulation
-
-```http
-POST /simulate
-```
-
-Calculates:
-
-* Pollution
-* CO₂ Emissions
-* Sustainability
-* Cost Index
-
-### Generate Recommendation
-
-```http
-POST /recommend
-```
-
-Returns personalized sustainability recommendations.
-
-### Save Challenge Result
-
-```http
-POST /challenge-result
-```
-
-Stores challenge outcomes and performance ratings.
-
----
-
-## 📂 Project Structure
+# Project Structure
 
 ```text
 Smart-Energy-Advisor/
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
-│   │   ├── context/
-│   │   ├── services/
-│   │   ├── styles/
-│   │   └── utils/
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
 │
 ├── backend/
+│   ├── app/
 │   ├── routers/
-│   ├── schemas/
-│   ├── services/
 │   ├── models/
-│   ├── database/
+│   ├── services/
 │   └── main.py
 │
-├── docs/
-└── README.md
+├── requirements.txt
+├── README.md
+├── storyboard.jpeg
+├── UserPersona.pdf
+└── TeamNamesList.md
 ```
+
+# Team Roles & Task Division
+
+| Role                | Responsibility                             |
+| ------------------- | ------------------------------------------ |
+| Research Lead       | Gather and analyze sustainability research |
+| UX Designer         | Design user experience and learning flow   |
+| Storyboard Designer | Create storyboard and visual flow          |
+| Frontend Developer  | Build React user interface                 |
+| Backend Developer   | Develop FastAPI APIs                       |
+| Database Developer  | Design PostgreSQL schema                   |
+| Documentation Lead  | Maintain project documentation             |
+| Testing Lead        | Perform testing and quality assurance      |
 
 ---
 
-## 🛠 Technology Stack
+# Testing & Validation
 
-### Frontend
+## Functional Testing
 
-* React.js
-* Vite
-* JavaScript
-* Axios
-* Chart.js
-* HTML5
-* CSS3
+* Energy Mix Validation
+* Simulation Calculation
+* Recommendation Generation
+* Challenge Evaluation
 
-### Backend
+## Edge Case Testing
 
-* FastAPI
-* Python
-* SQLAlchemy
-* Pydantic
-* Uvicorn
+* 100% Solar Energy
+* 100% Coal Energy
+* Equal Energy Distribution
+* Invalid Percentage Inputs
+* Total Percentage ≠ 100
 
-### Database
+## Usability Testing Questions
 
-* PostgreSQL
-
-### Version Control
-
-* Git
-* GitHub
+* Was the simulation easy to use?
+* Did the charts improve understanding?
+* Were recommendations useful?
+* What was confusing?
+* What improvements are needed?
 
 ---
 
-## ⚙️ Installation
+# Expected Outcomes
 
-### Clone Repository
-
-```bash
-git clone <repository-url>
-cd Smart-Energy-Advisor
-```
-
-### Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Frontend runs on:
-
-```text
-http://localhost:5173
-```
-
-### Backend Setup
-
-```bash
-cd backend
-
-python -m venv venv
-
-venv\Scripts\activate
-
-pip install -r requirements.txt
-
-uvicorn main:app --reload
-```
-
-Backend runs on:
-
-```text
-http://localhost:8000
-```
-
-### API Documentation
-
-```text
-http://localhost:8000/docs
-```
+* Improved understanding of sustainable energy concepts.
+* Better awareness of environmental impacts.
+* Increased engagement through simulation-based learning.
+* Enhanced decision-making regarding energy choices.
 
 ---
 
-## 🌍 Real-World Impact
+# Future Enhancements
 
-Smart Energy Advisor demonstrates how different energy policies and consumption patterns affect environmental sustainability. The platform serves as an educational tool for:
-
-* Students
-* Researchers
-* Sustainability Enthusiasts
-* Environmental Awareness Programs
-
----
-
-## 🔮 Future Enhancements
-
-* AI-Powered Sustainability Advisor
-* Carbon Footprint Prediction
-* User Authentication
-* Historical Simulation Tracking
-* Leaderboards & Gamification
-* Advanced Analytics Dashboard
-* Renewable Energy Optimization Models
+* AI-powered sustainability recommendations.
+* User authentication system.
+* Historical simulation tracking.
+* Carbon footprint analytics.
+* Advanced sustainability reporting.
+* Leaderboards and gamification features.
+* Machine learning-based recommendation engine.
 
 ---
 
-## 👥 Team Project
+# Deployment
 
-Developed as part of a Full-Stack Mini Project focused on Sustainable Energy Education and Environmental Awareness.
+### Live Application
+
+https://mini-intern.vercel.app/
 
 ---
 
-## 📜 License
+# Team Project
 
-This project is developed for educational and academic purposes.
+Smart Energy Advisor was developed as part of the Internship 2026 Mini Project initiative to promote sustainability awareness through interactive educational technology.
+
+The project combines simulation, visualization, recommendation systems, and environmental education into a single learning platform that helps users make more informed energy decisions.
