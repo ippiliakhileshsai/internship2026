@@ -3,7 +3,7 @@
 To ensure that the storyboard effectively addresses the learning needs of students from different age groups, learner personas representing Grades 6–10 were developed. These personas helped design content that is engaging, age-appropriate, and educational.
  
 ---
- 
+
 ### Grade 6 Students
  
 **Characteristics**
