@@ -152,7 +152,7 @@ Module 5:Solutions and Recommendations
 Team Task Division Details
 -
 
-Sai sumit Panigrahi- Storyboard
+Sai sumit Panigrahi- Storyboard, UI design, Java , HTML
 
 Naseer Mohammad- UI Design
 
@@ -164,7 +164,7 @@ D.Bhuvanesh - Environmental Issues Content
 
 T.Meghana- Testing
 
-N.Vaishnavi- Documentation
+N.Vaishnavi- Documentation,Readme.md
 
 Divya, Naseer Mohammad- GitHub Management
 
@@ -179,7 +179,14 @@ https://github.com/swechaap/internship2026/issues/6#issuecomment-4628633241
 
 
 Python Coding:
+-
 https://github.com/swechaap/internship2026/issues/12
+
+Deployment Link:
+-
+https://plastic-life-simulation-1090927796036.asia-southeast1.run.app
+
+
 
 
 
@@ -196,3 +203,10 @@ Review-1 Preparation in Progress
  Studied environmental issues caused by plastics.
  
  Added objectives  to the documentation.
+
+Review-2:
+
+Preparation in progress
+
+updated the UI Design and coding part 
+
