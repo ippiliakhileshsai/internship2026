@@ -4,7 +4,7 @@
 
 This contains everything you need to run your app locally.
 
-View your app in AI Studio: https://ai.studio/apps/f60aad76-4e42-4e00-a83c-7939ad33caa5
+View your app : https://exploring-seasons-313969137390.asia-southeast1.run.app/
 
 ## Run Locally
 
