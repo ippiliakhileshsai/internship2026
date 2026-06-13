@@ -1,0 +1,385 @@
+/* ==========================================================================
+   Earth's Four Spheres - explorer.css (Learning Lab Styling)
+   ========================================================================== */
+
+/* Activity Tabs styling */
+.explorer-tabs {
+  display: flex;
+  background-color: #e2e8f0;
+  border-radius: var(--radius-card);
+  padding: 6px;
+  gap: 6px;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow-sm);
+}
+
+.explorer-tab-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  background: none;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-header);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition-smooth);
+}
+
+.explorer-tab-btn:hover {
+  color: var(--text-dark);
+  background-color: rgba(255,255,255,0.5);
+}
+
+.explorer-tab-btn.active {
+  color: var(--primary-accent);
+  background-color: white;
+  box-shadow: var(--shadow-md);
+}
+
+/* Base Activity Panels */
+.activity-panel {
+  display: none;
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+.activity-panel.active {
+  display: block;
+}
+
+/* ==========================================================================
+   Activity 1: Build Earth (Concentric Drag and Drop)
+   ========================================================================== */
+.build-earth-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 30px;
+  align-items: center;
+}
+
+/* Concentric Rings Visualizer */
+.concentric-rings-box {
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+  position: relative;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #cbd5e1;
+  border: 4px solid #94a3b8;
+  box-shadow: var(--shadow-md);
+}
+
+.ring-zone {
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+  border: 3px dashed rgba(255,255,255,0.7);
+}
+
+.ring-zone.drag-over {
+  border: 4px solid var(--warning);
+  background-color: rgba(255, 230, 0, 0.15) !important;
+  transform: scale(1.02);
+}
+
+.ring-zone.success-filled {
+  border-style: solid;
+  border-width: 3px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+
+/* Z-indices: outer to inner */
+#zone-atmo {
+  width: 96%;
+  height: 96%;
+  background-color: rgba(224, 247, 250, 0.3);
+  border-color: var(--atmo-primary);
+}
+
+#zone-bio {
+  width: 76%;
+  height: 76%;
+  background-color: rgba(209, 231, 221, 0.4);
+  border-color: var(--bio-primary);
+}
+
+#zone-hydro {
+  width: 56%;
+  height: 56%;
+  background-color: rgba(207, 244, 252, 0.5);
+  border-color: var(--hydro-primary);
+}
+
+#zone-litho {
+  width: 36%;
+  height: 36%;
+  background-color: #b98453;
+  border-color: var(--litho-primary);
+  border-style: solid; /* central core is solid */
+}
+
+.ring-label {
+  position: absolute;
+  font-family: var(--font-header);
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background-color: rgba(255,255,255,0.9);
+  pointer-events: none;
+  box-shadow: var(--shadow-sm);
+}
+
+#label-atmo { top: 6%; color: var(--atmo-dark); }
+#label-bio { top: 16%; color: var(--bio-dark); }
+#label-hydro { top: 26%; color: var(--hydro-dark); }
+#label-litho { top: 44%; color: var(--litho-dark); }
+
+/* Item Tray & Drag Elements */
+.items-tray {
+  background: white;
+  border-radius: var(--radius-card);
+  padding: 20px;
+  border: 3px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.drag-tray-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.draggable-item {
+  background: #f8fafc;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-btn);
+  padding: 12px;
+  text-align: center;
+  cursor: grab;
+  user-select: none;
+  font-family: var(--font-header);
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+  position: relative;
+  touch-action: none; /* Crucial for custom pointer drag-and-drop */
+}
+
+.draggable-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-accent);
+}
+
+.draggable-item:active {
+  cursor: grabbing;
+}
+
+.draggable-item.dragging {
+  opacity: 0.5;
+  transform: scale(1.05);
+}
+
+.draggable-item.placed {
+  opacity: 0.4;
+  filter: grayscale(0.8);
+  pointer-events: none;
+  border-color: var(--success);
+  background-color: #f0fff4;
+}
+
+/* ==========================================================================
+   Activity 2: Match Sphere Challenge
+   ========================================================================== */
+.match-grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.match-objects-shelf {
+  background-color: white;
+  border-radius: var(--radius-card);
+  padding: 20px;
+  border: 3px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.match-object-card {
+  background-color: #f1f5f9;
+  border: 2px solid #cbd5e1;
+  border-radius: var(--radius-btn);
+  padding: 12px 20px;
+  cursor: pointer;
+  font-family: var(--font-header);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.match-object-card:hover {
+  transform: scale(1.05);
+  border-color: var(--primary-accent);
+}
+
+.match-object-card.selected {
+  background-color: var(--primary-accent);
+  color: white;
+  border-color: var(--primary-accent-hover);
+  box-shadow: 0 0 12px rgba(108,92,231,0.4);
+}
+
+.match-baskets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.match-basket {
+  background-color: white;
+  border-radius: var(--radius-card);
+  border: 3px dashed var(--border-color);
+  padding: 20px;
+  text-align: center;
+  transition: var(--transition-smooth);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.match-basket.drag-over {
+  border-color: var(--primary-accent);
+  background-color: #f5f3ff;
+}
+
+.match-basket.litho-b { border-color: var(--litho-primary); background-color: var(--litho-light); }
+.match-basket.hydro-b { border-color: var(--hydro-primary); background-color: var(--hydro-light); }
+.match-basket.atmo-b { border-color: var(--atmo-primary); background-color: var(--atmo-light); }
+.match-basket.bio-b { border-color: var(--bio-primary); background-color: var(--bio-light); }
+
+.basket-icon {
+  font-size: 2.5rem;
+}
+
+.basket-title {
+  font-family: var(--font-header);
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+
+.basket-contents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+}
+
+.matched-item-badge {
+  background-color: white;
+  border: 2px solid var(--success);
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  font-family: var(--font-header);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  animation: pop-in 0.3s ease-out forwards;
+}
+
+/* ==========================================================================
+   Activity 3: Sphere Interaction Simulator
+   ========================================================================== */
+.simulator-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 30px;
+}
+
+.sim-sandbox-window {
+  background: linear-gradient(to bottom, #7dd3fc, #bae6fd, #e2f0d9, #fed7aa);
+  border: 3px solid var(--primary-accent);
+  border-radius: var(--radius-card);
+  height: 380px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.sim-graphic-element {
+  position: absolute;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
+.sim-landscape-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Heart animations for drinking deer */
+.heart-bubble {
+  position: absolute;
+  color: #e74c3c;
+  font-size: 1.2rem;
+  pointer-events: none;
+  animation: rise-heart 1.2s ease-out forwards;
+}
+
+@keyframes rise-heart {
+  0% { transform: translateY(0) scale(0.6); opacity: 1; }
+  100% { transform: translateY(-40px) scale(1.2); opacity: 0; }
+}
+
+/* Plant growing animation keys */
+@keyframes grow-sprout {
+  0% { transform: translateY(15px) scale(0.2); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.growing-tree {
+  animation: grow-sprout 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* General Animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 992px) {
+  .build-earth-layout,
+  .simulator-layout {
+    grid-template-columns: 1fr;
+  }
+}

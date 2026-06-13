@@ -4,39 +4,39 @@ export const quizData = {
     topic: "Sources of Light",
     questions: [
       {
-        q: "Which of the following is a NATURAL source of light?",
-        options: ["Bulb", "Candle", "Sun", "Torch"],
+        q: "Which of these things makes its own light naturally in nature?",
+        options: ["A lightbulb", "A candle", "The Sun", "A flashlight"],
         answer: 2,
-        explanation: "The Sun is a natural source of light. It produces its own light."
+        explanation: "The Sun is a giant ball of burning gas that creates its own light. Things like bulbs and flashlights are made by humans (artificial), and the moon just bounces the sun's light."
       },
       {
-        q: "Objects that produce their own light are called:",
-        options: ["Opaque objects", "Luminous objects", "Translucent objects", "Reflected objects"],
+        q: "What do we call things that create their very own light (like the Sun or a flashlight)?",
+        options: ["Opaque objects", "Luminous objects", "Invisible objects", "Reflective objects"],
         answer: 1,
-        explanation: "Luminous objects produce their own light, like the Sun, stars, and fire."
+        explanation: "Luminous simply means 'giving off light'. If something can shine brightly in a pitch-black room all by itself, it is luminous!"
       },
       {
-        q: "A moon shines because it:",
-        options: ["Produces its own light", "Reflects sunlight", "Absorbs starlight", "Generates heat"],
+        q: "Why does the Moon look so bright at night?",
+        options: ["It makes its own light", "It acts like a giant mirror bouncing sunlight", "It absorbs starlight", "It gets hot and glows"],
         answer: 1,
-        explanation: "The Moon is a non-luminous object. It reflects sunlight to appear bright."
+        explanation: "The Moon is actually like a giant grey rock! It doesn't glow on its own. It acts like a mirror, bouncing the light from the Sun down to us on Earth."
       },
       {
-        q: "Which of these is an ARTIFICIAL source of light?",
-        options: ["Star", "Firefly", "Electric Bulb", "Sun"],
+        q: "Which of these light sources was created by humans (artificial)?",
+        options: ["A glowing star", "A firefly bug", "An electric lightbulb", "The Sun"],
         answer: 2,
-        explanation: "An electric bulb is an artificial (man-made) source of light."
+        explanation: "Artificial means 'made by humans'. While the Sun, stars, and fireflies glow naturally, an electric bulb was invented and built by people in a factory."
       },
       {
-        q: "Which best describes a non-luminous object?",
+        q: "What does it mean if an object is 'non-luminous'?",
         options: [
           "It produces its own light",
-          "It is always transparent",
-          "It does not produce its own light",
-          "It absorbs all light"
+          "It is completely invisible",
+          "It cannot make its own light",
+          "It absorbs all light like a black hole"
         ],
         answer: 2,
-        explanation: "Non-luminous objects do not produce light; they reflect light from other sources."
+        explanation: "If something is 'non-luminous', it means it cannot make its own light. To see a non-luminous object (like a table or a book), you need to shine a light on it from something else."
       }
     ]
   },
@@ -44,44 +44,44 @@ export const quizData = {
     topic: "Rays & Propagation",
     questions: [
       {
-        q: "Light travels in a:",
-        options: ["Curved path", "Zigzag path", "Straight line", "Circular path"],
+        q: "If you shine a laser or a flashlight, how does the light beam travel?",
+        options: ["In a curved bending line", "In a zig-zag line", "In a perfectly straight line", "In circles"],
         answer: 2,
-        explanation: "Light travels in straight lines — this is called rectilinear propagation of light."
+        explanation: "Light is stubborn—it always travels in a perfectly straight line! It doesn't curve around corners or zigzag. That's why you can't see what's happening around a corner."
       },
       {
-        q: "What is the speed of light in a vacuum?",
-        options: ["3 × 10⁶ m/s", "3 × 10⁸ m/s", "3 × 10¹⁰ m/s", "3 × 10⁴ m/s"],
+        q: "How fast does light travel when there's nothing in its way?",
+        options: ["300 kilometers per second", "300,000 kilometers per second", "It travels instantly", "3,000 kilometers per second"],
         answer: 1,
-        explanation: "Light travels at approximately 3 × 10⁸ metres per second in a vacuum."
+        explanation: "Light is the fastest thing in the universe! It travels so incredibly fast (300,000 km per second) that it could zip around the entire Earth 7.5 times in just one single second."
       },
       {
-        q: "A shadow forms because light:",
+        q: "Why does your body cast a dark shadow on a sunny day?",
         options: [
-          "Bends around objects",
-          "Cannot pass through opaque objects",
-          "Is absorbed by transparent objects",
-          "Slows down near objects"
+          "Because light bends around you",
+          "Because your solid body blocks the straight light rays",
+          "Because your body absorbs the heat",
+          "Because the ground changes color"
         ],
         answer: 1,
-        explanation: "Shadows form when light is blocked by opaque objects that light cannot pass through."
+        explanation: "Since light only travels in straight lines, when it hits something solid (like you), it gets completely blocked. The dark shape left behind on the ground where the light couldn't reach is your shadow!"
       },
       {
-        q: "Which material allows all light to pass through it?",
+        q: "What do we call a material that lets you see perfectly straight through it, like a clear window?",
         options: ["Opaque", "Translucent", "Transparent", "Reflective"],
         answer: 2,
-        explanation: "Transparent materials (like glass) allow all light to pass through clearly."
+        explanation: "Transparent things, like perfectly clean glass or clear water, let almost all the light pass straight through them, which is why you can see right through them!"
       },
       {
-        q: "A pinhole camera works on which principle?",
+        q: "Why does an image look upside-down when light passes through a tiny pinhole?",
         options: [
-          "Reflection of light",
-          "Refraction of light",
-          "Rectilinear propagation of light",
-          "Dispersion of light"
+          "Because the hole flips the light",
+          "Because gravity pulls the light down",
+          "Because light only travels in straight diagonal lines",
+          "Because the hole acts like a mirror"
         ],
         answer: 2,
-        explanation: "A pinhole camera works on rectilinear propagation — light travels in straight lines."
+        explanation: "Because light travels perfectly straight, the light coming from the top of a tree goes diagonally down through the hole, and light from the bottom goes diagonally up. This crosses the rays and creates an upside-down picture on the wall!"
       }
     ]
   },
@@ -89,49 +89,49 @@ export const quizData = {
     topic: "Reflection of Light",
     questions: [
       {
-        q: "The angle of incidence is ALWAYS equal to the:",
+        q: "When a beam of light bounces off a mirror, the angle it hits the mirror is exactly the same as:",
         options: [
-          "Angle of refraction",
-          "Angle of reflection",
-          "Angle of dispersion",
-          "Angle of diffraction"
+          "The angle it bends inside the mirror",
+          "The angle it bounces away from the mirror",
+          "The size of the mirror",
+          "The speed of the light"
         ],
         answer: 1,
-        explanation: "First Law of Reflection: The angle of incidence equals the angle of reflection."
+        explanation: "Think of throwing a bouncy ball at a wall. If you throw it straight, it bounces straight back. If you throw it from the side at a sharp angle, it bounces away to the other side at that exact same angle! This is the Law of Reflection."
       },
       {
-        q: "The incident ray, reflected ray, and normal all lie in the:",
+        q: "When light hits a mirror, the incoming beam, the bouncing beam, and the mirror all line up on:",
         options: [
-          "Different planes",
-          "Same plane",
-          "Perpendicular planes",
-          "Parallel planes"
+          "Different 3D angles",
+          "The exact same flat surface (plane)",
+          "A curved surface",
+          "A zigzag line"
         ],
         answer: 1,
-        explanation: "Second Law of Reflection: All three lie in the same plane."
+        explanation: "If you were to draw the incoming light beam and the bouncing light beam on a flat piece of paper, they would both lie perfectly flat on that paper without sticking up into the air. They share the 'same plane'."
       },
       {
-        q: "A plane mirror forms an image that is:",
+        q: "When you look into a normal, flat bathroom mirror, your reflection is:",
         options: [
-          "Real and inverted",
-          "Virtual and magnified",
-          "Virtual and same size",
-          "Real and same size"
+          "Upside down",
+          "Bigger than you are",
+          "The exact same size as you are",
+          "Smaller than you are"
         ],
         answer: 2,
-        explanation: "A plane mirror forms a virtual, erect image of the same size as the object."
+        explanation: "A normal flat mirror doesn't shrink or stretch you. It shows you exactly the same size you really are! It is a 'virtual' image, meaning it looks like you are standing behind the glass, but you can't touch the image."
       },
       {
-        q: "Which type of mirror is used in vehicle rear-view mirrors?",
-        options: ["Concave mirror", "Plane mirror", "Convex mirror", "Parabolic mirror"],
+        q: "What kind of curved mirror is used on car side-mirrors to help drivers see more of the road?",
+        options: ["A mirror that curves inward like a bowl", "A completely flat mirror", "A mirror that bulges outward like the back of a spoon", "A wavy mirror"],
         answer: 2,
-        explanation: "Convex mirrors are used in rear-view mirrors as they give a wider field of view."
+        explanation: "Mirrors that bulge outward (Convex mirrors) shrink the reflection slightly. Making the cars look smaller allows the driver to fit a much wider view of the traffic behind them into a tiny mirror!"
       },
       {
-        q: "Regular reflection occurs on a:",
-        options: ["Rough surface", "Smooth polished surface", "Translucent surface", "Coloured surface"],
+        q: "To get a perfect, clear reflection like a shiny mirror, the surface needs to be:",
+        options: ["Rough and bumpy", "Perfectly smooth and flat", "Made of plastic", "Painted black"],
         answer: 1,
-        explanation: "Regular (specular) reflection occurs on smooth surfaces like mirrors."
+        explanation: "If a surface is rough or bumpy, the light rays bounce off in a million different random directions, scattering the picture. A perfectly smooth surface bounces all the light together in the same direction to make a clear picture."
       }
     ]
   },
@@ -139,49 +139,49 @@ export const quizData = {
     topic: "Refraction of Light",
     questions: [
       {
-        q: "Refraction is the bending of light when it passes from:",
+        q: "Why does light sometimes 'bend' or change direction?",
         options: [
-          "One colour to another",
-          "One medium to another",
-          "One source to another",
-          "One shadow to another"
+          "Because it gets tired",
+          "When it moves from one clear material (like air) into a thicker one (like water)",
+          "When it hits a black wall",
+          "Because of gravity pulling it down"
         ],
         answer: 1,
-        explanation: "Refraction occurs when light passes from one medium to another (e.g., air to water)."
+        explanation: "When light travels from thin air into thicker water or glass, it changes speed. This sudden change in speed causes the light beam to bend, almost like a shopping cart hitting a muddy puddle and swerving! This bending is called Refraction."
       },
       {
-        q: "A straw appears bent in water because of:",
-        options: ["Reflection", "Dispersion", "Refraction", "Diffraction"],
+        q: "Why does a straight drinking straw look broken or bent when you put it in a glass of water?",
+        options: ["Because the water breaks it", "Because of water pressure", "Because the light bending tricks your eyes (Refraction)", "Because the glass is curved"],
         answer: 2,
-        explanation: "The straw appears bent due to refraction as light bends when moving between water and air."
+        explanation: "Because light travels slower in water than in air, the light rays coming from the straw bend when they leave the water to reach your eye. Your brain gets confused by the bent light, making the straight straw look snapped!"
       },
       {
-        q: "When light goes from air to glass, it bends:",
+        q: "What happens to a light beam when it enters something thicker, like a solid piece of glass?",
         options: [
-          "Away from the normal",
-          "Towards the normal",
-          "Parallel to the normal",
-          "It does not bend"
+          "It speeds up and bends outward",
+          "It slows down and bends inward",
+          "It stops moving completely",
+          "It doesn't bend at all"
         ],
         answer: 1,
-        explanation: "When light enters a denser medium (glass), it bends towards the normal."
+        explanation: "Glass is 'denser' (thicker) than air, which acts like traffic and slows the light down. When light slows down, it bends inward towards the center straight line (the normal)."
       },
       {
-        q: "Real depth appears less than actual depth because of:",
-        options: ["Reflection", "Dispersion", "Refraction", "Absorption"],
+        q: "Why do swimming pools always look shallower than they actually are?",
+        options: ["Because water is heavy", "Because the blue color tricks you", "Because the light leaving the water bends, changing how deep it looks", "Because pools have flat bottoms"],
         answer: 2,
-        explanation: "Refraction makes a pool appear shallower than it really is."
+        explanation: "When light rays bounce off the bottom of the pool and leave the water, they bend in the air. This bent light reaches your eyes and tricks your brain into thinking the bottom of the pool is much closer to the surface than it really is!"
       },
       {
-        q: "Snell's Law relates:",
+        q: "What does 'Snell's Law' help scientists calculate?",
         options: [
-          "Angle of incidence and reflection",
-          "Angle of incidence and refraction",
-          "Speed and wavelength",
-          "Colour and frequency"
+          "How hot the sun is",
+          "Exactly how much a beam of light will bend when entering water or glass",
+          "How fast sound travels",
+          "The color of a rainbow"
         ],
         answer: 1,
-        explanation: "Snell's Law: n₁ sin θ₁ = n₂ sin θ₂, relating angles of incidence and refraction."
+        explanation: "Snell's law is a super helpful math formula. By knowing how thick the glass or water is, scientists can use Snell's Law to predict the exact angle the light beam will bend!"
       }
     ]
   },
@@ -189,49 +189,49 @@ export const quizData = {
     topic: "Dispersion of Light",
     questions: [
       {
-        q: "When white light passes through a prism, it splits into:",
+        q: "What happens if you shine plain white sunlight into a glass triangle (a prism)?",
         options: [
-          "2 colours",
-          "5 colours",
-          "7 colours",
-          "Infinite colours"
+          "It turns into black light",
+          "It gets much brighter",
+          "It splits into the 7 beautiful colors of the rainbow",
+          "It catches on fire"
         ],
         answer: 2,
-        explanation: "A prism disperses white light into 7 colours: VIBGYOR."
+        explanation: "Surprise! White light is actually a hidden mixture of all the colors of the rainbow! The glass prism bends each color slightly differently, separating them out so you can see them all."
       },
       {
-        q: "What does VIBGYOR stand for?",
+        q: "What is the correct order of the 7 colors hidden inside white light?",
         options: [
-          "Violet, Indigo, Blue, Green, Yellow, Orange, Red",
-          "Very Important Basic Growth Year Of Rainbow",
-          "Violet, Indigo, Black, Green, Yellow, Orange, Red",
-          "Visual, Infrared, Blue, Green, Yellow, Orange, Red"
+          "Violet, Indigo, Blue, Green, Yellow, Orange, Red (VIBGYOR)",
+          "Red, White, Blue",
+          "Black, White, Grey",
+          "Pink, Purple, Blue, Green, Yellow"
         ],
         answer: 0,
-        explanation: "VIBGYOR: Violet, Indigo, Blue, Green, Yellow, Orange, Red — the spectrum colours."
+        explanation: "VIBGYOR is an easy way to remember the rainbow! It starts with Violet (the most bent color) and ends with Red (the least bent color)."
       },
       {
-        q: "Which colour of light has the LONGEST wavelength?",
+        q: "If you look at the colors of light as tiny waves, which color has the longest, widest waves?",
         options: ["Violet", "Blue", "Green", "Red"],
         answer: 3,
-        explanation: "Red light has the longest wavelength (~700 nm) in the visible spectrum."
+        explanation: "Red light has the longest waves in the rainbow. Because its waves are so long and wide, red light doesn't scatter or get blocked easily, which is exactly why stop signs and brake lights are painted red—so you can see them from far away!"
       },
       {
-        q: "A rainbow is formed due to:",
+        q: "What acts like millions of tiny glass prisms in the sky to create a beautiful rainbow?",
         options: [
-          "Only reflection in water droplets",
-          "Only refraction in water droplets",
-          "Dispersion and reflection in water droplets",
-          "Absorption of sunlight"
+          "Clouds blocking the sun",
+          "Air pollution",
+          "Tiny raindrops bending and splitting sunlight",
+          "Birds flying in a circle"
         ],
         answer: 2,
-        explanation: "A rainbow is caused by dispersion, refraction, and internal reflection in water droplets."
+        explanation: "After a rainstorm, the air is full of tiny water droplets. When sunlight enters a raindrop, the water acts like a prism—it bends the light and splits it into 7 colors, bouncing it back to your eyes as a giant rainbow!"
       },
       {
-        q: "Which colour bends the MOST when light passes through a prism?",
+        q: "When white light is split by a prism, which color bends the sharpest?",
         options: ["Red", "Green", "Yellow", "Violet"],
         answer: 3,
-        explanation: "Violet light has the shortest wavelength and bends the most through a prism."
+        explanation: "Violet has the shortest, tightest waves of all the colors. Because its waves are so tiny, it gets slowed down and bent the most when passing through the thick glass."
       }
     ]
   },
@@ -239,49 +239,49 @@ export const quizData = {
     topic: "Light Energy",
     questions: [
       {
-        q: "Which device converts sunlight directly into electrical energy?",
+        q: "How do solar panels on houses create electricity?",
         options: [
-          "Solar heater",
-          "Solar cell (photovoltaic cell)",
-          "Windmill",
-          "Hydroelectric generator"
+          "By boiling water to make steam",
+          "By using special 'solar cells' to turn sunlight directly into electricity",
+          "By spinning like a windmill",
+          "By soaking up the heat"
         ],
         answer: 1,
-        explanation: "Solar cells (photovoltaic cells) convert sunlight directly into electrical energy."
+        explanation: "Solar panels are covered in special 'solar cells' (photovoltaic cells). When sunlight hits them, the light energy acts like a hammer, knocking tiny electrons loose inside the metal. These moving electrons flow into the house as electricity!"
       },
       {
-        q: "Plants use light energy in the process of:",
-        options: ["Respiration", "Transpiration", "Photosynthesis", "Digestion"],
+        q: "How do plants and trees use sunlight to survive and grow?",
+        options: ["By staying warm", "By sweating out water", "By using light to cook their own food (Photosynthesis)", "By turning it into dirt"],
         answer: 2,
-        explanation: "Plants use sunlight in photosynthesis to convert CO₂ and water into food and oxygen."
+        explanation: "Plants act like tiny solar factories! They use the energy from sunlight to magically cook water and carbon dioxide from the air into sweet sugar food and fresh oxygen for us to breathe. This superpower is called Photosynthesis."
       },
       {
-        q: "Light energy travels as:",
+        q: "How does light energy travel all the way from the Sun, across the empty vacuum of outer space, to reach Earth?",
         options: [
-          "Sound waves",
-          "Mechanical waves",
-          "Electromagnetic waves",
-          "Seismic waves"
+          "As sound waves",
+          "On tiny space particles",
+          "As a special energy wave called an 'Electromagnetic Wave'",
+          "Through a long tube"
         ],
         answer: 2,
-        explanation: "Light is a form of electromagnetic radiation that can travel through vacuum."
+        explanation: "Sound needs air to travel, which is why space is totally silent! But light travels as a special kind of energy wave (an electromagnetic wave) that doesn't need air or water to carry it. It can travel perfectly through the empty nothingness of space!"
       },
       {
-        q: "The particle of light is called a:",
-        options: ["Neutron", "Photon", "Electron", "Proton"],
+        q: "If you zoom in super, super close, light is actually made of trillions of tiny packets of energy called:",
+        options: ["Neutrons", "Photons", "Electrons", "Protons"],
         answer: 1,
-        explanation: "A photon is the fundamental particle (quantum) of light and electromagnetic radiation."
+        explanation: "Light is very weird! Even though it acts like a wave, it is also made of trillions of microscopic 'energy bullets' called Photons. A photon is the smallest possible piece of light in the universe!"
       },
       {
-        q: "UV (ultraviolet) rays from the Sun are harmful because:",
+        q: "Why do you need to wear sunscreen to protect against the Sun's UV (Ultraviolet) rays?",
         options: [
-          "They are visible",
-          "They can cause skin burns and cancer",
-          "They make things cold",
-          "They have very long wavelengths"
+          "Because they are so bright they blind you",
+          "Because they carry so much energy they can burn your skin cells",
+          "Because they make you freeze",
+          "Because they turn you purple"
         ],
         answer: 1,
-        explanation: "UV rays carry high energy and prolonged exposure can cause skin damage and cancer."
+        explanation: "UV rays are a type of invisible light from the Sun that packs a massive amount of energy. If they hit your bare skin for too long, they act like tiny lasers, damaging your skin cells and causing painful sunburns."
       }
     ]
   }

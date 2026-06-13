@@ -699,6 +699,39 @@
 /* ---- SPOT THE TYPE GAME: HOLOGRAPHIC SCANNER ---- */
 .spot-game-container { width: min(92%, 680px); margin-inline: auto; }
 
+.spot-game-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.spot-game-stats div {
+    padding: 14px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--surface-border);
+    box-shadow: var(--soft-shadow);
+    text-align: center;
+}
+
+.spot-game-stats span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.76rem;
+    font-weight: 850;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.spot-game-stats strong {
+    display: block;
+    margin-top: 3px;
+    color: var(--blue-dark);
+    font-size: 1.25rem;
+    font-family: 'Outfit', sans-serif;
+}
+
 .spot-score-bar { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
 
 .spot-progress {
@@ -757,6 +790,129 @@
     font-weight: 800;
 }
 .spot-hint { color: #94a3b8; font-size: .95rem; margin-top: 8px; font-style: italic; }
+
+.spot-mini-circuit {
+    position: relative;
+    width: min(100%, 470px);
+    height: 118px;
+    margin: 6px auto 20px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #f8fcff, #eef7ff);
+    border: 1px solid rgba(22, 104, 255, 0.14);
+    overflow: hidden;
+}
+
+.spot-battery {
+    position: absolute;
+    left: 22px;
+    top: 42px;
+    width: 64px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #23364d, #ffb703);
+    color: #ffffff;
+    font-weight: 950;
+    font-size: 0.82rem;
+}
+
+.spot-wire {
+    position: absolute;
+    top: 57px;
+    height: 8px;
+    border-radius: 999px;
+    background: #c86b2b;
+    opacity: 0.45;
+}
+
+.spot-wire.left {
+    left: 86px;
+    width: calc(50% - 126px);
+}
+
+.spot-wire.right {
+    right: 88px;
+    width: calc(50% - 126px);
+}
+
+.spot-test-gap {
+    position: absolute;
+    left: 50%;
+    top: 34px;
+    width: 74px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    transform: translateX(-50%);
+    border-radius: 16px;
+    background: #ffffff;
+    border: 2px dashed rgba(22, 104, 255, 0.35);
+    font-size: 2rem;
+    box-shadow: var(--soft-shadow);
+}
+
+.spot-bulb {
+    position: absolute;
+    right: 26px;
+    top: 34px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50% 50% 44% 44%;
+    border: 4px solid #334155;
+    background: #e5e7eb;
+}
+
+.spot-cross {
+    position: absolute;
+    left: 50%;
+    top: 25px;
+    width: 72px;
+    height: 72px;
+    display: none;
+    place-items: center;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: 5px solid #ef4444;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 22px rgba(239, 68, 68, 0.24);
+}
+
+.spot-cross span {
+    position: absolute;
+    width: 50px;
+    height: 7px;
+    border-radius: 999px;
+    background: #ef4444;
+}
+
+.spot-cross span:first-child { transform: rotate(45deg); }
+.spot-cross span:last-child { transform: rotate(-45deg); }
+
+.spot-mini-circuit.flowing .spot-wire {
+    opacity: 1;
+    box-shadow: 0 0 16px rgba(200, 107, 43, 0.35);
+}
+
+.spot-mini-circuit.flowing .spot-test-gap {
+    border-color: #10b981;
+    background: #ecfdf5;
+}
+
+.spot-mini-circuit.flowing .spot-bulb {
+    background: radial-gradient(circle, #fff6a8, #ffd84d 62%, #f59e0b);
+    box-shadow: 0 0 34px rgba(255, 191, 31, 0.72);
+}
+
+.spot-mini-circuit.blocked .spot-test-gap {
+    border-color: #ef4444;
+    background: #fff1f2;
+}
+
+.spot-mini-circuit.blocked .spot-cross {
+    display: grid;
+    animation: feedbackPop 350ms ease both;
+}
 
 .spot-buttons { display: flex; gap: 16px; justify-content: center; margin-top: 24px; position: relative; z-index: 2; }
 
@@ -832,6 +988,40 @@
 .spot-result-icon { font-size: 4rem; animation: spotBounce 1.5s ease-in-out infinite; }
 .spot-result h3 { font-size: 2rem; color: #ffffff; margin-top: 14px; font-family: 'Outfit', sans-serif; font-weight: 800; }
 .spot-result p  { color: #94a3b8; font-size: 1.15rem; margin-top: 8px; }
+
+.spot-next-btn,
+.spot-report-link {
+    margin-top: 18px;
+    min-height: 44px;
+    padding: 10px 18px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #0f766e, #1668ff);
+    color: #ffffff;
+    font-weight: 850;
+    text-decoration: none;
+    box-shadow: 0 12px 24px rgba(22, 104, 255, 0.22);
+}
+
+.spot-next-btn[hidden] {
+    display: none;
+}
+
+.spot-badge-rack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.spot-badge-rack span {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+    font-weight: 850;
+}
 
 .spot-restart-btn {
     margin-top: 24px; padding: 14px 32px; border-radius: 18px;
@@ -1013,6 +1203,7 @@
     .remember-grid { grid-template-columns: 1fr; }
     .how-to-guide { border-radius: 18px; gap: 6px; }
     .guide-arrow { display: none; }
+    .spot-game-stats { grid-template-columns: 1fr; }
     .spot-buttons { flex-direction: column; }
     .spot-btn { width: 100%; }
     .vct-header, .vct-row { grid-template-columns: 1fr; }

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Atmosphere - Earth's Air Blanket</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .atmo-theme {
+      --primary: var(--atmo-primary);
+      --light: var(--atmo-light);
+      --dark: var(--atmo-dark);
+      --glow: var(--atmo-glow);
+    }
+    
+    .lesson-header-banner {
+      background: linear-gradient(135deg, var(--atmo-light), #e0f8ff);
+      border: 3px solid var(--atmo-primary);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    /* Vertical Layers Explorer styling */
+    .atmo-stack-container {
+      display: flex;
+      flex-direction: column-reverse; /* Bottom layer (Troposphere) is at the bottom */
+      border: 3px solid var(--atmo-primary);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      background-color: #0c152b; /* deep space black-blue at the base */
+    }
+
+    .atmo-layer-strip {
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+      font-family: var(--font-header);
+      font-weight: 700;
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+
+    /* Gradient colors for each layer representing altitude */
+    #strip-tropo { background: linear-gradient(90deg, #7dd3fc, #38bdf8); color: #0369a1; }
+    #strip-strato { background: linear-gradient(90deg, #0284c7, #0369a1); }
+    #strip-meso { background: linear-gradient(90deg, #1e3a8a, #172554); }
+    #strip-thermo { background: linear-gradient(90deg, #311042, #180529); }
+    #strip-exo { background: linear-gradient(90deg, #0c0812, #020105); }
+
+    .atmo-layer-strip:hover {
+      filter: brightness(1.2);
+      padding-left: 28px;
+    }
+
+    .atmo-layer-strip.active {
+      filter: brightness(1.3);
+      padding-left: 28px;
+      box-shadow: inset 8px 0 0 #f59e0b; /* Golden border indicator */
+    }
+
+    .layer-icon-badge {
+      font-size: 1.6rem;
+    }
+
+    .height-tag {
+      font-size: 0.8rem;
+      background-color: rgba(255,255,255,0.2);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+    #strip-tropo .height-tag {
+      background-color: rgba(3, 105, 161, 0.2);
+      color: #0369a1;
+    }
+
+    /* Weather Simulator Widget styles */
+    .weather-widget-box {
+      width: 100%;
+      height: 250px;
+      border-radius: var(--radius-card);
+      border: 3px solid var(--atmo-primary);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition-smooth);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Weather themes */
+    .weather-widget-box.theme-sunny { background: linear-gradient(to bottom, #bae6fd, #fef08a); }
+    .weather-widget-box.theme-rainy { background: linear-gradient(to bottom, #94a3b8, #cbd5e1); }
+    .weather-widget-box.theme-windy { background: linear-gradient(to bottom, #cbd5e1, #bae6fd); }
+    .weather-widget-box.theme-stormy { background: linear-gradient(to bottom, #475569, #1e293b); }
+
+    .weather-btn-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    .weather-btn {
+      padding: 10px;
+      border-radius: var(--radius-btn);
+      border: 2px solid var(--border-color);
+      background: white;
+      font-family: var(--font-header);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      transition: var(--transition-smooth);
+    }
+
+    .weather-btn:hover {
+      background: #f1f5f9;
+      transform: translateY(-2px);
+    }
+
+    .weather-btn.active {
+      background: var(--atmo-primary);
+      color: white;
+      border-color: var(--atmo-dark);
+      transform: scale(1.05);
+    }
+
+    /* Sun rotation */
+    .sim-sun {
+      font-size: 5rem;
+      animation: rotate-slow 12s linear infinite;
+    }
+
+    /* Lightning Flash Effect */
+    @keyframes lightning-flash {
+      0%, 100% { background-color: rgba(255,255,255,0); }
+      10%, 20% { background-color: rgba(255, 255, 224, 0.95); }
+      15% { background-color: rgba(255,255,255,0); }
+    }
+
+    .lightning-effect-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .lightning-effect-layer.active {
+      animation: lightning-flash 0.4s ease-out;
+    }
+  </style>
+</head>
+<body data-page="atmosphere" class="lang-en atmo-theme">
+
+  <main class="container">
+    
+    <!-- Title Banner -->
+    <div class="lesson-header-banner read-aloud-section">
+      <span class="lesson-badge" style="background-color: var(--atmo-primary); color: white;">
+        <span class="lang-en">Sphere Lesson 3</span>
+        <span class="lang-te">ఆవరణ పాఠం 3</span>
+      </span>
+      <h1 style="color: var(--atmo-dark); margin-top: 10px;">
+        <span class="lang-en">The Atmosphere (వాతావరణం)</span>
+        <span class="lang-te">వాతావరణం (The Atmosphere)</span>
+      </h1>
+      <p style="margin: 0; font-size: 1.15rem; color: var(--atmo-dark);">
+        <span class="lang-en">The Atmosphere is a blanket of gases surrounding Earth. It contains the air we breathe, shields us from solar radiation, and creates all the beautiful weather and clouds!</span>
+        <span class="lang-te">వాతావరణం అంటే భూమిని ఆవరించి ఉన్న వాయువుల ముసుగు. ఇది మనం పీల్చే గాలిని అందిస్తుంది, సూర్యుడి హానికరమైన కిరణాల నుండి రక్షిస్తుంది మరియు మన వాతావరణం, మేఘాలను సృష్టిస్తుంది!</span>
+      </p>
+    </div>
+
+    <!-- Lesson Body Grid -->
+    <div class="lesson-container">
+      
+      <!-- Left side: Vertical Layers Explorer -->
+      <div class="sphere-card read-aloud-section">
+        <h2 style="color: var(--atmo-primary); margin-bottom: 15px;">
+          <span class="lang-en">1. Travel Through the Sky Layers</span>
+          <span class="lang-te">1. ఆకాశ పొరల గుండా ప్రయాణం</span>
+        </h2>
+        <p>
+          <span class="lang-en">The atmosphere is divided into 5 layers, stacked like pancakes! Click on each layer strip to travel up in a virtual rocket and discover what happens there:</span>
+          <span class="lang-te">వాతావరణం 5 పొరలుగా విభజించబడింది! ఒక వర్చువల్ రాకెట్‌లో పైకి ప్రయాణించడానికి మరియు అక్కడ ఏమి జరుగుతుందో తెలుసుకోవడానికి ప్రతి పొరపై క్లిక్ చేయండి:</span>
+        </p>
+
+        <!-- Vertical Stack Container -->
+        <div class="atmo-stack-container" id="atmo-stack">
+          <!-- 1. Troposphere -->
+          <div class="atmo-layer-strip" id="strip-tropo" onclick="selectAtmoLayer('tropo', event)">
+            <div>
+              <span class="lang-en">Troposphere</span>
+              <span class="lang-te">ట్రోపోవరణం (Troposphere)</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="height-tag">0 - 12 km</span>
+              <span class="layer-icon-badge">🌧️</span>
+            </div>
+          </div>
+
+          <!-- 2. Stratosphere -->
+          <div class="atmo-layer-strip" id="strip-strato" onclick="selectAtmoLayer('strato', event)">
+            <div>
+              <span class="lang-en">Stratosphere</span>
+              <span class="lang-te">స్ట్రాటోవరణం (Stratosphere)</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="height-tag">12 - 50 km</span>
+              <span class="layer-icon-badge">✈️</span>
+            </div>
+          </div>
+
+          <!-- 3. Mesosphere -->
+          <div class="atmo-layer-strip" id="strip-meso" onclick="selectAtmoLayer('meso', event)">
+            <div>
+              <span class="lang-en">Mesosphere</span>
+              <span class="lang-te">మీసోవరణం (Mesosphere)</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="height-tag">50 - 85 km</span>
+              <span class="layer-icon-badge">☄️</span>
+            </div>
+          </div>
+
+          <!-- 4. Thermosphere -->
+          <div class="atmo-layer-strip" id="strip-thermo" onclick="selectAtmoLayer('thermo', event)">
+            <div>
+              <span class="lang-en">Thermosphere</span>
+              <span class="lang-te">థర్మోవరణం (Thermosphere)</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="height-tag">85 - 600 km</span>
+              <span class="layer-icon-badge">🌌</span>
+            </div>
+          </div>
+
+          <!-- 5. Exosphere -->
+          <div class="atmo-layer-strip" id="strip-exo" onclick="selectAtmoLayer('exo', event)">
+            <div>
+              <span class="lang-en">Exosphere</span>
+              <span class="lang-te">ఎక్సోవరణం (Exosphere)</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="height-tag">600+ km</span>
+              <span class="layer-icon-badge">🛰️</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description Panel -->
+        <div class="layer-info-panel" id="atmo-desc-panel" style="background-color: var(--atmo-light); border-color: var(--atmo-primary);">
+          <h3 style="margin-bottom: 8px; color: var(--atmo-dark);" id="atmo-title">
+            <span class="lang-en">Launch your Rocket! 🚀</span>
+            <span class="lang-te">మీ రాకెట్ ప్రయోగించండి! 🚀</span>
+          </h3>
+          <p style="margin: 0; font-size: 0.95rem; color: var(--text-dark);" id="atmo-text">
+            <span class="lang-en">Click on a sky layer in the stack above to launch your space journey and explore where planes fly, stars burn, and satellites orbit.</span>
+            <span class="lang-te">విమానాలు ఎగిరే చోటు, తోకచుక్కలు మండే చోటు, ఉపగ్రహాలు తిరిగే చోటును అన్వేషించడానికి పైన ఉన్న ఆకాశ పొరపై క్లిక్ చేయండి.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Right side: Weather Simulator Widget -->
+      <div class="sphere-card read-aloud-section" id="weather-ambient-container" style="position: relative;">
+        <h2 style="color: var(--atmo-primary); margin-bottom: 15px;">
+          <span class="lang-en">2. Weather Simulator Lab</span>
+          <span class="lang-te">2. వాతావరణ సిమ్యులేటర్ ల్యాబ్</span>
+        </h2>
+        <p>
+          <span class="lang-en">All Earth's weather is created in the atmosphere by temperature, air, and water changes. Click a button below to simulate different weather!</span>
+          <span class="lang-te">భూమిపై వాతావరణం అంతా ఉష్ణోగ్రత, గాలి మరియు నీటి మార్పుల వల్ల వాతావరణంలోనే ఏర్పడుతుంది. వేర్వేరు వాతావరణాలను చూడడానికి కింద క్లిక్ చేయండి!</span>
+        </p>
+
+        <!-- Interactive Weather Simulation Screen -->
+        <div class="weather-widget-box theme-sunny" id="weather-screen">
+          <div class="lightning-effect-layer" id="lightning-overlay"></div>
+          
+          <div id="weather-graphic" style="display:flex; flex-direction:column; align-items:center; transition: var(--transition-smooth);">
+            <span class="sim-sun">☀️</span>
+          </div>
+
+          <!-- Rain Overlay inside the weather box -->
+          <div class="rain-overlay" id="weather-rain-overlay"></div>
+        </div>
+
+        <!-- Weather selector buttons grid -->
+        <div class="weather-btn-grid">
+          <button class="weather-btn active" id="btn-sunny" onclick="triggerWeather('sunny')">
+            <span>☀️</span>
+            <span class="lang-en">Sunny</span>
+            <span class="lang-te">ఎండగా</span>
+          </button>
+          <button class="weather-btn" id="btn-rainy" onclick="triggerWeather('rainy')">
+            <span>🌧️</span>
+            <span class="lang-en">Rainy</span>
+            <span class="lang-te">వర్షం</span>
+          </button>
+          <button class="weather-btn" id="btn-windy" onclick="triggerWeather('windy')">
+            <span>🍃</span>
+            <span class="lang-en">Windy</span>
+            <span class="lang-te">గాలి</span>
+          </button>
+          <button class="weather-btn" id="btn-stormy" onclick="triggerWeather('stormy')">
+            <span>⚡</span>
+            <span class="lang-en">Stormy</span>
+            <span class="lang-te">తుఫాను</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Fun Facts Section -->
+    <section class="read-aloud-section" style="margin-top: 40px;">
+      <div class="kids-info-box fun-fact" style="background-color: #f0fdf4; border-color: #bbf7d0; color: #166534;">
+        <span class="icon">💡</span>
+        <div>
+          <h3 style="margin-bottom: 5px;">
+            <span class="lang-en">Atmosphere Fun Fact!</span>
+            <span class="lang-te">వాతావరణం గురించి ఆసక్తికరమైన విషయం!</span>
+          </h3>
+          <p style="margin: 0; font-size: 1.05rem;">
+            <span class="lang-en">The air above us actually weighs a lot! Even though we don't feel it, there is about <b>1 kilogram of air pressing down</b> on every single square centimeter of our bodies. We don't get crushed because our bodies push back with the same pressure!</span>
+            <span class="lang-te">మన పైన ఉన్న గాలి నిజానికి చాలా బరువుగా ఉంటుంది! మనం అనుకోకపోయినా, మన శరీరంలో ప్రతి చదరపు సెంటీమీటర్ పై దాదాపు <b>1 కిలోగ్రాము గాలి ఒత్తిడి</b> ఉంటుంది. మన శరీరాలు లోపల నుండి అంతే ఒత్తిడిని ఎదురు తిప్పడం వల్ల మనం నలిగిపోకుండా ఉన్నాం!</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    // Initialize ambient wind streaks
+    let ambientWindInterval = null;
+    window.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('weather-ambient-container');
+      if (container) {
+        ambientWindInterval = createWindStreaks(container);
+      }
+    });
+
+    // Atmospheric layers data
+    const atmoLayerData = {
+      tropo: {
+        title: { en: "1. Troposphere (0 - 12 km) 🌧️", te: "1. ట్రోపోవరణం (0 - 12 కిమీ) 🌧️" },
+        text: {
+          en: "This is the lowest layer where we live! It holds 75% of all air gases and nearly all water vapor. That means all our clouds, rain, snow, and winds happen right here.",
+          te: "మనం నివసించే అత్యంత దిగువ పొర ఇదే! ఇందులో వాతావరణంలోని 75% వాయువులు మరియు దాదాపు మొత్తం నీటి ఆవిరి ఉంటాయి. అంటే మన మేఘాలు, వర్షం, మంచు మరియు గాలులు అన్నీ ఇక్కడే ఏర్పడతాయి."
+        }
+      },
+      strato: {
+        title: { en: "2. Stratosphere (12 - 50 km) ✈️", te: "2. స్ట్రాటోవరణం (12 - 50 కిమీ) ✈️" },
+        text: {
+          en: "Jet planes love to fly here because there is no bumpy weather! Crucially, this layer contains the ozone layer, which acts like sunglasses for the Earth, absorbing dangerous UV rays from the sun.",
+          te: "జెట్ విమానాలు ఇక్కడ ఎగరడానికి ఇష్టపడతాయి ఎందుకంటే ఇక్కడ ఎలాంటి అల్లకల్లోల వాతావరణం ఉండదు! ముఖ్యంగా, ఈ పొరలో ఓజోన్ పొర ఉంటుంది. ఇది భూమికి సన్‌గ్లాసెస్‌లా పనిచేస్తూ, సూర్యుడి నుండి వచ్చే హానికరమైన అతినీలలోహిత (UV) కిరణాలను గ్రహిస్తుంది."
+        }
+      },
+      meso: {
+        title: { en: "3. Mesosphere (50 - 85 km) ☄️", te: "3. మీసోవరణం (50 - 85 కిమీ) ☄️" },
+        text: {
+          en: "The coldest layer of the atmosphere (reaching -90°C). It acts as our armor! When meteors or space rocks crash into Earth, they burn up in this layer, creating what we call 'shooting stars'.",
+          te: "వాతావరణంలోనే అత్యంత చల్లని పొర ఇది (-90°C వరకు చేరుకుంటుంది). ఇది మనకు కవచంలా పనిచేస్తుంది! అంతరిక్ష శిలలు లేదా తోకచుక్కలు భూమి వైపు వచ్చినప్పుడు, అవి ఈ పొరలోనే మండిపోతాయి, వీటిని మనం 'షూటింగ్ స్టార్స్' అంటాము."
+        }
+      },
+      thermo: {
+        title: { en: "4. Thermosphere (85 - 600 km) 🌌", te: "4. థర్మోవరణం (85 - 600 కిమీ) 🌌" },
+        text: {
+          en: "This layer gets extremely hot (up to 2,000°C) from the Sun's direct radiation! The International Space Station orbits here. It is also where beautiful dancing lights called Auroras (Northern Lights) occur.",
+          te: "సూర్యుని ప్రత్యక్ష కిరణాల వల్ల ఈ పొర విపరీతంగా వేడెక్కుతుంది (2,000°C వరకు)! అంతర్జాతీయ అంతరిక్ష కేంద్రం (ISS) ఇక్కడే తిరుగుతుంది. ఇక్కడే 'అరోరా' అని పిలువబడే అందమైన నృత్య కాంతులు ఆకాశంలో కనిపిస్తాయి."
+        }
+      },
+      exo: {
+        title: { en: "5. Exosphere (600+ km) 🛰️", te: "5. ఎక్సోవరణం (600+ కిమీ) 🛰️" },
+        text: {
+          en: "The very top frontier of our air, fading gradually into space! Air is incredibly thin here. Most weather and communications satellites orbit in this peaceful outer zone.",
+          te: "మన గాలి యొక్క చివరి అంచు, ఇది క్రమంగా శూన్య అంతరిక్షంలో కలిసిపోతుంది! ఇక్కడ గాలి చాలా పలచగా ఉంటుంది. చాలా వాతావరణ మరియు సమాచార మార్పిడి ఉపగ్రహాలు ఈ ప్రశాంతమైన వెలుపలి జోన్‌లోనే తిరుగుతుంటాయి."
+        }
+      }
+    };
+
+    function selectAtmoLayer(layerId, event) {
+      document.querySelectorAll('.atmo-layer-strip').forEach(s => s.classList.remove('active'));
+      const activeStrip = document.getElementById(`strip-${layerId}`);
+      if (activeStrip) activeStrip.classList.add('active');
+
+      const titleEl = document.getElementById('atmo-title');
+      const textEl = document.getElementById('atmo-text');
+
+      titleEl.innerHTML = `
+        <span class="lang-en">${atmoLayerData[layerId].title.en}</span>
+        <span class="lang-te">${atmoLayerData[layerId].title.te}</span>
+      `;
+      textEl.innerHTML = `
+        <span class="lang-en">${atmoLayerData[layerId].text.en}</span>
+        <span class="lang-te">${atmoLayerData[layerId].text.te}</span>
+      `;
+
+      if (event) {
+        createSparkleBurst(event.clientX, event.clientY);
+      }
+
+      // Play rocket sound
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(80, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(350, audioCtx.currentTime + 0.5);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.5);
+      } catch (e) {}
+    }
+
+    // Weather simulation logic
+    let stormFlashTimer = null;
+    let leafInterval = null;
+
+    function triggerWeather(mode) {
+      // Toggle button active state
+      document.querySelectorAll('.weather-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`btn-${mode}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      // Set screen theme class
+      const screen = document.getElementById('weather-screen');
+      screen.className = 'weather-widget-box'; // reset
+      screen.classList.add(`theme-${mode}`);
+
+      // Clear previous overlays and intervals
+      const rainOverlay = document.getElementById('weather-rain-overlay');
+      rainOverlay.innerHTML = "";
+      clearInterval(stormFlashTimer);
+      if (leafInterval) clearInterval(leafInterval);
+
+      const graphic = document.getElementById('weather-graphic');
+      
+      // Select weather graphics
+      if (mode === 'sunny') {
+        graphic.innerHTML = `<span class="sim-sun">☀️</span>`;
+        // Play click beep
+        playTone(392, 0.1, 'sine');
+      } else if (mode === 'rainy') {
+        graphic.innerHTML = `<span style="font-size: 5rem; animation: float-cloud 2s ease-in-out infinite alternate;">☁️</span>`;
+        
+        // Spawn falling rain drops in widget
+        for (let i = 0; i < 25; i++) {
+          const drop = document.createElement('div');
+          drop.className = 'rain-drop';
+          drop.style.left = `${Math.random() * 95}%`;
+          drop.style.animationDelay = `${Math.random() * 0.4}s`;
+          drop.style.animationDuration = `${0.3 + Math.random() * 0.3}s`;
+          rainOverlay.appendChild(drop);
+        }
+        playTone(261, 0.15, 'sine');
+      } else if (mode === 'windy') {
+        graphic.innerHTML = `<span style="font-size: 5rem; animation: float-cloud 3s ease-in-out infinite alternate;">🌬️</span>`;
+        
+        // Use leaf-fall animation helper inside the weather screen
+        leafInterval = setInterval(() => {
+          if (!screen.isConnected) return;
+          const leaf = document.createElement('div');
+          leaf.className = 'leaf-particle';
+          leaf.style.left = `${Math.random() * 95}%`;
+          leaf.style.setProperty('--drift', `${-50 + Math.random() * 100}px`);
+          leaf.style.setProperty('--time', `${1.5 + Math.random() * 1.5}s`);
+          
+          // Random size
+          const size = 6 + Math.random() * 8;
+          leaf.style.width = `${size}px`;
+          leaf.style.height = `${size * 0.7}px`;
+          
+          screen.appendChild(leaf);
+          setTimeout(() => leaf.remove(), 3000);
+        }, 300);
+
+        playTone(329, 0.15, 'sine');
+      } else if (mode === 'stormy') {
+        graphic.innerHTML = `<span style="font-size: 5rem;">⛈️</span>`;
+        
+        // Lightning flashes at random intervals
+        const overlay = document.getElementById('lightning-overlay');
+        
+        const triggerFlash = () => {
+          overlay.classList.add('active');
+          playTone(60 + Math.random() * 40, 0.4, 'sawtooth'); // thunder rumble
+          setTimeout(() => overlay.classList.remove('active'), 400);
+        };
+        
+        triggerFlash(); // initial flash
+        stormFlashTimer = setInterval(() => {
+          if (Math.random() > 0.4) {
+            triggerFlash();
+          }
+        }, 2500);
+      }
+    }
+
+    function playTone(freq, duration, type = 'sine') {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+  </script>
+</body>
+</html>

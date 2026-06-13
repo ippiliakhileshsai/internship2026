@@ -16,6 +16,10 @@
 
 ---
 
+##Live Demo 
+  swecha-delta.vercel.app
+ 
+
 ##  Story Architechture
 
 The simulation is structured across **5 scenes**, each representing a key concept:

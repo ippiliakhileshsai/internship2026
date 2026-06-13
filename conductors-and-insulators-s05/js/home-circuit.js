@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const testItem = document.getElementById("heroTestItem");
     const mascotText = document.getElementById("heroMascotText");
     const choiceBtns = document.querySelectorAll(".hero-choice-btn");
+    const storyboardModal = document.getElementById("storyboardModal");
+    const openStoryboard = document.getElementById("openStoryboard");
+    const storyboardImageButton = document.getElementById("storyboardImageButton");
+    const closeStoryboard = document.getElementById("closeStoryboard");
 
     let selectedMaterial = null; // Stores currently selected material object
     let isSwitchOn = false;
@@ -71,4 +75,33 @@ document.addEventListener("DOMContentLoaded", () => {
             mascotText.innerHTML = `Click the Switch to turn it <strong>ON</strong> and test the <strong>${selectedMaterial.name}</strong>!`;
         }
     }
+
+    function openStoryboardModal() {
+        if (!storyboardModal) return;
+        storyboardModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeStoryboardModal() {
+        if (!storyboardModal) return;
+        storyboardModal.classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    [openStoryboard, storyboardImageButton].forEach((button) => {
+        if (button) button.addEventListener("click", openStoryboardModal);
+    });
+
+    if (closeStoryboard) closeStoryboard.addEventListener("click", closeStoryboardModal);
+    if (storyboardModal) {
+        storyboardModal.addEventListener("click", (event) => {
+            if (event.target === storyboardModal) closeStoryboardModal();
+        });
+    }
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && storyboardModal && storyboardModal.classList.contains("active")) {
+            closeStoryboardModal();
+        }
+    });
 });

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earth Explorer - Interactive Learning Lab</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/explorer.css">
+</head>
+<body data-page="explorer" class="lang-en">
+
+  <main class="container">
+    
+    <!-- Header banner for Explorer -->
+    <div class="kids-info-box example" style="background-color: #f5f3ff; border-color: #ddd6fe; color: #5b21b6; margin-bottom: 30px;">
+      <span class="icon" style="font-size: 2.5rem;">🚀</span>
+      <div>
+        <h1 style="font-size: 2rem; margin: 0; color: #5b21b6;">
+          <span class="lang-en">Earth Explorer Lab</span>
+          <span class="lang-te">భూమి అన్వేషణ ల్యాబ్</span>
+        </h1>
+        <p style="margin: 0; font-size: 1.05rem;">
+          <span class="lang-en">Welcome to the Interactive Science Lab! Toggle the tabs below to play games, build the Earth, match items, and see how spheres interact.</span>
+          <span class="lang-te">ఇంటరాక్టివ్ సైన్స్ ల్యాబ్‌కు స్వాగతం! ఆటలు ఆడటానికి, భూమిని నిర్మించడానికి, జతపరచడానికి మరియు ఆవరణలు ఎలా కలిసి పనిచేస్తాయో చూడడానికి కింద ఉన్న ట్యాబ్‌లను క్లిక్ చేయండి.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Explorer Tabs Navigation -->
+    <nav class="explorer-tabs">
+      <button class="explorer-tab-btn active" data-panel="panel-build-earth">
+        <span>🌍</span>
+        <span class="lang-en">1. Build Earth</span>
+        <span class="lang-te">1. భూమిని నిర్మించు</span>
+      </button>
+      <button class="explorer-tab-btn" data-panel="panel-match-challenge">
+        <span>🎯</span>
+        <span class="lang-en">2. Match Sphere</span>
+        <span class="lang-te">2. ఆవరణతో జతపరుచు</span>
+      </button>
+      <button class="explorer-tab-btn" data-panel="panel-sim-interactions">
+        <span>⚙️</span>
+        <span class="lang-en">3. Sphere Simulator</span>
+        <span class="lang-te">3. ఆవరణ సిమ్యులేటర్</span>
+      </button>
+    </nav>
+
+    <!-- ==========================================
+         Activity 1 Panel: Build Earth
+         ========================================== -->
+    <section class="activity-panel active" id="panel-build-earth">
+      <div class="build-earth-layout">
+        
+        <!-- Left: Target concentric zones representation -->
+        <div>
+          <p style="font-weight: 800; font-size: 1.2rem; margin-bottom: 15px; text-align: center;">
+            <span class="lang-en">Concentric Target Spheres</span>
+            <span class="lang-te">కనిపించే లక్ష్య ఆవరణలు</span>
+          </p>
+          
+          <div class="concentric-rings-box">
+            <!-- Zone 4: Atmosphere (Outer ring) -->
+            <div class="ring-zone" id="zone-atmo">
+              <span class="ring-label" id="label-atmo">
+                <span class="lang-en">Atmosphere ☁️</span>
+                <span class="lang-te">వాతావరణం ☁️</span>
+              </span>
+              
+              <!-- Zone 3: Biosphere (Middle-outer ring) -->
+              <div class="ring-zone" id="zone-bio">
+                <span class="ring-label" id="label-bio">
+                  <span class="lang-en">Biosphere 🌲</span>
+                  <span class="lang-te">జీవావరణం 🌲</span>
+                </span>
+                
+                <!-- Zone 2: Hydrosphere (Middle-inner ring) -->
+                <div class="ring-zone" id="zone-hydro">
+                  <span class="ring-label" id="label-hydro">
+                    <span class="lang-en">Hydrosphere 🌊</span>
+                    <span class="lang-te">జలావరణం 🌊</span>
+                  </span>
+                  
+                  <!-- Zone 1: Lithosphere (Central solid core) -->
+                  <div class="ring-zone" id="zone-litho">
+                    <span class="ring-label" id="label-litho">
+                      <span class="lang-en">Lithosphere ⛰️</span>
+                      <span class="lang-te">శిలావరణం ⛰️</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Draggable Elements Tray -->
+        <div class="items-tray">
+          <h3 style="margin-bottom: 5px;">
+            <span class="lang-en">Build Earth Items</span>
+            <span class="lang-te">భూమి నిర్మాణ వస్తువులు</span>
+          </h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0;">
+            <span class="lang-en">Drag each natural layer and drop it into its correct concentric target ring on the left!</span>
+            <span class="lang-te">కుడిపక్క ఉన్న ప్రతి సహజ పొరను ఎడమవైపు ఉన్న దాని సరైన లక్ష్య వలయంలోకి లాగి వదలండి!</span>
+          </p>
+
+          <div class="drag-tray-grid">
+            <!-- 1. Lithosphere item -->
+            <div class="draggable-item" id="item-land">
+              <span style="font-size: 2.2rem;">⛰️</span>
+              <div>
+                <span class="lang-en">Land & Crust</span>
+                <span class="lang-te">భూమి & పొర</span>
+              </div>
+            </div>
+            <!-- 2. Hydrosphere item -->
+            <div class="draggable-item" id="item-water">
+              <span style="font-size: 2.2rem;">🌊</span>
+              <div>
+                <span class="lang-en">Oceans & Water</span>
+                <span class="lang-te">సముద్రాలు & నీరు</span>
+              </div>
+            </div>
+            <!-- 3. Biosphere item -->
+            <div class="draggable-item" id="item-forest">
+              <span style="font-size: 2.2rem;">🌲</span>
+              <div>
+                <span class="lang-en">Forests & Life</span>
+                <span class="lang-te">అడవులు & జీవం</span>
+              </div>
+            </div>
+            <!-- 4. Atmosphere item -->
+            <div class="draggable-item" id="item-clouds">
+              <span style="font-size: 2.2rem;">☁️</span>
+              <div>
+                <span class="lang-en">Clouds & Air</span>
+                <span class="lang-te">మేఘాలు & గాలి</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Completion status box -->
+          <div id="act1-status"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         Activity 2 Panel: Match Challenge
+         ========================================== -->
+    <section class="activity-panel" id="panel-match-challenge">
+      <div class="match-grid-container">
+        
+        <!-- Shelf instructions -->
+        <div style="text-align: center;">
+          <h3 style="margin-bottom: 8px;">
+            <span class="lang-en">Object Match Shelf</span>
+            <span class="lang-te">వస్తువుల అమరిక అర</span>
+          </h3>
+          <p style="color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto;">
+            <span class="lang-en">Tap/click an item in the shelf first to select it, then tap the correct Sphere Basket below to sort it! (Or drag and drop if using mouse).</span>
+            <span class="lang-te">సరిపోల్చడానికి మొదట అరలోని వస్తువుపై క్లిక్ చేసి, ఆ తర్వాత కింద ఉన్న సరైన ఆవరణ బుట్టపై క్లిక్ చేయండి! (లేదా డ్రాగ్ చేయండి).</span>
+          </p>
+        </div>
+
+        <!-- Shelf containing draggable/clickable cards -->
+        <div class="match-objects-shelf">
+          <div class="match-object-card" id="match-fish">🐟 <span class="lang-en">Fish</span><span class="lang-te">చేప</span></div>
+          <div class="match-object-card" id="match-tree">🌲 <span class="lang-en">Tree</span><span class="lang-te">చెట్టు</span></div>
+          <div class="match-object-card" id="match-cloud">☁️ <span class="lang-en">Cloud</span><span class="lang-te">మేఘం</span></div>
+          <div class="match-object-card" id="match-mountain">⛰️ <span class="lang-en">Mountain</span><span class="lang-te">పర్వతం</span></div>
+          <div class="match-object-card" id="match-worm">🪱 <span class="lang-en">Worm</span><span class="lang-te">పురుగు</span></div>
+          <div class="match-object-card" id="match-rain">🌧️ <span class="lang-en">Rain</span><span class="lang-te">వర్షం</span></div>
+          <div class="match-object-card" id="match-eagle">🦅 <span class="lang-en">Eagle</span><span class="lang-te">డేగ</span></div>
+          <div class="match-object-card" id="match-rock">🪨 <span class="lang-en">Rock</span><span class="lang-te">రాయి</span></div>
+        </div>
+
+        <!-- Baskets layout grid -->
+        <div class="match-baskets-grid">
+          <!-- 1. Lithosphere Basket -->
+          <div class="match-basket litho-b" id="basket-litho">
+            <span class="basket-icon">⛰️</span>
+            <span class="basket-title">
+              <span class="lang-en">Lithosphere</span>
+              <span class="lang-te">శిలావరణం</span>
+            </span>
+            <div class="basket-contents"></div>
+          </div>
+          <!-- 2. Hydrosphere Basket -->
+          <div class="match-basket hydro-b" id="basket-hydro">
+            <span class="basket-icon">🌊</span>
+            <span class="basket-title">
+              <span class="lang-en">Hydrosphere</span>
+              <span class="lang-te">జలావరణం</span>
+            </span>
+            <div class="basket-contents"></div>
+          </div>
+          <!-- 3. Atmosphere Basket -->
+          <div class="match-basket atmo-b" id="basket-atmo">
+            <span class="basket-icon">☁️</span>
+            <span class="basket-title">
+              <span class="lang-en">Atmosphere</span>
+              <span class="lang-te">వాతావరణం</span>
+            </span>
+            <div class="basket-contents"></div>
+          </div>
+          <!-- 4. Biosphere Basket -->
+          <div class="match-basket bio-b" id="basket-bio">
+            <span class="basket-icon">🌲</span>
+            <span class="basket-title">
+              <span class="lang-en">Biosphere</span>
+              <span class="lang-te">జీవావరణం</span>
+            </span>
+            <div class="basket-contents"></div>
+          </div>
+        </div>
+
+        <!-- Completion status box -->
+        <div id="act2-status"></div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         Activity 3 Panel: Interaction Simulator
+         ========================================== -->
+    <section class="activity-panel" id="panel-sim-interactions">
+      <div class="simulator-layout">
+        
+        <!-- Left: Active Canvas Simulator box -->
+        <div class="sim-sandbox-window" id="sim-sandbox">
+          <!-- Populated by JavaScript and inline SVGs -->
+        </div>
+
+        <!-- Right: Simulator Control Buttons & text info -->
+        <div class="items-tray" style="justify-content: flex-start; height: 100%;">
+          <h3 style="margin-bottom: 5px;">
+            <span class="lang-en">Simulator Controls</span>
+            <span class="lang-te">సిమ్యులేటర్ నియంత్రణలు</span>
+          </h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin: 0; margin-bottom: 10px;">
+            <span class="lang-en">Click a button to see how Earth's spheres interact with one another!</span>
+            <span class="lang-te">భూమి యొక్క ఆవరణలు ఒకదానికొకటి ఎలా స్పందిస్తాయో చూడటానికి బటన్ క్లిక్ చేయండి!</span>
+          </p>
+
+          <div style="display:flex; flex-direction:column; gap:12px; width:100%;">
+            <button class="btn btn-secondary sim-btn" id="btn-sim-rain" onclick="triggerInteraction('rain')">
+              <span>🌧️⛰️</span>
+              <span class="lang-en">Rain on Mountains</span>
+              <span class="lang-te">కొండలపై వర్షం</span>
+            </button>
+            <button class="btn btn-secondary sim-btn" id="btn-sim-grow" onclick="triggerInteraction('grow')">
+              <span>🌱🪨</span>
+              <span class="lang-en">Plants Grow in Soil</span>
+              <span class="lang-te">మట్టిలో మొక్కల పెరుగుదల</span>
+            </button>
+            <button class="btn btn-secondary sim-btn" id="btn-sim-drink" onclick="triggerInteraction('drink')">
+              <span>🦌🌊</span>
+              <span class="lang-en">Animals Drink Water</span>
+              <span class="lang-te">జంతువులు నీరు త్రాగడం</span>
+            </button>
+            <button class="btn btn-secondary sim-btn" id="btn-sim-wind" onclick="triggerInteraction('wind')">
+              <span>🌬️🏜️</span>
+              <span class="lang-en">Wind affects Land</span>
+              <span class="lang-te">నేలపై గాలి ప్రభావం</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Interaction Description Output Panel -->
+      <div class="layer-info-panel" id="sim-info-desc" style="margin-top: 30px; background-color: #f3e8ff; border-color: var(--primary-accent);">
+        <h3 style="margin-bottom: 8px; color: #5b21b6;" id="sim-text-title">
+          <span class="lang-en">Interaction Description 🌐</span>
+          <span class="lang-te">ఆవరణల పరస్పర సంబంధం 🌐</span>
+        </h3>
+        <p style="margin: 0; font-size: 1.05rem; color: var(--text-dark);" id="sim-text-desc">
+          <span class="lang-en">Click on one of the simulator scenarios above to start animations and learn about real-world sphere connections!</span>
+          <span class="lang-te">ఆవరణల మధ్య సంబంధాల గురించి తెలుసుకోవడానికి పైన ఉన్న సిమ్యులేటర్ బటన్ పై క్లిక్ చేయండి!</span>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/explorer.js"></script>
+</body>
+</html>

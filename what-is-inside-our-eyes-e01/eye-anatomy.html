@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eye Anatomy Explorer | What Is Inside Our Eyes?</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Inside the Eye</h1>
+      <p class="subtitle">Click on the glowing parts of the eye structure to discover how each part works to capture light.</p>
+    </header>
+
+    <div class="explorer-grid">
+      
+      <!-- Interactive SVG Illustration Column -->
+      <div class="svg-container">
+        
+        <svg viewBox="0 0 500 500" class="eye-svg" id="eye-anatomy-svg">
+          <!-- Sclera / Eye Body background (Non-interactive) -->
+          <path d="M400 250 C400 332.8 332.8 400 250 400 C167.2 400 100 332.8 100 250 C100 167.2 167.2 100 250 100 C332.8 100 400 167.2 400 250 Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="4" />
+          
+          <!-- Retina -->
+          <path 
+            id="svg-part-retina"
+            class="clickable"
+            d="M380 250 C380 321.8 321.8 380 250 380 C200 380 150 350 125 305 L145 295 C165 330 205 350 250 350 C305.2 350 350 305.2 350 250 C350 194.8 305.2 150 250 150 C205 150 165 170 145 205 L125 195 C150 150 200 120 250 120 C321.8 120 380 178.2 380 250 Z" 
+            fill="#db2777" 
+          />
+
+          <!-- Optic Nerve -->
+          <path
+            id="svg-part-optic-nerve"
+            class="clickable"
+            d="M390 230 L480 230 C490 230 490 270 480 270 L390 270 C395 255 395 245 390 230 Z"
+            fill="#8b5cf6"
+          />
+
+          <!-- Cornea -->
+          <path
+            id="svg-part-cornea"
+            class="clickable"
+            d="M100 160 C60 200 60 300 100 340 C110 320 110 180 100 160 Z"
+            fill="rgba(56, 189, 248, 0.2)"
+            stroke="#0ea5e9"
+            stroke-width="3"
+          />
+
+          <!-- Lens -->
+          <ellipse
+            id="svg-part-lens"
+            class="clickable"
+            cx="150" cy="250" rx="15" ry="40"
+            fill="#f59e0b"
+          />
+
+          <!-- Pupil / Iris Gate group -->
+          <g id="svg-part-pupil" class="clickable">
+            <!-- Iris upper boundary -->
+            <path d="M120 170 L120 210 L130 210 L130 170 Z" fill="#64748b" />
+            <!-- Iris lower boundary -->
+            <path d="M120 290 L120 330 L130 330 L130 290 Z" fill="#64748b" />
+            <!-- Active background highlight indicator -->
+            <rect id="pupil-active-indicator" x="115" y="210" width="10" height="80" fill="transparent" />
+            <!-- Large transparent overlay to catch clicks easily -->
+            <rect x="110" y="210" width="30" height="80" fill="transparent" style="cursor: pointer;" />
+          </g>
+        </svg>
+
+        <!-- Tap helper badge -->
+        <div class="helper-tag" id="helper-text-tag">
+          <!-- Sparkles Icon -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.5">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/>
+          </svg>
+          <span>Tap on the eye parts!</span>
+        </div>
+
+      </div>
+
+      <!-- Information Card Column -->
+      <div class="info-display-container" id="info-display-slot">
+        <div class="placeholder-card">
+          Select a part of the eye diagram on the left to explore its functions and interesting anatomical facts.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

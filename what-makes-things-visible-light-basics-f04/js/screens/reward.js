@@ -8,8 +8,8 @@ import { loadTemplate } from '../utils/template.js';
 
 export async function renderReward(container, { levelId }) {
   const lvl = levelsData.find(l => l.id === levelId);
-  const stars = gameState.simStars;
   const score = gameState.quizScore;
+  const stars = score >= 5 ? 3 : score >= 4 ? 2 : score >= 2 ? 1 : 0;
   const badge = badgesData.find(b => b.level === levelId);
   const xpGain = score * 30 + stars * 50;
   const coinsGain = stars * 50 + score * 20;

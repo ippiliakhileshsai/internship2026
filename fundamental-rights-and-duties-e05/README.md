@@ -1,142 +1,131 @@
-# Constitution Quest: Fundamental Rights & Duties Learning Platform
+# Civics Guardian 🦸‍♂️
 
-An interactive educational web application designed to teach Indian students about Fundamental Rights and Fundamental Duties from the Indian Constitution using engaging gamification and interactive storytelling.
+An interactive web-based educational game that makes learning Indian Constitution and Civics engaging and fun through gamification and superhero-themed experiences.
 
-## 🎮 Features
+## Features
 
-- **Interactive Learning Hub**: Explore 6 Fundamental Rights and 11 Fundamental Duties
-- **Spidey Guardian Game**: Real-time decision-making game based on Spider-Man themed scenarios
-- **Mini-Games**: 
-  - Scenario-based MCQ quizzes
-  - Word unscramble challenges
-  - Final graded examination
-- **Progress Tracking**: Score system with badge achievements
-- **Offline-Friendly**: Runs completely in the browser using localStorage
+### 🎮 Gamification System
+- **XP Tracking**: Earn experience points for correct answers
+- **Lives System**: Start with 3 lives; incorrect answers reduce lives
+- **High Score**: Track your best performance
+- **Progress Indicator**: Visual progress bar shows quiz completion
+- **Score History**: View past game attempts and statistics
 
-## 📁 Project Structure
+### 🎨 Themes
+- **Spider-Man Theme**: Red and dark theme with web-inspired design
+- **Iron Man Theme**: Gold and black high-tech aesthetic
+- Additional theme customization support
+
+### 🌙 Accessibility
+- **Dark Mode Toggle**: Easy on the eyes with 🌙 Dark Mode button
+- **Responsive Design**: Works seamlessly on desktop and mobile
+- **Persistent Storage**: Game progress saved using localStorage
+
+### 📚 Educational Content
+- **Level-based Questions**: Beginner level with scenario-based civics questions
+- **Constitutional Rights**: Learn about equality, freedom of speech, education rights
+- **Fundamental Duties**: Understand responsibilities as citizens
+- **Hint System**: Get helpful hints for challenging questions
+- **Quick Quiz**: 10-question format for focused learning
+
+## How to Play
+
+1. **Open** `index.html` in your web browser
+2. **Choose** a theme and avatar for your player
+3. **Answer** civics questions based on real-life scenarios
+4. **Earn XP** for correct answers and aim for the high score
+5. **Track** your progress with the lives system
+6. **View** your stats and badges after completing the quiz
+
+## File Structure
 
 ```
-fundamental-rights-and-duties-e05/
-├── src/                          # Main application files
-│   ├── index.html               # Main hub page
-│   ├── game.html                # Spidey Guardian game
-│   ├── script.js                # Main application logic
-│   ├── gameApp.js               # Game engine
-│   ├── scenarios.js             # Game scenario data
-│   ├── style.css                # Main styles
-│   ├── gameStyle.css            # Game specific styles
-│   └── components/              # Reusable UI components
-│   └── pages/                   # Additional pages
-├── Assets/                       # Media files
-│   ├── images/                  # Image assets
-│   ├── audio/                   # Sound effects
-│   └── SVG/                     # SVG graphics
-├── Docs/                        # Documentation
-├── designs/                     # UI/UX design files
-└── README.md                    # This file
+└──src/├── index.html      # Main HTML structure with quiz interface
+├      ├── script.js       # Game logic, questions, and state management
+├      ├── style.css       # Styling with theme customization
+└── README.md       # This file
 ```
 
-## 🚀 Getting Started
+## Technical Details
 
-### Prerequisites
-- Web browser (Chrome, Firefox, Safari, Edge)
-- No server or backend required
+### Technologies Used
+- **HTML5**: Semantic markup and structure
+- **CSS3**: Grid layout, flexbox, CSS variables for theming
+- **JavaScript (Vanilla)**: Pure JS, no dependencies
 
-### Installation
+ ### development tools
+- vs code
+- git
+- github
+- copliot
+- chatgpt
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/fundamental-rights-and-duties.git
-cd fundamental-rights-and-duties-e05
-```
+### deployment tools 
+- vercel 
 
-2. Open the application:
-   - Navigate to the `src/` folder
-   - Open `index.html` in your web browser
+### Data Persistence
+- XP and high score saved to localStorage
+- Player name and selected theme/avatar remembered
+- Game statistics tracked (games played, correct/wrong answers)
+- Score history maintained across sessions
 
-Or use a local server:
+### Responsive Design
+- Mobile-first approach
+- CSS Grid and Flexbox layout
+- Adaptive typography and spacing
+
+## Browser Support
+
+- Chrome/Edge (Latest)
+- Firefox (Latest)
+- Safari (Latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Getting Started
+
+### No Installation Required ✨
+Simply open `index.html` in any modern web browser.
+
+### Optional: Local Development
+If you want to run a local server:
 ```bash
 # Using Python 3
 python -m http.server 8000
 
-# Using Node.js
-npx http-server
+# Using Node.js (if http-server is installed)
+http-server
 ```
 
-Then visit `http://localhost:8000/src/`
+Then open `http://localhost:8000` in your browser.
 
-## 📚 Educational Content
+## Features Roadmap
 
-### Fundamental Rights (Part III, Articles 12-35)
-1. Right to Equality
-2. Right to Freedom
-3. Right against Exploitation
-4. Freedom of Religion
-5. Cultural & Educational Rights
-6. Right to Constitutional Remedies
+- [ ] Additional difficulty levels (Intermediate, Advanced)
+- [ ] More themed question sets
+- [ ] Leaderboard system
+- [ ] Share score feature
+- [ ] Offline mode
+- [ ] Sound effects and animations
+- [ ] Badge achievement system
+- [ ] Multiplayer quiz mode
 
-### Fundamental Duties (Article 51A)
-1. Respect Flag, Anthem & Constitution
-2. Follow Noble Freedom Ideals
-3. Protect Unity & Sovereignty
-4. Defend Nation & Serve When Called
-5. Promote Brotherhood & Harmony
-6. Value Our Rich Heritage Culture
-7. Protect Forests, Lakes & Wildlife
-8. Build Scientific Temper & Logic
-9. Safeguard Public Property
-10. Strive for Group Excellence
-11. Parent Duty: Send Children to School
+## Educational Goals
 
-## 🎮 How to Play the Spidey Guardian Game
+This game helps students:
+- Understand Indian Constitutional rights and duties
+- Learn through scenario-based questions
+- Retain knowledge with gamification incentives
+- Build civic awareness in an engaging manner
+- Develop critical thinking about real-life ethical situations
 
-1. From the modules page, click "Launch Game"
-2. Face real-life scenarios as Spider-Man
-3. Make choices that demonstrate understanding of rights and duties
-4. Earn points and badges for correct decisions
-5. Track your progress and compete for high scores
+## License
 
-## 🛠️ Technologies Used
+Educational Project - 2026
 
-- **HTML5** - Structure and markup
-- **CSS3** - Styling and animations
-- **Vanilla JavaScript** - Game logic and interactivity
-- **Tailwind CSS** - Utility-first styling
-- **Web Audio API** - Sound effects generation
-- **LocalStorage API** - Data persistence
+## Author
 
-## 📝 Browser Compatibility
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-- Report bugs via Issues
-- Suggest features
-- Submit pull requests for improvements
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👨‍💻 Author
-
-Created as part of AI Internship 2026 - Educational Technology Initiative
-
-## 🙏 Acknowledgments
-
-- Indian Constitution resources
-- Educational content adapted from official government sources
-- Spider-Man character concept for gamification
-
-## 📞 Support
-
-For issues or questions, please open an issue on GitHub or contact the development team.
+Created as part of AI Internship 2026 - Final FRD
 
 ---
 
-**Last Updated**: June 2026
+**Ready to become a Civics Guardian?** 🎯 Open `index.html` and start playing!

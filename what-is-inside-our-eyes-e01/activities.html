@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Labs | Adaptation & Focus Simulator</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Interactive Labs</h1>
+      <p class="subtitle">Take control, adjust settings, and observe how the human eye adapts to light levels and focal distances.</p>
+    </header>
+
+    <div class="labs-grid">
+      
+      <!-- Pupil Simulator Card -->
+      <div class="glass-card">
+        <h3 class="lab-title primary">Pupil Simulator</h3>
+        <p class="lab-desc">Adjust the ambient brightness to see how the pupil expands in the dark and contracts in bright light.</p>
+        
+        <!-- Viewport displaying HSL brightness background and Eyeball model -->
+        <div class="viewport-panel" id="pupil-viewport" style="background-color: hsl(45, 100%, 50%);">
+          <!-- Eye -->
+          <div class="eye-model">
+            <!-- Iris -->
+            <div class="iris-model">
+              <!-- Pupil -->
+              <div class="pupil-model" id="pupil-pupil" style="width: 50px; height: 50px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slider-control">
+          <div class="slider-labels">
+            <span>Dark</span>
+            <span>Bright</span>
+          </div>
+          <input type="range" min="0" max="100" value="50" class="range-slider" id="brightness-range" aria-label="Brightness controller slider">
+        </div>
+      </div>
+
+      <!-- Lens Focus Lab Card -->
+      <div class="glass-card">
+        <h3 class="lab-title secondary">Lens Focus Lab</h3>
+        <p class="lab-desc">Toggle the eye's focal distance to observe how the lens changes its shape (accommodation) to focus on near or far objects.</p>
+        
+        <div class="viewport-panel" style="background-color: #F0F9FF;">
+          <!-- Lens Refraction SVG diagram -->
+          <svg viewBox="0 0 200 100" class="lens-svg">
+            <ellipse 
+              id="eye-lens"
+              class="eye-lens-element"
+              cx="100" cy="50"
+              rx="30"
+              ry="40"
+              fill="rgba(56, 189, 248, 0.4)" 
+              stroke="#0ea5e9" stroke-width="2.5"
+            />
+            <!-- Focus rays -->
+            <path 
+              id="focus-ray-path"
+              class="focus-ray"
+              d="M 10 20 L 70 50 M 10 80 L 70 50"
+              stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 2"
+              fill="none"
+            />
+          </svg>
+
+          <!-- Far Object (Mountain) -->
+          <div class="far-target" id="far-mountain" style="filter: blur(4px); transform: scale(0.8);">
+            <svg width="32" height="24" viewBox="0 0 32 24" fill="none">
+              <polygon points="16,2 30,22 2,22" fill="#94a3b8"/>
+              <polygon points="8,22 16,8 24,22" fill="#cbd5e1"/>
+              <polygon points="14,6 19,6 16,2" fill="white" opacity="0.7"/>
+            </svg>
+          </div>
+
+          <!-- Near Object (Butterfly) -->
+          <div class="near-target" id="near-butterfly" style="filter: blur(0px); transform: translateY(-50%) scale(1.5);">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+              <ellipse cx="12" cy="14" rx="10" ry="7" fill="#a78bfa" opacity="0.8"/>
+              <ellipse cx="24" cy="14" rx="10" ry="7" fill="#60a5fa" opacity="0.8"/>
+              <ellipse cx="12" cy="22" rx="7" ry="5" fill="#c4b5fd" opacity="0.6"/>
+              <ellipse cx="24" cy="22" rx="7" ry="5" fill="#93c5fd" opacity="0.6"/>
+              <line x1="18" y1="10" x2="18" y2="28" stroke="#475569" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn-toggle active" id="btn-focus-near">Look Near</button>
+          <button class="btn-toggle" id="btn-focus-far">Look Far</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

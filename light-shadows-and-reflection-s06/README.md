@@ -1,8 +1,46 @@
-# AI-Powered Light Reflection and Shadow Simulator
+ Light Reflection and Shadow Simulator
 
 An interactive educational physics simulator that helps students understand light reflection, the Law of Reflection, normal lines, shadow formation, and the behavior of plane, convex, and concave mirrors.
 
 ---
+## Team Members & Contributions
+
+### E. Snehith
+
+- Researched physics concepts related to light, reflection, shadows, and rainbow formation.
+- Contributed to storyboard planning and experiment design.
+
+### B. Luhitha
+
+- Researched educational requirements and learning objectives.
+- Contributed to storyboard planning and content organization.
+
+### K. Naga Vyshnavi
+
+- Developed the Light Reflection simulation using HTML, CSS, and JavaScript.
+- Implemented ray visualization and reflection concepts.
+
+### Shaik Rohan
+
+- Developed the Light Reflection simulation using HTML, CSS, and JavaScript.
+- Assisted in implementing interactive reflection features.
+
+### B. Jayadev
+
+- Improved the overall UI/UX of the simulator.
+- Designed and implemented the Shadow Formation simulation.
+- Enhanced visualizations, educational content, and interactive learning features.
+
+### B. Mahesh
+
+- Improved the simulator interface and user experience.
+- Developed the Rainbow Formation simulation and dispersion visualization.
+
+### P. Manohari
+
+- Deployed the project and managed hosting.
+- Assisted with project integration and final testing.
+
 
 ## Project Overview
 
@@ -13,7 +51,7 @@ This web-based simulation provides a real-time, visually rich environment for ex
 - **Interactive controls** for angle, intensity, surface type, and position
 - **Quiz Mode** with 10 curriculum-aligned physics questions
 - **Learning Mode** with comprehensive reference content
-
+  
 ---
 
 ## Folder Structure
@@ -181,3 +219,6 @@ MIT License — Free for educational use.
 ---
 
 _Built as an academic project demonstrating the intersection of physics education and AI-assisted learning._
+
+Deployment Link:
+https://lightshadowreflection.netlify.app/

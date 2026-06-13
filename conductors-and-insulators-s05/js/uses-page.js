@@ -562,17 +562,26 @@ const spotItems = [
 let currentSpotIndex = 0;
 let spotScore = 0;
 let spotAnswered = false;
+let spotMisses = 0;
+let currentStreak = 0;
+let bestStreak = 0;
+let spotStartTime = Date.now();
 
 function initSpotGame() {
     currentSpotIndex = 0;
     spotScore = 0;
     spotAnswered = false;
+    spotMisses = 0;
+    currentStreak = 0;
+    bestStreak = 0;
+    spotStartTime = Date.now();
     for (let i = spotItems.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [spotItems[i], spotItems[j]] = [spotItems[j], spotItems[i]];
     }
     showSpotItem();
     updateSpotProgress();
+    updateSpotStats();
     document.getElementById('spotCard').style.display = 'block';
     document.getElementById('spotResult').style.display = 'none';
 }
@@ -586,6 +595,12 @@ function showSpotItem() {
     document.getElementById('spotFeedback').className = 'spot-feedback';
     document.getElementById('btnConductor').disabled = false;
     document.getElementById('btnInsulator').disabled = false;
+    const nextBtn = document.getElementById('spotNextBtn');
+    if (nextBtn) nextBtn.hidden = true;
+    const miniCircuit = document.getElementById('spotMiniCircuit');
+    if (miniCircuit) miniCircuit.className = 'spot-mini-circuit';
+    const testGap = document.getElementById('spotTestGap');
+    if (testGap) testGap.textContent = item.emoji;
     spotAnswered = false;
     const emojiEl = document.getElementById('spotEmoji');
     emojiEl.style.animation = 'none';
@@ -599,6 +614,20 @@ function updateSpotProgress() {
     document.getElementById('spotScoreText').textContent = `${currentSpotIndex} / ${spotItems.length}`;
 }
 
+function updateSpotStats() {
+    const streakEl = document.getElementById('spotStreak');
+    const missesEl = document.getElementById('spotMisses');
+    const levelEl = document.getElementById('spotLevel');
+    if (streakEl) streakEl.textContent = currentStreak;
+    if (missesEl) missesEl.textContent = spotMisses;
+    if (levelEl) {
+        if (spotScore >= 8) levelEl.textContent = 'Master';
+        else if (spotScore >= 5) levelEl.textContent = 'Explorer';
+        else if (currentSpotIndex > 0) levelEl.textContent = 'Builder';
+        else levelEl.textContent = 'Start';
+    }
+}
+
 function spotAnswer(answer) {
     if (spotAnswered) return;
     spotAnswered = true;
@@ -607,21 +636,37 @@ function spotAnswer(answer) {
     const feedback = document.getElementById('spotFeedback');
     document.getElementById('btnConductor').disabled = true;
     document.getElementById('btnInsulator').disabled = true;
+    const miniCircuit = document.getElementById('spotMiniCircuit');
+    if (miniCircuit) {
+        miniCircuit.className = `spot-mini-circuit ${item.type === 'conductor' ? 'flowing' : 'blocked'}`;
+    }
     if (isCorrect) {
         spotScore++;
+        currentStreak++;
+        bestStreak = Math.max(bestStreak, currentStreak);
         feedback.className = 'spot-feedback correct-feedback';
         feedback.innerHTML = `✅ <strong>Correct!</strong> ${item.explanation}`;
     } else {
+        spotMisses++;
+        currentStreak = 0;
         feedback.className = 'spot-feedback wrong-feedback';
         const correctType = item.type.charAt(0).toUpperCase() + item.type.slice(1);
         feedback.innerHTML = `❌ <strong>Not quite!</strong> ${item.name} is a <strong>${correctType}</strong>. ${item.explanation}`;
     }
-    setTimeout(() => {
-        currentSpotIndex++;
-        updateSpotProgress();
-        if (currentSpotIndex < spotItems.length) showSpotItem();
-        else showSpotResult();
-    }, 2500);
+    updateSpotStats();
+    const nextBtn = document.getElementById('spotNextBtn');
+    if (nextBtn) {
+        nextBtn.hidden = false;
+        nextBtn.textContent = currentSpotIndex + 1 < spotItems.length ? 'Next item' : 'See result analysis';
+    }
+}
+
+function nextSpotItem() {
+    if (!spotAnswered) return;
+    currentSpotIndex++;
+    updateSpotProgress();
+    if (currentSpotIndex < spotItems.length) showSpotItem();
+    else showSpotResult();
 }
 
 function showSpotResult() {
@@ -639,6 +684,23 @@ function showSpotResult() {
     document.getElementById('spotResultIcon').textContent = icon;
     document.getElementById('spotResultTitle').textContent = title;
     document.getElementById('spotResultText').textContent = text;
+    const secondsSpent = Math.max(1, Math.round((Date.now() - spotStartTime) / 1000));
+    const badges = [];
+    if (pct >= 80) badges.push('Sharp Sorter');
+    if (bestStreak >= 4) badges.push('Streak Builder');
+    if (spotMisses <= 2) badges.push('Careful Observer');
+    if (badges.length === 0) badges.push('Practice Mode');
+    const badgeRack = document.getElementById('spotBadgeRack');
+    if (badgeRack) badgeRack.innerHTML = badges.map(badge => `<span>${badge}</span>`).join('');
+    localStorage.setItem('conductoverseSpotResult', JSON.stringify({
+        score: spotScore,
+        total: spotItems.length,
+        percent: Math.round(pct),
+        misses: spotMisses,
+        bestStreak,
+        secondsSpent,
+        completedAt: new Date().toISOString()
+    }));
 }
 
 function resetSpotGame() { initSpotGame(); }

@@ -226,3 +226,7 @@ Newton's laws of motion are important rules that explain how things move. This p
 Project live link:
 
 https://agent-6a211b795832760fa43bf868--newtonga.netlify.app/
+
+Project live link Review 2:
+
+https://newtonslawso1.netlify.app/

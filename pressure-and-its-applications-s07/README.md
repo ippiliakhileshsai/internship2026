@@ -1,270 +1,182 @@
-# PressureVerse – Interactive Learning Platform for Pressure and Its Applications
+# Pressure Playground — PressureVerse
 
-### Developed by **Team Beyond Pressure (SO7)**
+An interactive, browser-only educational site that teaches **Pressure = Force ÷ Area** to school students (Class 9–11). No server, no build step — just open `index.html` in any modern browser.
 
----
-
-# Team Information
-
-| Team Name           | Team Code |
-| ------------------- | --------- |
-| **Beyond Pressure** | **SO7**   |
-
-### Team Vision
-
-**"Learning Physics Beyond Theory Through Interactive Experiences."**
+**Live on Vercel:** https://intern-gules-zeta.vercel.app/index.html
 
 ---
 
 ## Project Overview
 
-**PressureVerse** is an interactive educational platform designed to simplify the concept of **Pressure** and its real-world applications through engaging simulations, visual demonstrations, and modern web experiences.
-
-The project combines physics education with interactive technology to make learning intuitive, practical, and enjoyable for students.
+PressureVerse is a gamified physics learning simulation built with pure HTML, CSS, and vanilla JavaScript. Students interact with cutting simulators, hydraulic lifts, blood pressure gauges, and more.
 
 ---
 
-## Live Project
+## Purpose
 
-### Website
-
-https://pressure-verse.vercel.app
-
-
----
-
-# Features
-
-## Educational Modules
-
-* Introduction to Pressure
-* Pressure Formula Visualization
-* Real-World Applications of Pressure
-* Interactive Learning Sections
-
-## Interactive Simulations
-
-* Hydraulic Car Lift Simulation
-* Water Pressure Bottle Experiment
-* Pneumatic Piston Demonstration
-* Knife Pressure Comparison
-* High Heels vs Sports Shoes Pressure Comparison
-
-## User Experience Features
-
-* Glassmorphism UI Design
-* Animated Physics-Themed Background
-* Smooth Scrolling Navigation
-* Responsive Layout
-* Modern Educational Interface
-* Storyboard Integration
+- Replace passive pressure-chapter reading with hands-on simulation
+- Demonstrate P = F/A with immediate visual cause-and-effect
+- Provide an accessible, offline-capable resource for Class 9-11 teachers and students
 
 ---
 
-# Storyboard
+## Features
 
-The complete educational flow and simulation planning were designed before development using Excalidraw.
-
-### Storyboard Link
-
-https://excalidraw.com/#room=c0405172e531a802c8ff,zBpnHyTmjO4lnR2YlA3qfg
-
----
-
-# Technology Stack
-
-## Frontend
-
-* React.js
-* Vite
-* JavaScript (ES6+)
-* HTML5
-* CSS3
-
-## Development Tools
-
-* Visual Studio Code
-* Git
-* GitHub
-
-## Deployment
-
-* Vercel
+- Interactive knife-vs-tomato cutting game with real-time pressure meter
+- 6 animated physics simulations (Pascal, Boyle, Bernoulli, Blood Pressure, Underwater, Wing)
+- Live Force / Pressure / Formula readout bars
+- 7-question quiz with hints, instant feedback, and confetti on perfect score
+- Background music engine (Web Audio API — no external audio library)
+- Dr. Pascal voice tutor assistant (Speech Synthesis API)
+- Custom animated cursor system with 4-state hover modes
+- Floating physics symbol doodles
+- Pressure Experience Meter (PEM) that rises as you scroll
+- Fully keyboard-operable; prefers-reduced-motion supported
+- Responsive from 360 px to 1440 px+
 
 ---
 
-# Project Structure
+## Technologies Used
 
-```plaintext
-src/
+| Technology        | Purpose                                      |
+|-------------------|----------------------------------------------|
+| HTML5             | Page structure, semantic markup, ARIA        |
+| CSS3              | Layout, animations, responsive design        |
+| Vanilla JavaScript| Simulations, quiz, audio engine, cursor      |
+| SVG               | All diagrams, animations, and illustrations  |
+| Web Audio API     | Background music and sound effects           |
+| Speech Synthesis  | Dr. Pascal voice tutor (learn page)          |
+| Google Fonts      | Fredoka / Fredoka One + Nunito               |
+| Vercel            | Static site deployment                       |
+
+---
+
+## Folder Structure
+
+```
+dashboard/
+├── index.html                        ← Game / Play page (main entry point)
 │
-├── pages/
-│   └── Home.jsx
+├── html/
+│   ├── learn.html                    ← Full learn module (6 simulations + quiz)
+│   └── pressure-veggie-cutting.html  ← Alternative cutting simulator with audio
 │
-├── components/
-│   ├── Navbar.jsx
-│   ├── Hero.jsx
-│   ├── Storyboard.jsx
-│   ├── HydraulicLift.jsx
-│   ├── WaterBottle.jsx
-│   ├── PneumaticPiston.jsx
-│   ├── KnifePressure.jsx
-│   ├── FootwearPressure.jsx
-│   ├── Requirements.jsx
-│   ├── ProjectStructure.jsx
-│   ├── PressureGauge.jsx
-│   ├── GlassCard.jsx
-│   └── Footer.jsx
+├── css/
+│   └── learn.css                     ← Styles for the learn module
 │
-├── assets/
-├── data/
-├── utils/
+├── js/
+│   └── learn.js                      ← JavaScript for the learn module
 │
-├── App.jsx
-├── main.jsx
-└── styles.css
+├── images/
+│   ├── cur_btn.png                   ← Custom cursor — button state
+│   ├── cur_default.png               ← Custom cursor — default state
+│   ├── cur_nav.png                   ← Custom cursor — nav state
+│   ├── cur_slider.png                ← Custom cursor — slider state
+│   ├── show_div12.png                ← Reference screenshot (dividers 1-2)
+│   ├── show_div23.png                ← Reference screenshot (dividers 2-3)
+│   ├── show_div45.png                ← Reference screenshot (dividers 4-5)
+│   ├── show_rocket.png               ← Reference screenshot (rocket card)
+│   ├── show_top.png                  ← Reference screenshot (page top)
+│   ├── ss_cards.png                  ← Reference screenshot (cards view)
+│   ├── ss_div34.png                  ← Reference screenshot (dividers 3-4)
+│   ├── ss_div5.png                   ← Reference screenshot (divider 5)
+│   ├── ss_mid.png                    ← Reference screenshot (mid section)
+│   ├── ss_top.png                    ← Reference screenshot (top section)
+│   ├── v2_btn.png                    ← V2 cursor — button state
+│   ├── v2_card.png                   ← V2 cursor — card state
+│   ├── v2_default.png                ← V2 cursor — default state
+│   ├── v2_nav.png                    ← V2 cursor — nav state
+│   └── v2_slider.png                 ← V2 cursor — slider state
+│
+├── storyboard/                       ← Project storyboard files (add PNG/PDF here)
+├── userpersona/                      ← User persona files (add PNG/PDF here)
+│
+├── nogod.mp3                         ← Cutting feedback audio
+├── requirements.md                   ← Phase 2 requirement gathering document
+├── Team.md                           ← Team info + Phase 5 task division
+├── README.md                         ← This file
+├── vercel.json                       ← Vercel deployment config
+└── .gitignore                        ← Git ignore rules
 ```
 
 ---
 
-# Team Members & Responsibilities
+## How to Run
 
-| Team Member                          | ID             | Role                                                            |
-| ------------------------------------ | -------------- | --------------------------------------------------------------- |
-| **Manasadevi**                       | **24NP1A05B4** | **Project Administrator, Team Lead Tracker & Progress Manager** |
-| **Akurathi Siva Rama Nageswara Rao** | **2400031115** | **Lead Vibe Coding, Frontend Development & Deployment**         |
-| **Amrutha Badri**                    | **2400080142** | Vibe Coding Support, UI Components & Documentation              |
-| **Vasantha Eedu**                    | **23KC1A0529** | Vibe Coding Support, Testing & UI Review                        |
-| **Shaik Tanveer Basha**              | **2400030274** | Storyboard Design & Educational Flow                            |
-| **Ramesh Kumar Kandula**             | **2400031595** | Storyboard Planning & Content Structure                         |
-| **Ashish Dohare**                    | **2400032517** | GitHub Issues & Project Tracking                                |
-| **Vignathri Kannikanti**             | **2400032479** | GitHub Commits & Version Control Management                     |
-
----
-
-# Team Contributions
-
-## Project Administration & Management
-
-### Manasadevi
-
-* Team Coordination
-* Progress Tracking
-* Task Monitoring
-* Deliverable Verification
-* Documentation Review
-* Submission Management
-
-## Vibe Coding & Development Team
-
-* Akurathi Siva Rama Nageswara Rao
-* Amrutha Badri
-* Vasantha Eedu
-
-## Storyboard Team
-
-* Shaik Tanveer Basha
-* Ramesh Kumar Kandula
-
-## GitHub Issues & Project Tracking
-
-* Ashish Dohare
-
-## GitHub Repository & Version Control
-
-* Vignathri Kannikanti
-
----
-
-# GitHub Issues Covered
-
-* Storyboard Design
-* Homepage Development
-* Interactive Simulations
-* UI/UX Enhancements
-* Responsive Design Testing
-* Documentation Preparation
-* Vercel Deployment
-* Final Testing & Validation
-
----
-
-# Development Workflow
-
-```text
-Requirement Analysis
-        ↓
-Storyboard Creation
-        ↓
-GitHub Issue Creation
-        ↓
-UI/UX Planning
-        ↓
-Vibe Coding Development
-        ↓
-Interactive Simulation Integration
-        ↓
-Testing & Validation
-        ↓
-Documentation
-        ↓
-GitHub Repository Updates
-        ↓
-Vercel Deployment
-        ↓
-Final Submission
-```
-
----
-
-# Local Setup
-
-### Install Dependencies
+1. Clone or download this repository.
+2. Open `index.html` in any modern browser — no server needed.
 
 ```bash
-npm install
+# Optional: serve with Python for the cleanest experience
+python -m http.server 8000
+# then visit http://localhost:8000
 ```
 
-### Start Development Server
-
-```bash
-npm run dev
-```
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
+Google Fonts is the only external resource. Everything else works fully offline.
 
 ---
 
-# Deployment Process
+## Page Details
 
-1. Develop using React + Vite
-2. Push code to GitHub
-3. Connect repository to Vercel
-4. Configure build settings
-5. Deploy application
-6. Verify production build
-7. Publish live website
+| Page | File | Description |
+|------|------|-------------|
+| Play | `index.html` | Knife game: choose sharp or blunt, hold PRESS, watch the tomato react. Live P = F/A meters. |
+| Pressure Playground | `html/pressure-veggie-cutting.html` | Enhanced simulator with audio cutting feedback (nogod.mp3). |
+| Learn | `html/learn.html` | 6 animated simulations, 3 real-world stories, 6 solved examples, 7-question quiz, Dr. Pascal tutor. |
 
 ---
 
-# Project Goal
+## Asset Details
 
-To create an immersive educational platform that helps students understand **Pressure** and its practical applications through **visualization, experimentation, and simulation-based learning**.
+| Asset | Location | Purpose |
+|-------|----------|---------|
+| `nogod.mp3` | root | Cutting sound for pressure-veggie-cutting.html |
+| `cur_*.png` | `images/` | Custom cursor sprites (4 states) |
+| `v2_*.png` | `images/` | V2 cursor design reference sprites |
+| `ss_*.png` | `images/` | Screenshot reference images |
+| `show_*.png` | `images/` | Screenshot reference images |
 
 ---
 
-# Developed by Team Beyond Pressure (SO7)
+## Team Details
 
-### PressureVerse © 2026
+See [Team.md](Team.md) for full team information and Phase 5 task division.
 
-**Learn Physics Through Interaction, Visualization & Real-World Applications**
+---
+
+## Requirements Summary
+
+See [requirements.md](requirements.md) for the full Phase 2 requirement gathering document.
+
+- **Target users:** Class 9-11 students and science teachers
+- **No backend, no login, no tracking** — pure static site
+- **Browser support:** Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- **Offline capable** after first load (Google Fonts only)
+
+---
+
+## Testing Checklist
+
+- [x] index.html opens and game works (Sharp/Blunt knife, PRESS button, meters, confetti)
+- [x] html/learn.html opens and all 6 simulation cards are interactive
+- [x] html/pressure-veggie-cutting.html opens and cutting audio plays
+- [x] Nav links: Play ↔ Learn navigation works correctly
+- [x] Background music toggle persists across page reloads
+- [x] Sound mute toggle works on all pages
+- [x] Quiz: 7 questions, hints, scoring, confetti at 6-7/7 correct
+- [x] Responsive layout at 360 px, 720 px, 1080 px, 1440 px
+- [x] Keyboard: Space = press knife, Enter = select quiz option, Tab = focus
+- [x] prefers-reduced-motion: all animations and transitions disabled
+- [x] .gitignore: .claude/ and .env files are NOT tracked
+
+---
+
+## Future Improvements
+
+- Add storyboard files to `storyboard/` folder
+- Add user persona documents to `userpersona/` folder
+- Add a 3rd nav tab (e.g. Quiz standalone page)
+- Archimedes buoyancy simulation (7th card on Learn page)
+- Altitude pressure card (balloon rises, pressure drops)
+- Offline PWA support (Service Worker + manifest)
+- Dark mode support

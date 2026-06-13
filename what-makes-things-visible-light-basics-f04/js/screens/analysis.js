@@ -11,7 +11,7 @@ export async function renderAnalysis(container, { levelId }) {
   const simStars = gameState.simStars;
   const total = 5;
   const pct = Math.round(score / total * 100);
-  const stars = simStars;
+  const stars = score >= 5 ? 3 : score >= 4 ? 2 : score >= 2 ? 1 : 0;
 
   const grade = pct === 100 ? { label: 'Perfect!', icon: '🏆', color: '#ffd700' }
               : pct >= 80  ? { label: 'Great Job!', icon: '⭐', color: '#c084fc' }
@@ -41,8 +41,18 @@ export async function renderAnalysis(container, { levelId }) {
     }, 300 + i * 120);
   });
 
-  document.getElementById('btn-reward').addEventListener('click', () => {
+  const btn = document.getElementById('btn-reward');
+  if (stars === 0) {
+    btn.innerHTML = '<div class="shimmer-sweep"></div> 🔄 Retry Level';
+    btn.style.background = 'linear-gradient(135deg, #ef4444, #991b1b)';
+  }
+
+  btn.addEventListener('click', () => {
     audio.click();
-    navigate('reward', { levelId });
+    if (stars === 0) {
+      navigate('level', { levelId });
+    } else {
+      navigate('reward', { levelId });
+    }
   });
 }
