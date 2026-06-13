@@ -1,7 +1,7 @@
 # Electric Current and Circuit Safety Project
 ## A Journey Through the Fundamentals of Electricity
 
----
+--
 
 ## Vision
 
