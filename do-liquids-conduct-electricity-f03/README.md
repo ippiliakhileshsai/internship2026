@@ -59,6 +59,6 @@ Spark Lab provides a gamified virtual laboratory where users can:
 5. Open the local URL displayed in the terminal (typically `http://localhost:5173`) in your browser.
 
 ## Deployment Link
-https://swechaproject.vercel.app/
+https://liquidconductivitylab-f03.vercel.app/
 
 
