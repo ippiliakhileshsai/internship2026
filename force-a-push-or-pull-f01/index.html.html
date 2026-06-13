@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Push & Pull Forces</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --push: #534AB7;
+    --push-light: #EEEDFE;
+    --push-mid: #AFA9EC;
+    --pull: #0F6E56;
+    --pull-light: #E1F5EE;
+    --pull-mid: #5DCAA5;
+    --neutral: #2C2C2A;
+    --neutral-mid: #888780;
+    --neutral-light: #F1EFE8;
+    --bg: #FAFAF8;
+    --white: #ffffff;
+    --text: #1a1a18;
+    --muted: #5F5E5A;
+    --border: rgba(0,0,0,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--neutral); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.875rem; color: var(--muted); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 88vh;
+    overflow: hidden;
+  }
+  .hero-left {
+    background: var(--push);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 4rem;
+    position: relative;
+  }
+  .hero-right {
+    background: var(--pull);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 4rem;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+    color: #fff;
+  }
+  .hero-title {
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.0;
+    margin-bottom: 1.5rem;
+  }
+  .hero-desc {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.25rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.6;
+    max-width: 360px;
+  }
+  .hero-arrow {
+    position: absolute;
+    bottom: 3rem;
+    font-size: 3.5rem;
+    opacity: 0.25;
+    color: #fff;
+    font-weight: 700;
+  }
+  .hero-left .hero-arrow { right: 2.5rem; }
+  .hero-right .hero-arrow { left: 2.5rem; }
+
+  /* DIVIDER */
+  .section-divider {
+    text-align: center;
+    padding: 4rem 2rem 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* DEFINITION CARDS */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 2rem auto 4rem;
+    padding: 0 2rem;
+  }
+  .def-card {
+    border-radius: 16px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .def-card.push { background: var(--push-light); }
+  .def-card.pull { background: var(--pull-light); }
+  .def-card .card-icon {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .def-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .def-card.push h3 { color: var(--push); }
+  .def-card.pull h3 { color: var(--pull); }
+  .def-card p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .def-card .badge {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+  .def-card.push .badge { background: var(--push); color: #fff; }
+  .def-card.pull .badge { background: var(--pull); color: #fff; }
+
+  /* SIMULATOR */
+  .sim-section {
+    max-width: 860px;
+    margin: 0 auto 5rem;
+    padding: 0 2rem;
+  }
+  .sim-section h2 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .sim-section .sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+  .sim-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.5rem;
+  }
+  .sim-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+  .sim-btn {
+    padding: 9px 22px;
+    border-radius: 100px;
+    border: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .sim-btn:active { transform: scale(0.97); }
+  .sim-btn.push-btn { background: var(--push); color: #fff; }
+  .sim-btn.pull-btn { background: var(--pull); color: #fff; }
+  .sim-btn.reset-btn { background: var(--neutral-light); color: var(--neutral); }
+  .sim-btn.inactive { opacity: 0.35; }
+  .force-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+  .force-row label { font-size: 0.8rem; color: var(--muted); min-width: 80px; }
+  .force-row input[type=range] {
+    flex: 1;
+    accent-color: var(--push);
+  }
+  .force-row.pull-active input[type=range] { accent-color: var(--pull); }
+  .force-row span { font-size: 0.875rem; font-weight: 700; min-width: 28px; }
+  canvas#simCanvas {
+    width: 100%;
+    height: 220px;
+    display: block;
+    border-radius: 12px;
+    background: var(--neutral-light);
+    cursor: pointer;
+  }
+  .sim-stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .sim-stat {
+    flex: 1;
+    min-width: 100px;
+    background: var(--neutral-light);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .sim-stat strong {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 2px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* EXAMPLES */
+  .examples-section {
+    background: var(--white);
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .examples-inner { max-width: 1000px; margin: 0 auto; }
+  .examples-inner h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .examples-inner .sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 2.5rem; }
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  .ex-card {
+    border-radius: 14px;
+    padding: 1.5rem 1.2rem;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .ex-card:hover { transform: translateY(-3px); }
+  .ex-card.push-ex { background: var(--push-light); }
+  .ex-card.pull-ex { background: var(--pull-light); }
+  .ex-card .ex-icon { font-size: 2.2rem; margin-bottom: 0.7rem; display: block; }
+  .ex-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .ex-card.push-ex h4 { color: var(--push); }
+  .ex-card.pull-ex h4 { color: var(--pull); }
+  .ex-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+  /* KEY FACTS */
+  .facts-section {
+    max-width: 860px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+  }
+  .facts-section h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 2rem; }
+  .facts-list { display: flex; flex-direction: column; gap: 1rem; }
+  .fact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem 1.5rem;
+  }
+  .fact-num {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--push-mid);
+    min-width: 36px;
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .fact-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .fact-item p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 680px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left, .hero-right { padding: 3.5rem 2rem; min-height: 50vh; }
+    .cards-grid { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Forces</span>
+  <ul class="nav-links">
+    <li><a href="#what">What is it?</a></li>
+    <li><a href="#simulate">Simulate</a></li>
+    <li><a href="#examples">Examples</a></li>
+    <li><a href="#facts">Key facts</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Type of force</p>
+    <h1 class="hero-title">Push</h1>
+    <p class="hero-desc">A force that moves an object <em>away</em> from the source. You apply it by pressing outward.</p>
+    <span class="hero-arrow">→</span>
+  </div>
+  <div class="hero-right">
+    <p class="hero-eyebrow">Type of force</p>
+    <h1 class="hero-title">Pull</h1>
+    <p class="hero-desc">A force that moves an object <em>toward</em> the source. You apply it by drawing inward.</p>
+    <span class="hero-arrow">←</span>
+  </div>
+</section>
+
+<!-- DEFINITION CARDS -->
+<p class="section-divider" id="what">What is a force?</p>
+<div class="cards-grid">
+  <div class="def-card push">
+    <span class="card-icon">👊</span>
+    <h3>Push force</h3>
+    <p>When you apply a force in the direction <strong>away</strong> from your body, you are pushing. A push changes the position, speed, or direction of an object by acting outward from the source of the force.</p>
+    <span class="badge">Away from you</span>
+  </div>
+  <div class="def-card pull">
+    <span class="card-icon">🤝</span>
+    <h3>Pull force</h3>
+    <p>When you apply a force in the direction <strong>toward</strong> your body, you are pulling. A pull draws an object closer to the source, changing its motion in the process.</p>
+    <span class="badge">Toward you</span>
+  </div>
+  <div class="def-card push" style="background:#F1EFE8;">
+    <span class="card-icon">📐</span>
+    <h3 style="color:#2C2C2A;">Newton's First Law</h3>
+    <p>An object at rest stays at rest, and an object in motion stays in motion — <strong>unless a force acts on it.</strong> Both push and pull forces can break this state of rest or change the direction of motion.</p>
+    <span class="badge" style="background:#2C2C2A;">Foundation law</span>
+  </div>
+  <div class="def-card pull" style="background:#F1EFE8;">
+    <span class="card-icon">⚖️</span>
+    <h3 style="color:#2C2C2A;">How force is measured</h3>
+    <p>Force is measured in <strong>Newtons (N)</strong>. The greater the force, the faster the object accelerates. Direction also matters — a force applied at an angle changes both speed and direction.</p>
+    <span class="badge" style="background:#2C2C2A;">Unit: Newton (N)</span>
+  </div>
+</div>
+
+<!-- SIMULATOR -->
+<section class="sim-section" id="simulate">
+  <h2>Try it yourself</h2>
+  <p class="sub">Choose push or pull, set the strength, then hold the button to apply force to the box.</p>
+  <div class="sim-box">
+    <div class="sim-controls">
+      <button class="sim-btn push-btn" id="pushBtn" onmousedown="startForce('push')" onmouseup="stopForce()" onmouseleave="stopForce()" ontouchstart="startForce('push')" ontouchend="stopForce()">← Push →</button>
+      <button class="sim-btn pull-btn inactive" id="pullBtn" onmousedown="startForce('pull')" onmouseup="stopForce()" onmouseleave="stopForce()" ontouchstart="startForce('pull')" ontouchend="stopForce()">→ Pull ←</button>
+      <button class="sim-btn reset-btn" onclick="resetObj()">Reset</button>
+    </div>
+    <div class="force-row" id="forceRow">
+      <label>Strength</label>
+      <input type="range" min="1" max="10" value="5" id="forceSlider" oninput="fStr=+this.value; document.getElementById('fVal').textContent=this.value">
+      <span id="fVal">5</span> N
+    </div>
+    <canvas id="simCanvas"></canvas>
+    <div class="sim-stats">
+      <div class="sim-stat">Mode <strong id="sMode">—</strong></div>
+      <div class="sim-stat">Force <strong id="sForce">0 N</strong></div>
+      <div class="sim-stat">Speed <strong id="sSpeed">0 px/s</strong></div>
+      <div class="sim-stat">Position <strong id="sPos">center</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXAMPLES -->
+<section class="examples-section" id="examples">
+  <div class="examples-inner">
+    <h2>Real-world examples</h2>
+    <p class="sub">Push and pull forces are everywhere in daily life.</p>
+    <div class="examples-grid">
+      <div class="ex-card push-ex">
+        <span class="ex-icon">🚪</span>
+        <h4>Opening a door</h4>
+        <p>You push the door away from you to open it outward.</p>
+      </div>
+      <div class="ex-card push-ex">
+        <span class="ex-icon">⚽</span>
+        <h4>Kicking a ball</h4>
+        <p>Your foot pushes the ball forward with force.</p>
+      </div>
+      <div class="ex-card push-ex">
+        <span class="ex-icon">🛒</span>
+        <h4>Pushing a cart</h4>
+        <p>You push a shopping cart forward along the aisle.</p>
+      </div>
+      <div class="ex-card pull-ex">
+        <span class="ex-icon">🧲</span>
+        <h4>Magnet & iron</h4>
+        <p>A magnet pulls iron objects toward it from a distance.</p>
+      </div>
+      <div class="ex-card pull-ex">
+        <span class="ex-icon">🌍</span>
+        <h4>Gravity</h4>
+        <p>Earth pulls every object toward its center constantly.</p>
+      </div>
+      <div class="ex-card pull-ex">
+        <span class="ex-icon">🏹</span>
+        <h4>Pulling a bow</h4>
+        <p>You pull the bowstring back, storing energy to launch an arrow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY FACTS -->
+<section class="facts-section" id="facts">
+  <h2>Key facts to remember</h2>
+  <div class="facts-list">
+    <div class="fact-item">
+      <span class="fact-num">1</span>
+      <div>
+        <h4>Force has direction</h4>
+        <p>Every force acts in a specific direction. Pushing moves things away; pulling brings them closer. The direction of the force determines the direction of motion.</p>
+      </div>
+    </div>
+    <div class="fact-item">
+      <span class="fact-num">2</span>
+      <div>
+        <h4>Force has magnitude</h4>
+        <p>The strength (magnitude) of a force determines how much the object accelerates. A stronger force causes faster acceleration. Measured in Newtons (N).</p>
+      </div>
+    </div>
+    <div class="fact-item">
+      <span class="fact-num">3</span>
+      <div>
+        <h4>Forces can balance</h4>
+        <p>When two equal forces act in opposite directions, they cancel out and the object stays still. This is called balanced forces or equilibrium.</p>
+      </div>
+    </div>
+    <div class="fact-item">
+      <span class="fact-num">4</span>
+      <div>
+        <h4>Friction is a force too</h4>
+        <p>Friction is a push-like force that opposes motion. When you slide a book across a table, friction pushes back against the direction of movement, slowing it down.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Push &amp; Pull Forces — A Science Reference Page &nbsp;·&nbsp; Physics for Everyone
+</footer>
+
+<script>
+const canvas = document.getElementById('simCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = canvas.offsetWidth * window.devicePixelRatio || 800;
+canvas.height = 220 * (window.devicePixelRatio || 1);
+ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+const CW = canvas.offsetWidth || 800, CH = 220;
+
+let obj = { x: CW / 2 - 27, y: CH - 80, vx: 0, w: 54, h: 54 };
+let mode = null, applying = false, fStr = 5, lastT = null, trail = [];
+
+function startForce(m) {
+  mode = m; applying = true;
+  document.getElementById('pushBtn').classList.toggle('inactive', m !== 'push');
+  document.getElementById('pullBtn').classList.toggle('inactive', m !== 'pull');
+  document.getElementById('forceRow').classList.toggle('pull-active', m === 'pull');
+  document.getElementById('sMode').textContent = m === 'push' ? 'Push →' : '← Pull';
+}
+function stopForce() { applying = false; }
+function resetObj() {
+  obj.x = CW / 2 - 27; obj.vx = 0; trail = [];
+  document.getElementById('pushBtn').classList.remove('inactive');
+  document.getElementById('pullBtn').classList.remove('inactive');
+  document.getElementById('sMode').textContent = '—';
+  document.getElementById('sForce').textContent = '0 N';
+  document.getElementById('sSpeed').textContent = '0 px/s';
+  document.getElementById('sPos').textContent = 'center';
+}
+
+function drawScene(dt) {
+  ctx.clearRect(0, 0, CW, CH);
+  const groundY = CH - 28;
+
+  ctx.strokeStyle = 'rgba(0,0,0,0.06)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([6, 8]);
+  ctx.beginPath(); ctx.moveTo(CW/2, 20); ctx.lineTo(CW/2, groundY); ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = 'rgba(0,0,0,0.05)';
+  ctx.fillRect(0, groundY, CW, 1);
+
+  if (applying) {
+    const dir = mode === 'push' ? 1 : -1;
+    obj.vx += dir * fStr * 0.55 * dt;
+    trail.push({ x: obj.x + obj.w / 2, y: groundY - obj.h / 2, t: 1 });
+  }
+  obj.vx *= 0.985;
+  if (Math.abs(obj.vx) < 0.03) obj.vx = 0;
+  obj.x += obj.vx;
+  if (obj.x < 8) { obj.x = 8; obj.vx *= -0.3; }
+  if (obj.x > CW - obj.w - 8) { obj.x = CW - obj.w - 8; obj.vx *= -0.3; }
+
+  trail = trail.filter(p => p.t > 0);
+  trail.forEach(p => {
+    ctx.globalAlpha = p.t * 0.18;
+    ctx.fillStyle = mode === 'push' ? '#534AB7' : '#0F6E56';
+    ctx.beginPath(); ctx.arc(p.x, p.y, 10, 0, Math.PI * 2); ctx.fill();
+    p.t -= dt * 1.8;
+  });
+  ctx.globalAlpha = 1;
+
+  const cx = obj.x + obj.w / 2;
+  const top = groundY - obj.h;
+
+  if (applying) {
+    const dir = mode === 'push' ? 1 : -1;
+    const col = mode === 'push' ? '#534AB7' : '#0F6E56';
+    const ax = cx - dir * (obj.w / 2 + 12);
+    const bx = cx - dir * (obj.w / 2 + 60);
+    ctx.strokeStyle = col; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(bx, top + obj.h / 2); ctx.lineTo(ax, top + obj.h / 2); ctx.stroke();
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    ctx.moveTo(ax, top + obj.h / 2);
+    ctx.lineTo(ax + dir * 12, top + obj.h / 2 - 7);
+    ctx.lineTo(ax + dir * 12, top + obj.h / 2 + 7);
+    ctx.closePath(); ctx.fill();
+    ctx.font = '600 12px Space Grotesk, sans-serif';
+    ctx.fillStyle = col;
+    ctx.textAlign = 'center';
+    ctx.fillText(mode === 'push' ? 'PUSH' : 'PULL', (ax + bx) / 2, top + obj.h / 2 - 12);
+    ctx.textAlign = 'left';
+  }
+
+  ctx.fillStyle = applying ? (mode === 'push' ? '#534AB7' : '#0F6E56') : '#888780';
+  ctx.beginPath(); ctx.roundRect(obj.x, top, obj.w, obj.h, 10); ctx.fill();
+  ctx.font = '26px serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('📦', cx, top + obj.h / 2 + 9);
+  ctx.textAlign = 'left';
+
+  const shadow = Math.max(3, Math.min(22, Math.abs(obj.vx) * 2 + 4));
+  ctx.fillStyle = 'rgba(0,0,0,0.07)';
+  ctx.beginPath(); ctx.ellipse(cx, groundY + 5, shadow + obj.w / 2, 5, 0, 0, Math.PI * 2); ctx.fill();
+
+  const disp = Math.round(obj.x - (CW / 2 - 27));
+  document.getElementById('sSpeed').textContent = Math.round(Math.abs(obj.vx) * 60) + ' px/s';
+  document.getElementById('sForce').textContent = applying ? fStr + ' N' : '0 N';
+  document.getElementById('sPos').textContent = disp === 0 ? 'center' : (disp > 0 ? '+' : '') + disp + ' px';
+}
+
+(function loop(ts) {
+  if (!lastT) lastT = ts;
+  const dt = Math.min((ts - lastT) / 1000, 0.05);
+  lastT = ts;
+  drawScene(dt);
+  requestAnimationFrame(loop);
+})(0);
+</script>
+</body>
+</html>
