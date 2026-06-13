@@ -1,29 +1,69 @@
 # Smart Energy Advisor
 
+## Project Description
+Smart Energy Advisor is a full-stack dynamic web application that helps users evaluate energy consumption choices and understand their environmental impact. The system analyzes user inputs and provides sustainability scores along with recommendations for more sustainable energy usage.
+
+---
+
 ## Problem Statement
-Many people are unaware of how their energy consumption and technology usage affect the environment, leading to energy wastage and environmental degradation.
+Many individuals and organizations lack awareness of the environmental impact of their energy consumption patterns. This makes it difficult to make informed and sustainable energy decisions.
 
-## Proposed Solution
-Smart Energy Advisor is a web-based application that helps users understand their energy usage, environmental impact, and sustainable alternatives.
+---
 
-## Objectives
-- Promote awareness about energy consumption.
-- Educate users about renewable and non-renewable energy sources.
-- Encourage sustainable energy practices.
-- Provide energy-saving recommendations.
+## Solution
+Smart Energy Advisor provides an interactive platform where users can input energy-related data and receive sustainability scores, visual insights, and recommendations to encourage environmentally responsible choices.
+
+---
 
 ## Features
-- Energy Source Information
-- Energy Usage Analysis
-- Environmental Impact Assessment
-- Sustainability Recommendations
-- Energy Saving Tips
+- Interactive user input dashboard
+- Sustainability score calculation
+- Data visualization using charts and graphs
+- FastAPI backend integration
+- PostgreSQL database support
+- Responsive user interface
+
+---
 
 ## Tech Stack
-- HTML
-- CSS
-- JavaScript
-- React
 
-## Project Status
-Review-1 Preparation
+### Frontend
+- React
+- HTML5
+- CSS3
+- JavaScript
+- Axios
+- Chart.js
+
+### Backend
+- FastAPI
+- Python
+- SQLAlchemy
+- Uvicorn
+
+### Database
+- PostgreSQL
+
+---
+
+## How to Run the Project
+
+### Frontend
+
+```bash
+npm install
+npm start
+```
+
+### Backend
+
+```bash
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+---
+
+## Deployment Link
+
+Deployment in progress. The application will be deployed using Vercel and the live URL will be updated after deployment.
