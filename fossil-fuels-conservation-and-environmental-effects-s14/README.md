@@ -32,7 +32,7 @@ Fossil fuels (coal, oil, and natural gas) take hundreds of millions of years to 
 * **Core Logic Engine:** Vanilla JavaScript (ES6+, RequestAnimationFrame Loops, and Dynamic State Objects)
 * **Deployment & Hosting:** Vercel
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------v
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Project Architecture & Team Roles
 The codebase is structured to support clean separation of concerns:
@@ -102,5 +102,5 @@ Put your knowledge to the test and prove you can save the planet.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-## ** Live Deployment Link **
+## **Live Deployment Link**
 https://fossilfuelsco9nservation.vercel.app
