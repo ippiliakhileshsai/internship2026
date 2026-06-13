@@ -1,237 +1,196 @@
-# PulseX – Django-Based Interactive Human Circulatory System Learning Platform
+# Circulatory System - Interactive Educational Website
 
-**Team Name:** Heart Sync Connectors  
-**Team Motto:** Connecting Knowledge with the Rhythm of Life.
+An interactive educational resource explaining the human circulatory system with animations, interactive quiz, and health tips. Built with vanilla HTML, CSS, and JavaScript using modern glassmorphism design patterns.
 
----
+## � Project Overview
 
-## 📋 Project Overview
-
-PulseX is a Django-based educational web application designed to help students understand the Human Circulatory System through interactive learning modules, blood flow simulations, quizzes, and disease exploration.
-
-The platform enables users to visualize blood circulation, learn about heart anatomy, understand blood vessels and blood components, and test their knowledge through engaging activities. User progress is tracked and stored in a database for continuous learning assessment.
-
----
-
-## 🎯 Objectives
-
-- Understand the structure of the circulatory system
-- Learn the functions of the heart, blood vessels, and blood
-- Visualize blood circulation through interactive simulations
-- Explore common cardiovascular diseases
-- Assess knowledge through quizzes and activities
-- Generate certificates upon successful completion
-- Store learning progress using a database
-- Provide an engaging and modern learning experience
-
----
-
-## 🛠️ Technologies Used
-
-### Frontend (75.9%)
-- **HTML5** (46.3%)
-- **JavaScript** (31.8%)
-- **CSS3** (21.9%)
-- Bootstrap
-
-### Backend & Database
-- Python
-- Django
-- SQLite / MySQL
-
-### Development Tools
-- GitHub
-- VS Code
-
----
+This project provides a comprehensive educational introduction to the circulatory system, including:
+- **Interactive animations** of blood circulation flow
+- **Educational content** covering heart structure, blood vessels, and components
+- **Interactive quiz** with immediate scoring feedback
+- **Health tips** for maintaining cardiovascular wellness
+- **Fun facts** about the circulatory system
+- **Responsive design** for all device sizes
 
 ## 📁 Project Structure
 
 ```
-PULSEX
-│
-├── pulsex/
-│   ├── settings.py
-│   ├── urls.py
-│   └── views.py
-│
-├── circulatory_app/
-│   ├── models.py
-│   ├── views.py
-│   ├── urls.py
-│   └── admin.py
-│
-├── templates/
-│   ├── index.html
-│   ├── learn.html
-│   ├── simulation.html
-│   ├── blood.html
-│   ├── diseases.html
-│   ├── quiz.html
-│   └── certificate.html
-│
-├── static/
-│   ├── css/
-│   ├── js/
-│   └── images/
-│
-├── db.sqlite3
-├── requirements.txt
-├── README.md
-└── manage.py
+CS/
+├── index.html              # Main HTML file (site structure and all features)
+├── README.md               # This documentation file
+├── images/                 # Directory for high-resolution images
+│   └── (place images here)
+└── assets/                 # Directory for additional resources
+    └── (place assets here)
 ```
 
----
+## �️ Adding Images
 
-## ✨ Features
+To add high-resolution images to your documentation or content, follow these guidelines:
 
-### 1. Home Page
-- Project introduction
-- Navigation cards
-- Easy access to all modules
+### Image Path Format (Relative Paths)
+When referencing images in HTML, use relative paths from the `index.html` file:
 
-### 2. Learn Module
-- Introduction to the circulatory system
-- Heart anatomy
-- Blood vessels
-- Blood components
-- Interesting facts
+```html
+<!-- Image in images/ folder -->
+<img src="images/heart-anatomy.png" alt="Heart Anatomy Diagram" />
 
-### 3. Blood Flow Simulation
-- Interactive blood circulation animation
-- Heart → Arteries → Body → Veins → Heart
-- Start, Pause, and Reset controls
-- Oxygenated and deoxygenated blood visualization
-
-### 4. Blood Module
-- Red Blood Cells
-- White Blood Cells
-- Platelets
-- Plasma
-- Blood functions
-
-### 5. Disease Explorer
-- Heart Attack
-- Hypertension
-- Stroke
-- Anemia
-- Prevention methods
-
-### 6. Quiz Module
-- Multiple-choice questions
-- Automatic score calculation
-- Performance badges
-- Progress tracking
-
-### 7. Certificate Generation
-- Student name input
-- Dynamic certificate creation
-- Achievement recognition
-
-### 8. User Authentication
-- Registration
-- Login
-- Logout
-- User profiles
-
-### 9. Admin Dashboard
-- Manage quizzes
-- Manage disease information
-- View user progress
-- Monitor learning activities
-
----
-
-## 🔄 Website Flow
-
-```
-Home Page
-    ↓
-Learn Module
-    ↓
-Blood Flow Simulation
-    ↓
-Blood Module
-    ↓
-Disease Explorer
-    ↓
-Quiz Module
-    ↓
-Certificate
-    ↓
-User Dashboard
+<!-- Image in assets/ folder -->
+<img src="assets/circulatory-diagram.png" alt="Circulatory System Diagram" />
 ```
 
+### Recommended Image Locations
+
+- **High-resolution diagrams**: Place in `images/` folder
+- **Icons and supplementary graphics**: Place in `assets/` folder
+- **Screenshot examples**: Place in `images/` folder
+
+### Example Images to Add
+
+Consider adding these types of images to enhance learning:
+
+| Image Type | Suggested Filename | Location |
+|---|---|---|
+| Heart anatomy diagram | `heart-anatomy.png` | images/ |
+| Blood circulation flow | `circulation-flow.png` | images/ |
+| Blood vessel types | `vessel-types.png` | images/ |
+| Circulatory system overview | `circulatory-system.png` | images/ |
+
+### How to Add Images to HTML
+
+Update `index.html` to include images in appropriate sections. Example:
+
+```html
+<!-- In the Heart Structure Section -->
+<section id="heart-structure" class="container glass">
+  <h3>Heart Structure and Function</h3>
+  <img src="images/heart-anatomy.png" alt="Heart with 4 chambers and 4 valves" />
+  <p>The heart is a muscular pump with four chambers...</p>
+  <!-- rest of content -->
+</section>
+```
+
+## 📝 Code Structure
+
+### HTML Sections
+- **Header**: Site title and tagline
+- **Hero**: Featured introduction with SVG heart illustration
+- **Introduction**: What and why of the circulatory system
+- **Components**: Main parts (heart, blood, vessels)
+- **Heart Structure**: Detailed breakdown of chambers and valves
+- **Blood Circulation**: Step-by-step animated flow process
+- **Blood Vessels**: Types and functions (arteries, veins, capillaries)
+- **Health Tips**: Practical cardiovascular wellness advice
+- **Interactive Quiz**: Five-question assessment with scoring
+- **Fun Facts**: Interesting circulatory system facts
+- **Footer**: Copyright and attribution
+
+### CSS Features
+- **CSS Variables**: Centralized color and spacing tokens
+- **Glassmorphism**: Modern frosted glass card effects
+- **Responsive Grid**: Auto-fit card layouts
+- **Animations**: Pulsing blood flow animation
+- **Gradient Accents**: Modern color gradient UI elements
+- **Media Queries**: Mobile and tablet optimization
+
+### JavaScript Features
+- **Flow Animation**: Cycles through circulation steps every 2.5 seconds
+- **Interactive Quiz**: 
+  - Multiple-choice questions
+  - Answer selection and visual feedback
+  - Score calculation
+  - Quiz restart functionality
+  - Keyboard accessibility (Enter key support)
+
+## 🎨 Design System
+
+### Color Palette
+| Color | Hex | Usage |
+|---|---|---|
+| Dark Blue (Primary) | `#0f2040` | Background |
+| Dark Blue (Secondary) | `#071022` | Gradient background |
+| Coral Red (Accent 1) | `#ff5f6d` | Buttons, highlights |
+| Peach Orange (Accent 2) | `#ffc371` | Gradient accent |
+
+### Typography
+- **Font**: Inter (imported from Google Fonts)
+- **Fallback**: system-ui, Roboto, Helvetica Neue
+- **Sizes**: H1 (20px), H2 (34px), body (14-16px implied)
+
+### Spacing & Layout
+- **Max Width**: 1100px centered container
+- **Padding**: 24px standard (16px mobile)
+- **Border Radius**: 14px standard cards, 10-12px buttons
+- **Gap/Spacing**: 12-24px between elements
+
+## 🚀 Features Explained
+
+### Interactive Flow Animation
+The blood circulation section features an animated pulse that cycles through all 5 steps every 2.5 seconds, highlighting each step in sequence. The animation loops continuously.
+
+### Quiz System
+- **5 questions** covering key concepts
+- **Multiple choice** answers with keyboard support
+- **Visual feedback** on selected answers
+- **Score display** at the end
+- **Restart functionality** to retake the quiz
+
+### Responsive Design
+- **Desktop (900px+)**: Side-by-side hero layout
+- **Tablet (900px)**: Stacked hero, repositioned animation
+- **Mobile (480px)**: Smaller typography, reduced padding
+
+## 📝 Making Content Updates
+
+### Adding New Sections
+1. Add HTML structure in `<main>` with appropriate section ID
+2. Use `.container`, `.glass`, and `.grid` classes for styling
+3. Add comments before section (<!-- ===== SECTION NAME ===== -->)
+4. Add corresponding CSS in `<style>` if needed
+
+### Updating Content
+- All content sections are clearly commented
+- Inline comments explain CSS variables and properties
+- JavaScript functions are documented with purpose
+
+### Customizing Colors
+Edit CSS variables in `:root` at top of `<style>` tag:
+```css
+--accent1: #ff5f6d;  /* Change button colors */
+--bg1: #0f2040;      /* Change background */
+```
+
+## 🔗 External Dependencies
+
+- **Google Fonts**: Inter font (preconnected for performance)
+- **Font Awesome**: Icon library (v6.4.0)
+- **CSS**: All custom, no frameworks
+- **JavaScript**: Vanilla, no libraries
+
+## 📱 Browser Compatibility
+
+Tested and optimized for:
+- Chrome/Edge (modern versions)
+- Firefox (modern versions)
+- Safari (modern versions)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## ✅ Best Practices Used
+
+- ✓ Semantic HTML markup
+- ✓ Comprehensive code comments
+- ✓ CSS variable organization
+- ✓ Mobile-first responsive design
+- ✓ Keyboard accessibility (Tab navigation, Enter key)
+- ✓ High contrast text on backgrounds
+- ✓ Performance-optimized (no heavy scripts, SVG illustrations)
+
+## 📄 License
+
+Educational content for learning purposes.
+
 ---
 
-## 👥 Team Members & Responsibilities
-
-| Member | Role | Responsibilities |
-|--------|------|-----------------|
-| Member 1 | Project Lead | Requirement Analysis, Team Coordination |
-| Member 2 | Documentation | Storyboard Design, Final Report |
-| Member 3 | Backend Developer | Django Backend Development, Routing and Views |
-| Member 4 | Database Designer | Database Design, Models and Data Management |
-| Member 5 | Frontend Developer | Home Page Development, Template Design |
-| Member 6 | UI/UX Designer | UI/UX Design, CSS Styling, Responsive Design |
-| Member 7 | JavaScript Developer | Blood Flow Simulation, JavaScript Development |
-| Member 8 | Feature Developer | Quiz and Certificate Module, Score Management |
-| Member 9 | QA & DevOps | Testing, GitHub Management, Deployment |
-
----
-
-## 📝 GitHub Issues & Tasks
-
-1. Setup Django Project
-2. Create User Authentication
-3. Design Database Models
-4. Develop Home Page
-5. Develop Learn Module
-6. Develop Blood Flow Simulation
-7. Create Blood Module
-8. Create Disease Explorer
-9. Develop Quiz System
-10. Generate Certificates
-11. Create Admin Dashboard
-12. Apply Responsive Design
-13. Testing and Debugging
-14. Documentation
-15. Deployment
-
----
-
-## 🎓 Expected Outcomes
-
-After completing the website activities, students will be able to:
-
-- Identify parts of the circulatory system
-- Explain the functions of the heart and blood vessels
-- Understand blood circulation
-- Recognize common cardiovascular diseases
-- Complete quizzes successfully
-- Track their learning progress
-- Earn a completion certificate
-
----
-
-## 🚀 Future Enhancements
-
-- 3D Heart Visualization
-- AI Biology Chatbot
-- Health Risk Assessment
-- Voice-Based Learning
-- Progress Analytics Dashboard
-- Multi-language Support
-- Advanced Simulations
-- Mobile Application Integration
-
----
-
-## 📜 License
-
-This project is developed for educational purposes as part of an academic learning activity.
-
----
-
-**Project Repository:** [swechaap/internship2026](https://github.com/swechaap/internship2026)  
-**Last Updated:** 2026-06-12
+**Last Updated**: 2026-06-09  
+**Version**: 1.0  
+**Status**: Ready for image integration and deployment

@@ -1,44 +1,44 @@
-# =============================================
-# Project: Interactive States of Matter Explorer
-# =============================================
+# Requirement Gathering — States of Matter Explorer
 
-# --- Core Technologies ---
-HTML5
-CSS3
-JavaScript (ES6+)
+---
 
-# --- Simulation & Animation ---
-Canvas API (HTML5 built-in)        # Particle simulation rendering
-RequestAnimationFrame (built-in)   # Smooth animation loop
+## Functional Requirements
+What should the simulation do?
 
-# --- UI & Interactivity ---
-CSS Flexbox & Grid                 # Layout system
-CSS Media Queries                  # Responsive design (mobile + desktop)
-CSS Transitions & Animations       # State change visual effects
-Range Input (HTML built-in)        # Temperature and pressure sliders
+Students should be able to:
+✅ Select any of the 4 states of matter — Solid, Liquid, Gas, Plasma
+✅ Adjust temperature (-200°C to 6000°C) and observe particle behavior change
+✅ Adjust pressure (Vacuum to Extreme) and see its effect on particles
+✅ Watch automatic phase transitions at correct temperatures
+✅ Control particle count (10–120) for density visualization
+✅ Search any substance and see its real melting and boiling points
+✅ See special multi-stage behavior (e.g. Sea Water evaporating to Salt)
+✅ Play, Pause, Reset, and Randomize the simulation
+✅ Take a quiz to test their knowledge
+✅ Switch the interface language (English, Hindi, Telugu)
 
-# --- Educational Content ---
-DOM Manipulation (Vanilla JS)      # Dynamic properties panel updates
-Event Listeners (Vanilla JS)       # Slider and card interaction handling
+---
 
-# --- Real-Life Examples ---
-# Elements/Substances covered:
-# Ice, Water, Steam, Oxygen, Nitrogen, Iron, Sulfur, Bromine
+## Non-Functional Requirements
+How should it feel?
 
-# --- Version Control & Collaboration ---
-Git
-GitHub
-GitHub Issues                      # Task tracking per member
-GitHub Pages                       # Final deployment
+✅ Easy to use — intuitive sliders and clearly labeled controls
+✅ Visually engaging — glowing particles, smooth animations, color-coded states
+✅ Works in low internet — single HTML file, no backend required
+✅ Fast loading — no frameworks, no dependencies except Google Fonts
+✅ Scientifically accurate — real melting and boiling point data for all substances
+✅ Multilingual — accessible to Hindi and Telugu speaking students
 
-# --- Development Tools ---
-Visual Studio Code
-Live Server (VS Code Extension)    # Local development server
+---
 
-# --- Testing ---
-Chrome DevTools                    # Debugging and performance
-Cross-browser testing              # Chrome, Firefox, Edge
-Mobile responsiveness testing      # Various screen sizes
+## Learning Requirements
+What learning outcome should happen?
 
-# --- No external frameworks or paid libraries required ---
-# All features built with native web technologies only
+After using the simulation, students should be able to:
+✅ Describe the particle arrangement and motion in each state of matter
+✅ Explain how temperature and pressure affect the state of a substance
+✅ Identify the correct state of a substance at any given temperature
+✅ Predict what happens during phase transitions (melting, boiling, sublimation)
+✅ Differentiate between evaporation and boiling
+✅ Recall real-world examples of solids, liquids, gases, and plasma
+✅ Understand special cases like dry ice sublimation and sea water evaporation

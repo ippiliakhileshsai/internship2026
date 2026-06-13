@@ -8,7 +8,7 @@ An interactive, browser-only educational site that teaches **Pressure = Force ÷
 
 ## Project Overview
 
-PressureVerse is a gamified physics learning simulation built with pure HTML, CSS, and vanilla JavaScript. Students interact with cutting simulators, hydraulic lifts, blood pressure gauges, and more — seeing the physics formula come alive in real time.
+PressureVerse is a gamified physics learning simulation built with pure HTML, CSS, and vanilla JavaScript. Students interact with cutting simulators, hydraulic lifts, blood pressure gauges, and more.
 
 ---
 
@@ -92,8 +92,8 @@ dashboard/
 ├── userpersona/                      ← User persona files (add PNG/PDF here)
 │
 ├── nogod.mp3                         ← Cutting feedback audio
-├── requirements.txt                  ← Phase 2 requirement gathering document
-├── teams.txt                         ← Team info + Phase 5 task division
+├── requirements.md                   ← Phase 2 requirement gathering document
+├── Team.md                           ← Team info + Phase 5 task division
 ├── README.md                         ← This file
 ├── vercel.json                       ← Vercel deployment config
 └── .gitignore                        ← Git ignore rules
