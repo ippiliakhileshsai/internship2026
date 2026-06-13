@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Bangers&family=Outfit:wght@400;600;800&family=Inter:wght@400;600;700&display=swap');
+/* Classic and user-friendly fonts */
 
 :root {
     --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
@@ -11,8 +11,8 @@
     --shadow-color: rgba(102,126,234,0.3);
     --btn-hover: rgba(102,126,234,0.5);
     --border-radius: 15px;
-    --font-family: 'Outfit', 'Inter', Arial, sans-serif;
-    --heading-font: 'Outfit', 'Inter', Arial, sans-serif;
+    --font-family: Georgia, serif, sans-serif;
+    --heading-font: Georgia, serif, sans-serif;
     --glow-effect: none;
     --border-style: none;
     --title-shadow: 2px 2px 4px rgba(0,0,0,0.3);
@@ -30,8 +30,8 @@ body.theme-spiderman {
     --shadow-color: rgba(229, 9, 20, 0.4);
     --btn-hover: rgba(229, 9, 20, 0.7);
     --border-radius: 12px;
-    --font-family: 'Outfit', 'Inter', sans-serif;
-    --heading-font: 'Bangers', cursive;
+    --font-family: Georgia, serif, sans-serif;
+    --heading-font: Georgia, serif, sans-serif;
     --glow-effect: 0 0 10px rgba(229, 9, 20, 0.5);
     --border-style: 2px solid #e50914;
     --title-shadow: 3px 3px 0px #e50914, -1px -1px 0px #2196f3;
@@ -49,8 +49,8 @@ body.theme-ironman {
     --shadow-color: rgba(0, 229, 255, 0.5);
     --btn-hover: rgba(255, 215, 0, 0.6);
     --border-radius: 4px;
-    --font-family: 'Inter', monospace;
-    --heading-font: 'Inter', monospace;
+    --font-family: Georgia, serif, sans-serif;
+    --heading-font: Georgia, serif, sans-serif;
     --glow-effect: 0 0 15px rgba(0, 229, 255, 0.6);
     --border-style: 2px solid #ffd700;
     --title-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
@@ -68,8 +68,8 @@ body.theme-dora {
     --shadow-color: rgba(255, 139, 148, 0.4);
     --btn-hover: rgba(255, 139, 148, 0.7);
     --border-radius: 24px;
-    --font-family: 'Fredoka', cursive, sans-serif;
-    --heading-font: 'Fredoka', cursive, sans-serif;
+    --font-family: Georgia, serif, sans-serif;
+    --heading-font: Georgia, serif, sans-serif;
     --glow-effect: none;
     --border-style: 3px dashed #ff8b94;
     --title-shadow: 2px 2px 0px #fff, 4px 4px 0px #ff8b94;
@@ -375,6 +375,7 @@ header h1{
 .start-section{
     text-align:center;
     margin:30px 0;
+    display: none;
 }
 
 .start-btn{

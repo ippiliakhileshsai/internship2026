@@ -40,9 +40,9 @@ An interactive web-based educational game that makes learning Indian Constitutio
 ## File Structure
 
 ```
-├── index.html      # Main HTML structure with quiz interface
-├── script.js       # Game logic, questions, and state management
-├── style.css       # Styling with theme customization
+└──src/├── index.html      # Main HTML structure with quiz interface
+├      ├── script.js       # Game logic, questions, and state management
+├      ├── style.css       # Styling with theme customization
 └── README.md       # This file
 ```
 
