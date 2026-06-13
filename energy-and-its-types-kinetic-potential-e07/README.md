@@ -24,10 +24,16 @@ Features:
 Tech Stack Used:
 
 HTML5
+
+
 CSS3
+
 JavaScript
+
 SVG Animations
+
 GitHub
+
 Vercel
 Antigravity
 
