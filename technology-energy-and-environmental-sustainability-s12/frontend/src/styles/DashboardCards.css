@@ -1,0 +1,42 @@
+.dashboard-grid{
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(250px,1fr));
+
+  gap:20px;
+
+  padding:40px;
+}
+
+.dashboard-card{
+  background:#111827;
+
+  padding:25px;
+
+  border-radius:20px;
+
+  text-align:center;
+
+  transition:.3s;
+}
+
+.dashboard-card:hover{
+  box-shadow:
+  0 10px 30px
+  rgba(34,197,94,.2);
+}
+
+.card-icon{
+  font-size:2rem;
+
+  color:#22c55e;
+}
+
+.dashboard-card h3{
+  margin:15px 0;
+}
+
+.dashboard-card h1{
+  font-size:3rem;
+}

@@ -1,0 +1,43 @@
+.charts-section{
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(350px,1fr));
+
+  gap:25px;
+
+  padding:40px;
+}
+
+.chart-card{
+  background:#111827;
+
+  border-radius:20px;
+
+  padding:25px;
+
+  min-height:450px;
+}
+
+.chart-card h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.gauge-container{
+  position:relative;
+}
+
+.gauge-text{
+  position:absolute;
+
+  top:50%;
+  left:50%;
+
+  transform:
+  translate(-50%,-50%);
+
+  font-size:2rem;
+
+  font-weight:bold;
+}
