@@ -20,7 +20,7 @@ An interactive educational physics simulator that helps students understand ligh
 - Developed the Light Reflection simulation using HTML, CSS, and JavaScript.
 - Implemented ray visualization and reflection concepts.
 
-### Shaik
+### Shaik Rohan
 
 - Developed the Light Reflection simulation using HTML, CSS, and JavaScript.
 - Assisted in implementing interactive reflection features.
