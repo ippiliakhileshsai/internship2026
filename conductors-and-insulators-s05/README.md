@@ -5,6 +5,10 @@ Conductors and Insulators through interactive lessons, experiments, quizzes, and
 The project aims to make science learning more engaging and easier to understand by providing
 practical examples and hands-on activities.
 
+🌐 Live Demo
+Explore the deployed website here:
+https://internship2026.vercel.app/
+
 🎯 Objectives
 •Understand the concept of conductors and insulators.
 • Learn real-life applications of conductive and insulating materials.
@@ -96,30 +100,29 @@ Virtual Lab
 ↓
 Certificate
 👥 Team Members & Responsibilities
-Member 1
-• Project Idea Selection
+Member 1 
 • Storyboard Design
+• Frontend Design
+• Initial Prototype Development
 • Project Planning
-Member 2
-• README Documentation
-• Requirements Documentation
-• GitHub Repository Management
-Member 3
-• Home Page Development
-• Learn Module Development
-Member 4
-• CSS Styling
-• UI/UX Design
-• Responsive Design
-Member 5
-• Bulb Experiment Development
-• Quiz Module Development
-• JavaScript Features
-Member 6
-• Uses Page Development
-• Virtual Lab Development
-• Certificate Module Development
-• Testing and Integration
+
+Member 2 
+• Frontend Development
+• Storyboard Support and Refinement
+• Initial Prototype Development
+• UI Implementation
+
+Member 3 
+• Deployment Research
+• Technology Research and Analysis
+• Backend Planning
+• Project Groundwork
+
+Member 4 
+• Deployment Setup Research
+• Backend Architecture Planning
+• Integration Planning
+• Technical Groundwork
 
 📌 GitHub Issues
 • Create Home Page
