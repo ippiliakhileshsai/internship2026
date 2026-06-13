@@ -56,4 +56,4 @@ Understand common vision conditions:
 * GitHub
 * Vercel
 
-Deployment Link : projecte01.vercel.app
+Deployment Link : www.projecte01.vercel.app
