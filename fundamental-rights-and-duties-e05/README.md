@@ -129,4 +129,5 @@ Created as part of AI Internship 2026 - Final FRD
 ---
 
 **Ready to become a Civics Guardian?** 🎯 Open `index.html` and start playing!
+---
 DEPLOYMENT LINK : https://civics-jet.vercel.app/
