@@ -1,4 +1,4 @@
-#  Interactive States of Matter Explorer
+#  States of Matter — Interactive Particle Simulator
 
 An interactive, browser-based particle simulation that lets you explore the four states of matter — Solid, Liquid, Gas, and Plasma — with real-time physics, substance lookup, multilingual support, and a built-in quiz.
 
