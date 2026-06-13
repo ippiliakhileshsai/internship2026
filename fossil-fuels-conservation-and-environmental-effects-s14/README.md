@@ -1,4 +1,4 @@
-Title: **EarthSim**
+## Title: **EarthSim**
 
 An interactive, single-screen science simulation engineered for students to explore the lifecycle of fossil fuels, their environmental impact, and clean energy alternatives through real-time canvas-rendered visualization engines.
 
@@ -50,7 +50,7 @@ EarthSim/
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-**How to run project**
+## **How to run project**
 
 Here is a step-by-step user guide explaining how to interact, experiment, and play with your **EarthSim** simulation project.
 
@@ -102,5 +102,5 @@ Put your knowledge to the test and prove you can save the planet.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-** Live Deployment Link **
+## ** Live Deployment Link **
 https://fossilfuelsco9nservation.vercel.app
