@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energy Simulation</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>⚡ ENERGY SIMULATION ⚡</h1>
+<h2>Kinetic Energy & Potential Energy</h2>
+
+<div class="info-box">
+Total Mechanical Energy is always conserved
+(PE + KE = Constant)
+</div>
+
+<div class="main">
+
+<div class="simulation">
+
+<div class="message-box">
+<b>Ball is at Top</b><br>
+High Potential Energy<br>
+Low Kinetic Energy
+</div>
+
+<div class="hill">
+<div class="ball" id="ball"></div>
+</div>
+
+</div>
+
+<div class="controls">
+
+<h3>⚙️ Adjust Parameters</h3>
+
+<label>Height (m):
+<span id="heightValue">10</span>
+</label>
+
+<input type="range"
+id="height"
+min="1"
+max="20"
+value="10">
+
+<label>Mass (kg):
+<span id="massValue">1</span>
+</label>
+
+<input type="range"
+id="mass"
+min="1"
+max="10"
+value="1">
+
+<label>Speed (m/s):
+<span id="speedValue">0</span>
+</label>
+
+<input type="range"
+id="speed"
+min="0"
+max="20"
+value="0">
+
+<button onclick="startSimulation()">
+▶️ Start / Release
+</button>
+
+<button class="reset"
+onclick="resetSimulation()">
+↻ Reset
+</button>
+
+</div>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>Potential Energy</h3>
+<p id="pe">98.10 J</p>
+</div>
+
+<div class="card">
+<h3>Kinetic Energy</h3>
+<p id="ke">0.00 J</p>
+</div>
+
+<div class="card">
+<h3>Total Energy</h3>
+<p id="te">98.10 J</p>
+</div>
+
+</div>
+
+<div class="bottom">
+
+<div class="graph-box">
+
+<h3>Energy Graph</h3>
+
+<canvas id="energyChart"></canvas>
+
+</div>
+
+<div class="how">
+
+<h3>💡 How It Works</h3>
+
+<p>🟢 At higher positions, the ball has more Potential Energy.</p>
+
+<p>🔵 As the ball moves down, Potential Energy converts into Kinetic Energy.</p>
+
+<p>🟣 At the bottom, Potential Energy is minimum and Kinetic Energy is maximum.</p>
+
+<p>🟠 Total Mechanical Energy remains constant.</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
