@@ -1,0 +1,177 @@
+CIRCULATORY SYSTEM (HEART, BLOOD VESSELS, BLOOD) SIMULATION
+
+PROJECT REQUIREMENTS :
+
+---> We have collected resources from NCERT textbooks, educational websites, and biology reference materials. We also used ChatGPT for content organization and explanations.
+
+Resources:
+
+* https://ncert.nic.in/
+* https://byjus.com/biology/circulatory-system/
+* https://www.britannica.com/science/circulatory-system
+* https://kidshealth.org/
+* https://www.biologyonline.com/
+
+---> Develop an educational simulation on the Human Circulatory System.
+---> Provide interactive learning for students of Classes 6–10.
+---> Use simple language and engaging visuals.
+---> Include real-life examples related to heart function, blood flow, and blood vessels.
+---> Ensure easy navigation and user-friendly interface.
+---> Add assessment questions to test understanding.
+---> Maintain scientific accuracy according to school-level biology concepts.
+
+FEATURES AND MODULES :
+
+---> Interactive learning
+---> Simple explanations
+---> Real-life examples
+---> Quiz and assessment
+---> Visual illustrations and animations
+---> Easy navigation
+
+Module 1: Introduction
+
+--> Overview of the Circulatory System.
+--> Importance of blood circulation in the human body.
+
+Module 2: Heart
+
+--> Structure of the Heart.
+--> Chambers of the Heart.
+--> Working of the Heart.
+--> Heartbeat and Pulse.
+
+Module 3: Blood Vessels
+
+--> Arteries.
+--> Veins.
+--> Capillaries.
+--> Comparison of different blood vessels.
+
+Module 4: Blood
+
+--> Components of Blood.
+--> Red Blood Cells (RBCs).
+--> White Blood Cells (WBCs).
+--> Platelets.
+--> Plasma and its functions.
+
+Module 5: Interactive Simulation
+
+--> Blood flow through the heart and body.
+--> Drag-and-drop activities.
+--> Identify parts of the heart and blood vessels.
+--> Scenario-based learning exercises.
+
+Module 6: Quiz & Assessment
+
+--> Multiple-choice questions.
+--> Match the following activities.
+--> Score calculation and feedback.
+
+Module 7: Conclusion
+
+--> Summary of key concepts.
+--> Learning outcomes.
+
+TEAM TASK DIVISION
+
+Member 1 – Storyboarding & Research
+
+* Collect information related to the Circulatory System.
+* Create storyboard scenes for the simulation.
+* Gather reference images and educational resources.
+
+Member 2 – Documentation & Content Writing
+
+* Prepare project documentation.
+* Write content for all modules using proper resources and references.
+* Organize project requirements and reports.
+
+Member 3 – Initial Development & GitHub Setup
+
+* Create the GitHub repository.
+* Set up the basic project folder structure.
+* Implement the initial code base.
+* Push initial commits to GitHub.
+* Ensure visible project progress in the repository.
+
+Member 4 – Design, Testing & Review
+
+* Create visuals and presentation elements.
+* Test the simulation for errors and usability.
+* Review content and design consistency.
+* Assist in final project integration and submission.
+
+GITHUB ISSUES CREATED
+
+Issue #1 – Research on Circulatory System
+Assigned To: Member 1
+Status: Completed
+
+Issue #2 – Create Storyboard for Simulation
+Assigned To: Member 1
+Status: Completed
+
+Issue #3 – Documentation and Content Writing
+Assigned To: Member 2
+Status: Completed
+
+Issue #4 – Collect and Verify References/Resources
+Assigned To: Member 2
+Status: Completed
+
+Issue #5 – Repository Setup and Project Structure
+Assigned To: Member 3
+Status: Completed
+
+Issue #6 – Initial Code Base Development
+Assigned To: Member 3
+Status: Completed
+
+Issue #7 – Design Visual Elements and User Interface
+Assigned To: Member 4
+Status: In Progress
+
+Issue #8 – Testing, Review and Final Integration
+Assigned To: Member 4
+Status: Pending
+
+TASKS ASSIGNED TO TEAM MEMBERS
+
+Member 1 – Storyboarding & Research
+
+* Research the Human Circulatory System.
+* Collect educational resources and reference materials.
+* Create storyboard scenes for the simulation.
+* Plan the flow of the simulation.
+
+Member 2 – Documentation & Content Writing
+
+* Prepare project documentation.
+* Write content for all simulation modules.
+* Organize and verify references/resources.
+* Prepare the requirements.txt file.
+
+Member 3 – Development & GitHub Management
+
+* Create and manage the GitHub repository.
+* Set up the basic project folder structure.
+* Develop the initial code base.
+* Push commits and maintain version control.
+
+Member 4 – Design, Testing & Final Review
+
+* Design visuals and presentation elements.
+* Review content and user interface.
+* Test the simulation for errors.
+* Perform final integration and submission.
+
+| # | Team Member(s)        | Role / Responsibility                  | Task Assigned                                                                                                                      |
+| - | --------------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | Krishna Sri           | Project Planner & Requirements Analyst | Storyboard creation, project requirement gathering and analysis                                                                    |
+| 2 | Rahimunnisa, Aditya   | Simulation Developers                  | Development of simulation modules using HTML, CSS, JavaScript, and Index.html integration                                          |
+| 3 | Harsha, Avinash       | Multimedia & Design Team               | Creation and management of project images, graphics, and visual assets                                                             |
+| 4 | Sarika, Roopa         | Content Management Team                | Preparation of About Team documentation and project content files                                                                  |
+| 5 | Aditya, Roopa         | Deployment Engineers                   | Application deployment, hosting configuration, and deployment management                                                           |
+| 6 | Naga Krishna, Vardhan | Documentation Specialists              | Preparation of project documentation, code explanation, theoretical concepts, and inclusion of deployment link in the final report |
