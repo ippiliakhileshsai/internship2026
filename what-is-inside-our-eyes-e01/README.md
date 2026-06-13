@@ -67,6 +67,7 @@ Understand common vision conditions:
 
 *Coordinated team activities and monitored project progress.
 
+
 👨‍💻 2. Vamsi – Prompt Engineering & Modification Crew
 
 *Designed and refined prompts for AI-assisted website generation.
@@ -77,6 +78,7 @@ Understand common vision conditions:
 
 *Contributed to code modifications and feature enhancements.
 
+
 👨‍💻 3. Siddhartha – Prompt Engineering & Modification Crew
 
 *Proposed and implemented interactive website features.
@@ -86,6 +88,7 @@ Understand common vision conditions:
 *Assisted in feature customization and content improvements.
 
 *Supported testing and modification of generated outputs.
+
 
 👨‍💻 4. Kartheek – Website Features 
 
