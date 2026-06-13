@@ -10,5 +10,5 @@
 
 **Documentation Lead :** Ahsanath Taqdees \& Snigdharani Patnaik helped me document the entire project workflow (maintaining Readme.md)
 
-**Testing Lead:** Hasha Vardhan checks the product for bugs and ensures quality before release.
+**Testing Lead:** Harsha Vardhan checks the product for bugs and ensures quality before release.
 
