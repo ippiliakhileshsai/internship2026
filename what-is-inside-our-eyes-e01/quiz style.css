@@ -1,0 +1,247 @@
+:root {
+  --background: #EDF6FF;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(14, 165, 233, 0.25);
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --color-primary: #0288D1;
+  --color-secondary: #db2777;
+  
+  --color-success: #22c55e;
+  --color-success-bg: #f0fdf4;
+  --color-error: #ef4444;
+  --color-error-bg: #fef2f2;
+  
+  --font-display: 'Fredoka', system-ui, sans-serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--background);
+  color: var(--text-main);
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 680px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+header {
+  text-align: center;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #0288D1;
+  text-shadow: 2px 2px 0px rgba(14, 165, 233, 0.1);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.glass-card {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 12px 32px rgba(14, 165, 233, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Quiz UI headers */
+.quiz-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+}
+
+.question-text {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.4;
+  margin-bottom: 2rem;
+}
+
+/* Question Option Cards list */
+.options-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: auto;
+}
+
+.option-btn {
+  width: 100%;
+  text-align: left;
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  border: 2px solid #E2E8F0;
+  background: white;
+  color: #334155;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.option-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: #F0F9FF;
+  transform: translateX(4px);
+}
+
+.option-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* Result styles for choices */
+.option-btn.correct {
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+  color: #166534;
+}
+
+.option-btn.wrong {
+  background: var(--color-error-bg);
+  border-color: var(--color-error);
+  color: #991b1b;
+}
+
+.option-btn.muted {
+  opacity: 0.55;
+  background: #F8FAFC;
+  border-color: #E2E8F0;
+  color: #94A3B8;
+}
+
+/* Result Screen visuals */
+.results-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.trophy-glow {
+  color: #EAB308;
+  margin-bottom: 1.25rem;
+  animation: bounceTrophy 2s infinite ease-in-out alternate;
+}
+
+@keyframes bounceTrophy {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-8px) scale(1.05); }
+}
+
+.score-bold {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #475569;
+}
+
+.score-highlight {
+  color: var(--color-primary);
+  font-size: 2.25rem;
+  font-weight: 900;
+}
+
+.score-msg {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.score-msg.perfect {
+  color: var(--color-success);
+}
+
+.score-msg.good {
+  color: #475569;
+}
+
+.restart-btn {
+  padding: 0.85rem 2rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(2, 136, 209, 0.2);
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  outline: none;
+}
+
+.restart-btn:hover {
+  background: #0277BD;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(2, 136, 209, 0.3);
+}
+
+.restart-btn:active {
+  transform: translateY(0);
+}
+
+/* Slide animation classes for Q-change */
+.fade-transition {
+  transition: opacity 0.3s, transform 0.3s;
+}
+.fade-out {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.fade-in {
+  opacity: 1;
+  transform: translateX(0);
+}

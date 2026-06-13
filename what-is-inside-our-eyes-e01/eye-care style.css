@@ -1,0 +1,165 @@
+:root {
+  --background: #EDF6FF;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(14, 165, 233, 0.25);
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --color-primary: #0288D1;
+  
+  --font-display: 'Fredoka', system-ui, sans-serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--background);
+  color: var(--text-main);
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #0288D1;
+  text-shadow: 2px 2px 0px rgba(14, 165, 233, 0.1);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 2-Column Tips Grid Layout */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.care-card {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.care-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(2, 136, 209, 0.1);
+}
+
+/* Tip Header Colors */
+.card-header {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+/* Gradient themes */
+.card-food .card-header { background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%); }
+.card-light .card-header { background: linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, rgba(249, 115, 22, 0.15) 100%); }
+.card-rub .card-header { background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(244, 63, 94, 0.15) 100%); }
+.card-doc .card-header { background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(6, 182, 212, 0.15) 100%); }
+
+/* Icon sizes and borders */
+.icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  flex-shrink: 0;
+  border: 1px solid #E2E8F0;
+}
+
+.icon-box svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Custom stroke colors for SVGs */
+.card-food svg { stroke: #10B981; }
+.card-light svg { stroke: #F59E0B; }
+.card-rub svg { stroke: #EF4444; }
+.card-doc svg { stroke: #3B82F6; }
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+/* Expanded accordion content animation */
+.card-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.care-card.expanded .card-content {
+  max-height: 160px; /* Large enough to host the text content */
+}
+
+.card-text {
+  padding: 1.5rem;
+  padding-top: 0.5rem;
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Expansion border overrides */
+.care-card.expanded {
+  box-shadow: 0 12px 30px rgba(2, 136, 209, 0.12);
+}
+.care-card.expanded.card-food { border-color: rgba(34, 197, 94, 0.5); }
+.care-card.expanded.card-light { border-color: rgba(234, 179, 8, 0.5); }
+.care-card.expanded.card-rub { border-color: rgba(239, 68, 68, 0.5); }
+.care-card.expanded.card-doc { border-color: rgba(59, 130, 246, 0.5); }
