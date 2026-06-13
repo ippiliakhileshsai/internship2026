@@ -75,66 +75,53 @@ FEATURES / MODULES
 
 TEAM TASK DIVISION
 
+Member 1 
+• Storyboard Design
+• Frontend Design
+• Initial Prototype Development
+• Project Planning
 
-## Member 1 - Project Lead & Storyboard
+Member 2 
+• Frontend Development
+• Storyboard Support and Refinement
+• Initial Prototype Development
+• UI Implementation
 
-* Project Idea Selection
-* Storyboard Creation
-* Feature Planning
-* Workflow Design
-* Team Coordination
+Member 3 
+• Deployment Research
+• Technology Research and Analysis
+• Backend Planning
+• Project Groundwork
 
-## Member 2 - Documentation Manager
+Member 4 
+• Deployment Setup Research
+• Backend Architecture Planning
+• Integration Planning
+• Technical Groundwork
 
-* README.md Creation
-* requirements.txt Preparation
-* Project Documentation
-* GitHub Repository Maintenance
-
-## Member 3 - Frontend Developer
-
-* Home Page (index.html)
-* Learn Page (learn.html)
-* Navigation Design
-* User Interface Improvements
-
-## Member 4 - UI/UX & Styling Developer
-
-* CSS Styling (style.css)
-* Responsive Design
-* Card Animations
-* Theme and Layout Design
-
-## Member 5 - JavaScript Developer
-
-* Virtual Bulb Experiment (bulb.html)
-* Quiz Module (quiz.html)
-* JavaScript Logic
-* Interactive Features
-
-## Member 6 - Testing & Integration Engineer
-
-* Real-Life Uses Page (uses.html)
-* Virtual Lab (lab.html)
-* Results Module (results.html)
-* Testing and Bug Fixing
-* Final Integration of All Modules
 
 
 TASK ASSIGNMENT STATUS
 
-✓ Storyboard Assigned - Member 1
-✓ README Assigned - Member 2
-✓ Requirements File Assigned - Member 2
-✓ Home Page Assigned - Member 3
-✓ Learn Page Assigned - Member 3
-✓ CSS Styling Assigned - Member 4
-✓ Bulb Experiment Assigned - Member 5
-✓ Quiz Module Assigned - Member 5
-✓ Uses Page Assigned - Member 6
-✓ Virtual Lab Assigned - Member 6
-✓ Certificate Module Assigned - Member 6
-✓ Testing and Integration Assigned - Member 6
+✓ Storyboard Design Assigned - Member 1
+✓ Frontend Design Assigned - Member 1
+✓ Initial Prototype Development Assigned - Member 1
+✓ Project Planning Assigned - Member 1
+
+✓ Frontend Development Assigned - Member 2
+✓ Storyboard Support and Refinement Assigned - Member 2
+✓ Initial Prototype Development Assigned - Member 2
+✓ UI Implementation Assigned - Member 2
+
+✓ Deployment Research Assigned - Member 3
+✓ Technology Research and Analysis Assigned - Member 3
+✓ Backend Planning Assigned - Member 3
+✓ Project Groundwork Assigned - Member 3
+
+✓ Deployment Setup Research Assigned - Member 4
+✓ Backend Architecture Planning Assigned - Member 4
+✓ Integration Planning Assigned - Member 4
+✓ Technical Groundwork Assigned - Member 4
 
 EXPECTED OUTCOME
 
