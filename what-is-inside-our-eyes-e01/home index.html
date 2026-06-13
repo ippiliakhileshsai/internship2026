@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Is Inside Our Eyes? | Ocular Science Dashboard</title>
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #EDF6FF;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(14, 165, 233, 0.25);
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --color-primary: #0288D1;
+      
+      --font-display: 'Fredoka', system-ui, sans-serif;
+      --font-body: 'Outfit', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-family: var(--font-display);
+      font-size: 3.25rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-shadow: 2px 2px 0px rgba(14, 165, 233, 0.1);
+      margin-bottom: 0.75rem;
+    }
+
+    header p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Grid Layout for Modules */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 968px) {
+      .modules-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .modules-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Card Styling */
+    .module-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.15rem;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 10px 30px rgba(14, 165, 233, 0.05);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+    }
+
+    .module-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(2, 136, 209, 0.15);
+      border-color: var(--color-primary);
+    }
+
+    /* Icon Wrappers */
+    .icon-wrapper {
+      width: 64px;
+      height: 64px;
+      border-radius: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F0F9FF;
+      border: 1px solid #E0F2FE;
+      transition: transform 0.3s;
+    }
+
+    .module-card:hover .icon-wrapper {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .icon-wrapper svg {
+      width: 34px;
+      height: 34px;
+    }
+
+    .module-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .module-card:hover .module-title {
+      color: var(--color-primary);
+    }
+
+    .module-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      font-weight: 500;
+      flex-grow: 1;
+    }
+
+    .module-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+    }
+
+    /* Custom Badge colors */
+    .badge-anatomy {
+      background: rgba(139, 92, 246, 0.1);
+      color: #8b5cf6;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .badge-light {
+      background: rgba(14, 165, 233, 0.1);
+      color: #0ea5e9;
+      border: 1px solid rgba(14, 165, 233, 0.2);
+    }
+
+    .badge-brain {
+      background: rgba(236, 72, 153, 0.1);
+      color: #db2777;
+      border: 1px solid rgba(236, 72, 153, 0.2);
+    }
+
+    .badge-activities {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .badge-quiz {
+      background: rgba(245, 158, 11, 0.1);
+      color: #F59E0B;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .badge-care {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3B82F6;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .explore-btn {
+      margin-top: 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .explore-btn svg {
+      transition: transform 0.3s;
+    }
+
+    .module-card:hover .explore-btn svg {
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>What Is Inside Our Eyes?</h1>
+      <p>Interactive web modules demonstrating eye anatomy, optics physics, adaptations, and care health.</p>
+    </header>
+
+    <div class="modules-grid">
+      
+      <!-- Module 1: Anatomy -->
+      <a href="eye-anatomy/index.html" class="module-card">
+        <div class="icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <span class="module-badge badge-anatomy">Interactive Anatomy</span>
+        <h3 class="module-title">Eye Anatomy</h3>
+        <p class="module-desc">Explore the detailed structural layers of the eye including cornea, lens, pupil, retina, and optic nerve.</p>
+        <div class="explore-btn">
+          Open Module 
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+      </a>
+
+      <!-- Module 2: Light & Vision -->
+      <a href="light-vision/index.html" class="module-card">
+        <div class="icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </div>
+        <span class="module-badge badge-light">Refraction Physics</span>
+        <h3 class="module-title">Light & Vision</h3>
+        <p class="module-desc">Simulate optics physics, change lens refraction, analyze common vision errors, and apply corrective glasses.</p>
+        <div class="explore-btn">
+          Open Module 
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+      </a>
+
+      <!-- Module 3: Brain Vision -->
+      <a href="brain-vision/index.html" class="module-card">
+        <div class="icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1 0-3.12 3 3 0 0 1 0-4.88 2.5 2.5 0 0 1 0-3.12A2.5 2.5 0 0 1 9.5 2z"/>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 0-3.12 3 3 0 0 0 0-4.88 2.5 2.5 0 0 0 0-3.12A2.5 2.5 0 0 0 14.5 2z"/>
+          </svg>
+        </div>
+        <span class="module-badge badge-brain">Visual Processing</span>
+        <h3 class="module-title">Brain & Visuals</h3>
+        <p class="module-desc">Send neural signals through the optic pathway, trigger the relay, and process visual features in the cortex.</p>
+        <div class="explore-btn">
+          Open Module 
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+      </a>
+
+      <!-- Module 4: Interactive Labs -->
+      <a href="activities/index.html" class="module-card">
+        <div class="icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <span class="module-badge badge-activities">Adaptation Labs</span>
+        <h3 class="module-title">Interactive Labs</h3>
+        <p class="module-desc">Adjust ambient brightness to contract pupils and change focal distance to accommodate eye lenses.</p>
+        <div class="explore-btn">
+          Open Module 
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+      </a>
+
+      <!-- Module 5: Quiz -->
+      <a href="quiz/index.html" class="module-card">
+        <div class="icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="7"/>
+            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+          </svg>
+        </div>
+        <span class="module-badge badge-quiz">Knowledge Check</span>
+        <h3 class="module-title">Ocular Quiz</h3>
+        <p class="module-desc">Test your understanding of ocular anatomy, light optics, and visual processing to earn your rating.</p>
+        <div class="explore-btn">
+          Open Module 
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+      </a>
+
+      <!-- Module 6: Eye Care -->
+      <a href="eye-care/index.html" class="module-card">
+        <div class="icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+        </div>
+        <span class="module-badge badge-care">Health Guide</span>
+        <h3 class="module-title">Eye Care Hub</h3>
+        <p class="module-desc">Learn key daily habits, dietary recommendations, and precautions to look after your eyes and keep them healthy.</p>
+        <div class="explore-btn">
+          Open Module 
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+</body>
+</html>
