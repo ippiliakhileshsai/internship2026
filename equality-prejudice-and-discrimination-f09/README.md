@@ -1,157 +1,87 @@
-<div align="center">
-
-# 🏏 The 12th Man
-
-### An Interactive Simulation on Equality, Prejudice & Discrimination
-
-</div>
+🏏 The 12th Man – Equality, Prejudice & Discrimination
 
 ---
 
-##  Overview
+📌 Project Title
 
-**The 12th Man** is a browser-based interactive simulation built around a cricket team selection story. It walks users through how **prejudice** and **discrimination** creep into decision-making — and what it takes to restore **equality**.
-
-> *"Prejudice creates unfair assumptions. Discrimination creates unequal opportunities. Equality ensures everyone is judged by their abilities and efforts."*
+The 12th Man: Understanding Equality, Prejudice & Discrimination in Cricket Team Selection
 
 ---
 
-##Live Demo 
-  swecha-delta.vercel.app
- 
+📖 Description of the Project
 
-##  Story Architechture
+This project is a web-based simulation that explains the concepts of equality, prejudice, and discrimination using a cricket team selection scenario.
 
-The simulation is structured across **5 scenes**, each representing a key concept:
-
-| # | Scene | Core Concept | What Happens |
-|---|-------|--------------|--------------|
-| 1 | **Equality** | Fair Start | Every player enters trials expecting to be judged on ability |
-| 2 | **Prejudice** | Bias Enters | Personal assumptions begin to influence the selection discussion |
-| 3 | **Discrimination** | Unfair Exclusion | A strong performer is left out of the squad despite good trial results |
-| 4 | **Consequences** | The Cost of Bias | The team struggles — the excluded player's skills were exactly what was needed |
-| 5 | **Equality Restored** | Reform | Selections are moved to a performance-only process |
+It shows how a player, despite performing well, may not get selected in the playing eleven and becomes the “12th man” due to biased thinking and assumptions. The project helps students understand how unfair decisions impact individuals and team performance.
 
 ---
 
-##  Learning Objectives
+❗ Problem Statement
 
-By the end of this simulation, users will be able to:
+In many situations, especially in team selection, decisions are not always based on performance. Instead, bias, assumptions, and familiarity influence choices, leading to prejudice and discrimination.
 
-- Distinguish between **prejudice** (unfair assumption) and **discrimination** (unfair action)
-- Understand how bias harms both **individuals** and **teams**
-- Recognise what **genuine equality of opportunity** looks like
-- Reflect on their own decision-making through interactive choices
+This results in deserving players being ignored and losing opportunities, while teams also suffer by not selecting the best talent. There is a need to ensure fair and transparent selection based on merit.
 
 ---
 
-##  Project Structure
+💡 Solution
 
-```
-the-12th-man/
-│
-├── index.html                  # Landing page
-├── README.md                   # Project documentation
-├── storyboard.jpeg             # Original storyboard reference
-│
-├── scenes/
-│   ├── scene1-equality.html
-│   ├── scene2-prejudice.html
-│   ├── scene3-discrimination.html
-│   ├── scene4-consequences.html
-│   └── scene5-restored.html
-│
-├── assets/
-│   └── images/                 # Character and scene illustrations
-│
-├── js/
-│   ├── simulation.js           # Core simulation logic
-│   ├── choices.js              # Decision tree and branching
-│   └── scoring.js              # Fairness score tracker
-│
-└── css/
-    ├── main.css                # Global styles
-    └── scenes.css              # Scene-specific layout
-```
+This project provides an interactive web experience where users can:
+
+- Observe how team selection decisions are made
+- Understand how bias affects outcomes
+- Learn the importance of equality and fair evaluation
+
+It promotes the idea that everyone deserves equal opportunity based on their skills and effort.
 
 ---
 
-##  Built With
+✨ Features
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| Structure | HTML5 | Scene pages, dialogue layout, UI elements |
-| Styling | CSS3 | Animations, transitions, responsive design |
-| Logic | JavaScript (ES6+) | Branching decisions, scoring, scene navigation |
-| Hosting | GitHub Pages | Free static site deployment |
+- 🏏 Cricket-based real-life scenario
+- 🎯 Focus on “The 12th Man” concept
+- ⚖️ Demonstrates equality, prejudice, and discrimination
+- 💻 Simple interactive UI
+- 📚 Educational and awareness-focused
 
 ---
 
-##  Getting Started
+🛠️ Tech Stack Used
 
-### Prerequisites
-- Any modern browser — Chrome, Firefox, Edge, Safari
-- No frameworks, no installs — pure HTML, CSS & JS
-
-### Run Locally
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/your-username/the-12th-man.git
-
-# 2. Move into the project folder
-cd the-12th-man
-
-# 3. Open directly in your browser
-open index.html
-```
+- HTML5 – for page structure
+- CSS3 – for styling and layout
+- JavaScript – for interactivity and logic
 
 ---
 
-##  How It Works
+▶️ How to Run the Project
 
-1. **Pick a role** — Play as the Head Selector, the New Player, or observe as the Coach
-2. **Work through each scene** — Read dialogue and make decisions at key branching points
-3. **Watch the impact** — Your choices affect team performance and a live **Fairness Score**
-4. **Debrief at the end** — A summary maps your decisions to real-world concepts of equality and discrimination
+Step 1: Clone the repository
 
----
+git clone https://github.com/Madiha6906/Swecha.git
 
-##  Roadmap
+Step 2: Open the project
 
-- [x] Storyboard finalised
-- [x] README and project structure defined
-- [ ] Scene layouts (HTML & CSS)
-- [ ] Character dialogue scripted
-- [ ] Decision branching logic (JS)
-- [ ] Fairness Score system
-- [ ] Mobile responsiveness
-- [ ] Accessibility (ARIA, keyboard nav)
-- [ ] GitHub Pages deployment
-- [ ] Facilitator / teacher guide
+- Open the folder in VS Code
+- Locate "index.html"
+
+Step 3: Run the project
+
+- Right-click on "index.html"
+- Select Open with Live Server
+
+👉 The project will open in your browser
 
 ---
 
-##  Contributing
+🌐 Deployment Link
 
-1. Fork the repository
-2. Create your branch: `git checkout -b feature/your-feature`
-3. Commit changes: `git commit -m "Add: your description"`
-4. Push: `git push origin feature/your-feature`
-5. Open a Pull Request
+👉 https://swecha-delta.vercel.app
 
 ---
 
-## 📄 License
+🎯 Conclusion
 
-This project is licensed under the [MIT License](LICENSE).
+This project highlights how prejudice and discrimination can affect fair decision-making in team selection. By showing the journey of the “12th man,” it emphasizes that equal opportunities and merit-based choices lead to better outcomes for both individuals and teams.
 
 ---
-
-<div align="center">
-Work in progress..
-</div>
