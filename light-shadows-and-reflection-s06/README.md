@@ -1,8 +1,31 @@
-# AI-Powered Light Reflection and Shadow Simulator
+ Light Reflection and Shadow Simulator
 
 An interactive educational physics simulator that helps students understand light reflection, the Law of Reflection, normal lines, shadow formation, and the behavior of plane, convex, and concave mirrors.
 
 ---
+
+Team members and contibutions 
+
+E.Snehith
+  - researched and contributed on making story board .
+B.Luhitha
+   - researched and contributed on making story board .
+
+
+K.Naga Vyshnavi 
+    - developed the light reflection simulation using html,css,js.
+Shaik 
+ - developed the light reflection simulation using html,css,js.
+
+
+B.Jayadev 
+    - Improved the UI of the simulation . added the simulation of shadow formation.
+B.Mahesh
+    - Improved the UI of the simulation . added the simulation of shadow formation of Rainbow.
+
+
+
+P.Manohari
 
 ## Project Overview
 
@@ -13,7 +36,7 @@ This web-based simulation provides a real-time, visually rich environment for ex
 - **Interactive controls** for angle, intensity, surface type, and position
 - **Quiz Mode** with 10 curriculum-aligned physics questions
 - **Learning Mode** with comprehensive reference content
-
+  
 ---
 
 ## Folder Structure
