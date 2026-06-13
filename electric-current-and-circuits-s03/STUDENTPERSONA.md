@@ -1,9 +1,9 @@
-## Student Personas
+## Student Persona
 
 To ensure that the storyboard effectively addresses the learning needs of students from different age groups, learner personas representing Grades 6–10 were developed. These personas helped design content that is engaging, age-appropriate, and educational.
 
 
-### Grade 6 Students
+### Grade 6 Student
 
 **Characteristics**
 - Age: 11 years
@@ -21,7 +21,7 @@ To ensure that the storyboard effectively addresses the learning needs of studen
 - Connects safety lessons with real-life situations.
 
 
-### Grade 7 Students
+### Grade 7 Student
 
 **Characteristics**
 - Age: 12 years
@@ -38,7 +38,7 @@ To ensure that the storyboard effectively addresses the learning needs of studen
 - Encourages exploration in a safe virtual environment.
 
 
-### Grade 8 Students
+### Grade 8 Student
 
 **Characteristics**
 - Age: 13 years
@@ -55,7 +55,7 @@ To ensure that the storyboard effectively addresses the learning needs of studen
 - Uses real-world examples involving agricultural water pumps.
 
 
-### Grade 9 Students
+### Grade 9 Student
 
 **Characteristics**
 - Age: 14 years
@@ -72,7 +72,7 @@ To ensure that the storyboard effectively addresses the learning needs of studen
 - Demonstrates the importance of science in ensuring community safety.
 
 
-### Grade 10 Students
+### Grade 10 Student
 
 **Characteristics**
 - Age: 15 years
