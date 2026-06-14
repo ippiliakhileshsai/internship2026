@@ -11,6 +11,11 @@
     // Strip query parameters and hash fragments to prevent path mismatch
     page = page.split('?')[0].split('#')[0];
 
+    // Normalize clean URLs (e.g. "login" -> "login.html")
+    if (page && !page.includes('.')) {
+        page += ".html";
+    }
+
     const currentUser = JSON.parse(localStorage.getItem("conductoverseCurrentUser") || "null");
 
     // 2. Access Protection Guard: Only login.html and register.html are accessible when logged out

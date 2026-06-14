@@ -41,7 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Highlight active sidebar item based on filename
     const path = window.location.pathname;
-    const page = path.substring(path.lastIndexOf('/') + 1) || "teacher-overview.html";
+    let page = path.substring(path.lastIndexOf('/') + 1) || "teacher-overview.html";
+    page = page.split('?')[0].split('#')[0];
+    if (page && !page.includes('.')) {
+        page += ".html";
+    }
     const sidebarLinks = document.querySelectorAll(".sidebar-menu a");
     sidebarLinks.forEach(link => {
         const href = link.getAttribute("href");
