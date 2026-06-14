@@ -1,4 +1,4 @@
-const questionsDatabase = {
+const defaultQuestionsDatabase = {
     1: [
         {
             question: "Which material is a conductor?",
@@ -96,6 +96,8 @@ const questionsDatabase = {
         }
     ]
 };
+
+const questionsDatabase = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDatabase;
 
 let currentLevel = 1;
 let quizLevelStartTime = Date.now();
@@ -258,14 +260,21 @@ function calculateScore() {
         </div>
     `;
 
-    localStorage.setItem("conductoverseQuizResult", JSON.stringify({
+    const quizResult = {
         level: currentLevel,
         score,
         total,
         percent,
         secondsSpent,
         completedAt: new Date().toISOString()
-    }));
+    };
+    localStorage.setItem("conductoverseQuizResult", JSON.stringify(quizResult));
+    
+    // Save to user-specific key if logged in
+    const userSession = JSON.parse(localStorage.getItem("conductoverseCurrentUser") || "null");
+    if (userSession && userSession.username) {
+        localStorage.setItem(`conductoverseQuizResult_${userSession.username}`, JSON.stringify(quizResult));
+    }
     
     // Smooth scroll to results panel
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

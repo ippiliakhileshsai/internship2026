@@ -20,7 +20,7 @@
     --shadow: 0 20px 50px rgba(13, 34, 56, 0.05);
     --soft-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
     --radius: 24px;
-    --max: 1160px;
+    --max: 1800px;
     
     /* Neon Glow & Glass Design System */
     --glass-glow: inset 0 1px 1px rgba(255, 255, 255, 0.5), 0 8px 32px 0 rgba(31, 38, 135, 0.04);
@@ -146,7 +146,7 @@ input {
     position: sticky;
     top: 14px;
     z-index: 100;
-    width: min(calc(100% - 24px), 1220px);
+    width: min(calc(100% - 24px), 1860px);
     margin: 14px auto 0;
     display: flex;
     align-items: center;
@@ -840,6 +840,15 @@ button:focus-visible,
     100% { transform: translate(80px, 312px); opacity: 0; }
 }
 
+@keyframes bulbElectronMove {
+    0% { left: 142px; top: 304px; opacity: 0; }
+    8% { opacity: 1; }
+    35% { left: calc(100% - 76px); top: 304px; }
+    58% { left: calc(100% - 76px); top: 104px; }
+    82% { left: 80px; top: 104px; }
+    100% { left: 80px; top: 274px; opacity: 0; }
+}
+
 @keyframes bulbPulse {
     0%, 100% { filter: brightness(1); transform: scale(1); }
     50% { filter: brightness(1.14); transform: scale(1.035); }
@@ -1504,6 +1513,9 @@ button:focus-visible,
     -webkit-backdrop-filter: blur(16px);
 }
 
+/* ═══════════════════════════════════════════════════════
+   ORIGINAL BASE CIRCUIT STAGE STYLES (Used by index.html)
+   ═══════════════════════════════════════════════════════ */
 .circuit-stage {
     position: relative;
     min-height: 360px;
@@ -1581,21 +1593,6 @@ button:focus-visible,
     animation: bulbPulse 1.3s ease-in-out infinite;
 }
 
-.test-material {
-    position: absolute;
-    left: 50%;
-    bottom: 58px;
-    min-width: 128px;
-    padding: 12px 16px;
-    border: 2px dashed #bcd4ea;
-    border-radius: 16px;
-    background: #ffffff;
-    color: #37546f;
-    font-weight: 900;
-    text-align: center;
-    transform: translateX(-50%);
-}
-
 .circuit-stage.is-lit .test-material {
     border-color: rgba(25, 167, 111, 0.55);
     background: #eafaf3;
@@ -1606,6 +1603,411 @@ button:focus-visible,
     border-color: rgba(234, 77, 92, 0.5);
     background: #fff0f2;
     color: #8d1d2b;
+}
+
+.circuit-stage.is-lit .conductor-flow,
+.circuit-stage.is-blocked .blocked-flow {
+    display: inline-flex;
+}
+
+.circuit-stage.is-blocked .visual-block-mark {
+    display: grid;
+    animation: blockedPop 380ms ease both;
+}
+
+.circuit-stage.is-blocked .wire {
+    opacity: 0.28;
+    filter: grayscale(0.5);
+}
+
+.circuit-stage.is-blocked .test-item-slot {
+    border-color: #ef4444;
+    background: #fff1f2;
+    color: #991b1b;
+}
+
+.bulb-stage {
+    position: relative;
+    min-height: 380px;
+    margin-top: 18px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: radial-gradient(circle at center, #fbfdfe 0%, #eef6fc 100%);
+    border: 2px solid var(--border);
+    box-shadow: inset 0 0 36px rgba(22, 104, 255, 0.04), var(--soft-shadow);
+}
+
+/* Live Multimeter Console styling */
+.live-multimeter {
+    z-index: 10;
+    background: rgba(13, 34, 56, 0.88);
+    border: 1.5px solid rgba(0, 243, 255, 0.25);
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.76rem;
+    color: #00f3ff;
+    box-shadow: 0 8px 20px rgba(13, 34, 56, 0.12), 0 0 10px rgba(0, 243, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 175px;
+}
+
+.meter-line {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.meter-label {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.meter-val {
+    text-shadow: 0 0 4px currentColor;
+    transition: color 0.3s ease;
+}
+
+.meter-val.standby { color: var(--yellow); }
+.meter-val.connected { color: #39ff14; }
+.meter-val.blocked { color: #ff3333; }
+
+/* High-tech Power Cell (Battery) */
+.bulb-stage .battery {
+    position: absolute;
+    left: 34px;
+    bottom: 46px;
+    width: 110px;
+    height: 60px;
+    border: 4px solid #23364d;
+    border-radius: 12px;
+    background: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    box-shadow: 0 10px 20px rgba(13, 34, 56, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+    z-index: 5;
+    transition: border-color 0.3s ease;
+}
+
+.bulb-stage.is-lit .battery {
+    border-color: #0369a1;
+}
+
+.battery-core {
+    flex: 1;
+    height: 34px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #1668ff 0 70%, #ef4444 70% 100%);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.bulb-stage.is-lit .battery-core::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+    animation: batteryChargeFlow 1.5s linear infinite;
+}
+
+@keyframes batteryChargeFlow {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.polarity {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1;
+    user-select: none;
+}
+
+.polarity.neg { margin-right: 6px; color: #60a5fa; }
+.polarity.pos { margin-left: 6px; color: #f87171; }
+
+/* Electrified Wires */
+.bulb-stage .wire {
+    opacity: 0.42;
+    background: #94a3b8;
+    border: 2.5px solid #23364d;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    transition: opacity 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 2;
+}
+
+.bulb-stage .wire.one {
+    left: 142px;
+    right: 76px;
+    bottom: 70px;
+    height: 12px;
+}
+
+.bulb-stage .wire.two {
+    right: 70px;
+    bottom: 70px;
+    width: 12px;
+    height: 212px;
+}
+
+.bulb-stage .wire.three {
+    left: 78px;
+    right: 70px;
+    top: 98px;
+    height: 12px;
+}
+
+.bulb-stage .wire.four {
+    left: 74px;
+    top: 98px;
+    width: 12px;
+    height: 176px;
+}
+
+/* Wires when Conducting (lit) */
+.bulb-stage.is-lit .wire {
+    opacity: 1;
+    border-color: #0369a1;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+.bulb-stage.is-lit .wire.one,
+.bulb-stage.is-lit .wire.three {
+    background: repeating-linear-gradient(90deg, #1e40af 0px, #00f3ff 15px, #1e40af 30px);
+    background-size: 60px 100%;
+    animation: wireFlowHorizontal 1s linear infinite;
+}
+
+.bulb-stage.is-lit .wire.two,
+.bulb-stage.is-lit .wire.four {
+    background: repeating-linear-gradient(180deg, #1e40af 0px, #00f3ff 15px, #1e40af 30px);
+    background-size: 100% 60px;
+    animation: wireFlowVertical 1s linear infinite;
+}
+
+@keyframes wireFlowHorizontal {
+    from { background-position: 0 0; }
+    to { background-position: 60px 0; }
+}
+
+@keyframes wireFlowVertical {
+    from { background-position: 0 0; }
+    to { background-position: 0 60px; }
+}
+
+/* Continuous Electron Flow Stream */
+.electron-flow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.bulb-stage .electron {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #00f3ff;
+    box-shadow: 0 0 8px #00f3ff, 0 0 16px #00f3ff;
+    animation: bulbElectronMove 4.5s linear infinite;
+}
+
+.bulb-stage:not(.is-lit) .electron {
+    display: none;
+}
+
+.electron.e1 { animation-delay: 0s; }
+.electron.e2 { animation-delay: -0.5625s; }
+.electron.e3 { animation-delay: -1.125s; }
+.electron.e4 { animation-delay: -1.6875s; }
+.electron.e5 { animation-delay: -2.25s; }
+.electron.e6 { animation-delay: -2.8125s; }
+.electron.e7 { animation-delay: -3.375s; }
+.electron.e8 { animation-delay: -3.9375s; }
+
+/* Light Bulb Visual Components */
+.bulb-stage .bulb-visual {
+    position: absolute;
+    top: 38px;
+    left: 50%;
+    width: 138px;
+    height: 168px;
+    transform: translateX(-50%);
+    display: grid;
+    place-items: center;
+    z-index: 5;
+}
+
+.bulb-glow-backdrop {
+    position: absolute;
+    top: 10px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 230, 0, 0.45) 0%, rgba(255, 145, 0, 0) 70%);
+    opacity: 0;
+    transform: scale(0.6);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.bulb-stage.is-lit .bulb-glow-backdrop {
+    opacity: 1;
+    transform: scale(1.1);
+    animation: bulbGlowPulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes bulbGlowPulse {
+    0% { opacity: 0.8; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1.2); }
+}
+
+.bulb-stage .bulb-glass {
+    width: 104px;
+    height: 104px;
+    border: 5px solid #23364d;
+    border-radius: 50% 50% 44% 44%;
+    background: radial-gradient(circle at 42% 34%, #ffffff 0 10%, #f1f5f9 22%, #cbd5e1 100%);
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5);
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bulb-stage.is-lit .bulb-glass {
+    background: radial-gradient(circle at 42% 34%, #ffffff 0 10%, #fff9c4 30%, #fbc02d 100%);
+    border-color: #0369a1;
+    box-shadow: 0 0 36px rgba(251, 192, 45, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+    animation: bulbVibrate 0.15s linear infinite;
+}
+
+@keyframes bulbVibrate {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-0.5px, 0.5px) rotate(-0.1deg); }
+    75% { transform: translate(0.5px, -0.5px) rotate(0.1deg); }
+}
+
+.bulb-stage .filament {
+    width: 36px;
+    height: 18px;
+    border: 3.5px solid #64748b;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: border-color 0.3s ease;
+}
+
+.bulb-stage.is-lit .filament {
+    border-color: #ffeb3b;
+    filter: drop-shadow(0 0 8px #ffeb3b);
+}
+
+/* Electric Sparks inside bulb */
+.electric-sparks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: none;
+}
+
+.bulb-stage.is-lit .electric-sparks {
+    display: block;
+}
+
+.spark {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffeb3b;
+    box-shadow: 0 0 6px #ffeb3b;
+}
+
+.spark.s1 {
+    left: 35%; top: 44%;
+    --dx: -12px; --dy: -18px;
+    animation: sparkFly 0.8s ease-out infinite;
+}
+
+.spark.s2 {
+    left: 50%; top: 38%;
+    --dx: 0px; --dy: -22px;
+    animation: sparkFly 0.6s ease-out infinite -0.2s;
+}
+
+.spark.s3 {
+    left: 65%; top: 44%;
+    --dx: 12px; --dy: -18px;
+    animation: sparkFly 0.7s ease-out infinite -0.4s;
+}
+
+@keyframes sparkFly {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
+}
+
+.bulb-stage .bulb-base {
+    position: absolute;
+    top: 104px;
+    width: 48px;
+    height: 38px;
+    border-radius: 6px;
+    background: repeating-linear-gradient(180deg, #64748b 0 6px, #334155 6px 10px);
+    border: 3.5px solid #23364d;
+    z-index: 3;
+    transition: border-color 0.3s ease;
+}
+
+.bulb-stage.is-lit .bulb-base {
+    border-color: #0369a1;
+}
+
+/* Test Material Slot styling */
+.bulb-stage .test-material {
+    position: absolute;
+    left: 50%;
+    bottom: 58px;
+    min-width: 138px;
+    padding: 10px 14px;
+    border: 2px dashed #a5c3e0;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #4a5d70;
+    font-weight: 900;
+    text-align: center;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 10px rgba(13, 34, 56, 0.04);
+    z-index: 6;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bulb-stage.is-lit .test-material {
+    border: 2.5px solid #10b981;
+    background: #ecfdf5;
+    color: #047857;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2), 0 4px 10px rgba(16, 185, 129, 0.05);
+}
+
+.bulb-stage.is-blocked .test-material {
+    border: 2.5px solid #ef4444;
+    background: #fdf2f2;
+    color: #991b1b;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.15), 0 4px 10px rgba(239, 68, 68, 0.05);
 }
 
 .flow-path-label {
@@ -1636,16 +2038,16 @@ button:focus-visible,
     border: 1px solid rgba(244, 63, 94, 0.35);
 }
 
-.circuit-stage.is-lit .conductor-flow,
-.circuit-stage.is-blocked .blocked-flow {
+.bulb-stage.is-lit .conductor-flow,
+.bulb-stage.is-blocked .blocked-flow {
     display: inline-flex;
 }
 
-.visual-block-mark {
+.bulb-stage .visual-block-mark {
     position: absolute;
     left: 50%;
     bottom: 32px;
-    z-index: 4;
+    z-index: 8;
     width: 88px;
     height: 88px;
     display: none;
@@ -1653,12 +2055,12 @@ button:focus-visible,
     transform: translateX(-50%);
     border: 6px solid #ef4444;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.88);
     box-shadow: 0 0 28px rgba(239, 68, 68, 0.28);
     pointer-events: none;
 }
 
-.visual-block-mark span {
+.bulb-stage .visual-block-mark span {
     position: absolute;
     width: 62px;
     height: 8px;
@@ -1666,25 +2068,25 @@ button:focus-visible,
     background: #ef4444;
 }
 
-.visual-block-mark span:first-child {
+.bulb-stage .visual-block-mark span:first-child {
     transform: rotate(45deg);
 }
 
-.visual-block-mark span:last-child {
+.bulb-stage .visual-block-mark span:last-child {
     transform: rotate(-45deg);
 }
 
-.circuit-stage.is-blocked .visual-block-mark {
+.bulb-stage.is-blocked .visual-block-mark {
     display: grid;
     animation: blockedPop 380ms ease both;
 }
 
-.circuit-stage.is-blocked .wire {
+.bulb-stage.is-blocked .wire {
     opacity: 0.28;
     filter: grayscale(0.5);
 }
 
-.circuit-stage.is-blocked .test-item-slot {
+.bulb-stage.is-blocked .test-item-slot {
     border-color: #ef4444;
     background: #fff1f2;
     color: #991b1b;

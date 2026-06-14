@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Portal - Analytics | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="teacher-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Teacher
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="teacherAvatar" class="profile-avatar teacher">🔋</div>
+            <h2 id="teacherUsername">Teacher Name</h2>
+            <span class="profile-role-badge teacher">Instructor</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="teacher-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="teacher-students.html" class="menu-btn"><span class="icon">👥</span> Students</a></li>
+                <li><a href="teacher-assignments.html" class="menu-btn"><span class="icon">📝</span> Assignments</a></li>
+                <li><a href="teacher-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Quizzes</a></li>
+                <li><a href="teacher-analytics.html" class="menu-btn"><span class="icon">📈</span> Analytics</a></li>
+                <li><a href="teacher-certificates.html" class="menu-btn"><span class="icon">🏆</span> Certificates</a></li>
+                <li><a href="teacher-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="teacher-reports.html" class="menu-btn"><span class="icon">📄</span> Reports</a></li>
+                <li><a href="teacher-settings.html" class="menu-btn"><span class="icon">⚙️</span> Settings</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">Welcome, Instructor!</h1>
+            <p id="welcomeDescription">Monitor skill metrics, class grade spreads, and conceptual learning curves.</p>
+        </header>
+
+        <section id="tab-analytics" class="tab-content active">
+            <div style="display:grid; grid-template-columns: 1fr; gap: 28px;">
+                <!-- Class Performance Distribution -->
+                <article class="dashboard-card">
+                    <h2>📈 Class Knowledge Grade Distribution</h2>
+                    <p style="font-size:0.86rem; color:var(--muted); margin-bottom: 20px; font-weight: 600;">Visualizing student representation across overall performance grades.</p>
+                    
+                    <div class="analytics-chart-container" id="distribution-chart">
+                        <div class="chart-bar-col">
+                            <span style="font-size:0.8rem; font-weight:700; color:var(--green);" id="dist-a-count">0</span>
+                            <div class="chart-bar distribution" id="dist-a-bar" style="height: 10px;"></div>
+                            <span style="font-size:0.75rem; font-weight:700; color:var(--muted)">Mastery (>=80%)</span>
+                        </div>
+                        <div class="chart-bar-col">
+                            <span style="font-size:0.8rem; font-weight:700; color:var(--blue);" id="dist-b-count">0</span>
+                            <div class="chart-bar distribution" id="dist-b-bar" style="height: 10px; background: linear-gradient(180deg, var(--blue), var(--cyan))"></div>
+                            <span style="font-size:0.75rem; font-weight:700; color:var(--muted)">Passing (50-79%)</span>
+                        </div>
+                        <div class="chart-bar-col">
+                            <span style="font-size:0.8rem; font-weight:700; color:var(--red);" id="dist-c-count">0</span>
+                            <div class="chart-bar distribution" id="dist-c-bar" style="height: 10px; background: linear-gradient(180deg, var(--red), #fca5a5)"></div>
+                            <span style="font-size:0.75rem; font-weight:700; color:var(--muted)">Practice (<50%)</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Core Skill Matrix -->
+                <article class="dashboard-card">
+                    <h2>📐 Average Concept Strength Matrix</h2>
+                    <p style="font-size:0.86rem; color:var(--muted); margin-bottom: 20px; font-weight: 600;">Comparing student strengths in conductors, insulators, and safe practices.</p>
+                    
+                    <div style="display:flex; flex-direction:column; gap:16px;">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:800; margin-bottom:4px;">
+                                    <span>Conductor Materials Sorting</span>
+                                    <span id="skill-cond-val">0%</span>
+                                </div>
+                            <div class="score-meter" style="margin-top:0;"><span id="skill-cond-bar" style="width:0%; background:var(--cyan);"></span></div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:800; margin-bottom:4px;">
+                                    <span>Insulator Isolation & Shielding</span>
+                                    <span id="skill-insul-val">0%</span>
+                                </div>
+                            <div class="score-meter" style="margin-top:0;"><span id="skill-insul-bar" style="width:0%; background:var(--orange);"></span></div>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:800; margin-bottom:4px;">
+                                    <span>Quiz Theory Basics</span>
+                                    <span id="skill-theory-val">0%</span>
+                                </div>
+                            <div class="score-meter" style="margin-top:0;"><span id="skill-theory-bar" style="width:0%; background:var(--green);"></span></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/teacher-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    renderAnalyticsCharts();
+});
+
+function renderAnalyticsCharts() {
+    let mastCount = 0, passCount = 0, pracCount = 0;
+
+    studentsData.forEach(s => {
+        const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${s.username}`) || "null");
+        const spot = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${s.username}`) || "null");
+
+        const quizPct = quiz ? quiz.percent : 0;
+        const spotPct = spot ? spot.percent : 0;
+        const completedCount = (quiz ? 1 : 0) + (spot ? 1 : 0);
+        const overall = completedCount ? Math.round((quizPct + spotPct) / completedCount) : 0;
+
+        if (overall >= 80) mastCount++;
+        else if (overall >= 50) passCount++;
+        else pracCount++;
+    });
+
+    const total = Math.max(1, mastCount + passCount + pracCount);
+    const mastHeight = Math.round((mastCount / total) * 150) + 10;
+    const passHeight = Math.round((passCount / total) * 150) + 10;
+    const pracHeight = Math.round((pracCount / total) * 150) + 10;
+
+    document.getElementById("dist-a-count").textContent = `${mastCount} student(s) (${Math.round((mastCount/total)*100)}%)`;
+    document.getElementById("dist-b-count").textContent = `${passCount} student(s) (${Math.round((passCount/total)*100)}%)`;
+    document.getElementById("dist-c-count").textContent = `${pracCount} student(s) (${Math.round((pracCount/total)*100)}%)`;
+
+    document.getElementById("dist-a-bar").style.height = `${mastHeight}px`;
+    document.getElementById("dist-b-bar").style.height = `${passHeight}px`;
+    document.getElementById("dist-c-bar").style.height = `${pracHeight}px`;
+
+    let condSum = 0, insSum = 0, theorySum = 0;
+    let activeStudentsCount = 0;
+
+    studentsData.forEach(s => {
+        const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${s.username}`) || "null");
+        const spot = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${s.username}`) || "null");
+
+        if (quiz || spot) {
+            activeStudentsCount++;
+            theorySum += quiz ? quiz.percent : 0;
+            condSum += spot ? Math.min(100, spot.percent + 5) : 0;
+            insSum += spot ? Math.max(0, spot.percent - 5) : 0;
+        }
+    });
+
+    const studentDiv = Math.max(1, activeStudentsCount);
+    const avgCond = Math.round(condSum / studentDiv);
+    const avgIns = Math.round(insSum / studentDiv);
+    const avgTheory = Math.round(theorySum / studentDiv);
+
+    document.getElementById("skill-cond-val").textContent = `${avgCond}%`;
+    document.getElementById("skill-cond-bar").style.width = `${avgCond}%`;
+    
+    document.getElementById("skill-insul-val").textContent = `${avgIns}%`;
+    document.getElementById("skill-insul-bar").style.width = `${avgIns}%`;
+
+    document.getElementById("skill-theory-val").textContent = `${avgTheory}%`;
+    document.getElementById("skill-theory-bar").style.width = `${avgTheory}%`;
+}
+</script>
+</body>
+</html>

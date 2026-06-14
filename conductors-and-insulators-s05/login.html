@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Access Panel | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="index.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse
+    </a>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="bulb.html">Bulb Test</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="uses.html">Uses</a></li>
+        <li><a href="lab.html">Virtual Lab</a></li>
+        <li><a href="results.html">Results</a></li>
+    </ul>
+</nav>
+
+<main class="auth-container">
+    <article class="auth-card" id="authCard" data-active-role="student">
+        <header class="auth-header">
+            <h1>Access Panel</h1>
+            <p>Select your terminal role to establish current path</p>
+        </header>
+
+        <div id="authAlert" class="auth-alert error" aria-live="assertive">
+            <span>⚠️</span>
+            <span id="authAlertMsg"></span>
+        </div>
+
+        <form id="loginForm" autocomplete="on">
+            <!-- Hidden inputs to help password managers -->
+            <input type="hidden" id="roleInput" name="role" value="student">
+            
+            <div class="role-selector-grid">
+                <button type="button" class="role-btn" data-role="student" onclick="setRole('student')" aria-label="Select Student Role">
+                    <span class="emoji" aria-hidden="true">💡</span>
+                    <span class="label">Student</span>
+                </button>
+                <button type="button" class="role-btn" data-role="teacher" onclick="setRole('teacher')" aria-label="Select Teacher Role">
+                    <span class="emoji" aria-hidden="true">🔋</span>
+                    <span class="label">Teacher</span>
+                </button>
+                <button type="button" class="role-btn" data-role="admin" onclick="setRole('admin')" aria-label="Select Admin Role">
+                    <span class="emoji" aria-hidden="true">⚡</span>
+                    <span class="label">Admin</span>
+                </button>
+            </div>
+
+            <div class="auth-form-group">
+                <label for="usernameInput" class="auth-label">Username or Email</label>
+                <div class="auth-input-wrapper">
+                    <input type="text" id="usernameInput" name="username" class="auth-input" placeholder="Enter credentials" required autocomplete="username">
+                    <span class="auth-input-icon" aria-hidden="true">👤</span>
+                </div>
+            </div>
+
+            <div class="auth-form-group">
+                <label for="passwordInput" class="auth-label">Password</label>
+                <div class="auth-input-wrapper">
+                    <input type="password" id="passwordInput" name="password" class="auth-input" placeholder="••••••••" required autocomplete="current-password">
+                    <span class="auth-input-icon" aria-hidden="true">🔒</span>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Activate Connection ⚡</button>
+        </form>
+
+        <footer class="auth-footer-links">
+            New node in the circuit? <a href="register.html">Assemble Profile</a>
+        </footer>
+    </article>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script>
+    let activeRole = 'student';
+
+    function setRole(role) {
+        activeRole = role;
+        document.getElementById('authCard').setAttribute('data-active-role', role);
+        document.getElementById('roleInput').value = role;
+        
+        // Dynamic placeholder/info changes to help guide users
+        const userField = document.getElementById('usernameInput');
+        const passField = document.getElementById('passwordInput');
+        
+        if (role === 'admin') {
+            userField.placeholder = "e.g., admin@123";
+            passField.placeholder = "e.g., 1234";
+        } else {
+            userField.placeholder = "Enter name or email";
+            passField.placeholder = "Any password (flexible)";
+        }
+
+        // Hide alert if visible
+        document.getElementById('authAlert').style.display = 'none';
+    }
+
+    // Set initial placeholder
+    setRole('student');
+
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('usernameInput').value.trim();
+        const password = document.getElementById('passwordInput').value.trim();
+        
+        const result = window.ConductoVerseAuth.login(username, password, activeRole);
+        
+        if (result.success) {
+            const session = JSON.parse(localStorage.getItem("conductoverseCurrentUser") || "{}");
+            if (session.role === "teacher") {
+                window.location.href = "teacher-overview.html";
+            } else {
+                window.location.href = "index.html";
+            }
+        } else {
+            const alertBox = document.getElementById('authAlert');
+            const msgBox = document.getElementById('authAlertMsg');
+            msgBox.textContent = result.message;
+            alertBox.style.display = 'flex';
+        }
+    });
+</script>
+</body>
+</html>

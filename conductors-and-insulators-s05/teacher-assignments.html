@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Portal - Assignments | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="teacher-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Teacher
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="teacherAvatar" class="profile-avatar teacher">🔋</div>
+            <h2 id="teacherUsername">Teacher Name</h2>
+            <span class="profile-role-badge teacher">Instructor</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="teacher-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="teacher-students.html" class="menu-btn"><span class="icon">👥</span> Students</a></li>
+                <li><a href="teacher-assignments.html" class="menu-btn"><span class="icon">📝</span> Assignments</a></li>
+                <li><a href="teacher-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Quizzes</a></li>
+                <li><a href="teacher-analytics.html" class="menu-btn"><span class="icon">📈</span> Analytics</a></li>
+                <li><a href="teacher-certificates.html" class="menu-btn"><span class="icon">🏆</span> Certificates</a></li>
+                <li><a href="teacher-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="teacher-reports.html" class="menu-btn"><span class="icon">📄</span> Reports</a></li>
+                <li><a href="teacher-settings.html" class="menu-btn"><span class="icon">⚙️</span> Settings</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">Welcome, Instructor!</h1>
+            <p id="welcomeDescription">Deploy new homework assignments and grade incoming student submissions with qualitative feedback.</p>
+        </header>
+
+        <section id="tab-assignments" class="tab-content active">
+            <div style="display:grid; grid-template-columns: 1fr; gap: 28px;">
+                <!-- Assignment Creation -->
+                <article class="dashboard-card">
+                    <h2>📝 Create New Assignment Pathway</h2>
+                    <form id="create-assignment-form" style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="auth-form-group" style="margin-bottom:0;">
+                            <label for="assign-title" class="auth-label">Assignment Title</label>
+                            <input type="text" id="assign-title" class="auth-input" style="padding-left:14px; min-height: 42px;" required placeholder="e.g. Conductors in household appliances study">
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="auth-form-group" style="margin-bottom:0;">
+                                <label for="assign-due" class="auth-label">Due Date</label>
+                                <input type="date" id="assign-due" class="auth-input" style="padding-left:14px; min-height: 42px;" required>
+                            </div>
+                            <div class="auth-form-group" style="margin-bottom:0;">
+                                <label for="assign-max-score" class="auth-label">Maximum Points</label>
+                                <input type="number" id="assign-max-score" class="auth-input" style="padding-left:14px; min-height: 42px;" required value="100" min="1">
+                            </div>
+                        </div>
+                        <div class="auth-form-group" style="margin-bottom:0;">
+                            <label for="assign-desc" class="auth-label">Description & Instructions</label>
+                            <textarea id="assign-desc" class="auth-input" style="padding-left:14px; min-height: 80px; padding-top: 10px; resize: vertical;" required placeholder="Provide clear task details for students..."></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="min-height: 44px; background: linear-gradient(135deg, var(--blue), var(--cyan)); font-weight: 800;">Deploy Assignment to Class ⚡</button>
+                    </form>
+                </article>
+
+                <!-- Active Assignments List -->
+                <article class="dashboard-card">
+                    <h2>📋 Currently Deployed Assignments</h2>
+                    <div class="table-container">
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Due Date</th>
+                                    <th>Max Points</th>
+                                    <th>Submissions</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="deployed-assignments-body">
+                                <!-- Dynamic assignments -->
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <!-- Evaluation Terminal -->
+                <article class="dashboard-card">
+                    <h2>✍️ Evaluation & Grading Terminal</h2>
+                    <div class="table-container">
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Assignment</th>
+                                    <th>Date Submitted</th>
+                                    <th>Submitted Content</th>
+                                    <th>Status</th>
+                                    <th>Points Assigned</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="submissions-grading-body">
+                                <!-- Dynamic submissions -->
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </section>
+</main>
+
+<!-- Modal: Submit Grade and Feedback -->
+<div class="modal-overlay" id="evaluateModal" role="dialog" aria-modal="true" aria-labelledby="evalTitle">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeEvaluateModal()" aria-label="Close modal">×</button>
+        <h2 id="evalTitle" style="font-family:'Outfit', sans-serif; font-weight:800; color:var(--blue-dark); margin-bottom: 20px;">Evaluate Submission</h2>
+        
+        <form id="evaluation-form" style="display: flex; flex-direction: column; gap: 16px;">
+            <input type="hidden" id="eval-submission-index">
+            
+            <div class="auth-form-group" style="margin-bottom:0;">
+                <label class="auth-label">Student Name</label>
+                <input type="text" id="eval-student-name" class="auth-input" style="padding-left:14px; min-height: 42px;" readonly disabled>
+            </div>
+            
+            <div class="auth-form-group" style="margin-bottom:0;">
+                <label class="auth-label">Assignment Description</label>
+                <textarea id="eval-assign-description" class="auth-input" style="padding-left:14px; min-height: 60px; padding-top:8px;" readonly disabled></textarea>
+            </div>
+
+            <div class="auth-form-group" style="margin-bottom:0;">
+                <label class="auth-label">Submitted Answers/Content</label>
+                <div id="eval-submission-content" style="padding: 12px 14px; border:1px solid var(--border); border-radius:12px; font-size:0.85rem; font-weight:600; background:rgba(0,0,0,0.02); overflow-y:auto; max-height:100px;"></div>
+            </div>
+
+            <div class="auth-form-group" style="margin-bottom:0;">
+                <label for="eval-score" class="auth-label">Assign Grade (out of <span id="eval-max-score-display">100</span>)</label>
+                <input type="number" id="eval-score" class="auth-input" style="padding-left:14px; min-height: 42px;" required min="0">
+            </div>
+
+            <div class="auth-form-group" style="margin-bottom:0;">
+                <label for="eval-feedback" class="auth-label">Evaluation Feedback</label>
+                <textarea id="eval-feedback" class="auth-input" style="padding-left:14px; min-height: 80px; padding-top: 10px; resize: vertical;" required placeholder="Write grading comments for the student..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, var(--green), var(--blue)); box-shadow: 0 8px 20px rgba(42, 157, 143, 0.25);">Submit Evaluation & Score ⚡</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/teacher-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    renderAssignmentsPanel();
+    renderSubmissionsGrading();
+    setupAssignmentForms();
+});
+
+function renderAssignmentsPanel() {
+    const tbody = document.getElementById("deployed-assignments-body");
+    let html = "";
+
+    assignmentsData.forEach(assign => {
+        const subCount = submissionsData.filter(s => s.assignmentId === assign.id).length;
+        const formattedDate = new Date(assign.due).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+        
+        html += `
+            <tr>
+                <td><strong>${assign.title}</strong></td>
+                <td>${formattedDate}</td>
+                <td>${assign.maxScore} pts</td>
+                <td>${subCount} students</td>
+                <td><span class="profile-role-badge student" style="margin-top:0; padding:2px 8px; font-size:0.68rem;">Active</span></td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html || `<tr><td colspan="5" style="text-align:center; padding:20px; font-weight:700; color:var(--muted)">No homework assignments deployed yet.</td></tr>`;
+}
+
+function renderSubmissionsGrading() {
+    const tbody = document.getElementById("submissions-grading-body");
+    let html = "";
+
+    submissionsData.forEach((sub, index) => {
+        const assign = assignmentsData.find(a => a.id === sub.assignmentId);
+        const title = assign ? assign.title : "Unknown Assignment";
+        const maxScore = assign ? assign.maxScore : 100;
+        const dateStr = new Date(sub.submittedAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+
+        const scoreText = sub.status === "Evaluated" ? `${sub.score}/${maxScore}` : "Unmarked";
+        const badgeClass = sub.status === "Evaluated" ? "profile-role-badge student" : "profile-role-badge teacher";
+        
+        let actionBtn = "";
+        if (sub.status === "Pending") {
+            actionBtn = `<button onclick="openEvaluateModal(${index})" class="btn" style="min-height:28px; font-size:0.75rem; padding: 4px 10px; background:linear-gradient(135deg, var(--green), #00b4d8); box-shadow:none;">Evaluate ✍️</button>`;
+        } else {
+            actionBtn = `<button onclick="openEvaluateModal(${index})" class="btn secondary" style="min-height:28px; font-size:0.75rem; padding: 4px 10px;">Re-grade</button>`;
+        }
+
+        html += `
+            <tr>
+                <td><strong>${sub.student}</strong></td>
+                <td>${title}</td>
+                <td>${dateStr}</td>
+                <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">"${sub.content}"</td>
+                <td><span class="${badgeClass}" style="margin-top:0; padding:2px 8px; font-size:0.68rem;">${sub.status}</span></td>
+                <td><strong>${scoreText}</strong></td>
+                <td>${actionBtn}</td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html || `<tr><td colspan="7" style="text-align:center; padding:30px; font-weight:700; color:var(--muted)">No submissions awaiting evaluation.</td></tr>`;
+}
+
+function setupAssignmentForms() {
+    // 1. Create Assignment
+    document.getElementById("create-assignment-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = document.getElementById("assign-title").value.trim();
+        const due = document.getElementById("assign-due").value;
+        const maxScore = parseInt(document.getElementById("assign-max-score").value, 10);
+        const desc = document.getElementById("assign-desc").value.trim();
+
+        const newAssign = {
+            id: "a_" + Date.now(),
+            title,
+            due,
+            maxScore,
+            desc
+        };
+
+        const currentAssigns = JSON.parse(localStorage.getItem("conductoverseAssignments") || "[]");
+        currentAssigns.push(newAssign);
+        localStorage.setItem("conductoverseAssignments", JSON.stringify(currentAssigns));
+
+        alert("Assignment successfully deployed to class pathway!");
+        document.getElementById("create-assignment-form").reset();
+        
+        loadGlobalTeacherData();
+        renderAssignmentsPanel();
+        renderSubmissionsGrading();
+    });
+
+    // 2. Evaluate Form
+    document.getElementById("evaluation-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const subIndex = parseInt(document.getElementById("eval-submission-index").value, 10);
+        const score = parseInt(document.getElementById("eval-score").value, 10);
+        const feedback = document.getElementById("eval-feedback").value.trim();
+
+        let subs = JSON.parse(localStorage.getItem("conductoverseSubmissions") || "[]");
+        subs[subIndex].status = "Evaluated";
+        subs[subIndex].score = score;
+        subs[subIndex].feedback = feedback;
+
+        localStorage.setItem("conductoverseSubmissions", JSON.stringify(subs));
+        alert("Evaluation feedback successfully recorded!");
+        closeEvaluateModal();
+        
+        loadGlobalTeacherData();
+        renderSubmissionsGrading();
+    });
+}
+
+function openEvaluateModal(subIdx) {
+    const sub = submissionsData[subIdx];
+    const assign = assignmentsData.find(a => a.id === sub.assignmentId);
+    if (!sub || !assign) return;
+
+    document.getElementById("eval-submission-index").value = subIdx;
+    document.getElementById("eval-student-name").value = sub.student;
+    document.getElementById("eval-assign-description").value = assign.desc;
+    document.getElementById("eval-submission-content").textContent = `"${sub.content}"`;
+    document.getElementById("eval-max-score-display").textContent = assign.maxScore;
+    document.getElementById("eval-score").max = assign.maxScore;
+    document.getElementById("eval-score").value = sub.score !== null ? sub.score : "";
+    document.getElementById("eval-feedback").value = sub.feedback || "";
+
+    document.getElementById("evaluateModal").style.display = "flex";
+}
+
+function closeEvaluateModal() {
+    document.getElementById("evaluateModal").style.display = "none";
+}
+</script>
+</body>
+</html>

@@ -18,7 +18,36 @@ function testChoice(button) {
     const note = button.dataset.note;
 
     testMaterial.textContent = material;
-    circuitStage.className = isConductor ? "circuit-stage is-lit" : "circuit-stage is-blocked";
+    
+    if (isConductor) {
+        circuitStage.classList.add("is-lit");
+        circuitStage.classList.remove("is-blocked");
+    } else {
+        circuitStage.classList.add("is-blocked");
+        circuitStage.classList.remove("is-lit");
+    }
+
+    // Update multimeter readings
+    const meterStatus = document.getElementById("meter-status");
+    const meterCurrent = document.getElementById("meter-current");
+    const meterVoltage = document.getElementById("meter-voltage");
+    const meterResistance = document.getElementById("meter-resistance");
+
+    if (meterStatus && meterCurrent && meterVoltage && meterResistance) {
+        if (isConductor) {
+            meterStatus.textContent = "CONNECTED";
+            meterStatus.className = "meter-val connected";
+            meterCurrent.textContent = "2.40 A";
+            meterVoltage.textContent = "12.00 V";
+            meterResistance.textContent = "5.00 Ω";
+        } else {
+            meterStatus.textContent = "BLOCKED";
+            meterStatus.className = "meter-val blocked";
+            meterCurrent.textContent = "0.00 A";
+            meterVoltage.textContent = "12.00 V";
+            meterResistance.textContent = "∞ Ω";
+        }
+    }
 
     message.className = isConductor ? "message success" : "message error";
     message.innerHTML = isConductor

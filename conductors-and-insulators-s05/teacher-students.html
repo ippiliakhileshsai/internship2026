@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Portal - Students | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="teacher-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Teacher
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="teacherAvatar" class="profile-avatar teacher">🔋</div>
+            <h2 id="teacherUsername">Teacher Name</h2>
+            <span class="profile-role-badge teacher">Instructor</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="teacher-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="teacher-students.html" class="menu-btn"><span class="icon">👥</span> Students</a></li>
+                <li><a href="teacher-assignments.html" class="menu-btn"><span class="icon">📝</span> Assignments</a></li>
+                <li><a href="teacher-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Quizzes</a></li>
+                <li><a href="teacher-analytics.html" class="menu-btn"><span class="icon">📈</span> Analytics</a></li>
+                <li><a href="teacher-certificates.html" class="menu-btn"><span class="icon">🏆</span> Certificates</a></li>
+                <li><a href="teacher-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="teacher-reports.html" class="menu-btn"><span class="icon">📄</span> Reports</a></li>
+                <li><a href="teacher-settings.html" class="menu-btn"><span class="icon">⚙️</span> Settings</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">Welcome, Instructor!</h1>
+            <p id="welcomeDescription">Inspect individual student progress dossier, test results, active time, and learning strengths.</p>
+        </header>
+
+        <section id="tab-students" class="tab-content active">
+            <article class="dashboard-card">
+                <div class="dashboard-actions-row">
+                    <h2>👥 Student Directory & Progress</h2>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <input type="text" id="student-search" class="auth-input" placeholder="Search student name..." style="padding-left:14px; min-height: 38px; width: 220px; font-size: 0.85rem;">
+                        <select id="student-filter-badge" class="auth-input" style="padding-left:14px; min-height: 38px; width: 180px; font-size: 0.85rem;">
+                            <option value="all">All Achievements</option>
+                            <option value="mastery">Mastery Badge (>=80%)</option>
+                            <option value="streak">Streak Builder</option>
+                            <option value="none">No badges yet</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Quiz Status</th>
+                                <th>Sorting Score</th>
+                                <th>Max Streak</th>
+                                <th>Time Active</th>
+                                <th>Overall Grade</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-list-body">
+                            <!-- Dynamic student list -->
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+    </section>
+</main>
+
+<!-- Modal: Student Detailed Profile Inspector -->
+<div class="modal-overlay" id="studentInspectModal" role="dialog" aria-modal="true" aria-labelledby="inspectTitle">
+    <div class="modal-content" style="width: min(100%, 700px); max-height:85vh;">
+        <button class="modal-close" onclick="closeStudentInspectModal()" aria-label="Close modal">×</button>
+        <h2 id="inspectTitle" style="font-family:'Outfit', sans-serif; font-weight:800; color:var(--blue-dark); margin-bottom: 20px; display:flex; align-items:center; gap:8px;">
+            <span>👤</span> Student Performance Dossier
+        </h2>
+        
+        <div style="display:grid; grid-template-columns: 80px 1fr; gap:16px; margin-bottom:24px; border-bottom:1.5px solid var(--border); padding-bottom:16px;">
+            <div id="ins-avatar" class="profile-avatar student" style="width:72px; height:72px; font-size:2.2rem; margin:0;">💡</div>
+            <div>
+                <h3 id="ins-name" style="font-family:'Outfit', sans-serif; font-size:1.3rem; font-weight:850; color:var(--blue-dark);">Student Name</h3>
+                <span id="ins-username" style="font-size:0.85rem; color:var(--muted); font-weight:700;">@username</span>
+                <div id="ins-badges" class="badge-row" style="margin-top: 6px;"></div>
+            </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:24px;">
+            <div>
+                <h4 style="font-family:'Outfit', sans-serif; font-size:0.95rem; font-weight:850; color:var(--blue-dark); margin-bottom:8px;">📊 Assessment Analytics</h4>
+                <table class="dashboard-table" style="font-size:0.8rem;">
+                    <tbody>
+                        <tr>
+                            <td>Overall Grade</td>
+                            <td><strong id="ins-overall-pct">0%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Concept Quiz</td>
+                            <td id="ins-quiz-score">-</td>
+                        </tr>
+                        <tr>
+                            <td>Sorting Activity</td>
+                            <td id="ins-activity-score">-</td>
+                        </tr>
+                        <tr>
+                            <td>Max Sorting Streak</td>
+                            <td id="ins-best-streak">0</td>
+                        </tr>
+                        <tr>
+                            <td>Total Practice Time</td>
+                            <td id="ins-time-active">0s</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <h4 style="font-family:'Outfit', sans-serif; font-size:0.95rem; font-weight:850; color:var(--blue-dark); margin-bottom:8px;">🏆 Certifications</h4>
+                <div class="cert-unlock-box" id="ins-cert-box" style="padding: 16px; border-radius:14px; margin-top:8px;">
+                    <span id="ins-cert-icon" style="font-size:2rem;">🔒</span>
+                    <h5 id="ins-cert-title" style="font-family:'Outfit', sans-serif; font-size:0.9rem; font-weight:800; margin-top:6px;">Cert Locked</h5>
+                    <p id="ins-cert-text" style="font-size:0.75rem; margin-top:4px; margin-bottom:0;">Require >=80% grade overall</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concept Strengths & Improvements -->
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:24px;">
+            <div>
+                <h4 style="font-family:'Outfit', sans-serif; font-size:0.95rem; font-weight:850; color:var(--green); margin-bottom:8px;">✅ Core Strengths</h4>
+                <ul id="ins-strengths-list" style="font-size:0.8rem; font-weight:650; color:var(--muted); padding-left:18px;">
+                    <!-- Dynamic -->
+                </ul>
+            </div>
+            <div>
+                <h4 style="font-family:'Outfit', sans-serif; font-size:0.95rem; font-weight:850; color:var(--red); margin-bottom:8px;">⚠️ Improvement Areas</h4>
+                <ul id="ins-improvements-list" style="font-size:0.8rem; font-weight:650; color:var(--muted); padding-left:18px;">
+                    <!-- Dynamic -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Assignments Status -->
+        <div>
+            <h4 style="font-family:'Outfit', sans-serif; font-size:0.95rem; font-weight:850; color:var(--blue-dark); margin-bottom:8px;">📋 Assigned Work Completion</h4>
+            <div class="table-container">
+                <table class="dashboard-table" style="font-size:0.8rem;">
+                    <thead>
+                        <tr>
+                            <th>Assignment Title</th>
+                            <th>Submission Date</th>
+                            <th>Grade Status</th>
+                            <th>Feedback</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ins-assignments-body">
+                        <!-- Dynamic list -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/teacher-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    renderStudentList();
+    
+    // Add Search and Filter listeners
+    document.getElementById("student-search").addEventListener("input", renderStudentList);
+    document.getElementById("student-filter-badge").addEventListener("change", renderStudentList);
+});
+
+function renderStudentList() {
+    const tbody = document.getElementById("student-list-body");
+    const searchVal = document.getElementById("student-search").value.toLowerCase();
+    const filterBadge = document.getElementById("student-filter-badge").value;
+    let html = "";
+
+    studentsData.forEach(s => {
+        if (searchVal && !s.username.toLowerCase().includes(searchVal)) return;
+
+        const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${s.username}`) || "null");
+        const spot = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${s.username}`) || "null");
+
+        const quizPct = quiz ? quiz.percent : 0;
+        const spotPct = spot ? spot.percent : 0;
+        const completedCount = (quiz ? 1 : 0) + (spot ? 1 : 0);
+        const overall = completedCount ? Math.round((quizPct + spotPct) / completedCount) : 0;
+
+        if (filterBadge === "mastery" && overall < 80) return;
+        if (filterBadge === "streak" && (!spot || spot.bestStreak < 4)) return;
+        if (filterBadge === "none" && (overall >= 80 || (spot && spot.bestStreak >= 4))) return;
+
+        const quizText = quiz ? `${quiz.score}/${quiz.total} (Lvl ${quiz.level})` : "Not taken";
+        const spotText = spot ? `${spot.score}/${spot.total}` : "Not played";
+        const streak = spot ? spot.bestStreak : 0;
+
+        const totalSeconds = (quiz?.secondsSpent || 0) + (spot?.secondsSpent || 0);
+        let timeStr = "0s";
+        if (totalSeconds > 0) {
+            if (totalSeconds < 60) timeStr = `${totalSeconds}s`;
+            else timeStr = `${Math.floor(totalSeconds / 60)}m ${totalSeconds % 60}s`;
+        }
+
+        html += `
+            <tr>
+                <td><strong>${s.username}</strong></td>
+                <td>${quizText}</td>
+                <td>${spotText}</td>
+                <td>${streak}</td>
+                <td>${timeStr}</td>
+                <td><strong>${overall}%</strong></td>
+                <td>
+                    <button onclick="inspectStudent('${s.username}')" class="btn secondary" style="min-height:28px; font-size:0.75rem; padding: 4px 10px;">Inspect Dossier 👤</button>
+                </td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html || `<tr><td colspan="7" style="text-align:center; padding:30px; font-weight:700; color:var(--muted)">No student matches found.</td></tr>`;
+}
+
+function inspectStudent(name) {
+    const s = studentsData.find(u => u.username === name);
+    if (!s) return;
+
+    const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${s.username}`) || "null");
+    const spot = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${s.username}`) || "null");
+
+    const quizPct = quiz ? quiz.percent : 0;
+    const spotPct = spot ? spot.percent : 0;
+    const completedCount = (quiz ? 1 : 0) + (spot ? 1 : 0);
+    const overall = completedCount ? Math.round((quizPct + spotPct) / completedCount) : 0;
+
+    document.getElementById("ins-name").textContent = s.username;
+    document.getElementById("ins-username").textContent = "@" + s.username.toLowerCase().replace(/\s+/g, '');
+    
+    const badgesContainer = document.getElementById("ins-badges");
+    let badgesHtml = '<span class="badge-pill info" style="font-size:0.6rem; padding: 2px 8px;">🔌 Circuit Connected</span>';
+    if (quiz) badgesHtml += '<span class="badge-pill success" style="font-size:0.6rem; padding: 2px 8px;">🧠 Quiz Done</span>';
+    if (spot) badgesHtml += '<span class="badge-pill success" style="font-size:0.6rem; padding: 2px 8px;">🗂️ Sorting Master</span>';
+    if (spot && spot.bestStreak >= 4) badgesHtml += '<span class="badge-pill warning" style="font-size:0.6rem; padding: 2px 8px;">🔥 Streak Builder</span>';
+    badgesContainer.innerHTML = badgesHtml;
+
+    document.getElementById("ins-overall-pct").textContent = `${overall}%`;
+    document.getElementById("ins-quiz-score").textContent = quiz ? `${quiz.score}/${quiz.total} (${quiz.percent}%)` : "Not taken";
+    document.getElementById("ins-activity-score").textContent = spot ? `${spot.score}/${spot.total} (${spot.percent}%)` : "Not played";
+    document.getElementById("ins-best-streak").textContent = spot ? spot.bestStreak : "0";
+
+    const totalSeconds = (quiz?.secondsSpent || 0) + (spot?.secondsSpent || 0);
+    let timeStr = "0s";
+    if (totalSeconds > 0) {
+        if (totalSeconds < 60) timeStr = `${totalSeconds}s`;
+        else timeStr = `${Math.floor(totalSeconds / 60)}m ${totalSeconds % 60}s`;
+    }
+    document.getElementById("ins-time-active").textContent = timeStr;
+
+    const certBox = document.getElementById("ins-cert-box");
+    const certIcon = document.getElementById("ins-cert-icon");
+    const certTitle = document.getElementById("ins-cert-title");
+    const certText = document.getElementById("ins-cert-text");
+
+    if (overall >= 80) {
+        certBox.className = "cert-unlock-box unlocked";
+        certIcon.textContent = "🏆";
+        certTitle.textContent = "Mastery Cert Unlocked";
+        certText.textContent = "Student verified with " + overall + "% overall average.";
+    } else {
+        certBox.className = "cert-unlock-box";
+        certIcon.textContent = "🔒";
+        certTitle.textContent = "Locked";
+        certText.textContent = "Requires >= 80% overall score.";
+    }
+
+    const strengths = document.getElementById("ins-strengths-list");
+    const improvements = document.getElementById("ins-improvements-list");
+
+    let sHtml = "";
+    let iHtml = "";
+
+    if (overall >= 80) {
+        sHtml += "<li>Superb overall performance in sorting and basic theory.</li>";
+    }
+    if (quiz && quiz.percent >= 80) {
+        sHtml += "<li>Strong theoretical understanding of outer free electrons.</li>";
+    } else if (quiz && quiz.percent < 80) {
+        iHtml += "<li>Theory concepts average is low. Re-study atomic models in the Learn section.</li>";
+    }
+    if (spot && spot.bestStreak >= 5) {
+        sHtml += `<li>High sorting velocity; cleared ${spot.bestStreak} items without error.</li>`;
+    } else if (spot && spot.bestStreak < 4) {
+        iHtml += "<li>Sorting streaks are short. Needs more practice separating metals from plastics.</li>";
+    }
+    if (!quiz && !spot) {
+        iHtml += "<li>No activities complete. Establish active session test results.</li>";
+    }
+
+    strengths.innerHTML = sHtml || "<li>Acquiring base concept indicators.</li>";
+    improvements.innerHTML = iHtml || "<li>No major warnings. Maintain active practice tracks!</li>";
+
+    // Inspector assignments list
+    const insAssignsBody = document.getElementById("ins-assignments-body");
+    let insAssignsHtml = "";
+
+    assignmentsData.forEach(assign => {
+        const sub = submissionsData.find(sub => sub.student === s.username && sub.assignmentId === assign.id);
+        const dateStr = sub ? new Date(sub.submittedAt).toLocaleDateString() : "-";
+        
+        let statusText = "Not Started";
+        if (sub) statusText = sub.status === "Evaluated" ? `${sub.score}/${assign.maxScore}` : "Unmarked";
+        
+        const feedbackText = sub ? (sub.feedback || "Awaiting evaluation comments") : "No submission uploaded";
+
+        insAssignsHtml += `
+            <tr>
+                <td><strong>${assign.title}</strong></td>
+                <td>${dateStr}</td>
+                <td><span class="profile-role-badge ${sub ? (sub.status === 'Evaluated' ? 'student' : 'teacher') : 'admin'}" style="margin-top:0; padding:2px 8px; font-size:0.65rem;">${statusText}</span></td>
+                <td>${feedbackText}</td>
+            </tr>
+        `;
+    });
+
+    insAssignsBody.innerHTML = insAssignsHtml;
+
+    document.getElementById("studentInspectModal").style.display = "flex";
+}
+
+function closeStudentInspectModal() {
+    document.getElementById("studentInspectModal").style.display = "none";
+}
+</script>
+</body>
+</html>

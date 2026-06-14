@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Portal - Settings | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="teacher-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Teacher
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="teacherAvatar" class="profile-avatar teacher">🔋</div>
+            <h2 id="teacherUsername">Teacher Name</h2>
+            <span class="profile-role-badge teacher">Instructor</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="teacher-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="teacher-students.html" class="menu-btn"><span class="icon">👥</span> Students</a></li>
+                <li><a href="teacher-assignments.html" class="menu-btn"><span class="icon">📝</span> Assignments</a></li>
+                <li><a href="teacher-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Quizzes</a></li>
+                <li><a href="teacher-analytics.html" class="menu-btn"><span class="icon">📈</span> Analytics</a></li>
+                <li><a href="teacher-certificates.html" class="menu-btn"><span class="icon">🏆</span> Certificates</a></li>
+                <li><a href="teacher-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="teacher-reports.html" class="menu-btn"><span class="icon">📄</span> Reports</a></li>
+                <li><a href="teacher-settings.html" class="menu-btn"><span class="icon">⚙️</span> Settings</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">Welcome, Instructor!</h1>
+            <p id="welcomeDescription">Manage your credentials, change your password, and adjust dashboard visual elements.</p>
+        </header>
+
+        <section id="tab-settings" class="tab-content active">
+            <article class="dashboard-card">
+                <h2>⚙️ Instructor Account Profile Settings</h2>
+                
+                <div id="settings-alert" class="auth-alert success" style="display:none; margin-bottom: 20px;">
+                    <span>✅</span>
+                    <span>Profile settings updated successfully!</span>
+                </div>
+
+                <form id="settings-form" style="display: flex; flex-direction: column; gap: 16px;">
+                    <div class="auth-form-group" style="margin-bottom:0;">
+                        <label for="settings-username" class="auth-label">Display Name</label>
+                        <input type="text" id="settings-username" class="auth-input" style="padding-left:14px; min-height: 42px;" required>
+                    </div>
+                    <div class="auth-form-group" style="margin-bottom:0;">
+                        <label for="settings-email" class="auth-label">Account Username/Email</label>
+                        <input type="text" id="settings-email" class="auth-input" style="padding-left:14px; min-height: 42px;" readonly disabled>
+                    </div>
+                    <div class="auth-form-group" style="margin-bottom:0;">
+                        <label for="settings-password" class="auth-label">Change Password</label>
+                        <input type="password" id="settings-password" class="auth-input" style="padding-left:14px; min-height: 42px;" placeholder="Leave blank to keep current password">
+                    </div>
+                    <button type="submit" class="btn" style="min-height: 44px; font-weight: 800;">Save Profile Updates ⚡</button>
+                </form>
+            </article>
+        </section>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/teacher-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("settings-username").value = currentTeacherSession.username;
+    document.getElementById("settings-email").value = currentTeacherSession.username.toLowerCase() + "@conductoverse.edu";
+    setupSettingsForm();
+});
+
+function setupSettingsForm() {
+    document.getElementById("settings-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const displayName = document.getElementById("settings-username").value.trim();
+        const newPassword = document.getElementById("settings-password").value.trim();
+
+        // Update session
+        currentTeacherSession.username = displayName;
+        localStorage.setItem("conductoverseCurrentUser", JSON.stringify(currentTeacherSession));
+
+        // Update in registered users list
+        let users = JSON.parse(localStorage.getItem("conductoverseUsers") || "[]");
+        const idx = users.findIndex(u => u.username.toLowerCase() === currentTeacherSession.username.toLowerCase() || u.role === "teacher");
+        if (idx !== -1) {
+            users[idx].username = displayName;
+            if (newPassword) {
+                users[idx].password = newPassword;
+            }
+            localStorage.setItem("conductoverseUsers", JSON.stringify(users));
+        }
+
+        document.getElementById("teacherUsername").textContent = displayName;
+        document.getElementById("settings-password").value = "";
+
+        const alertBox = document.getElementById("settings-alert");
+        alertBox.style.display = "flex";
+        setTimeout(() => { alertBox.style.display = "none"; }, 3000);
+    });
+}
+</script>
+</body>
+</html>

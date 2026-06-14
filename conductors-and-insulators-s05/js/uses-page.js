@@ -692,7 +692,7 @@ function showSpotResult() {
     if (badges.length === 0) badges.push('Practice Mode');
     const badgeRack = document.getElementById('spotBadgeRack');
     if (badgeRack) badgeRack.innerHTML = badges.map(badge => `<span>${badge}</span>`).join('');
-    localStorage.setItem('conductoverseSpotResult', JSON.stringify({
+    const spotResult = {
         score: spotScore,
         total: spotItems.length,
         percent: Math.round(pct),
@@ -700,7 +700,14 @@ function showSpotResult() {
         bestStreak,
         secondsSpent,
         completedAt: new Date().toISOString()
-    }));
+    };
+    localStorage.setItem('conductoverseSpotResult', JSON.stringify(spotResult));
+    
+    // Save to user-specific key if logged in
+    const userSession = JSON.parse(localStorage.getItem("conductoverseCurrentUser") || "null");
+    if (userSession && userSession.username) {
+        localStorage.setItem(`conductoverseSpotResult_${userSession.username}`, JSON.stringify(spotResult));
+    }
 }
 
 function resetSpotGame() { initSpotGame(); }
