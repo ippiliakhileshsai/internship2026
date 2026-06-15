@@ -1,0 +1,32 @@
+PROJECT: Friction – A Necessary Evil
+
+TECHNICAL REQUIREMENTS
+
+Frontend:
+- HTML5
+- CSS3
+- JavaScript (ES6)
+
+UI Components:
+- Hero Section
+- Friction Calculator
+- Interactive Simulation
+- Educational Content Section
+- Responsive Navigation
+- Result Display Panel
+
+Physics Concepts Implemented:
+- Static Friction
+- Kinetic Friction
+- Normal Force
+- Coefficient of Friction
+- Force Calculation
+
+Formulas Used:
+- N = m × g
+- Fs(max) = μs × N
+- Fk = μk × N
+
+Deployment:
+- Vercel
+

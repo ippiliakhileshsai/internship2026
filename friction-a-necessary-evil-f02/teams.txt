@@ -1,0 +1,51 @@
+PROJECT TITLE: Friction – A Necessary Evil
+
+TEAM DETAILS
+
+1. Research Lead
+   Name: Sahithi
+   Role:
+
+* Collected information about friction.
+* Researched advantages, disadvantages, and real-life applications.
+* Verified scientific accuracy of content.
+
+2. UX / Learning Designer
+   Name: Kiranmai
+   Role:
+
+* Planned user interaction and learning flow.
+* Organized content for easy understanding.
+* Designed educational experience for users.
+
+3. Storyboard Designer
+   Name: Nishrith Asmi
+   Role:
+
+* Created storyboard and visual content structure.
+* Designed flow of screens and information presentation.
+* Prepared user persona and visual planning documents.
+
+4. Frontend Developer
+   Name: Chandra Shekar Reddy 
+   Role:
+
+* Developed the website using HTML, CSS, and JavaScript.
+* Implemented user interface and navigation.
+* Integrated content, images, and interactive elements.
+
+5. Documentation Lead
+   Name: Lasya
+   Role:
+
+* Maintained README.md documentation.
+* Recorded project requirements and development progress.
+* Managed project files and repository documentation.
+
+6. Testing Lead
+   Name: Ganesh
+   Role:
+
+* Tested website functionality and responsiveness.
+* Identified and reported bugs.
+* Ensured smooth user experience before deployment.
