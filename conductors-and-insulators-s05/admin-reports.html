@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - System Reports | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/admin.css">
+<style>
+/* Sub tabs navigation inside cards */
+.admin-tab-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--admin-border);
+    padding-bottom: 10px;
+}
+.admin-tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--admin-muted);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 6px 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+.admin-tab-btn:hover {
+    color: var(--admin-cyan);
+}
+.admin-tab-btn.active {
+    color: var(--admin-cyan);
+    background: rgba(0, 243, 255, 0.08);
+}
+.report-content-panel {
+    display: none;
+}
+.report-content-panel.active {
+    display: block;
+}
+</style>
+</head>
+<body class="admin-body">
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="admin-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Admin
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="adminAvatar" class="profile-avatar admin">⚡</div>
+            <h2 id="adminUsername">System Admin</h2>
+            <span class="profile-role-badge admin">Super Administrator</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="admin-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="admin-users.html" class="menu-btn"><span class="icon">👥</span> User Directory</a></li>
+                <li><a href="admin-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="admin-reports.html" class="menu-btn"><span class="icon">📄</span> System Reports</a></li>
+                <li><a href="admin-settings.html" class="menu-btn"><span class="icon">⚙️</span> Configurations</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="window.ConductoVerseAdmin.logout()" class="btn danger" style="width: 100%;">Disconnect Admin ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <article class="dashboard-card">
+            <div class="admin-tab-nav">
+                <button class="admin-tab-btn active" onclick="switchReportTab('quiz')">🧠 Quiz Attempts</button>
+                <button class="admin-tab-btn" onclick="switchReportTab('sorting')">🧪 Virtual Sorting Lab</button>
+                <button class="admin-tab-btn" onclick="switchReportTab('certificates')">🏆 Issued Certificates</button>
+            </div>
+
+            <!-- Quiz Attempts Report -->
+            <div id="report-quiz" class="report-content-panel active">
+                <h2>🧠 Quiz Score Reports</h2>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Student Username</th>
+                                <th>Score (Percentage)</th>
+                                <th>Badge Earned</th>
+                                <th>Completion Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quiz-reports-tbody">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sorting Attempts Report -->
+            <div id="report-sorting" class="report-content-panel">
+                <h2>🧪 Virtual Sorting Lab Attempts</h2>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Student Username</th>
+                                <th>Items Categorized</th>
+                                <th>Score (Percentage)</th>
+                                <th>Completion Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sorting-reports-tbody">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Issued Certificates Report -->
+            <div id="report-certificates" class="report-content-panel">
+                <h2>🏆 Issued Certificates log</h2>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Student Username</th>
+                                <th>Status</th>
+                                <th>Details</th>
+                                <th>Issue Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="certificates-reports-tbody">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/admin-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    loadReportsData();
+});
+
+function switchReportTab(tabName) {
+    // Switch active button
+    document.querySelectorAll(".admin-tab-btn").forEach(btn => {
+        btn.classList.remove("active");
+        if (btn.textContent.toLowerCase().includes(tabName)) {
+            btn.classList.add("active");
+        }
+    });
+
+    // Switch active panel
+    document.querySelectorAll(".report-content-panel").forEach(panel => {
+        panel.classList.remove("active");
+    });
+    document.getElementById("report-" + tabName).classList.add("active");
+}
+
+function loadReportsData() {
+    const users = window.ConductoVerseAdmin.getUsers();
+    const students = users.filter(u => u.role === "student");
+
+    const quizTbody = document.getElementById("quiz-reports-tbody");
+    const sortingTbody = document.getElementById("sorting-reports-tbody");
+    const certificatesTbody = document.getElementById("certificates-reports-tbody");
+
+    quizTbody.innerHTML = "";
+    sortingTbody.innerHTML = "";
+    certificatesTbody.innerHTML = "";
+
+    let quizRecordsCount = 0;
+    let sortingRecordsCount = 0;
+    let certificatesCount = 0;
+
+    students.forEach(s => {
+        const username = s.username;
+
+        // 1. Fetch Quiz Results
+        const quizResult = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${username}`) || "null");
+        if (quizResult) {
+            quizRecordsCount++;
+            const dateStr = quizResult.completedAt ? new Date(quizResult.completedAt).toLocaleString() : "N/A";
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td style="font-weight:600;">${username}</td>
+                <td><strong style="color: var(--cyan);">${quizResult.score}/${quizResult.totalQuestions}</strong> (${quizResult.percentage}%)</td>
+                <td><span style="font-size:0.8rem; font-weight:800; color:var(--yellow);">${quizResult.badge || "Scholar"} 🏅</span></td>
+                <td>${dateStr}</td>
+            `;
+            quizTbody.appendChild(row);
+        }
+
+        // 2. Fetch Sorting Results
+        const spotResult = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${username}`) || "null");
+        if (spotResult) {
+            sortingRecordsCount++;
+            const dateStr = spotResult.completedAt ? new Date(spotResult.completedAt).toLocaleString() : "N/A";
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td style="font-weight:600;">${username}</td>
+                <td>Categorized all items successfully</td>
+                <td><strong style="color: var(--cyan);">${spotResult.score}/${spotResult.totalQuestions}</strong> (${spotResult.percentage}%)</td>
+                <td>${dateStr}</td>
+            `;
+            sortingTbody.appendChild(row);
+        }
+
+        // 3. Certificates Log (Student qualifies for certificate if they complete both)
+        if (quizResult && spotResult) {
+            certificatesCount++;
+            const dateStr = quizResult.completedAt ? new Date(quizResult.completedAt).toLocaleString() : "N/A";
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td style="font-weight:600;">${username}</td>
+                <td><span class="admin-badge teacher">Generated</span></td>
+                <td>Verified via double assessments completion</td>
+                <td>${dateStr}</td>
+            `;
+            certificatesTbody.appendChild(row);
+        }
+    });
+
+    // Handle Empty States
+    if (quizRecordsCount === 0) {
+        quizTbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--admin-muted); padding:30px;">No quiz records exist yet.</td></tr>`;
+    }
+    if (sortingRecordsCount === 0) {
+        sortingTbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--admin-muted); padding:30px;">No sorting activity records exist yet.</td></tr>`;
+    }
+    if (certificatesCount === 0) {
+        certificatesTbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--admin-muted); padding:30px;">No certificates generated yet. Student must complete both the quiz and lab activity to verify certificate eligibility.</td></tr>`;
+    }
+}
+</script>
+</body>
+</html>

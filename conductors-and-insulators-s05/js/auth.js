@@ -28,6 +28,8 @@
     if (currentUser && (page === "login.html" || page === "register.html")) {
         if (currentUser.role === "teacher") {
             window.location.href = "teacher-overview.html";
+        } else if (currentUser.role === "admin") {
+            window.location.href = "admin-overview.html";
         } else {
             window.location.href = "index.html";
         }
@@ -37,12 +39,22 @@
     // Role-based route guards
     if (currentUser) {
         const isTeacherPage = page.startsWith("teacher-") || page === "teacher.html";
+        const isAdminPage = page.startsWith("admin-") || page === "admin.html";
+
         if (isTeacherPage && currentUser.role !== "teacher" && currentUser.role !== "admin") {
+            window.location.href = "profile.html";
+            return;
+        }
+        if (isAdminPage && currentUser.role !== "admin") {
             window.location.href = "profile.html";
             return;
         }
         if (currentUser.role === "teacher" && (page === "profile.html" || page === "teacher.html")) {
             window.location.href = "teacher-overview.html";
+            return;
+        }
+        if (currentUser.role === "admin" && (page === "profile.html" || page === "admin.html")) {
+            window.location.href = "admin-overview.html";
             return;
         }
     }
@@ -89,6 +101,37 @@
                     // Logout Link
                     const logoutLi = document.createElement("li");
                     logoutLi.innerHTML = `<a href="#" id="authLogoutBtn" class="logout-btn-nav" style="border: 1px dashed rgba(231, 111, 81, 0.4); color: var(--red); padding: 6px 14px; border-radius: 999px;">Logout (${currentUser.username})</a>`;
+                    navLinks.appendChild(logoutLi);
+
+                    // Add logout click listener
+                    logoutLi.querySelector("#authLogoutBtn").addEventListener("click", (e) => {
+                        e.preventDefault();
+                        localStorage.removeItem("conductoverseCurrentUser");
+                        window.location.href = "index.html";
+                    });
+                } else if (currentUser.role === 'admin') {
+                    // Remove all default nav links (student links)
+                    navLinks.innerHTML = "";
+
+                    // Inject Admin distributed links
+                    const links = [
+                        { name: "Overview", url: "admin-overview.html" },
+                        { name: "User Directory", url: "admin-users.html" },
+                        { name: "Announcements", url: "admin-announcements.html" },
+                        { name: "System Reports", url: "admin-reports.html" },
+                        { name: "Configurations", url: "admin-settings.html" }
+                    ];
+
+                    links.forEach(link => {
+                        const li = document.createElement("li");
+                        const isActive = page === link.url ? 'class="active"' : '';
+                        li.innerHTML = `<a href="${link.url}" ${isActive}>${link.name}</a>`;
+                        navLinks.appendChild(li);
+                    });
+
+                    // Logout Link
+                    const logoutLi = document.createElement("li");
+                    logoutLi.innerHTML = `<a href="#" id="authLogoutBtn" class="logout-btn-nav" style="border: 1px dashed rgba(0, 243, 255, 0.4); color: var(--cyan); padding: 6px 14px; border-radius: 999px;">Logout (${currentUser.username})</a>`;
                     navLinks.appendChild(logoutLi);
 
                     // Add logout click listener
@@ -369,11 +412,16 @@
                 navLinks.appendChild(loginLi);
             }
 
-            // Adjust Logo redirect and text for teachers
+            // Adjust Logo redirect and text for teachers/admins
             const logo = document.querySelector(".logo");
-            if (logo && currentUser && currentUser.role === 'teacher') {
-                logo.href = "teacher-overview.html";
-                logo.innerHTML = `<span class="logo-mark">⚡</span> ConductoVerse Teacher`;
+            if (logo && currentUser) {
+                if (currentUser.role === 'teacher') {
+                    logo.href = "teacher-overview.html";
+                    logo.innerHTML = `<span class="logo-mark">⚡</span> ConductoVerse Teacher`;
+                } else if (currentUser.role === 'admin') {
+                    logo.href = "admin-overview.html";
+                    logo.innerHTML = `<span class="logo-mark">⚡</span> ConductoVerse Admin`;
+                }
             }
 
             // Trigger window resize event to allow the background sliding pill to align itself
@@ -390,14 +438,15 @@
         },
 
         login(username, password, role) {
-            // Fixed Admin credentials
+            // Admin credentials: Check localStorage or fallback to defaults
             if (role === "admin") {
-                if (username === "admin@123" && password === "1234") {
+                const adminConfig = JSON.parse(localStorage.getItem("conductoverseAdminConfig") || '{"username":"admin@123","password":"1234"}');
+                if (username === adminConfig.username && password === adminConfig.password) {
                     const session = { username: "Admin", role: "admin", loggedAt: new Date().toISOString() };
                     localStorage.setItem("conductoverseCurrentUser", JSON.stringify(session));
                     return { success: true };
                 } else {
-                    return { success: false, message: "Invalid Admin credentials! Use admin@123 / 1234." };
+                    return { success: false, message: `Invalid Admin credentials! Use ${adminConfig.username} / ${adminConfig.password}.` };
                 }
             }
 

@@ -126,6 +126,8 @@
             const session = JSON.parse(localStorage.getItem("conductoverseCurrentUser") || "{}");
             if (session.role === "teacher") {
                 window.location.href = "teacher-overview.html";
+            } else if (session.role === "admin") {
+                window.location.href = "admin-overview.html";
             } else {
                 window.location.href = "index.html";
             }
