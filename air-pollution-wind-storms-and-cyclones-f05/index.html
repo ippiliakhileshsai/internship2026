@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atmosphere Explorer – Air Pollution, Wind, Storms & Cyclones Simulation</title>
+    <meta name="description" content="An interactive PhET-style educational web simulation for school students to learn about Air Pollution, Wind, Storms, and Cyclones through experimentation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main class="sim-dashboard" id="main-container">
+        <!-- TOP NAV / TITLE BAR -->
+        <header class="sim-header">
+            <div class="logo-area">
+                <span class="logo-icon">🌪️</span>
+                <div class="logo-text">
+                    <h1>Atmosphere Explorer</h1>
+                    <span class="subtitle">Air Pollution, Wind & Weather Dynamics</span>
+                </div>
+            </div>
+            <div class="sim-controls-top">
+                <button id="btn-tutorial-trigger" class="btn btn-secondary" aria-label="Open Tutorial">📖 Tutorial</button>
+                <div class="clock-display" id="clock-display" aria-live="polite">Speed: 1.0x</div>
+            </div>
+        </header>
+ 
+        <div class="sim-body-grid">
+            <!-- LEFT PANEL: CONTROLS -->
+            <section class="panel panel-left" aria-label="Simulation Controls">
+                <div class="panel-section">
+                    <h2 class="section-title">Atmospheric Controls</h2>
+                    
+                    <div class="control-group">
+                        <div class="control-label-row">
+                            <label for="slider-wind-speed">💨 Wind Speed</label>
+                            <span id="val-wind-speed" class="badge">15 m/s</span>
+                        </div>
+                        <input type="range" id="slider-wind-speed" min="0" max="60" value="15" step="1" class="slider">
+                        <div class="slider-ticks">
+                            <span>Calm</span>
+                            <span>Breeze</span>
+                            <span>Gale</span>
+                            <span>Severe</span>
+                        </div>
+                    </div>
+ 
+                    <div class="control-group">
+                        <div class="control-label-row">
+                            <label for="slider-wind-dir">🧭 Wind Direction</label>
+                            <span id="val-wind-dir" class="badge">90° (East)</span>
+                        </div>
+                        <div class="direction-control-wrapper">
+                            <input type="range" id="slider-wind-dir" min="0" max="360" value="90" step="5" class="slider">
+                            <div class="compass-indicator" id="compass-indicator">
+                                <div class="compass-pointer" id="compass-pointer"></div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="control-group">
+                        <div class="control-label-row">
+                            <label for="slider-temp">🌡️ Temperature</label>
+                            <span id="val-temp" class="badge">25°C</span>
+                        </div>
+                        <input type="range" id="slider-temp" min="0" max="50" value="25" class="slider slider-temp">
+                        <div class="slider-ticks">
+                            <span>Cold (0°)</span>
+                            <span>Warm (25°)</span>
+                            <span>Hot (50°)</span>
+                        </div>
+                    </div>
+ 
+                    <div class="control-group">
+                        <div class="control-label-row">
+                            <label for="slider-humidity">💧 Humidity</label>
+                            <span id="val-humidity" class="badge">40%</span>
+                        </div>
+                        <input type="range" id="slider-humidity" min="0" max="100" value="40" class="slider slider-humidity">
+                        <div class="slider-ticks">
+                            <span>Dry</span>
+                            <span>Humid</span>
+                            <span>Saturated</span>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="panel-section">
+                    <h2 class="section-title">Emission Sources</h2>
+                    <div class="toggle-row">
+                        <label class="switch-container">
+                            <span class="switch-label">🏭 Factory Emission</span>
+                            <span class="switch">
+                                <input type="checkbox" id="toggle-factory" checked>
+                                <span class="slider-switch"></span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <label class="switch-container">
+                            <span class="switch-label">🚗 Vehicle Emissions</span>
+                            <span class="switch">
+                                <input type="checkbox" id="toggle-vehicles" checked>
+                                <span class="slider-switch"></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+ 
+                <div class="panel-section weather-triggers">
+                    <h2 class="section-title">Severe Weather Events</h2>
+                    <div class="btn-grid">
+                        <button id="btn-storm" class="btn btn-weather btn-storm" aria-label="Trigger Storm">⚡ Storm Mode</button>
+                        <button id="btn-cyclone" class="btn btn-weather btn-cyclone" aria-label="Trigger Cyclone">🌀 Cyclone Mode</button>
+                    </div>
+                </div>
+ 
+                <div class="panel-section simulation-actions">
+                    <div class="btn-group-row">
+                        <button id="btn-pause" class="btn btn-control btn-pause" aria-label="Pause Simulation">⏸️ Pause</button>
+                        <button id="btn-speed" class="btn btn-control btn-speed" aria-label="Change Speed">⏳ Slow Mo</button>
+                        <button id="btn-reset" class="btn btn-danger" aria-label="Reset Simulation">🔄 Reset</button>
+                    </div>
+                </div>
+            </section>
+ 
+            <!-- CENTER PANEL: INTERACTIVE SIMULATION -->
+            <section class="panel panel-center" aria-label="Interactive Canvas">
+                <div class="canvas-viewport" id="canvas-viewport">
+                    
+                    <svg id="city-bg-svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="sky-day" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#3a7bd5" />
+                                <stop offset="70%" stop-color="#3a6073" />
+                                <stop offset="100%" stop-color="#2c3e50" />
+                            </linearGradient>
+                            <linearGradient id="hills-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#2e4053" />
+                                <stop offset="100%" stop-color="#1c2833" />
+                            </linearGradient>
+                            <linearGradient id="factory-body" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#566573" />
+                                <stop offset="100%" stop-color="#2c3e50" />
+                            </linearGradient>
+                            <linearGradient id="chimney-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#7f8c8d" />
+                                <stop offset="50%" stop-color="#95a5a6" />
+                                <stop offset="100%" stop-color="#34495e" />
+                            </linearGradient>
+                            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="5" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+ 
+                        <rect id="sky-rect" x="0" y="0" width="800" height="500" fill="url(#sky-day)"/>
+                        <g id="pressure-grid-bg" opacity="0"></g>
+ 
+                        <path d="M-100,500 L-100,420 Q100,340 300,430 T700,390 Q800,400 900,420 L900,500 Z" fill="url(#hills-grad)" opacity="0.6" />
+                        <path d="M-50,500 L-50,440 Q150,380 400,450 T850,420 L850,500 Z" fill="url(#hills-grad)" opacity="0.8" />
+ 
+                        <g id="svg-factory">
+                            <rect x="50" y="380" width="100" height="70" fill="url(#factory-body)" rx="3"/>
+                            <polygon points="50,380 75,360 75,380" fill="#2c3e50"/>
+                            <polygon points="75,380 100,360 100,380" fill="#2c3e50"/>
+                            <polygon points="100,380 125,360 125,380" fill="#2c3e50"/>
+                            <rect id="chimney-stack" x="120" y="270" width="22" height="110" fill="url(#chimney-grad)" rx="2"/>
+                            <rect x="120" y="290" width="22" height="15" fill="#e74c3c" />
+                            <rect x="120" y="320" width="22" height="15" fill="#e74c3c" />
+                            <ellipse cx="131" cy="270" rx="13" ry="4" fill="#2c3e50"/>
+                            <rect x="65" y="395" width="12" height="12" fill="#f1c40f" opacity="0.8" rx="1"/>
+                            <rect x="85" y="395" width="12" height="12" fill="#f1c40f" opacity="0.8" rx="1"/>
+                            <rect x="105" y="395" width="12" height="12" fill="#f1c40f" opacity="0.8" rx="1"/>
+                        </g>
+ 
+                        <g id="svg-residences">
+                            <g id="house-1" class="house-element">
+                                <rect x="360" y="400" width="45" height="50" fill="#f5b041" rx="2"/>
+                                <polygon points="355,400 382,375 410,400" fill="#c0392b"/>
+                                <rect x="370" y="420" width="12" height="30" fill="#7e5109"/>
+                                <rect x="390" y="412" width="10" height="10" fill="#ebf5fb" rx="1"/>
+                            </g>
+                            <g id="house-2" class="house-element">
+                                <rect x="430" y="390" width="55" height="60" fill="#eb984e" rx="2"/>
+                                <polygon points="423,390 457,360 492,390" fill="#a04000"/>
+                                <rect x="450" y="415" width="14" height="35" fill="#5c3a21"/>
+                                <rect x="468" y="405" width="12" height="12" fill="#ebf5fb" rx="1"/>
+                                <rect x="438" y="405" width="12" height="12" fill="#ebf5fb" rx="1"/>
+                            </g>
+                            <g id="house-3" class="house-element">
+                                <rect x="510" y="405" width="40" height="45" fill="#f4d03f" rx="2"/>
+                                <polygon points="505,405 530,380 555,405" fill="#78281f"/>
+                                <rect x="520" y="423" width="10" height="27" fill="#4d5656"/>
+                                <rect x="535" y="415" width="9" height="9" fill="#ebf5fb" rx="1"/>
+                            </g>
+                        </g>
+ 
+                        <g id="svg-trees">
+                            <g id="tree-1" class="tree-node">
+                                <rect x="325" y="410" width="8" height="40" fill="#6e2c00" rx="2" />
+                                <circle class="foliage" cx="329" cy="390" r="22" fill="#229954" opacity="0.95" />
+                                <circle class="foliage" cx="319" cy="380" r="15" fill="#28b463" opacity="0.95" />
+                                <circle class="foliage" cx="339" cy="380" r="15" fill="#2ecc71" opacity="0.95" />
+                            </g>
+                            <g id="tree-2" class="tree-node">
+                                <rect x="495" y="415" width="7" height="35" fill="#6e2c00" rx="2" />
+                                <circle class="foliage" cx="498" cy="395" r="18" fill="#1e8449" opacity="0.95" />
+                                <circle class="foliage" cx="510" cy="390" r="12" fill="#27ae60" opacity="0.95" />
+                            </g>
+                            <g id="tree-3" class="tree-node">
+                                <rect x="575" y="405" width="8" height="45" fill="#6e2c00" rx="2" />
+                                <circle class="foliage" cx="579" cy="380" r="25" fill="#145a32" opacity="0.95" />
+                                <circle class="foliage" cx="564" cy="370" r="18" fill="#196f3d" opacity="0.95" />
+                                <circle class="foliage" cx="594" cy="370" r="18" fill="#2ecc71" opacity="0.95" />
+                            </g>
+                        </g>
+ 
+                        <g id="svg-road">
+                            <rect x="0" y="450" width="800" height="50" fill="#212f3d" />
+                            <line x1="20" y1="475" x2="70" y2="475" stroke="#f1c40f" stroke-width="3"/>
+                            <line x1="120" y1="475" x2="170" y2="475" stroke="#f1c40f" stroke-width="3"/>
+                            <line x1="220" y1="475" x2="270" y2="475" stroke="#f1c40f" stroke-width="3"/>
+                            <line x1="320" y1="475" x2="370" y2="475" stroke="#f1c40f" stroke-width="3"/>
+                            <line x1="420" y1="475" x2="470" y2="475" stroke="#f1c40f" stroke-width="3"/>
+                            <line x1="520" y1="475" x2="570" y2="475" stroke="#f1c40f" stroke-width="3"/>
+                            <line x1="620" y1="475" x2="670" y2="475" stroke="#f1c40f" stroke-width="3"/>
+                            <line x1="720" y1="475" x2="770" y2="475" stroke="#f1c40f" stroke-width="3"/>
+                        </g>
+ 
+                        <g id="svg-clouds" opacity="0.75">
+                            <path class="cloud-move" d="M 50,80 Q 65,65 80,80 Q 95,65 110,80 Q 120,80 120,95 Q 120,110 100,110 Q 50,110 50,95 Z" fill="#ebf5fb"/>
+                            <path class="cloud-move" d="M 450,60 Q 470,40 490,60 Q 510,40 530,60 Q 545,60 545,80 Q 545,100 520,100 Q 450,100 450,80 Z" fill="#ebf5fb"/>
+                            <path class="cloud-move" d="M 650,90 Q 665,75 680,90 Q 695,75 710,90 Q 720,90 720,105 Q 720,120 700,120 Q 650,120 650,105 Z" fill="#ebf5fb"/>
+                        </g>
+                    </svg>
+ 
+                    <canvas id="sim-canvas" width="800" height="500"></canvas>
+                    <canvas id="science-canvas" width="800" height="500"></canvas>
+ 
+                    <div id="cyclone-eye-marker" class="cyclone-eye" style="display: none;">
+                        <span class="cyclone-eye-core"></span>
+                        <span class="cyclone-eye-label">LOW PRESSURE EYE</span>
+                    </div>
+ 
+                    <div id="sim-alert-banner" class="sim-banner alert-hidden" aria-live="assertive"></div>
+                </div>
+ 
+                <div class="center-bottom-overlay">
+                    <div class="tab-selectors">
+                        <button id="tab-explore" class="tab-btn tab-active" aria-selected="true">🧪 Lab Exploration Mode</button>
+                        <button id="tab-challenge" class="tab-btn" aria-selected="false">🎮 Challenge Mode</button>
+                        <button id="tab-quiz" class="tab-btn" aria-selected="false">📝 Quiz Mode</button>
+                    </div>
+                    <div class="science-layer-controls card">
+                        <h3 class="panel-card-title">🔍 Hidden Science Layers</h3>
+                        <div class="checkbox-row">
+                            <label class="check-container">
+                                <input type="checkbox" id="check-vectors" checked>
+                                <span class="checkmark"></span>
+                                <span class="check-label">Wind Vector Field</span>
+                            </label>
+                            <label class="check-container">
+                                <input type="checkbox" id="check-pressure">
+                                <span class="checkmark"></span>
+                                <span class="check-label">Pressure Zones</span>
+                            </label>
+                            <label class="check-container">
+                                <input type="checkbox" id="check-aqi-grid">
+                                <span class="checkmark"></span>
+                                <span class="check-label">AQI Concentration Map</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+ 
+            <!-- RIGHT PANEL: DASHBOARD & METRICS / CHALLENGES / QUIZ -->
+            <!-- ✅ FIX: All three sub-panels are now correctly INSIDE this section -->
+            <section class="panel panel-right" aria-label="Metrics and Game Stats">
+ 
+                <!-- EXPLORATION PANEL (VISIBLE BY DEFAULT) -->
+                <div id="section-metrics" class="right-sub-panel active">
+                    <div class="panel-section gauge-card">
+                        <h2 class="section-title">AQI (Air Quality Index)</h2>
+                        <div class="aqi-gauge-container">
+                            <svg class="aqi-gauge" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="gauge-colors" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#2ecc71" />
+                                        <stop offset="20%" stop-color="#f1c40f" />
+                                        <stop offset="40%" stop-color="#e67e22" />
+                                        <stop offset="60%" stop-color="#e74c3c" />
+                                        <stop offset="80%" stop-color="#9b59b6" />
+                                        <stop offset="100%" stop-color="#7e3517" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M 20,110 A 80,80 0 0,1 180,110" fill="none" stroke="#ddd" stroke-width="12" stroke-linecap="round"/>
+                                <path d="M 20,110 A 80,80 0 0,1 180,110" fill="none" stroke="url(#gauge-colors)" stroke-width="12" stroke-linecap="round"/>
+                                <g id="gauge-needle" class="needle-group">
+                                    <polygon points="100,110 97,105 100,25 103,105" fill="#f8f9f9" stroke="#34495e" stroke-width="1.5" />
+                                    <circle cx="100" cy="110" r="7" fill="#34495e" />
+                                </g>
+                            </svg>
+                            <div class="aqi-value-box">
+                                <div class="aqi-number" id="lbl-aqi-num">000</div>
+                                <div class="aqi-label" id="lbl-aqi-text">GOOD</div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="panel-section stats-card">
+                        <h2 class="section-title">Real-time Statistics</h2>
+                        <ul class="stats-list">
+                            <li>
+                                <span class="stat-name">Active Pollutants (PM2.5)</span>
+                                <span class="stat-value" id="stat-particles">0 particles</span>
+                            </li>
+                            <li>
+                                <span class="stat-name">Dispersal Speed</span>
+                                <span class="stat-value" id="stat-speed">0.0 km/h</span>
+                            </li>
+                            <li>
+                                <span class="stat-name">Predominant Pressure</span>
+                                <span class="stat-value" id="stat-pressure">1013 hPa</span>
+                            </li>
+                            <li>
+                                <span class="stat-name">System Stability</span>
+                                <span class="stat-value" id="stat-stability">Stable</span>
+                            </li>
+                        </ul>
+                    </div>
+ 
+                    <div class="panel-section tip-card">
+                        <h2 class="section-title">💡 Did You Know? (Science Tip)</h2>
+                        <div class="tip-content" id="tip-content">
+                            Drag the Wind Speed slider to see how moving air carries away pollution. A stronger wind dilutes concentrations!
+                        </div>
+                    </div>
+ 
+                    <!-- ✅ NEW: Safety Measures Card (only in Lab mode, non-intrusive) -->
+                    <div class="panel-section" id="safety-card">
+                        <h2 class="section-title">🛡️ Safety Measures</h2>
+                        <div id="safety-content" class="safety-tips-box">
+                            <p class="safety-default-msg">Adjust weather conditions to see relevant safety tips.</p>
+                        </div>
+                    </div>
+                </div>
+ 
+                <!-- CHALLENGE PANEL (HIDDEN BY DEFAULT) -->
+                <div id="section-challenges" class="right-sub-panel">
+                    <div class="mission-aqi-box">
+                        <h3>Current AQI</h3>
+                        <div id="mission-aqi-value">0</div>
+                    </div>
+                    <div class="panel-section challenge-list">
+                        <h2 class="section-title">Mission Selection</h2>
+                        <div class="challenge-buttons">
+                            <button class="btn btn-challenge active" data-mission="1">🌬️ Wind Explorer</button>
+                            <button class="btn btn-challenge" data-mission="2">🌧️ Rain Cleaner</button>
+                            <button class="btn btn-challenge" data-mission="3">🌀 Cyclone Observer</button>
+                            <button class="btn btn-challenge" data-mission="4">🌎 Environment Master</button>
+                        </div>
+                    </div>
+ 
+                    <div class="panel-section challenge-details card">
+                        <h2 class="section-title" id="lbl-mission-title">Mission 1: Wind Explorer</h2>
+                        <p class="mission-desc" id="lbl-mission-desc">
+                            Use wind speed and wind direction to blow pollution away from the houses.
+                        </p>
+                        <div class="mission-goals-card">
+                            <h3 class="panel-card-title">Missions Objectives:</h3>
+                            <ul class="objective-list" id="objective-list">
+                                <li class="incomplete" id="obj-1"><span>Reduce average AQI below 80</span></li>
+                                <li class="incomplete" id="obj-2"><span>Maintain for 5 seconds</span></li>
+                            </ul>
+                        </div>
+                        <div class="challenge-metrics-row">
+                            <div class="chal-metric">
+                                <span class="chal-label">Time Remaining</span>
+                                <span class="chal-val" id="lbl-mission-timer">60s</span>
+                            </div>
+                            <div class="chal-metric">
+                                <span class="chal-label">Status</span>
+                                <span class="chal-val val-inactive" id="lbl-mission-status">Ready</span>
+                            </div>
+                        </div>
+                        <div class="btn-group-column">
+                            <button id="btn-start-mission" class="btn btn-primary">🚀 Start Mission</button>
+                            <button id="btn-hint" class="btn btn-secondary">💡 Give me a Hint</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <!-- ✅ FIX: Quiz panel is now INSIDE the right panel section -->
+                <div id="section-quiz" class="right-sub-panel">
+                    <div class="panel-section card">
+                        <h2 class="section-title">📝 Atmosphere Explorer Quiz</h2>
+ 
+                        <div class="quiz-question">
+                            <p>1. Does wind help spread pollution?</p>
+                            <label><input type="radio" name="q1" value="1"> Yes</label>
+                            <label><input type="radio" name="q1" value="0"> No</label>
+                        </div>
+ 
+                        <div class="quiz-question">
+                            <p>2. Does rain help remove pollution?</p>
+                            <label><input type="radio" name="q2" value="1"> Yes</label>
+                            <label><input type="radio" name="q2" value="0"> No</label>
+                        </div>
+ 
+                        <div class="quiz-question">
+                            <p>3. Can cyclones move pollution?</p>
+                            <label><input type="radio" name="q3" value="1"> Yes</label>
+                            <label><input type="radio" name="q3" value="0"> No</label>
+                        </div>
+ 
+                        <div class="quiz-question">
+                            <p>4. AQI stands for Air Quality Index?</p>
+                            <label><input type="radio" name="q4" value="1"> Yes</label>
+                            <label><input type="radio" name="q4" value="0"> No</label>
+                        </div>
+ 
+                        <div class="quiz-question">
+                            <p>5. Strong winds can reduce pollution concentration in one place?</p>
+                            <label><input type="radio" name="q5" value="1"> Yes</label>
+                            <label><input type="radio" name="q5" value="0"> No</label>
+                        </div>
+ 
+                        <button id="btn-submit-quiz" class="btn btn-success">Submit Quiz</button>
+                        <div id="quiz-result"></div>
+                    </div>
+                </div>
+ 
+            </section>
+            <!-- ✅ RIGHT PANEL ENDS HERE (was broken before) -->
+ 
+        </div>
+    </main>
+ 
+    <!-- TUTORIAL MODAL -->
+    <div id="modal-tutorial" class="modal modal-visible" role="dialog" aria-labelledby="tut-title" aria-modal="true">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2 id="tut-title">Atmosphere Explorer Tutorial</h2>
+                <button id="btn-close-tut-top" class="modal-close-btn" aria-label="Close Modal">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div class="carousel">
+                    <div class="carousel-slide slide-active">
+                        <div class="slide-flex">
+                            <div class="slide-text">
+                                <h3>Welcome Explorer! 🌍</h3>
+                                <p>In this simulation, you will study how air moves, why pressure patterns generate wind, and how storms or cyclones spread or cleanse air pollutants.</p>
+                                <p><strong>Ravi's Science Challenge:</strong> Can we clear the smog over the residential houses using natural atmospheric processes?</p>
+                            </div>
+                            <div class="slide-media">
+                                <div class="media-placeholder icon-big">🔬</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-flex">
+                            <div class="slide-text">
+                                <h3>Visualizing the Science 🔍</h3>
+                                <p>Toggle the <strong>Hidden Science Layers</strong> underneath the canvas map to see:
+                                    <ul>
+                                        <li><strong>Wind Vector Fields:</strong> Arrow length and motion represent air speed.</li>
+                                        <li><strong>Pressure Zones:</strong> Warm/Red = High Pressure, Cold/Blue = Low Pressure.</li>
+                                        <li><strong>AQI Maps:</strong> Color grids show localized smoke particle concentrations.</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div class="slide-media">
+                                <div class="media-placeholder icon-big">🧭</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-flex">
+                            <div class="slide-text">
+                                <h3>Challenge Mode 🎮</h3>
+                                <p>Switch to <strong>Challenge Mode</strong> to test your knowledge! Solve 4 missions by manipulating wind, storms, and cyclones to protect citizens from pollutants. Earn up to 3 gold stars per mission!</p>
+                            </div>
+                            <div class="slide-media">
+                                <div class="media-placeholder icon-big">⭐</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="modal-footer">
+                <div class="carousel-nav">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                </div>
+                <button id="btn-next-slide" class="btn btn-primary">Next &rarr;</button>
+                <button id="btn-finish-tut" class="btn btn-success" style="display: none;">Let's Explore!</button>
+            </footer>
+        </div>
+    </div>
+ 
+    <!-- CELEBRATION MODAL -->
+    <div id="modal-celebration" class="modal" role="dialog" aria-labelledby="cel-title" aria-hidden="true">
+        <div class="modal-content text-center">
+            <header class="modal-header justify-center">
+                <h2 id="cel-title">🎉 Mission Accomplished!</h2>
+            </header>
+            <div class="modal-body">
+                <div class="star-rating" id="celebration-stars">
+                    <span class="star-icon text-muted">&#9733;</span>
+                    <span class="star-icon text-muted">&#9733;</span>
+                    <span class="star-icon text-muted">&#9733;</span>
+                </div>
+                <h3 class="success-subtitle" id="lbl-celebration-subtitle">Great Job, Explorer!</h3>
+                <p id="lbl-celebration-explain" class="celebration-explain">
+                    You've successfully resolved the atmospheric challenge!
+                </p>
+                <div class="science-insight-card" id="lbl-celebration-insight">
+                    <strong>Science Insight:</strong> High-speed air currents move suspended smoke particles away from emission sources, reducing local PM2.5 density.
+                </div>
+            </div>
+            <footer class="modal-footer justify-center">
+                <button id="btn-modal-next-mission" class="btn btn-success">Play Next Mission</button>
+                <button id="btn-modal-replay" class="btn btn-secondary">Retry Mission</button>
+                <button id="btn-modal-close" class="btn btn-danger">Back to Lab</button>
+            </footer>
+        </div>
+    </div>
+ 
+    <script src="js/particles.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/challenge.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
