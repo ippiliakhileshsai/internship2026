@@ -50,12 +50,7 @@ atmosphere-explorer/
 ### Local Setup
 Since Atmosphere Explorer is built using vanilla technologies with zero compilation:
 1. Download or clone this directory.
-2. Open `index.html` in your favorite browser.
-3. Alternatively, start a simple Python server:
-   ```bash
-   python -m http.server 8000
-   ```
-   and navigate to `http://localhost:8000`.
+2. Open `index.html` in your favorite browser..
 
 ---
 
