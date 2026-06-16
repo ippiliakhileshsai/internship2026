@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microbe Guide | Play</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="play">
+  <div class="virus-cursor" id="virusCursor" aria-hidden="true">
+    <span class="cursor-core"></span>
+    <span class="cursor-ring"></span>
+    <span class="cursor-dot dot-one"></span>
+    <span class="cursor-dot dot-two"></span>
+    <span class="cursor-dot dot-three"></span>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="index.html#home">
+      <span class="brand-badge">MICRO</span>
+      <span>Guide</span>
+    </a>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html#what-are-microorganisms" class="play-link">Learn</a>
+    </nav>
+  </header>
+
+  <main class="play-main">
+    <section class="play-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Interactive challenge</p>
+        <h1>Microbe Defense</h1>
+        <p class="hero-text">
+          The full Body Wars simulation is embedded below. Choose a pathogen, play both phases,
+          and see how the body responds.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#simulationSection">Start Game</a>
+          <a class="secondary-btn" href="index.html#what-are-microorganisms">Learn</a>
+        </div>
+        <div class="play-stats">
+          <div class="stat-bubble">
+            <span class="stat-label">Score</span>
+            <strong id="scoreValue">0</strong>
+          </div>
+          <div class="stat-bubble">
+            <span class="stat-label">Lives</span>
+            <strong id="livesValue">5</strong>
+          </div>
+          <div class="stat-bubble">
+            <span class="stat-label">Level</span>
+            <strong id="levelValue">1</strong>
+          </div>
+        </div>
+      </div>
+      <div class="play-art card-blob">
+        <img
+          class="play-photo"
+          src="images/viruses-in-the-bloodstream.webp"
+          alt="Viruses in the bloodstream"
+        >
+      </div>
+    </section>
+
+    <section class="simulation-section" id="simulationSection">
+      <div class="section-heading">
+        <p class="eyebrow">Body Wars simulation</p>
+        <h2>Play the full microbe challenge</h2>
+        <p>
+          The simulation runs inside this page, so you can stay in one place while the game
+          switches between infection and immune defense.
+        </p>
+      </div>
+      <div class="simulation-frame-shell">
+        <iframe
+          class="simulation-frame"
+          src="simulation.html"
+          title="Body Wars microbe simulation"
+          loading="lazy"
+          allow="fullscreen"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Need a refresher? Jump to the learning section anytime.</p>
+    <a class="secondary-btn" href="index.html#what-are-microorganisms">Learn</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
