@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microbe Guide | Learn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="learn">
+  <div class="virus-cursor" id="virusCursor" aria-hidden="true">
+    <span class="cursor-core"></span>
+    <span class="cursor-ring"></span>
+    <span class="cursor-dot dot-one"></span>
+    <span class="cursor-dot dot-two"></span>
+    <span class="cursor-dot dot-three"></span>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#home">
+      <span class="brand-badge">MICRO</span>
+      <span>Guide</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="siteNav">Menu</button>
+    <nav class="site-nav" id="siteNav">
+      <a href="play.html" class="play-link">Play</a>
+      <a href="#home">Home</a>
+      <a href="#what-are-microorganisms">What are Microbes</a>
+      <a href="#microorganisms">Microorganisms</a>
+      <a href="#spreads">How it Spreads</a>
+      <a href="#prevention">Prevention</a>
+      <a href="#quiz">Quiz</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-section" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow">Teen science hub</p>
+        <h1>Understand disease-causing microorganisms</h1>
+        <p class="hero-text">
+          Explore what makes microbes harmful, how they spread, and the practical habits that help
+          protect you and the people around you.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="play.html">Play Challenge</a>
+          <a class="secondary-btn" href="#what-are-microorganisms">Start Learning</a>
+        </div>
+        <div class="hero-chips">
+          <span>Clear facts</span>
+          <span>Quick quiz</span>
+          <span>Badges</span>
+        </div>
+      </div>
+      <div class="hero-art card-blob">
+        <img
+          class="hero-photo"
+          src="images/microscopic-view-of-diverse-microorganisms-in-vibrant-green-hues-showcasing-biological-complexity-photo.webp"
+          alt="Microscopic view of diverse microorganisms"
+        >
+      </div>
+    </section>
+
+    <div class="wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,64 C180,120 320,12 480,40 C640,68 760,130 960,88 C1140,52 1260,6 1440,46 L1440,120 L0,120 Z"></path>
+      </svg>
+    </div>
+
+    <section class="content-section" id="what-are-microorganisms">
+      <div class="section-heading">
+        <p class="eyebrow">What are they?</p>
+        <h2>Disease-causing microorganisms are tiny living things that can make us sick</h2>
+        <p>
+          Some microorganisms are helpful, but others can cause disease when they enter the body,
+          grow quickly, or release toxins. You need a microscope to study most of them.
+        </p>
+      </div>
+      <div class="fact-grid">
+        <article class="info-card">
+          <div class="card-illustration">
+            <img
+              class="card-photo"
+              src="images/viruses-in-the-bloodstream.webp"
+              alt="Viruses in the bloodstream"
+            >
+          </div>
+          <h3>It is a virus</h3>
+          <p>Viruses are not the same as bacteria. They need living cells to make more copies of themselves.</p>
+        </article>
+        <article class="info-card">
+          <div class="card-illustration">
+            <img
+              class="card-photo"
+              src="images/infant-vaccination-healthcare-2023-photo.webp"
+              alt="Vaccination in a healthcare setting"
+            >
+          </div>
+          <h3>It can feel different</h3>
+          <p>Some people feel only a little sick, while others need much more rest and care.</p>
+        </article>
+        <article class="info-card">
+          <div class="card-illustration">
+            <img
+              class="card-photo"
+              src="images/effective-handwashing-techniques-rub-palm-tips-other-hand-s-fingers-hand-washing-very-important-to-avoid-risk-174652235.webp"
+              alt="Hands being washed with soap"
+            >
+          </div>
+          <h3>We can help stop it</h3>
+          <p>Smart habits like handwashing, fresh air, and staying home when sick can slow the spread.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="wave-divider alt" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,42 C194,8 326,96 514,86 C684,76 835,10 1022,26 C1187,42 1287,104 1440,90 L1440,120 L0,120 Z"></path>
+      </svg>
+    </div>
+
+    <section class="content-section spotlight-section" id="microorganisms">
+      <div class="section-heading">
+        <p class="eyebrow">Microorganisms</p>
+        <h2>Different microorganisms can cause different diseases</h2>
+        <p>
+          Microorganisms are tiny living or almost-living things that can only be seen with special
+          tools. Some cause disease, and some are helpful or harmless.
+        </p>
+      </div>
+      <div class="micro-grid">
+        <article class="micro-card bacteria">
+          <h3>Bacteria</h3>
+          <p>Some bacteria are helpful, but others can cause infections like strep throat.</p>
+        </article>
+        <article class="micro-card virus">
+          <h3>Viruses</h3>
+          <p>Viruses are tiny invaders. Some cause illnesses like flu, measles, or chickenpox.</p>
+        </article>
+        <article class="micro-card fungi">
+          <h3>Fungi</h3>
+          <p>Fungi can live in damp places and may cause skin problems like ringworm.</p>
+        </article>
+        <article class="micro-card protozoa">
+          <h3>Protozoa</h3>
+          <p>Protozoa are one-celled organisms that can sometimes spread through water or insects.</p>
+        </article>
+      </div>
+      <div class="feature-banner">
+        <div>
+          <h3>Kid clue</h3>
+          <p>If it needs living cells to copy itself, that is a big clue it is a virus.</p>
+        </div>
+        <img
+          class="banner-photo"
+          src="images/vector-illustration-bathroom-accessories-personal-hygiene-care-items_793518-370.webp"
+          alt="Personal hygiene items"
+        >
+      </div>
+    </section>
+
+    <div class="wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,72 C160,110 360,16 556,24 C760,34 884,118 1090,100 C1244,86 1348,34 1440,20 L1440,120 L0,120 Z"></path>
+      </svg>
+    </div>
+
+    <section class="content-section" id="spreads">
+      <div class="section-heading">
+        <p class="eyebrow">How it spreads</p>
+        <h2>Microorganisms can spread in air, water, food, and through contact</h2>
+        <p>
+          When people talk, cough, sneeze, share food, touch surfaces, or drink unsafe water, germs
+          can move from one place to another. Good ventilation and smart hygiene help.
+        </p>
+      </div>
+      <div class="spread-layout">
+        <article class="spread-card">
+          <h3>Air droplets</h3>
+          <p>Some droplets fall quickly, and some stay floating longer in stuffy spaces.</p>
+        </article>
+        <article class="spread-card">
+          <h3>Close contact</h3>
+          <p>It is easier for germs to move between people when they are face-to-face nearby.</p>
+        </article>
+        <article class="spread-card">
+          <h3>Shared spaces</h3>
+          <p>Open windows or fans can help bring in fresh air and move old air out.</p>
+        </article>
+      </div>
+      <div class="story-strip">
+        <div class="story-bubble">Talk too close</div>
+        <div class="story-arrow">→</div>
+        <div class="story-bubble">Droplets travel</div>
+        <div class="story-arrow">→</div>
+        <div class="story-bubble">Another person breathes them in</div>
+      </div>
+    </section>
+
+    <div class="wave-divider alt" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,22 C176,80 354,112 540,84 C720,56 870,8 1038,24 C1196,38 1304,82 1440,60 L1440,120 L0,120 Z"></path>
+      </svg>
+    </div>
+
+    <section class="content-section" id="prevention">
+      <div class="section-heading">
+        <p class="eyebrow">Prevention</p>
+        <h2>Simple actions make a superhero-sized difference</h2>
+        <p>These habits do not need capes, but they do help protect classrooms, homes, and teams.</p>
+      </div>
+      <div class="prevention-grid">
+        <article class="prevention-card">
+          <div class="badge-circle">1</div>
+          <h3>Wash hands</h3>
+          <p>Scrub with soap for about 20 seconds, especially before eating and after coughing.</p>
+        </article>
+        <article class="prevention-card">
+          <div class="badge-circle">2</div>
+          <h3>Cover coughs</h3>
+          <p>Use your elbow or a tissue so droplets do not fly out as far.</p>
+        </article>
+        <article class="prevention-card">
+          <div class="badge-circle">3</div>
+          <h3>Let fresh air in</h3>
+          <p>Open windows when possible or spend time outdoors if everyone is feeling well.</p>
+        </article>
+        <article class="prevention-card">
+          <div class="badge-circle">4</div>
+          <h3>Rest when sick</h3>
+          <p>Staying home when you feel ill helps your body heal and protects other people.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,88 C168,48 350,4 530,36 C720,70 862,116 1062,92 C1240,72 1316,36 1440,42 L1440,120 L0,120 Z"></path>
+      </svg>
+    </div>
+
+    <section class="content-section quiz-section" id="quiz">
+      <div class="section-heading">
+        <p class="eyebrow">Quiz with badges</p>
+        <h2>Can you earn your health helper badges?</h2>
+        <p>Pick the best answer for each question, then see which badges your score unlocks.</p>
+      </div>
+
+      <div class="quiz-shell">
+        <div class="quiz-progress">
+          <span id="quizProgress">Question 1 of 5</span>
+          <span id="quizScore">Score: 0</span>
+        </div>
+        <div class="quiz-card">
+          <h3 id="quizQuestion">Loading question...</h3>
+          <div class="quiz-options" id="quizOptions"></div>
+          <div class="quiz-feedback" id="quizFeedback">Choose an answer to begin.</div>
+          <div class="quiz-actions">
+            <button class="primary-btn" id="nextQuestionBtn" type="button">Next Question</button>
+            <button class="secondary-btn" id="restartQuizBtn" type="button">Restart Quiz</button>
+          </div>
+        </div>
+        <div class="badge-panel">
+          <div class="card-illustration" aria-hidden="true">
+            <img
+              class="card-photo"
+              src="images/d6cc21c72479d7bb1d3190b409a19f02.webp"
+              alt="Personal hygiene items illustration"
+            >
+          </div>
+          <h3>Badge case</h3>
+          <div class="badge-list" id="badgeList">
+            <div class="reward-badge locked">Health Detective</div>
+            <div class="reward-badge locked">Fresh Air Expert</div>
+            <div class="reward-badge locked">Hygiene Pro</div>
+          </div>
+          <p id="badgeMessage">Score points in the quiz to unlock shiny badges.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Keep learning, keep caring, and keep your squad healthy.</p>
+    <a class="primary-btn" href="play.html">Go to Play</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
