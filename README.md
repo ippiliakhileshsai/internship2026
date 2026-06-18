@@ -1,4 +1,6 @@
-**Teams and Project Topics sheet** : https://docs.google.com/spreadsheets/d/1TS8a53XdPvk5vya1-R2iQQWykr4JaaSpVTEP_3kInZs/edit?usp=sharing 
+**Teams and Project Topics sheet** : 
+
+https://docs.google.com/spreadsheets/d/1TS8a53XdPvk5vya1-R2iQQWykr4JaaSpVTEP_3kInZs/edit?usp=sharing 
 
 # 5-6Week Schedule 
 
@@ -8,7 +10,6 @@
     1. End users
     2. UseCases (Features)
     3. High Level User Flow 
-  
 
 ### Project Development and Deployment using Vibe Coding & LLM's
 **Deadline**: 20th June,2026
