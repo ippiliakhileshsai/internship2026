@@ -57,8 +57,3 @@ Follow these simple steps to run the application locally on your machine:
    `http://localhost:54331`
 
 ---
-
-## 🌐 Deployment Link
-The project can be deployed and accessed live at:
-🔗 [Live Simulator Site](https://vikas-4777.github.io/Swechaap-proj1-part2/)
-*(Note: If deployed via GitHub Pages, enable it in Repository Settings > Pages > Source: Deploy from branch > main)*
