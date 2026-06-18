@@ -1,3 +1,31 @@
+# 5-6Week Schedule 
+
+### Team_Task
+ **Deadline**: 17th June,2026
+
+    1. End users
+    2. UseCases (Features)
+    3. High Level User Flow 
+  
+
+### Project Development and Deployment using Vibe Coding & LLM's
+**Deadline**: 20th June,2026
+
+    4. Modules & Workflows - Distribute the task and create issues in github repo.
+    5. Schema (DB Structure)
+    6. E2E Design (Wireframe) 
+    7. Development (Vibe Coding,Maintain the project repo) - Web Projects
+    8. Test Strategy
+    9. Deployment (Explore tools to deploy)
+
+**Pre-requisite Technologies :**
+React, Node, Python, MongoDB,SQL
+
+## Plan after 20th June 
+### After Web Project Completion - Learning Agents and Integrating AI Use cases into it.
+
+======================================================================================
+
 # internship2026 (4 Week Project Flow) 
 
 Topic-> Problem Statement (HMW) → User → Requirement → Story Boarding → Development → Prototype → Testing
