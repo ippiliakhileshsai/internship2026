@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Events - ConnectMyEvent</title>
+  
+  <!-- CSS Styling files -->
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/utilities.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  
+  <style>
+    .browse-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+      padding: var(--space-8) 0;
+    }
+    
+    @media (min-width: 1024px) {
+      .browse-layout {
+        grid-template-columns: 290px 1fr;
+      }
+    }
+    
+    /* Sticky filter sidebar */
+    .filter-sidebar {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      height: fit-content;
+      position: sticky;
+      top: 90px;
+    }
+    
+    .filter-group {
+      margin-bottom: var(--space-6);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-4);
+    }
+    
+    .filter-group:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    .filter-title {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: var(--font-bold);
+      color: var(--text-main);
+      margin-bottom: var(--space-3);
+    }
+    
+    .filter-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2.5);
+      margin-bottom: var(--space-2.5);
+      cursor: pointer;
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      transition: color var(--transition-fast);
+    }
+    
+    .filter-item:hover {
+      color: var(--brand-indigo-600);
+    }
+    
+    .filter-item input[type="checkbox"] {
+      accent-color: var(--brand-indigo-500);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+    
+    /* Top search &amp; sorting bar */
+    .top-bar {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-6);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+    }
+    
+    .search-input-wrap i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      width: 16px;
+      height: 16px;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 10px 16px 10px 42px;
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      color: var(--text-main);
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+    
+    .search-input:focus {
+      border-color: var(--brand-indigo-500);
+      background: var(--bg-surface);
+      box-shadow: 0 0 0 3px var(--brand-indigo-100);
+    }
+    
+    .sort-select {
+      padding: 10px 32px 10px 16px;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2366667F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px;
+    }
+    
+    .sort-select:focus {
+      border-color: var(--brand-indigo-500);
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: var(--space-6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <main class="container browse-layout">
+    <!-- Left Filter Sidebar -->
+    <aside class="filter-sidebar hidden-md block-md" id="filterSidebar">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-lg font-bold font-display flex items-center gap-2">
+          <i data-lucide="sliders-horizontal" style="width: 18px; height: 18px; color: var(--brand-indigo-600);"></i>
+          Filter Options
+        </h2>
+        <button type="button" class="btn btn-ghost btn-sm text-indigo" onclick="resetFilters()" style="padding: 4px 8px;">Reset All</button>
+      </div>
+      
+      <!-- Category checkboxes -->
+      <div class="filter-group">
+        <h3 class="filter-title">Opportunity Category</h3>
+        <label class="filter-item"><input type="checkbox" value="hackathon" class="cat-filter"> Hackathons</label>
+        <label class="filter-item"><input type="checkbox" value="workshop" class="cat-filter"> Workshops</label>
+        <label class="filter-item"><input type="checkbox" value="jobfair" class="cat-filter"> Job Fairs</label>
+        <label class="filter-item"><input type="checkbox" value="startup" class="cat-filter"> Startup Pitches</label>
+        <label class="filter-item"><input type="checkbox" value="ngo" class="cat-filter"> NGO Programs</label>
+        <label class="filter-item"><input type="checkbox" value="cultural" class="cat-filter"> Cultural Events</label>
+        <label class="filter-item"><input type="checkbox" value="healthcare" class="cat-filter"> Healthcare Camps</label>
+        <label class="filter-item"><input type="checkbox" value="volunteer" class="cat-filter"> Volunteer Drives</label>
+        <label class="filter-item"><input type="checkbox" value="scholarship" class="cat-filter"> Scholarships</label>
+        <label class="filter-item"><input type="checkbox" value="mentorship" class="cat-filter"> Mentorships</label>
+      </div>
+      
+      <!-- Price Checkboxes -->
+      <div class="filter-group">
+        <h3 class="filter-title">Participation Fee</h3>
+        <label class="filter-item"><input type="checkbox" value="free" class="price-filter"> Free Registration</label>
+        <label class="filter-item"><input type="checkbox" value="paid" class="price-filter"> Paid Registration</label>
+      </div>
+
+      <!-- Format Checkboxes -->
+      <div class="filter-group">
+        <h3 class="filter-title">Event Mode</h3>
+        <label class="filter-item"><input type="checkbox" value="online" class="format-filter"> Virtual / Online</label>
+        <label class="filter-item"><input type="checkbox" value="offline" class="format-filter"> In-Person / Offline</label>
+      </div>
+    </aside>
+
+    <!-- Main Opportunity Listing -->
+    <div>
+      <div class="top-bar">
+        <div class="flex items-center gap-2">
+          <h1 class="text-xl font-bold font-display mb-0" style="margin: 0;"><span id="eventCount" class="text-indigo">0</span> Opportunities Available</h1>
+        </div>
+        <div class="flex gap-3 flex-wrap items-center">
+          <div class="search-input-wrap">
+            <i data-lucide="search"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search title, location, or organizer...">
+          </div>
+          <select id="sortSelect" class="sort-select">
+            <option value="upcoming">Relevance (Default)</option>
+            <option value="popular">Most Popular</option>
+            <option value="days-left">Closing Soon First</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Listings Grid -->
+      <div class="event-grid" id="eventsGrid">
+        <!-- Event Cards dynamically rendered by events.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../assets/js/events-data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/events.js"></script>
+</body>
+</html>

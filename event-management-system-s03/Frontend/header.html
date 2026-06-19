@@ -1,0 +1,234 @@
+<!-- components/header.html -->
+<style>
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-nav);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1.5px solid var(--border-color);
+    padding: 14px 0;
+    transition: all 0.3s ease;
+  }
+  [data-theme="dark"] .navbar {
+    background: rgba(15, 11, 46, 0.88);
+  }
+  .navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-extrabold);
+    color: var(--brand-indigo-600);
+  }
+  .nav-brand span {
+    color: var(--brand-coral-500);
+  }
+  .nav-links {
+    display: none;
+    gap: var(--space-6);
+  }
+  @media (min-width: 768px) {
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .nav-link {
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+  }
+  .nav-link:hover {
+    color: var(--brand-indigo-600);
+  }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  @media (min-width: 768px) {
+    .hamburger {
+      display: none;
+    }
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2.5px;
+    background-color: var(--text-main);
+    border-radius: 1px;
+    transition: all 0.3s;
+  }
+  
+  /* User profile dropdown styles */
+  .profile-dropdown-container {
+    position: relative;
+  }
+  .profile-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    background: var(--bg-surface);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 200;
+    animation: scaleIn var(--transition-fast) forwards;
+    padding: 8px 0;
+  }
+  .profile-dropdown.open {
+    display: flex;
+  }
+  .profile-item-link {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: var(--font-semibold);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+  }
+  .profile-item-link:hover {
+    background-color: var(--bg-surface-hover);
+    color: var(--brand-indigo-600);
+  }
+
+  .mobile-nav {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    height: 100vh;
+    background-color: var(--bg-surface);
+    z-index: 301;
+    padding: 28px;
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    transition: right 0.3s ease-in-out;
+    border-left: 1px solid var(--border-color);
+  }
+  .mobile-nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(15, 11, 46, 0.5);
+    z-index: 300;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+</style>
+
+<nav class="navbar">
+  <div class="container navbar-inner">
+    <!-- Brand -->
+    <a href="/index.html" class="nav-brand">
+      <i data-lucide="layers" style="color: var(--brand-indigo-500); width: 22px; height: 22px;"></i>
+      Connect<span>MyEvent</span>
+    </a>
+
+    <!-- Navigation links & actions -->
+    <div class="flex items-center gap-8">
+      <div class="nav-links">
+        <a href="/index.html" class="nav-link">Home</a>
+        <a href="/pages/browse-events.html" class="nav-link">Browse Events</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Theme Switcher -->
+        <button type="button" id="themeToggle" class="btn btn-ghost btn-icon" aria-label="Toggle Theme" style="border-radius: var(--radius-full); width: 36px; height: 36px; padding:0; display:flex; align-items:center; justify-content:center;">
+          <i data-lucide="sun" class="sun-icon" style="width: 18px; height: 18px;"></i>
+          <i data-lucide="moon" class="moon-icon" style="width: 18px; height: 18px; display:none;"></i>
+        </button>
+
+        <!-- Dynamic Actions / Profile Section -->
+        <div class="nav-actions">
+          <!-- Unauthenticated Buttons -->
+          <div id="unauthActions" class="flex gap-2">
+            <a href="/pages/login.html" class="btn btn-ghost btn-sm" style="border-radius: var(--radius-full);">Sign In</a>
+            <a href="/pages/register.html" class="btn btn-primary btn-sm btn-pill">Get Started</a>
+          </div>
+
+          <!-- Authenticated Profile Dropdown -->
+          <div class="profile-dropdown-container" id="profileDropdownContainer" style="display: none;">
+            <button type="button" class="avatar avatar-sm cursor-pointer" id="profileMenuToggle" style="border: none;">U</button>
+            <div class="profile-dropdown" id="profileDropdown">
+              <div style="padding: 10px 16px; border-bottom: 1.5px solid var(--border-color); margin-bottom: 4px;">
+                <span class="fw-bold block text-main text-sm text-truncate" id="profileDropdownName" style="max-width:180px; font-weight:var(--font-bold);">User Name</span>
+                <span class="text-xs text-muted block text-truncate" id="profileDropdownEmail" style="max-width:180px; margin-top:2px;">email@college.edu</span>
+              </div>
+              <a href="#" class="profile-item-link" id="myActivitiesLink"><i data-lucide="layout-dashboard" style="width:14px; height:14px;"></i> My Activities</a>
+              <a href="#" class="profile-item-link" id="organizerDashboardLink" style="display:none;"><i data-lucide="briefcase" style="width:14px; height:14px;"></i> Organizer Panel</a>
+              <div class="divider" style="margin: 4px 0;"></div>
+              <button type="button" class="profile-item-link text-error" onclick="handleLogout()" style="border: none; background: none; width: 100%; text-align: left; cursor: pointer; color: var(--error);"><i data-lucide="log-out" style="width:14px; height:14px;"></i> Logout</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hamburger for Mobile -->
+        <button type="button" class="hamburger" id="hamburger" aria-expanded="false" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation Drawer -->
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+<div class="mobile-nav" id="mobileNav">
+  <div class="flex justify-between items-center">
+    <div class="nav-brand">Connect<span>MyEvent</span></div>
+    <button type="button" class="btn btn-ghost" id="mobileNavClose" style="padding:4px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:var(--radius-full);" aria-label="Close">
+      <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+    </button>
+  </div>
+  <div class="flex flex-col gap-4">
+    <a href="/index.html" class="nav-link text-base">Home</a>
+    <a href="/pages/browse-events.html" class="nav-link text-base">Browse Events</a>
+    
+    <div class="divider" style="margin: 12px 0;"></div>
+    
+    <!-- Mobile Auth Actions Toggle -->
+    <div id="mobileUnauthActions">
+      <a href="/pages/login.html" class="btn btn-ghost btn-full mb-2" style="border-radius: var(--radius-full);">Sign In</a>
+      <a href="/pages/register.html" class="btn btn-primary btn-full btn-pill">Get Started Free</a>
+    </div>
+    
+    <div id="mobileAuthActions" style="display: none; flex-direction: column; gap: var(--space-3);">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="avatar avatar-md" id="mobileUserAvatar">U</div>
+        <div>
+          <span class="fw-bold block text-main text-sm" id="mobileUserName" style="font-weight:var(--font-bold);">User Name</span>
+          <span class="text-xs text-secondary block" id="mobileUserRole" style="margin-top:2px;">Participant</span>
+        </div>
+      </div>
+      <a href="#" class="btn btn-ghost btn-full" id="mobileMyActivitiesLink" style="border-radius: var(--radius-full); text-align: left; justify-content: flex-start;"><i data-lucide="layout-dashboard" style="width:16px; margin-right:8px;"></i> My Activities</a>
+      <a href="#" class="btn btn-ghost btn-full" id="mobileOrganizerLink" style="border-radius: var(--radius-full); text-align: left; justify-content: flex-start; display:none;"><i data-lucide="briefcase" style="width:16px; margin-right:8px;"></i> Organizer Panel</a>
+      <button type="button" class="btn btn-ghost btn-full text-error" onclick="handleLogout()" style="border-radius: var(--radius-full); text-align: left; justify-content: flex-start; color: var(--error);"><i data-lucide="log-out" style="width:16px; margin-right:8px;"></i> Logout</button>
+    </div>
+  </div>
+</div>
