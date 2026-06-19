@@ -1,0 +1,4 @@
+Create issues (tasks) in issues section and work on it update to your team 
+Integerate all the modules and code - start looking for deploying the application.
+
+Mentor Connect AND REVIEW
