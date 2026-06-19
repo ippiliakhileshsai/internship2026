@@ -1,0 +1,102 @@
+Energy Simulation: Kinetic Energy and Potential Energy Visualization
+
+Project Objective
+
+To create an interactive web-based simulation that demonstrates the conversion between Potential Energy (PE) and Kinetic Energy (KE) while showing that Total Mechanical Energy remains conserved.
+
+Software Requirements:
+
+Front-End Technologies
+HTML5
+CSS3
+JavaScript
+Libraries Used
+chartjs.org⁠  (for energy graph visualization)
+Development Tools
+Visual Studio Code
+Web Browser (Chrome, Edge, Firefox)
+
+Hardware Requirements:
+
+Minimum Hardware
+Processor: Intel i3 or equivalent
+RAM: 4 GB
+Storage: 500 MB free space
+Recommended Hardware
+Processor: Intel i5 or above
+RAM: 8 GB
+Internet connection (for loading Chart.js CDN)
+
+Functional Requirements:
+
+1. Parameter Adjustment
+The user should be able to modify:
+Height (m)
+Mass (kg)
+Speed (m/s)
+2. Energy Calculation
+The system should calculate:
+Potential Energy (PE = m × g × h)
+Kinetic Energy (KE = ½ × m × v²)
+Total Energy (TE = PE + KE)
+3. Simulation Animation
+Ball movement on the hill.
+Visual representation of energy transformation.
+4. Graph Visualization
+Display energy values using a bar chart.
+Update graph dynamically whenever values change.
+5. Reset Functionality
+Return all parameters and animation to default state.
+Non-Functional Requirements
+Performance
+Fast response to user input.
+Usability
+Simple and user-friendly interface.
+Reliability
+Accurate energy calculations.
+Compatibility
+Works on modern web browsers.
+Task Division
+Team Member 1 – Front-End Design
+Responsibilities:
+Create HTML structure.
+Design layout using CSS.
+Create simulation interface.
+Team Member 2 – Energy Calculations
+Responsibilities:
+Implement Potential Energy formula.
+Implement Kinetic Energy formula.
+Calculate Total Energy.
+Team Member 3 – Animation Development
+Responsibilities:
+Ball movement animation.
+Start and Reset functionality.
+Position calculations.
+Team Member 4 – Graph Implementation
+Responsibilities:
+Integrate Chart.js.
+Display energy graph.
+Update graph dynamically.
+Team Member 5 – Testing & Documentation
+Responsibilities:
+Test simulation.
+Verify calculations.
+Prepare report and presentation.
+Modules of the Project
+Module 1: User Interface
+Provides sliders, buttons, and display cards.
+Module 2: Energy Calculation Engine
+Calculates PE, KE, and TE.
+Module 3: Animation Module
+Controls ball movement.
+Module 4: Graph Module
+Displays energy comparison graph.
+Module 5: Information Module
+Explains the working principle of energy conversion.
+Expected Outcome
+The simulation helps students understand:
+Potential Energy
+Kinetic Energy
+Energy Transformation
+Conservation of Mechanical Energy
+This project provides an interactive and visual learning experience for physics concepts.

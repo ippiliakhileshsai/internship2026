@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Number Lab</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f0f16 0%, #151522 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #f1f1f7;
+            margin: 0;
+            padding: 30px 15px;
+            display: flex;
+            justify-content: center;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .lab-container { width: 100%; max-width: 900px; background-color: #171724; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); border: 1px solid #232336; }
+        
+        .lab-header { text-align: center; margin-bottom: 25px; border-bottom: 1px solid #232336; padding-bottom: 15px; position: relative; }
+        .project-title { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #e040fb; font-weight: bold; text-shadow: 0 0 8px rgba(224, 64, 251, 0.4); }
+        .lab-header h1 { margin: 5px 0; font-size: 2.2rem; color: #ffffff; }
+        .subtitle { margin: 0; color: #a0a0b8; }
+        
+        .main-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        @media (max-width: 768px) { .main-layout { grid-template-columns: 1fr; } }
+        .panel { background-color: #1e1e2f; padding: 20px; border-radius: 12px; border: 1px solid #28283d; }
+        .panel h2 { margin-top: 0; margin-bottom: 20px; font-size: 1.25rem; border-bottom: 2px solid #28283d; padding-bottom: 8px; color: #d1d1e0; }
+        
+        .counter-box { display: flex; justify-content: space-between; align-items: center; background-color: #171724; padding: 15px; border-radius: 8px; margin-bottom: 15px; transition: all 0.3s ease; }
+        .proton-box { border-left: 5px solid #ff4d4d; box-shadow: inset 5px 0 10px rgba(255, 77, 77, 0.05); }
+        .neutron-box { border-left: 5px solid #00e676; box-shadow: inset 5px 0 10px rgba(0, 230, 118, 0.05); }
+        
+        .particle-info { display: flex; align-items: center; gap: 12px; }
+        .particle-symbol { font-size: 24px; }
+        .particle-name { display: block; font-size: 16px; }
+        .particle-charge { color: #8a8a9e; font-size: 12px; }
+        
+        .btn-group { display: flex; align-items: center; }
+        .btn-group button { background-color: #ab47bc; color: white; border: none; width: 35px; height: 35px; font-size: 20px; font-weight: bold; cursor: pointer; border-radius: 6px; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .btn-group button:hover { background-color: #e040fb; transform: scale(1.15); box-shadow: 0 0 10px #e040fb; }
+        .btn-group button:active { transform: scale(0.9); }
+        .btn-group span { font-size: 22px; width: 45px; text-align: center; font-weight: bold; display: inline-block; }
+        
+        .element-card { background-color: #171724; text-align: center; padding: 25px; border-radius: 10px; border: 2px solid #e040fb; margin-bottom: 20px; box-shadow: 0 0 15px rgba(224, 64, 251, 0.15), inset 0 0 15px rgba(224, 64, 251, 0.05); position: relative; }
+        
+        .isotope-notation { position: absolute; left: 25px; top: 25px; display: flex; flex-direction: column; align-items: flex-end; font-family: 'Courier New', monospace; font-weight: bold; line-height: 1.1; }
+        .notation-mass { font-size: 1.8rem; color: #00e676; }
+        .notation-atomic { font-size: 1.8rem; color: #ff4d4d; }
+        
+        .element-card h1 { font-size: 4.5rem; margin: 0; color: #ffffff; text-shadow: 0 0 12px rgba(255, 255, 255, 0.4); }
+        .element-card h3 { margin: 5px 0 0 0; color: #e040fb; font-weight: 500; font-size: 1.4rem; }
+        
+        .stat-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #28283d; }
+        .stat-item span { color: #a0a0b8; }
+        
+        .explanation-panel { grid-column: span 2; margin-top: 10px; border-left: 5px solid #e040fb; background-color: #1e1e2f; }
+        .explanation-panel h3 { margin-top: 0; color: #e040fb; }
+        #explanation-text { line-height: 1.6; color: #d1d1e0; margin: 0; }
+        .flash-update { animation: popFlash 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        @keyframes popFlash { 0% { color: #e040fb; transform: scale(1.25); } 100% { color: inherit; transform: scale(1); } }
+        
+        .level-badge {
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 12px;
+            padding: 4px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="lab-container">
+        <header class="lab-header">
+            <span id="badge-display" class="level-badge"></span>
+            <span class="project-title">🌌 Atom Universe Module</span>
+            <h1>⚖️ Mass Number Lab</h1>
+            <p class="subtitle">Explore isotopic weight configurations based on your chosen difficulty</p>
+        </header>
+
+        <div class="main-layout">
+            <div class="panel control-panel">
+                <h2>Nucleus Composition</h2>
+                
+                <div class="counter-box proton-box">
+                    <div class="particle-info">
+                        <span class="particle-symbol">🔴</span>
+                        <div>
+                            <strong class="particle-name">Protons</strong>
+                            <small class="particle-charge">Mass: ~1 AMU</small>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button onclick="changeParticles('proton', -1)">-</button>
+                        <span id="proton-count">1</span>
+                        <button onclick="changeParticles('proton', 1)">+</button>
+                    </div>
+                </div>
+
+                <div class="counter-box neutron-box" id="neutron-row" style="display: none;">
+                    <div class="particle-info">
+                        <span class="particle-symbol">🟢</span>
+                        <div>
+                            <strong class="particle-name">Neutrons</strong>
+                            <small class="particle-charge">Mass: ~1 AMU</small>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button onclick="changeParticles('neutron', -1)">-</button>
+                        <span id="neutron-count">0</span>
+                        <button onclick="changeParticles('neutron', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel display-panel">
+                <h2>Nuclear Mass Status</h2>
+                <div class="element-card">
+                    <div class="isotope-notation" id="nuclear-notation-box" style="display: none;">
+                        <span class="notation-mass" id="notate-mass">1</span>
+                        <span class="notation-atomic" id="notate-atomic">1</span>
+                    </div>
+                    <h1 id="element-symbol">H</h1>
+                    <h3 id="element-name">Hydrogen-1</h3>
+                </div>
+
+                <div class="stats-list">
+                    <div class="stat-item">
+                        <span>Atomic Number (Z):</span>
+                        <strong id="stat-atomic">1</strong>
+                    </div>
+                    <div class="stat-item">
+                        <span>Mass Number (A):</span>
+                        <strong id="stat-mass">1</strong>
+                    </div>
+                    <div class="stat-item" id="stability-row" style="display: none;">
+                        <span>Isotope Stability:</span>
+                        <strong id="stat-stability">Stable</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel explanation-panel">
+            <h3>💡 Concept Explanation</h3>
+            <p id="explanation-text">Protons and neutrons combined form the total weight mass code metrics.</p>
+        </div>
+    </div>
+
+    <script>
+        let currentMode;
+
+const difficulty =
+localStorage.getItem("difficulty");
+
+if(difficulty === "Easy"){
+
+    currentMode = "easy";
+
+}
+else if(difficulty === "Medium"){
+
+    currentMode = "medium";
+
+}
+else{
+
+    currentMode = "hard";
+
+}
+
+        // Full dataset mapping containing all 118 chemical elements
+        const elementsData = {
+            1: { name: "Hydrogen", symbol: "H" }, 2: { name: "Helium", symbol: "He" },
+            3: { name: "Lithium", symbol: "Li" }, 4: { name: "Beryllium", symbol: "Be" },
+            5: { name: "Boron", symbol: "B" }, 6: { name: "Carbon", symbol: "C" },
+            7: { name: "Nitrogen", symbol: "N" }, 8: { name: "Oxygen", symbol: "O" },
+            9: { name: "Fluorine", symbol: "F" }, 10: { name: "Neon", symbol: "Ne" },
+            11: { name: "Sodium", symbol: "Na" }, 12: { name: "Magnesium", symbol: "Mg" },
+            13: { name: "Aluminum", symbol: "Al" }, 14: { name: "Silicon", symbol: "Si" },
+            15: { name: "Phosphorus", symbol: "P" }, 16: { name: "Sulfur", symbol: "S" },
+            17: { name: "Chlorine", symbol: "Cl" }, 18: { name: "Argon", symbol: "Ar" },
+            19: { name: "Potassium", symbol: "K" }, 20: { name: "Calcium", symbol: "Ca" },
+            21: { name: "Scandium", symbol: "Sc" }, 22: { name: "Titanium", symbol: "Ti" },
+            23: { name: "Vanadium", symbol: "V" }, 24: { name: "Chromium", symbol: "Cr" },
+            25: { name: "Manganese", symbol: "Mn" }, 26: { name: "Iron", symbol: "Fe" },
+            27: { name: "Cobalt", symbol: "Co" }, 28: { name: "Nickel", symbol: "Ni" },
+            29: { name: "Copper", symbol: "Cu" }, 30: { name: "Zinc", symbol: "Zn" },
+            31: { name: "Gallium", symbol: "Ga" }, 32: { name: "Germanium", symbol: "Ge" },
+            33: { name: "Arsenic", symbol: "As" }, 34: { name: "Selenium", symbol: "Se" },
+            35: { name: "Bromine", symbol: "Br" }, 36: { name: "Krypton", symbol: "Kr" },
+            37: { name: "Rubidium", symbol: "Rb" }, 38: { name: "Strontium", symbol: "Sr" },
+            39: { name: "Yttrium", symbol: "Y" }, 40: { name: "Zirconium", symbol: "Zr" },
+            41: { name: "Niobium", symbol: "Nb" }, 42: { name: "Molybdenum", symbol: "Mo" },
+            43: { name: "Technetium", symbol: "Tc" }, 44: { name: "Ruthenium", symbol: "Ru" },
+            45: { name: "Rhodium", symbol: "Rh" }, 46: { name: "Palladium", symbol: "Pd" },
+            47: { name: "Silver", symbol: "Ag" }, 48: { name: "Cadmium", symbol: "Cd" },
+            49: { name: "Indium", symbol: "In" }, 50: { name: "Tin", symbol: "Sn" },
+            51: { name: "Antimony", symbol: "Sb" }, 52: { name: "Tellurium", symbol: "Te" },
+            53: { name: "Iodine", symbol: "I" }, 54: { name: "Xenon", symbol: "Xe" },
+            55: { name: "Cesium", symbol: "Cs" }, 56: { name: "Barium", symbol: "Ba" },
+            57: { name: "Lanthanum", symbol: "La" }, 58: { name: "Cerium", symbol: "Ce" },
+            59: { name: "Praseodymium", symbol: "Pr" }, 60: { name: "Neodymium", symbol: "Nd" },
+            61: { name: "Promethium", symbol: "Pm" }, 62: { name: "Samarium", symbol: "Sm" },
+            63: { name: "Europium", symbol: "Eu" }, 64: { name: "Gadolinium", symbol: "Gd" },
+            65: { name: "Terbium", symbol: "Tb" }, 66: { name: "Dysprosium", symbol: "Dy" },
+            67: { name: "Holmium", symbol: "Ho" }, 68: { name: "Erbium", symbol: "Er" },
+            69: { name: "Thulium", symbol: "Tm" }, 70: { name: "Ytterbium", symbol: "Yb" },
+            71: { name: "Lutetium", symbol: "Lu" }, 72: { name: "Hafnium", symbol: "Hf" },
+            73: { name: "Tantalum", symbol: "Ta" }, 74: { name: "Tungsten", symbol: "W" },
+            75: { name: "Rhenium", symbol: "Re" }, 76: { name: "Osmium", symbol: "Os" },
+            77: { name: "Iridium", symbol: "Ir" }, 78: { name: "Platinum", symbol: "Pt" },
+            79: { name: "Gold", symbol: "Au" }, 80: { name: "Mercury", symbol: "Hg" },
+            81: { name: "Thallium", symbol: "Tl" }, 82: { name: "Lead", symbol: "Pb" },
+            83: { name: "Bismuth", symbol: "Bi" }, 84: { name: "Polonium", symbol: "Po" },
+            85: { name: "Astatine", symbol: "At" }, 86: { name: "Radon", symbol: "Rn" },
+            87: { name: "Francium", symbol: "Fr" }, 88: { name: "Radium", symbol: "Ra" },
+            89: { name: "Actinium", symbol: "Ac" }, 90: { name: "Thorium", symbol: "Th" },
+            91: { name: "Protactinium", symbol: "Pa" }, 92: { name: "Uranium", symbol: "U" },
+            93: { name: "Neptunium", symbol: "Np" }, 94: { name: "Plutonium", symbol: "Pu" },
+            95: { name: "Americium", symbol: "Am" }, 96: { name: "Curium", symbol: "Cm" },
+            97: { name: "Berkium", symbol: "Bk" }, 98: { name: "Californium", symbol: "Cf" },
+            99: { name: "Einsteinium", symbol: "Es" }, 100: { name: "Fermium", symbol: "Fm" },
+            101: { name: "Mendelevium", symbol: "Md" }, 102: { name: "Nobelium", symbol: "No" },
+            103: { name: "Lawrencium", symbol: "Lr" }, 104: { name: "Rutherfordium", symbol: "Rf" },
+            105: { name: "Dubnium", symbol: "Db" }, 106: { name: "Seaborgium", symbol: "Sg" },
+            107: { name: "Bohrium", symbol: "Bh" }, 108: { name: "Hassium", symbol: "Hs" },
+            109: { name: "Meitnerium", symbol: "Mt" }, 110: { name: "Darmstadtium", symbol: "Ds" },
+            111: { name: "Roentgenium", symbol: "Rg" }, 112: { name: "Copernicium", symbol: "Cn" },
+            113: { name: "Nihonium", symbol: "Nh" }, 114: { name: "Flerovium", symbol: "Fl" },
+            115: { name: "Moscovium", symbol: "Mc" }, 116: { name: "Livermorium", symbol: "Lv" },
+            117: { name: "Tennessine", symbol: "Ts" }, 118: { name: "Oganesson", symbol: "Og" }
+        };
+
+        let protonCount = 1;
+        let neutronCount = 0;
+
+        const badge = document.getElementById('badge-display');
+        badge.innerText = `${currentMode} mode`;
+        if(currentMode === 'easy') { badge.style.backgroundColor = '#00e676'; badge.style.color = '#000'; }
+        if(currentMode === 'medium') { badge.style.backgroundColor = '#00c6ff'; badge.style.color = '#000'; }
+        if(currentMode === 'hard') { badge.style.backgroundColor = '#e040fb'; badge.style.color = '#fff'; }
+
+        function triggerFlashAnimation(elementId) {
+            const target = document.getElementById(elementId);
+            if (!target) return;
+            target.classList.remove('flash-update');
+            void target.offsetWidth; 
+            target.classList.add('flash-update');
+        }
+
+        function changeParticles(type, amount) {
+            if (type === 'proton') {
+                // Easy limits to the first 10 basic elements, Medium and Hard handle all 118
+                const maxProtons = (currentMode === 'easy') ? 10 : 118;
+                protonCount += amount;
+                if (protonCount < 1) protonCount = 1;
+                if (protonCount > maxProtons) protonCount = maxProtons;
+                document.getElementById('proton-count').innerText = protonCount;
+                triggerFlashAnimation('proton-count');
+            } else if (type === 'neutron') {
+                neutronCount += amount;
+                if (neutronCount < 0) neutronCount = 0;
+                if (neutronCount > 180) neutronCount = 180; // High limit to allow heavy element isotopes
+                document.getElementById('neutron-count').innerText = neutronCount;
+                triggerFlashAnimation('neutron-count');
+            }
+
+            triggerFlashAnimation('element-symbol');
+            updateMassLab();
+        }
+
+        function updateMassLab() {
+            if (currentMode === 'easy') {
+                neutronCount = 0; 
+                if(protonCount > 10) protonCount = 10;
+            }
+
+            const element = elementsData[protonCount] || { name: `Element ${protonCount}`, symbol: "Un" };
+            const massNumber = protonCount + neutronCount;
+
+            document.getElementById('element-symbol').innerText = element.symbol;
+            document.getElementById('element-name').innerText = `${element.name}-${massNumber}`;
+            document.getElementById('stat-atomic').innerText = protonCount;
+            document.getElementById('stat-mass').innerText = massNumber;
+
+            const neutronUI = document.getElementById('neutron-row');
+            const notationUI = document.getElementById('nuclear-notation-box');
+            const stabilityUI = document.getElementById('stability-row');
+            const expText = document.getElementById('explanation-text');
+
+            if (currentMode === 'easy') {
+                neutronUI.style.display = 'none';
+                notationUI.style.display = 'none';
+                stabilityUI.style.display = 'none';
+                expText.innerText = `Easy Mode: Viewing fundamental atomic weight. For a basic ground-state element representation, Mass Number = Number of Protons (${protonCount}).`;
+            } 
+            else if (currentMode === 'medium') {
+                neutronUI.style.display = 'flex';
+                notationUI.style.display = 'none';
+                stabilityUI.style.display = 'none';
+                expText.innerText = `Medium Mode: Isotope adjustments enabled across all 118 elements. Adding ${neutronCount} neutrons calculates a total Mass Number of ${massNumber} AMU. Formula: A = Z + N.`;
+            } 
+            else if (currentMode === 'hard') {
+                neutronUI.style.display = 'flex';
+                notationUI.style.display = 'flex';
+                stabilityUI.style.display = 'flex';
+
+                document.getElementById('notate-mass').innerText = massNumber;
+                document.getElementById('notate-atomic').innerText = protonCount;
+
+                // Dynamic baseline calculation matching stable isotope energy valley ratios
+                let stabilityText = "🔴 Unstable / Radioactive";
+                let stabilityColor = "#ff4d4d";
+                
+                // Algorithmic check matching real-world stable patterns
+                if (protonCount > 82) {
+                    // Elements past Lead (82) have no fully stable isotopes
+                    stabilityText = "🔴 Unstable / Radioactive Element";
+                    stabilityColor = "#ff4d4d";
+                } else {
+                    // Light atoms prefer N/Z ratio near 1.0, heavier stable elements scale up towards 1.5
+                    let expectedNeutrons = Math.round(protonCount * (1.0 + (protonCount / 200)));
+                    if (protonCount === 1 && neutronCount === 0) { stabilityText = "🟢 Stable Isotope"; stabilityColor = "#00e676"; }
+                    else if (Math.abs(neutronCount - expectedNeutrons) <= 1 && protonCount !== 43 && protonCount !== 61) {
+                        stabilityText = "🟢 Stable Isotope";
+                        stabilityColor = "#00e676";
+                    }
+                }
+
+                const stabilityElement = document.getElementById('stat-stability');
+                stabilityElement.innerText = stabilityText;
+                stabilityElement.style.color = stabilityColor;
+
+                expText.innerHTML = `Hard Mode: Advanced Isotopic validation active. The symbol layout format ($^{A}_{Z}X$) maps the total mass over atomic number. Variant weights alter nuclear stability balances.`;
+            }
+        }
+
+        window.onload = updateMassLab;
+    </script>
+</body>
+</html>

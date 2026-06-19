@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Light, Shadows & Reflection - Interactive Physics Laboratory</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar glass-card">
+        <div class="brand-copy">
+          <h1>Light, Shadows & Reflection</h1>
+          <p>Interactive Physics Laboratory</p>
+        </div>
+        <nav class="tab-row" role="tablist" aria-label="Simulation tabs">
+          <button
+            class="tab active"
+            data-tab="light"
+            role="tab"
+            aria-selected="true"
+          >
+            Light
+          </button>
+          <button
+            class="tab"
+            data-tab="shadows"
+            role="tab"
+            aria-selected="false"
+          >
+            Shadows
+          </button>
+          <button
+            class="tab"
+            data-tab="reflection"
+            role="tab"
+            aria-selected="false"
+          >
+            Reflection
+          </button>
+          <button
+            class="tab"
+            data-tab="rainbow"
+            role="tab"
+            aria-selected="false"
+          >
+            Rainbow
+          </button>
+        </nav>
+      </header>
+<main class="layout-grid">
+
+    <section class="panel simulation-panel glass-card">
+
+        <div class="canvas-frame">
+            <canvas
+                id="physicsCanvas"
+                width="960"
+                height="620">
+            </canvas>
+        </div>
+
+    </section>
+
+    <section class="info-grid">
+
+        
+
+        <aside
+            class="panel info-panel glass-card"
+            id="learningPanel">
+
+            <section class="panel-block">
+
+                <h2>Physics Data</h2>
+
+                <div
+                    class="data-block"
+                    id="dataList">
+                </div>
+
+            </section>
+
+        </aside>
+
+    </section>
+
+</main>
+
+      <section class="bottom-learning glass-card">
+        <h2>📚 What's Happening?</h2>
+        <p id="bottomExplanation">
+          Select a tab and adjust controls to explore how light behaves.
+        </p>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+TASKS ASSIGNED TO TEAM MEMBERS
+
+Avinash – Storyboarding & Research
+- Research Newton's Laws of Motion.
+- Collect educational resources and reference materials.
+- Create storyboard scenes for the simulation.
+- Push commits and maintain version control.
+Avinash, Manikanta
+- Update README.md with better specifications.
+
+Hasini 
+- Set up the basic project folder structure.
+- Plan the flow of the simulation.
+- Organize and verify references/resources.
+- Prepare project documentation.
+
+Anjani Kumar- Simulation and Initial Codebase
+-Create simulations on Newton’s laws of Motion.
+- Develop the initial code base.
+- Make visually appealing simulations for students.
+- Perform final integration. 
+
+Trisha- Quiz and Assessment
+- Create quiz module on Newton’s laws of Motion.
+- Content for quiz in accordance with the descriptions.
+
+Geervan- Scoring System and Result Dashboard
+- Create the scoring system for the quiz.
+- Create dashboard for the quiz.
+
+Praneeth
+- Design, Testing & Final Review.
+- Design visuals and presentation elements.
+- Test the simulation for errors.
+Praneeth, Tanooj
+– Create requirements.txt.
+
+Yasmeen
+- Assign GitHub issues.
+- Create teams.txt.
+- Verify References for simulations.
+- README.md file initiation.

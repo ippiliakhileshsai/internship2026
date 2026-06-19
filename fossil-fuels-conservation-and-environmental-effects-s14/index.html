@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fossil Fuels & Earth — Science Simulation</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header id="topbar">
+    <div id="logo-area">
+      <svg id="logo-icon" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="18" r="16" fill="#1a3a5c" stroke="#29B6F6" stroke-width="1.5"/>
+        <ellipse cx="18" cy="22" rx="10" ry="6" fill="#2e7d32" opacity="0.8"/>
+        <ellipse cx="12" cy="14" rx="6" ry="4" fill="#2e7d32" opacity="0.7"/>
+        <ellipse cx="24" cy="16" rx="5" ry="3" fill="#2e7d32" opacity="0.6"/>
+        <circle cx="18" cy="18" r="16" fill="none" stroke="#29B6F6" stroke-width="1"/>
+      </svg>
+      <span id="logo-text">EarthSim</span>
+    </div>
+
+    <div id="health-meter-wrap">
+      <span class="meter-label">Earth Health</span>
+      <div id="health-bar-bg">
+        <div id="health-bar-fill"></div>
+        <span id="health-value">100%</span>
+      </div>
+      <svg id="earth-mini" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle id="earth-circle" cx="20" cy="20" r="18" fill="#1a3a5c"/>
+        <ellipse id="land1" cx="20" cy="24" rx="11" ry="7" fill="#2e7d32"/>
+        <ellipse id="land2" cx="13" cy="15" rx="6" ry="4" fill="#2e7d32"/>
+        <ellipse id="land3" cx="27" cy="17" rx="5" ry="3.5" fill="#2e7d32"/>
+        <ellipse id="smog-layer" cx="20" cy="20" rx="18" ry="18" fill="#8B6914" opacity="0"/>
+      </svg>
+    </div>
+
+    <div id="co2-display">
+      <span class="meter-label">CO₂ Level</span>
+      <span id="co2-value">280 ppm</span>
+      <span id="co2-label">Pre-industrial</span>
+    </div>
+  </header>
+
+  <nav id="tab-nav">
+    <button class="tab-btn active" data-tab="formation" aria-label="Formation tab">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="currentColor" opacity="0.2"/>
+        <path d="M12 2v10l6 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+      </svg>
+      <span>Formation</span>
+    </button>
+    <button class="tab-btn" data-tab="burning" aria-label="Burning & Pollution tab">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2c-1 3-4 5-4 8a4 4 0 008 0c0-3-3-5-4-8z" fill="#E8A020" opacity="0.8"/>
+        <path d="M12 8c-.5 1.5-2 2.5-2 4a2 2 0 004 0c0-1.5-1.5-2.5-2-4z" fill="#E53935"/>
+      </svg>
+      <span>Burning</span>
+    </button>
+    <button class="tab-btn" data-tab="climate" aria-label="Climate Effects tab">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="4" fill="#E8A020"/>
+        <path d="M12 2v2M12 20v2M2 12h2M20 12h2M5.64 5.64l1.42 1.42M16.94 16.94l1.42 1.42M5.64 18.36l1.42-1.42M16.94 7.06l1.42-1.42" stroke="#E8A020" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span>Climate</span>
+    </button>
+    <button class="tab-btn" data-tab="challenge" aria-label="Challenge tab">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#E8A020" stroke="#E8A020" stroke-width="1"/>
+      </svg>
+      <span>Challenge</span>
+    </button>
+  </nav>
+
+  <main id="sim-main">
+
+    <section id="tab-formation" class="tab-panel active">
+      <div id="formation-layout">
+        <div id="formation-scene-wrap">
+          <canvas id="formation-canvas" width="520" height="380"></canvas>
+          <div id="formation-overlay">
+            <div id="time-display">
+              <span id="time-era">250 Million Years Ago</span>
+            </div>
+          </div>
+        </div>
+        <div id="formation-controls">
+          <h2 class="panel-title">How Fossil Fuels Form</h2>
+          <p class="panel-desc">Drag the time slider to travel through millions of years and watch dead organisms slowly turn into coal, oil & gas underground.</p>
+          <div class="ctrl-group">
+            <label class="ctrl-label">⏳ Time Travel</label>
+            <div class="slider-row">
+              <span class="slider-end-label">250M yrs ago</span>
+              <input type="range" id="time-slider" min="0" max="100" value="0" class="sim-slider" aria-label="Time Travel Slider"/>
+              <span class="slider-end-label">Today</span>
+            </div>
+          </div>
+          <div id="formation-info-cards">
+            <div class="info-card" id="card-ancient">
+              <div class="card-icon">🦕</div>
+              <div class="card-body">
+                <strong>Ancient Life</strong>
+                <p>Plants & sea creatures die and sink to the ocean floor or swamp beds.</p>
+              </div>
+            </div>
+            <div class="info-card" id="card-sediment">
+              <div class="card-icon">🪨</div>
+              <div class="card-body">
+                <strong>Buried Under Layers</strong>
+                <p>Mud and rock layers pile up over millions of years — pressure and heat build up.</p>
+              </div>
+            </div>
+            <div class="info-card" id="card-fossil">
+              <div class="card-icon">⛽</div>
+              <div class="card-body">
+                <strong>Fossil Fuel Created</strong>
+                <p>Heat + pressure transforms organic matter into coal, oil, or natural gas.</p>
+              </div>
+            </div>
+          </div>
+          <div id="fuel-type-bar">
+            <div class="fuel-chip" id="chip-coal">🪨 Coal</div>
+            <div class="fuel-chip" id="chip-oil">🛢️ Oil</div>
+            <div class="fuel-chip" id="chip-gas">💨 Gas</div>
+          </div>
+          <div id="formation-fact-box">
+            <span id="formation-fact-text">Move the slider to begin the journey!</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-burning" class="tab-panel">
+      <div id="burning-layout">
+        <div id="burning-scene-wrap">
+          <canvas id="burning-canvas" width="520" height="380"></canvas>
+        </div>
+        <div id="burning-controls">
+          <h2 class="panel-title">Burning Fossil Fuels</h2>
+          <p class="panel-desc">Switch on power sources and watch what they release into the air. Compare clean vs dirty energy!</p>
+          <div class="source-grid">
+            <div class="source-card" id="src-coal" data-source="coal">
+              <div class="source-icon">🏭</div>
+              <div class="source-name">Coal Plant</div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggle-coal" aria-label="Toggle Coal Plant"/>
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="source-card" id="src-car" data-source="car">
+              <div class="source-icon">🚗</div>
+              <div class="source-name">Petrol Car</div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggle-car" aria-label="Toggle Petrol Car"/>
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="source-card" id="src-solar" data-source="solar">
+              <div class="source-icon">☀️</div>
+              <div class="source-name">Solar Panel</div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggle-solar" aria-label="Toggle Solar Panel"/>
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div class="source-card" id="src-wind" data-source="wind">
+              <div class="source-icon">🌬️</div>
+              <div class="source-name">Wind Turbine</div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggle-wind" aria-label="Toggle Wind Turbine"/>
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+          </div>
+          <div id="emission-panel">
+            <div class="emission-row">
+              <span class="em-label">💨 CO₂</span>
+              <div class="em-bar-bg"><div class="em-bar-fill" id="bar-co2" style="width:0%"></div></div>
+              <span class="em-val" id="val-co2">0</span>
+            </div>
+            <div class="emission-row">
+              <span class="em-label">☁️ Soot</span>
+              <div class="em-bar-bg"><div class="em-bar-fill soot" id="bar-soot" style="width:0%"></div></div>
+              <span class="em-val" id="val-soot">0</span>
+            </div>
+            <div class="emission-row">
+              <span class="em-label">⚡ Energy</span>
+              <div class="em-bar-bg"><div class="em-bar-fill energy" id="bar-energy" style="width:0%"></div></div>
+              <span class="em-val" id="val-energy">0</span>
+            </div>
+          </div>
+          <div id="burning-fact-box">
+            <span id="burning-fact-text">Turn on a power source to see emissions!</span>
+          </div>
+          <div id="drag-thermo-hint">🌡️ Drag the thermometer into the scene to measure air temperature!</div>
+          <div id="thermometer-tool" draggable="true" aria-label="Draggable thermometer tool">🌡️</div>
+          <div id="temp-readout" style="display:none;">Air Temp: <span id="temp-val">25°C</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-climate" class="tab-panel">
+      <div id="climate-layout">
+        <div id="climate-scene-wrap">
+          <canvas id="climate-canvas" width="520" height="380"></canvas>
+        </div>
+        <div id="climate-controls">
+          <h2 class="panel-title">Greenhouse Effect & Climate</h2>
+          <p class="panel-desc">Adjust CO₂ in the atmosphere and see how the Earth's temperature changes. Discover why too much CO₂ is dangerous!</p>
+          <div class="ctrl-group">
+            <label class="ctrl-label">🏭 CO₂ Emission Rate</label>
+            <div class="slider-row">
+              <span class="slider-end-label">Low</span>
+              <input type="range" id="co2-slider" min="0" max="100" value="20" class="sim-slider" aria-label="CO2 emission rate"/>
+              <span class="slider-end-label">High</span>
+            </div>
+          </div>
+          <div class="ctrl-group">
+            <label class="ctrl-label">🌳 Forest Cover</label>
+            <div class="slider-row">
+              <span class="slider-end-label">0%</span>
+              <input type="range" id="forest-slider" min="0" max="100" value="80" class="sim-slider green" aria-label="Forest cover percentage"/>
+              <span class="slider-end-label">100%</span>
+            </div>
+          </div>
+          <div id="climate-metrics">
+            <div class="metric-box">
+              <div class="metric-icon">🌡️</div>
+              <div class="metric-val" id="m-temp">15°C</div>
+              <div class="metric-name">Avg Temp</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-icon">🌊</div>
+              <div class="metric-val" id="m-sea">0 cm</div>
+              <div class="metric-name">Sea Rise</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-icon">🧊</div>
+              <div class="metric-val" id="m-ice">100%</div>
+              <div class="metric-name">Ice Cover</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-icon">🐝</div>
+              <div class="metric-val" id="m-bio">High</div>
+              <div class="metric-name">Biodiversity</div>
+            </div>
+          </div>
+          <div id="climate-btns">
+            <button id="btn-pause-climate" class="sim-btn" aria-label="Pause climate simulation">⏸ Pause</button>
+            <button id="btn-slow-climate" class="sim-btn" aria-label="Slow motion climate">🐢 Slow</button>
+            <button id="btn-reset-climate" class="sim-btn danger" aria-label="Reset climate simulation">↺ Reset</button>
+          </div>
+          <div id="climate-alert-box" style="display:none;">
+            <span id="climate-alert-text"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-challenge" class="tab-panel">
+      <div id="challenge-layout">
+        <div id="challenge-header">
+          <h2 class="panel-title">🎮 Earth Rescue Challenge</h2>
+          <p class="panel-desc">Can you save the Earth? Solve each puzzle using what you learned. You have unlimited tries!</p>
+          <div id="stars-display">
+            <span class="star" id="star1">☆</span>
+            <span class="star" id="star2">☆</span>
+            <span class="star" id="star3">☆</span>
+            <span class="star" id="star4">☆</span>
+            <span class="star" id="star5">☆</span>
+          </div>
+        </div>
+        <div id="challenge-area">
+          <div id="q-display">
+            <div id="q-number">Question <span id="q-num">1</span> of 5</div>
+            <div id="q-text"></div>
+            <div id="q-visual-area"></div>
+          </div>
+          <div id="q-options"></div>
+          <div id="q-feedback" style="display:none;">
+            <div id="feedback-icon"></div>
+            <div id="feedback-text"></div>
+            <button id="btn-next-q" class="sim-btn" style="display:none;">Next →</button>
+            <button id="btn-retry-q" class="sim-btn" style="display:none;">Try Again ↺</button>
+            <button id="btn-go-sim" class="sim-btn" style="display:none;">🔬 Go back to Simulation</button>
+          </div>
+        </div>
+        <div id="challenge-complete" style="display:none;">
+          <div id="complete-icon">🌍</div>
+          <h3>You saved the Earth!</h3>
+          <p id="complete-msg"></p>
+          <div id="final-stars"></div>
+          <button id="btn-restart-challenge" class="sim-btn">Play Again</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="modules/state.js"></script>
+  <script src="modules/ui-manager.js"></script>
+  <script src="modules/graphics-engine.js"></script>
+  <script src="modules/interactions.js"></script>
+  <script src="modules/challenge-system.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

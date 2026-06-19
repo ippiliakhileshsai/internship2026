@@ -1,0 +1,145 @@
+#   Instructions & Requirements
+
+## 1. Light Travels in a Straight Line
+
+### Objective
+
+To observe that light travels in straight lines.
+
+### Apparatus Required
+
+* Torch / Flashlight
+* Three cardboard sheets
+* Pins or stands
+* Dark room
+
+### Procedure
+
+1. Make a small hole at the center of each cardboard sheet.
+2. Place the sheets in a straight line.
+3. Shine a torch through the holes.
+4. Observe the light passing through all three holes.
+5. Slightly move one cardboard sheet and observe the result.
+
+### Observation
+
+Light passes only when all holes are aligned.
+
+### Conclusion
+
+Light travels in a straight line.
+
+---
+
+## 2. Formation of Shadows
+
+### Objective
+
+To study how shadows are formed.
+
+### Apparatus Required
+
+* Torch / Lamp
+* Opaque object (book, box, cube, etc.)
+* White screen or wall
+
+### Procedure
+
+1. Place the opaque object between the light source and screen.
+2. Observe the shadow formed on the screen.
+3. Move the light source closer and farther from the object.
+4. Observe changes in shadow size.
+
+### Observation
+
+The size and shape of the shadow change with the position of the light source.
+
+### Conclusion
+
+A shadow is formed when an opaque object blocks light.
+
+---
+
+## 3. Reflection from a Plane Mirror
+
+### Objective
+
+To verify the law of reflection.
+
+### Apparatus Required
+
+* Plane mirror
+* Laser pointer or ray box
+* White paper
+* Protractor
+* Scale
+* Pencil
+
+### Procedure
+
+1. Place the mirror vertically on a sheet of paper.
+2. Draw a normal line perpendicular to the mirror.
+3. Direct a light ray towards the mirror.
+4. Trace the incident and reflected rays.
+5. Measure the angles using a protractor.
+
+### Observation
+
+Angle of incidence is equal to angle of reflection.
+
+### Conclusion
+
+The law of reflection states:
+
+Angle of Incidence = Angle of Reflection
+
+---
+
+## 4. Rainbow Formation (Dispersion of Light)
+
+### Objective
+
+To observe the dispersion of white light into its constituent colors.
+
+### Apparatus Required
+
+* Glass prism
+* White light source (sunlight or torch)
+* White screen
+* Dark room
+
+### Procedure
+
+1. Allow a narrow beam of white light to pass through the prism.
+2. Place a white screen on the opposite side.
+3. Observe the colors produced on the screen.
+4. Note the order of colors.
+
+### Observation
+
+White light splits into seven colors:
+Violet, Indigo, Blue, Green, Yellow, Orange, Red (VIBGYOR).
+
+### Conclusion
+
+White light consists of multiple colors that separate due to dispersion.
+
+---
+
+# Safety Precautions
+
+1. Do not look directly into bright light sources.
+2. Never point a laser at a person's eyes.
+3. Handle glass prisms and mirrors carefully.
+4. Perform optical experiments on a stable surface.
+5. Use adult supervision when required.
+
+# Learning Outcomes
+
+Students will be able to:
+
+* Understand rectilinear propagation of light.
+* Explain shadow formation.
+* Verify the law of reflection.
+* Understand dispersion and rainbow formation.
+* Relate simulations to real-world experiments.

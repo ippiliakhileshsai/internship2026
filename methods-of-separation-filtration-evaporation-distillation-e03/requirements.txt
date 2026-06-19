@@ -1,0 +1,149 @@
+METHODS OF SEPARATION SIMULATION
+
+PROJECT REQUIREMENTS :
+
+---> We collected information from school science textbooks, educational resources, and verified online references. We also used ChatGPT for content refinement and documentation support.
+
+References Used:
+
+https://ncert.nic.in/
+https://byjus.com/chemistry/separation-of-substances/
+https://www.britannica.com/science/filtration
+https://www.britannica.com/science/distillation
+https://www.britannica.com/science/evaporation
+School Science Curriculum (Classes 6–8)
+
+---> Develop an educational simulation on Methods of Separation.
+
+---> Provide interactive learning for students of Classes 6–8.
+
+---> Use simple language, engaging animations, and visual demonstrations.
+
+---> Demonstrate Filtration, Evaporation, and Distillation through simulations.
+
+---> Include a Virtual Lab for experimentation.
+
+---> Support multilingual learning (English and Telugu).
+
+---> Provide audio narration for accessibility.
+
+---> Include quizzes and progress tracking to assess learning.
+
+---> Ensure scientific accuracy according to school curriculum.
+
+FEATURES AND MODULES :
+
+---> Interactive Simulations
+
+---> Virtual Laboratory
+
+---> Multilingual Support (English & Telugu)
+
+---> Audio Narration
+
+---> Quiz and Assessment
+
+---> Achievement Badges and Progress Tracking
+
+---> Real-life Examples and Applications
+
+---> Responsive and User-Friendly Interface
+
+Module 1: Introduction
+
+--> Overview of Methods of Separation
+
+--> Importance of separating substances in daily life
+
+Module 2: Filtration
+
+--> Concept of Filtration
+
+--> Interactive Filtration Simulation
+
+--> Real-life Applications
+
+--> Fun Facts
+
+Module 3: Evaporation
+
+--> Concept of Evaporation
+
+--> Interactive Evaporation Simulation
+
+--> Real-life Applications
+
+--> Fun Facts
+
+Module 4: Distillation
+
+--> Concept of Distillation
+
+--> Interactive Distillation Simulation
+
+--> Real-life Applications
+
+--> Fun Facts
+
+Module 5: Virtual Laboratory
+
+--> Select materials for experiments
+
+--> Perform separation activities
+
+--> Observe outcomes and results
+
+Module 6: Quiz & Assessment
+
+--> Multiple-choice questions
+
+--> Instant feedback
+
+--> Score calculation
+
+--> Progress tracking
+
+Module 7: Conclusion
+
+--> Summary of key concepts
+
+--> Learning outcomes
+
+--> Achievement badges and completion status
+
+TEAM TASK DIVISION
+
+TEAM INNOVATORS – E03
+
+Member 1 – N. Jahnavi
+(UI/UX Learning Designer & Storyboard Designer)
+
+* Designed the overall user experience and learning flow.
+* Planned navigation between Home, Simulation, Virtual Lab, and Quiz sections.
+* Implemented multilingual support (English and Telugu).
+* Designed audio accessibility features.
+* Created storyboard and screen layouts.
+* Planned learning sequence and interaction flow.
+
+Member 2 – K. Gowtham Chowdary
+(Research Lead & Frontend Developer)
+
+* Conducted research on Methods of Separation.
+* Collected information on Filtration, Evaporation, and Distillation.
+* Identified learning objectives and real-life applications.
+* Developed the application using HTML5, CSS3, and JavaScript.
+* Implemented interactive simulations and animations.
+* Developed Play, Pause, and Replay functionality.
+* Implemented Virtual Lab, Quiz, Progress Tracking, and Achievement Badges.
+
+Member 3 – K. Sreyash Chowdary
+(Documentation Lead & Testing Lead)
+
+* Prepared project documentation and reports.
+* Maintained README.md and project records.
+* Documented project objectives, implementation details, and deployment process.
+* Tested simulations and interactive modules.
+* Verified responsiveness across devices.
+* Tested language translation, audio narration, Virtual Lab, and Quiz modules.
+* Identified bugs and improved user experience.
+

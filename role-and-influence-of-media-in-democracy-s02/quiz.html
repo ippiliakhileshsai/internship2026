@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media's Role in Democracy - Quiz Challenge</title>
+    <!-- FontAwesome Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=1.6">
+</head>
+<body>
+
+    <!-- TOP NAVIGATION NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fa-solid fa-scale-balanced logo-icon"></i>
+                <span class="logo-text">Media & Democracy Simulator</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Simulation Hub</a>
+                <a href="index3.html" class="nav-link">Learn the Roles</a>
+                <a href="quiz.html" class="nav-link active">Quiz Challenge</a>
+            </nav>
+            <div class="header-buttons">
+                <button class="guide-btn" id="btn-reset-quiz"><i class="fa-solid fa-rotate"></i> Reset Quiz</button>
+                <button class="guide-btn" id="btn-help"><i class="fa-solid fa-compass"></i> System Guide</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN QUIZ WRAPPER -->
+    <div class="quiz-container">
+        
+        <!-- Header Text -->
+        <div class="quiz-header-block animate-fade-up" style="text-align: center;">
+            <h1 class="quiz-title">Media's Role in Democracy</h1>
+            <p class="quiz-subtitle" style="margin: 0 auto 32px auto;">Test your understanding of how media influences democracy. Answer all questions to strengthen your role as an informed and responsible citizen.</p>
+        </div>
+
+        <div class="quiz-layout-grid animate-fade-up delay-1">
+            
+            <!-- Centered Main Question Card -->
+            <div class="quiz-card" id="quiz-card-box">
+                <!-- Overall Progress Tracker -->
+                <div class="quiz-card-progress-section" style="margin-bottom: 24px;">
+                    <div class="progress-header">
+                        <span>Overall Progress</span>
+                        <span id="progress-percent-label">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill-inner" id="progress-bar-fill-inner"></div>
+                    </div>
+                    <div class="score-stats" id="score-stats-label">Score: 0 / 700</div>
+                </div>
+
+                <hr class="quiz-card-divider" style="border: 0; height: 1px; background: var(--border-smoke); margin-bottom: 24px;">
+
+                <div class="quiz-q-indicator" id="q-indicator">Question 1 of 7</div>
+                <div class="quiz-q-text" id="q-text">Loading question...</div>
+                
+                <div class="quiz-options-list" id="options-container">
+                    <!-- Options loaded dynamically -->
+                </div>
+
+                <!-- Answer feedback -->
+                <div class="quiz-feedback-box" id="feedback-box">
+                    <div class="quiz-feedback-title" id="feedback-title">
+                        <i class="fa-solid fa-circle-check"></i> Correct!
+                    </div>
+                    <div class="quiz-feedback-text" id="feedback-text">Feedback text here.</div>
+                </div>
+
+                <!-- Key insight card -->
+                <div class="quiz-insight-box" id="insight-box">
+                    <i class="fa-solid fa-lightbulb quiz-insight-icon"></i>
+                    <div>
+                        <div class="quiz-insight-title">Key Insight</div>
+                        <div class="quiz-insight-text" id="insight-text">Insight text here.</div>
+                    </div>
+                </div>
+
+                <button class="quiz-next-btn" id="btn-next-q">Submit Answer</button>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- QUIZ ENGINE INTERACTIVE LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- QUIZ QUESTIONS DATABASE ---
+            const questions = [
+    {
+        "title": "Source Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: City Education Times</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">City Council Approves ₹50 Lakh Budget to Build Modern Science Labs in 20 Government Schools, Work Expected to Begin Next Month</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Local officials announced funding for science labs in government schools. Teachers say students will benefit from hands-on learning, while parents are asking when construction will begin.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Check the city council website and education department records to confirm the funding approval."
+            },
+            {
+                "letter": "B",
+                "text": "Share the article with parent groups and encourage support for the school improvement project."
+            },
+            {
+                "letter": "C",
+                "text": "Save the article and wait for more updates before paying attention to the issue."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article as suspicious without checking any official information."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Government funding announcements should be verified through official records. Checking the source helps citizens make informed decisions.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Government funding announcements should be verified through official records. Checking the source helps citizens make informed decisions.",
+        "insight": "Media Literacy Skill: Source Verification | Democratic Value: Transparency"
+    },
+    {
+        "title": "Evidence Evaluation",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: @HealthTruthDaily (Social Media Account)</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Viral Social Media Post Claims Drinking Five Liters of Lemon Water Daily Can Prevent Every Common Disease</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A widely shared post says a simple lemon water routine can protect people from all illnesses. Thousands of users have shared the advice, but no scientific evidence is included.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Search trusted health organizations and medical experts to verify the claim before sharing."
+            },
+            {
+                "letter": "B",
+                "text": "Share the health tip in family groups so everyone can try it immediately."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the post and continue scrolling without investigating."
+            },
+            {
+                "letter": "D",
+                "text": "Report the post for possible health misinformation and request evidence from the source."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Health advice should be checked using reliable medical sources. Incorrect information can affect people's well-being.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Health advice should be checked using reliable medical sources. Incorrect information can affect people's well-being.",
+        "insight": "Media Literacy Skill: Evidence Evaluation | Democratic Value: Public Responsibility"
+    },
+    {
+        "title": "Civic Engagement",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Green Valley Community News</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Local River Cleanup Removes More Than 3 Tons of Plastic Waste as Hundreds of Volunteers Join Weekend Environmental Drive</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Residents, students, and environmental groups participated in a large cleanup campaign. Organizers reported collecting plastic waste from several kilometers of riverbanks.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Verify the cleanup results through local government or environmental group reports."
+            },
+            {
+                "letter": "B",
+                "text": "Share the volunteer registration link with classmates and community organizations."
+            },
+            {
+                "letter": "C",
+                "text": "Wait several weeks before deciding whether the campaign matters."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article because environmental stories sometimes exaggerate numbers."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! The story promotes community participation in a public project. Sharing opportunities for civic involvement can benefit the community.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. The story promotes community participation in a public project. Sharing opportunities for civic involvement can benefit the community.",
+        "insight": "Media Literacy Skill: Civic Engagement | Democratic Value: Community Participation"
+    },
+    {
+        "title": "Source Credibility Analysis",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: EducationLeaks247.com</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Anonymous Website Says New School Exams Will Be Cancelled Nationwide Next Week Due to Secret Government Decision</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">An anonymous website claims that all school exams will be cancelled. No government documents, official announcements, or education officials are mentioned.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Check education ministry announcements and school notifications before believing the claim."
+            },
+            {
+                "letter": "B",
+                "text": "Forward the news to classmates so everyone can stop preparing for exams."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the story completely and never revisit the topic."
+            },
+            {
+                "letter": "D",
+                "text": "Report the website immediately without checking whether the information is true."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Major education decisions are usually announced through official channels. Verification prevents confusion and panic.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Major education decisions are usually announced through official channels. Verification prevents confusion and panic.",
+        "insight": "Media Literacy Skill: Source Credibility Analysis | Democratic Value: Informed Citizenship"
+    },
+    {
+        "title": "Science Communication",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Science World Weekly</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Scientists Announce Discovery of New Coral Reef Species That Could Help Protect Ocean Ecosystems from Climate Change</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Researchers studying coral reefs have identified a previously unknown species. Scientists say further research is needed to understand its environmental impact.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Read reports from research institutions and science organizations to confirm the findings."
+            },
+            {
+                "letter": "B",
+                "text": "Share the story with school science clubs and environmental awareness groups."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the discovery because it does not affect daily life."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article because scientific claims can sometimes be difficult to understand."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! The article appears educational and encourages interest in science. Sharing verified scientific developments supports learning.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. The article appears educational and encourages interest in science. Sharing verified scientific developments supports learning.",
+        "insight": "Media Literacy Skill: Science Communication | Democratic Value: Knowledge Sharing"
+    },
+    {
+        "title": "Critical Evaluation",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: BrainPowerSecrets Channel</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Viral Video Claims Students Can Increase Test Scores by 300% Overnight Using a Secret Memory Trick Hidden by Schools</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A video creator claims students can dramatically improve results overnight using a secret technique. No educational experts or research studies are cited.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Search for educational research and expert opinions before accepting the claim."
+            },
+            {
+                "letter": "B",
+                "text": "Share the video in student groups so everyone can use the method immediately."
+            },
+            {
+                "letter": "C",
+                "text": "Save the video for entertainment and avoid checking its accuracy."
+            },
+            {
+                "letter": "D",
+                "text": "Report the video as misleading educational advice without examining evidence."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Extraordinary claims require evidence. Students should rely on trusted educational sources when evaluating study methods.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Extraordinary claims require evidence. Students should rely on trusted educational sources when evaluating study methods.",
+        "insight": "Media Literacy Skill: Critical Evaluation | Democratic Value: Informed Decision-Making"
+    },
+    {
+        "title": "Information Sharing",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Town Herald</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Town Library Launches Free Digital Learning Center with Computers, Internet Access, and Coding Workshops for Students</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">The local library opened a new learning center to help students access educational technology. Free workshops are planned throughout the year.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Confirm program details through the library website and official announcements."
+            },
+            {
+                "letter": "B",
+                "text": "Share workshop registration information with classmates and youth organizations."
+            },
+            {
+                "letter": "C",
+                "text": "Wait until others attend before showing any interest."
+            },
+            {
+                "letter": "D",
+                "text": "Report the story because public projects may sometimes be overpromoted."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! The story offers a community resource that may benefit students. Sharing verified opportunities encourages participation.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. The story offers a community resource that may benefit students. Sharing verified opportunities encourages participation.",
+        "insight": "Media Literacy Skill: Information Sharing | Democratic Value: Equal Access to Education"
+    },
+    {
+        "title": "Fact-Checking Scientific Claims",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: @FutureTechGuru</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Social Media Influencer Claims New Smartphone App Can Predict Earthquakes Months Before Scientists Detect Them</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">An influencer says a mobile app can accurately predict earthquakes months in advance. The post includes no scientific studies or expert endorsements.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Check information from geological agencies and scientific experts before trusting the claim."
+            },
+            {
+                "letter": "B",
+                "text": "Recommend the app to friends and family for emergency preparation."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the post because technology news is often confusing."
+            },
+            {
+                "letter": "D",
+                "text": "Report the account immediately without reviewing supporting evidence."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Scientific and technological claims should be supported by evidence. Verification protects people from misinformation.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Scientific and technological claims should be supported by evidence. Verification protects people from misinformation.",
+        "insight": "Media Literacy Skill: Fact-Checking Scientific Claims | Democratic Value: Public Safety"
+    },
+    {
+        "title": "Community Information Sharing",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Regional Sports Journal</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Youth Football Team Wins Regional Championship After Undefeated Season and Community Fundraising Support</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A local youth team won a regional championship after receiving community support and completing an undefeated season.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Verify tournament results through official league announcements."
+            },
+            {
+                "letter": "B",
+                "text": "Share congratulations and promote upcoming community celebrations for the team."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the story because sports are not important public issues."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article because community newspapers may be biased toward local teams."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! Celebrating verified community achievements encourages civic pride and positive engagement.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. Celebrating verified community achievements encourages civic pride and positive engagement.",
+        "insight": "Media Literacy Skill: Community Information Sharing | Democratic Value: Community Unity"
+    },
+    {
+        "title": "Verification of Public Information",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: TruthRevealedNow.net</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Breaking Post Claims All Streetlights in the City Will Be Permanently Turned Off Next Month to Save Government Money</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A website claims city leaders will turn off all streetlights permanently. The article contains no official statements or supporting documents.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Contact the city administration or review official public service announcements before reacting."
+            },
+            {
+                "letter": "B",
+                "text": "Share warnings with neighborhood groups and urge residents to prepare immediately."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the report entirely and avoid following up."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article to platform moderators without checking official information."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Public service decisions can be verified through official sources. Checking facts prevents unnecessary panic and confusion.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Public service decisions can be verified through official sources. Checking facts prevents unnecessary panic and confusion.",
+        "insight": "Media Literacy Skill: Verification of Public Information | Democratic Value: Accountability"
+    },
+    {
+        "title": "Source Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: ParentAlertBlog.net</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Online Post Claims School Cafeteria Food Contains a Newly Discovered Chemical That Causes Instant Memory Loss in Children</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A blog post warns families that school lunches contain a dangerous chemical. The article cites unnamed sources and provides no scientific reports or official statements.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Contact school officials and review health department reports before accepting the claim."
+            },
+            {
+                "letter": "B",
+                "text": "Share the warning in parent groups and encourage students to avoid cafeteria meals."
+            },
+            {
+                "letter": "C",
+                "text": "Wait to see if more students discuss the issue online."
+            },
+            {
+                "letter": "D",
+                "text": "Organize a protest outside the school immediately."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Health claims require reliable evidence. Official health authorities and school administrators can provide verified information.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Health claims require reliable evidence. Official health authorities and school administrators can provide verified information.",
+        "insight": "Media Literacy Skill: Source Verification | Democratic Value: Responsible Civic Action"
+    },
+    {
+        "title": "Information Sharing",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: District Education News</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">District Launches Free Weekend Reading Program for Students, Volunteers Needed to Support Young Learners</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">The education department announced a free reading program to improve literacy. Community volunteers are invited to help students develop reading skills.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Confirm registration details on the district website."
+            },
+            {
+                "letter": "B",
+                "text": "Share volunteer opportunities with teachers, parents, and student organizations."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the program because it does not affect your school directly."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article as promotional content."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! The program provides a verified educational opportunity. Sharing useful community information encourages participation.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. The program provides a verified educational opportunity. Sharing useful community information encourages participation.",
+        "insight": "Media Literacy Skill: Information Sharing | Democratic Value: Equal Educational Access"
+    },
+    {
+        "title": "Evaluating Evidence",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: CitizenTruthVideos</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Viral Video Says City Election Results Were Secretly Changed Overnight Using Artificial Intelligence Software</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A widely shared video claims election results were altered using AI technology. The video presents screenshots but no official evidence or expert analysis.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Review election commission statements and trusted news coverage before forming conclusions."
+            },
+            {
+                "letter": "B",
+                "text": "Share the video and encourage others to demand an immediate recount."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the story because elections are complicated."
+            },
+            {
+                "letter": "D",
+                "text": "Accuse election officials publicly without gathering evidence."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Election-related information can strongly influence public trust. Verification is essential before spreading serious allegations.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Election-related information can strongly influence public trust. Verification is essential before spreading serious allegations.",
+        "insight": "Media Literacy Skill: Evaluating Evidence | Democratic Value: Election Integrity"
+    },
+    {
+        "title": "Identifying Credible Information",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: National Science Bulletin</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Students Develop Low-Cost Water Filter That Wins National Innovation Competition and Attracts Environmental Funding</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A group of students designed a water filter using affordable materials. Judges praised the project for helping communities access cleaner drinking water.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Read competition results and project details from official organizers."
+            },
+            {
+                "letter": "B",
+                "text": "Share the achievement with science clubs and encourage innovation projects."
+            },
+            {
+                "letter": "C",
+                "text": "Wait until the product becomes commercially available."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article because student inventions seem unrealistic."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! Verified scientific achievements can inspire learning and innovation among young people.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. Verified scientific achievements can inspire learning and innovation among young people.",
+        "insight": "Media Literacy Skill: Identifying Credible Information | Democratic Value: Innovation and Education"
+    },
+    {
+        "title": "Cross-Referencing Sources",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: @HiddenCityFacts</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Anonymous Account Claims New Highway Project Will Force Thousands of Families to Leave Their Homes Next Month</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A social media account claims residents will be displaced by a highway project. No official notices, government documents, or community consultations are mentioned.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Check local government announcements and public planning documents."
+            },
+            {
+                "letter": "B",
+                "text": "Share emergency relocation advice with affected neighborhoods immediately."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the story and avoid discussing it."
+            },
+            {
+                "letter": "D",
+                "text": "Organize public demonstrations before verifying the information."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Infrastructure projects usually involve official public notices. Citizens should verify information before taking action.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Infrastructure projects usually involve official public notices. Citizens should verify information before taking action.",
+        "insight": "Media Literacy Skill: Cross-Referencing Sources | Democratic Value: Accountability"
+    },
+    {
+        "title": "Public Information Awareness",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Metro Health News</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Community Health Center Opens Free Vaccination Camp for Children During School Holiday Week</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">The local health center announced a free vaccination drive. Doctors say the program will help families access preventive healthcare services.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Confirm schedules through the health center website."
+            },
+            {
+                "letter": "B",
+                "text": "Share the vaccination camp information with families and community groups."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the announcement because it is optional."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article as medical advertising."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! The information can benefit public health and community awareness when verified.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. The information can benefit public health and community awareness when verified.",
+        "insight": "Media Literacy Skill: Public Information Awareness | Democratic Value: Community Well-Being"
+    },
+    {
+        "title": "Scientific Reasoning",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: FutureTechSecrets.com</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Technology Blog Claims New Smartphone Feature Can Read People's Thoughts Without Their Permission</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">The article claims a smartphone update can read thoughts through wireless signals. No scientists, engineers, or technology companies are cited.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Research expert opinions and official technology company statements."
+            },
+            {
+                "letter": "B",
+                "text": "Share privacy warnings with friends and urge them to stop using smartphones."
+            },
+            {
+                "letter": "C",
+                "text": "Save the article and revisit it later."
+            },
+            {
+                "letter": "D",
+                "text": "Delete all phone apps immediately based on the report."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Extraordinary technology claims should be supported by strong evidence and expert verification.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Extraordinary technology claims should be supported by strong evidence and expert verification.",
+        "insight": "Media Literacy Skill: Scientific Reasoning | Democratic Value: Informed Decision-Making"
+    },
+    {
+        "title": "Civic Participation",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: City Development Gazette</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Local Government Announces New Public Park Featuring Sports Areas, Cycling Tracks, and Accessible Playgrounds</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Officials revealed plans for a new public park designed for families, athletes, and children with disabilities. Construction is expected to begin later this year.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Review official planning documents and project timelines."
+            },
+            {
+                "letter": "B",
+                "text": "Share information about public feedback meetings and encourage community participation."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the project because construction has not started."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article because government projects sometimes face delays."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! Citizens benefit from participating in community planning discussions and public consultations.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. Citizens benefit from participating in community planning discussions and public consultations.",
+        "insight": "Media Literacy Skill: Civic Participation | Democratic Value: Public Engagement"
+    },
+    {
+        "title": "Emergency Information Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: StormTruthNetwork</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Breaking News Post Says National Weather Agency Is Hiding Information About a Massive Storm Approaching the Coast</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">The article claims weather officials are secretly withholding storm warnings. No meteorologists or emergency agencies are quoted.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Compare information from weather agencies, emergency services, and trusted news sources."
+            },
+            {
+                "letter": "B",
+                "text": "Share evacuation warnings immediately across social media."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the report because weather predictions often change."
+            },
+            {
+                "letter": "D",
+                "text": "Accuse weather officials of corruption online."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Emergency information should come from verified and authoritative sources. Spreading unverified warnings can create panic.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Emergency information should come from verified and authoritative sources. Spreading unverified warnings can create panic.",
+        "insight": "Media Literacy Skill: Emergency Information Verification | Democratic Value: Public Safety"
+    },
+    {
+        "title": "Source Analysis",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: @CityBusAlerts</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Breaking Social Media Post Claims All City Buses Will Stop Running Next Week Due to Fuel Shortage</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A rumor spreads online claiming the city bus service will stop completely. No statements are issued by the transit authority, and other transit systems report normal operations.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Review official transport authority announcements and trusted local news outlets."
+            },
+            {
+                "letter": "B",
+                "text": "Share the warning with commuters and urge them to find alternative transport."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the rumor and plan your travel as usual."
+            },
+            {
+                "letter": "D",
+                "text": "Demand transport official resignation immediately."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Public transit decisions should be verified through official agency reports before changing travel plans.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Public transit decisions should be verified through official agency reports before changing travel plans.",
+        "insight": "Media Literacy Skill: Source Analysis | Democratic Value: Informed Citizenship"
+    },
+    {
+        "title": "Context Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: PeopleFirst Channel</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Viral Video Appears to Show Mayor Secretly Promising Special Benefits to Supporters Before Local Election</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A short video clip spreading online claims to show the mayor making unfair promises to supporters. The clip is heavily edited, and the full recording is not available.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Search for the complete video, official statements, and coverage from multiple trusted news sources."
+            },
+            {
+                "letter": "B",
+                "text": "Share the clip with community groups and demand immediate resignation."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the video because politics is often controversial."
+            },
+            {
+                "letter": "D",
+                "text": "Create protest posters based only on the clip."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Short clips can remove important context. Viewing original sources helps prevent misunderstandings and unfair conclusions.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Short clips can remove important context. Viewing original sources helps prevent misunderstandings and unfair conclusions.",
+        "insight": "Media Literacy Skill: Context Verification | Democratic Value: Fair Elections"
+    },
+    {
+        "title": "Civic Engagement",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Youth Action Weekly</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Students Launch Online Petition Requesting More Trees and Shaded Areas Around School Playground</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Students have collected signatures asking school leaders to plant trees and improve outdoor spaces. The petition has gained support from parents and teachers.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Verify the petition organizers and review their proposal."
+            },
+            {
+                "letter": "B",
+                "text": "Share the petition with classmates and encourage respectful participation."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the campaign because it is not a major issue."
+            },
+            {
+                "letter": "D",
+                "text": "Report the petition as unnecessary activism."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! The initiative encourages civic participation and community improvement. Students can engage constructively in local issues.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. The initiative encourages civic participation and community improvement. Students can engage constructively in local issues.",
+        "insight": "Media Literacy Skill: Civic Engagement | Democratic Value: Public Participation"
+    },
+    {
+        "title": "Evaluating Technology Claims",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: FuturePredictionNow.net</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Anonymous Website Claims New AI Tool Can Predict Which Students Will Fail Exams Years Before They Take Them</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">The website says schools will soon use AI systems to predict student success years in advance. No educational research or official school plans are provided.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Investigate expert opinions, educational research, and official school policies."
+            },
+            {
+                "letter": "B",
+                "text": "Share warnings that students may soon lose educational opportunities."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the story because technology changes quickly."
+            },
+            {
+                "letter": "D",
+                "text": "Encourage parents to remove children from affected schools immediately."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Claims about AI and education should be supported by evidence. Verification helps separate possibilities from facts.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Claims about AI and education should be supported by evidence. Verification helps separate possibilities from facts.",
+        "insight": "Media Literacy Skill: Evaluating Technology Claims | Democratic Value: Informed Decision-Making"
+    },
+    {
+        "title": "Community Information Sharing",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Community Progress News</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Community Volunteers Collect 5,000 Books to Create Free Reading Corners in Rural Villages</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Volunteers gathered books from donors and distributed them to villages lacking library access. Local schools welcomed the initiative.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Confirm details with organizers and participating schools."
+            },
+            {
+                "letter": "B",
+                "text": "Share donation and volunteer opportunities with friends and community groups."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the story because it has already happened."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article as self-promotion."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! The project benefits education and community development. Sharing verified opportunities can increase participation.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. The project benefits education and community development. Sharing verified opportunities can increase participation.",
+        "insight": "Media Literacy Skill: Community Information Sharing | Democratic Value: Equal Access to Knowledge"
+    },
+    {
+        "title": "Visual Media Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: @EcoWarriorLive</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Influencer Posts AI-Generated Image Claiming New Factory Is Dumping Toxic Waste into Local River</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">An image showing polluted water spreads quickly online. Later, some users question whether the image was digitally created, but no investigation has been completed.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Verify the image source, check environmental reports, and seek official responses."
+            },
+            {
+                "letter": "B",
+                "text": "Share the image widely and call for a boycott of the factory."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the issue entirely."
+            },
+            {
+                "letter": "D",
+                "text": "Organize demonstrations before confirming the image's authenticity."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Images can be altered or generated using AI. Evidence should be verified before taking action.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Images can be altered or generated using AI. Evidence should be verified before taking action.",
+        "insight": "Media Literacy Skill: Visual Media Verification | Democratic Value: Accountability"
+    },
+    {
+        "title": "Public Service Awareness",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Health Service Bulletin</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Local Hospital Announces Mobile Health Clinics to Provide Free Checkups in Remote Villages</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Doctors will travel to remote communities to provide free health services. Officials say the program aims to improve healthcare access.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Verify clinic schedules and locations through official health department announcements."
+            },
+            {
+                "letter": "B",
+                "text": "Share clinic information with village groups and community leaders."
+            },
+            {
+                "letter": "C",
+                "text": "Wait until the first clinic visit before informing anyone."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article because government programs sometimes change."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! The announcement provides useful public information. Sharing verified services helps people access healthcare.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. The announcement provides useful public information. Sharing verified services helps people access healthcare.",
+        "insight": "Media Literacy Skill: Public Service Awareness | Democratic Value: Community Well-Being"
+    },
+    {
+        "title": "Rumor Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: @StudentInsiderLeaks</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Breaking Social Media Rumor Says National Exams Were Leaked Online and Top Students Already Have the Answers</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A popular account claims exam papers have been leaked. Students are debating whether the exams should be postponed.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Check official examination board announcements and trusted news reports."
+            },
+            {
+                "letter": "B",
+                "text": "Share the rumor with classmates so everyone can prepare."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the discussion and avoid following updates."
+            },
+            {
+                "letter": "D",
+                "text": "Demand cancellation of exams without checking evidence."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Education-related rumors can create panic and unfair advantages. Official sources provide the most reliable information.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Education-related rumors can create panic and unfair advantages. Official sources provide the most reliable information.",
+        "insight": "Media Literacy Skill: Rumor Verification | Democratic Value: Fairness"
+    },
+    {
+        "title": "Civic Participation",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Metro Civic News</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">City Transportation Department Invites Residents to Vote on Designs for New Bicycle Lanes</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Officials are asking residents to choose between several bicycle lane designs. Public feedback will influence the final decision.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Review official project details and understand each design option."
+            },
+            {
+                "letter": "B",
+                "text": "Share voting information and encourage informed community participation."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the consultation because planners will decide anyway."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article as political advertising."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! Public consultation is an important part of democratic decision-making. Participation helps communities shape policies.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. Public consultation is an important part of democratic decision-making. Participation helps communities shape policies.",
+        "insight": "Media Literacy Skill: Civic Participation | Democratic Value: Public Representation"
+    },
+    {
+        "title": "Evaluating Authority",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: StarBuzz Live</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Celebrity Claims Scientists Have Discovered a Pill That Eliminates the Need for Sleep Forever</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A celebrity shares a post saying a new pill allows people to stay awake permanently without health risks. No scientific evidence is provided.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Check medical research, expert reviews, and health authority statements."
+            },
+            {
+                "letter": "B",
+                "text": "Share the post with friends interested in productivity."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the story because celebrities often exaggerate."
+            },
+            {
+                "letter": "D",
+                "text": "Purchase the product through the advertised website immediately."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Medical and scientific claims require strong evidence. Celebrity status does not guarantee accuracy.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Medical and scientific claims require strong evidence. Celebrity status does not guarantee accuracy.",
+        "insight": "Media Literacy Skill: Evaluating Authority | Democratic Value: Public Health"
+    },
+    {
+        "title": "Policy Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: OpenTruthForum</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Anonymous Forum Claims Government Plans to Shut Down Public Libraries and Replace Them with Paid Digital Services</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">An online discussion claims public libraries will close within a year. No official documents or government announcements are referenced.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Review government budgets, library department statements, and trusted reporting."
+            },
+            {
+                "letter": "B",
+                "text": "Launch an online campaign opposing the closures immediately."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the claim because it may not affect you personally."
+            },
+            {
+                "letter": "D",
+                "text": "Encourage people to cancel library memberships in protest."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Public policy claims should be verified through official sources and reliable reporting before action is taken.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Public policy claims should be verified through official sources and reliable reporting before action is taken.",
+        "insight": "Media Literacy Skill: Policy Verification | Democratic Value: Transparency"
+    },
+    {
+        "title": "Charity Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: HelpNowRelief.org</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Emergency Fundraiser Claims Flood Victims Need Immediate Donations, But No Charity Registration Number Is Provided</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A fundraising campaign spreading on social media claims to support flood victims. While emotional photos are included, no official charity registration details or partner organizations are listed.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Verify the charity through government records and trusted relief organizations before donating or sharing."
+            },
+            {
+                "letter": "B",
+                "text": "Share the donation link in community groups and encourage urgent contributions."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the fundraiser completely."
+            },
+            {
+                "letter": "D",
+                "text": "Donate immediately because emergencies require fast action."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Disaster scams can appear during emergencies. Verifying organizations helps ensure aid reaches the intended people.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Disaster scams can appear during emergencies. Verifying organizations helps ensure aid reaches the intended people.",
+        "insight": "Media Literacy Skill: Charity Verification | Democratic Value: Accountability"
+    },
+    {
+        "title": "Understanding Polls",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Student Voice Weekly</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Survey Reports 78% of Students Want Longer Lunch Breaks, Prompting School Board Discussion</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A survey of local students suggests many support longer lunch breaks. School officials say they will review the results before making decisions.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Review how the survey was conducted and how many students participated."
+            },
+            {
+                "letter": "B",
+                "text": "Share the survey findings and encourage students to join the discussion respectfully."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the report because surveys are often inaccurate."
+            },
+            {
+                "letter": "D",
+                "text": "Demand immediate policy changes without reviewing the data."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! Students can participate in discussions while understanding how surveys influence decisions.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. Students can participate in discussions while understanding how surveys influence decisions.",
+        "insight": "Media Literacy Skill: Understanding Polls | Democratic Value: Representation"
+    },
+    {
+        "title": "Research Evaluation",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: GamingFutureToday</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">News Blog Says New Study Proves Video Games Increase Intelligence by 500% Within One Month</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">An article claims researchers discovered that playing specific video games dramatically increases intelligence. The study is not linked, and researchers are not named.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Locate the original study and review expert analysis before accepting the claim."
+            },
+            {
+                "letter": "B",
+                "text": "Share the article with students and encourage everyone to follow the recommendation."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the article because gaming news is rarely important."
+            },
+            {
+                "letter": "D",
+                "text": "Purchase the recommended games immediately."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Statistics and scientific claims should be backed by evidence and original sources.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Statistics and scientific claims should be backed by evidence and original sources.",
+        "insight": "Media Literacy Skill: Research Evaluation | Democratic Value: Informed Decisions"
+    },
+    {
+        "title": "Public Information Analysis",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Town Government Gazette</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Town Council Releases Budget Showing Increased Spending on Public Parks, Libraries, and Youth Programs</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Officials published a budget outlining investments in community services. Citizens are invited to attend meetings and provide feedback.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Review the budget documents and compare them with previous years."
+            },
+            {
+                "letter": "B",
+                "text": "Share information about public meetings and encourage community participation."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the announcement because budgets are difficult to understand."
+            },
+            {
+                "letter": "D",
+                "text": "Criticize the spending plan without reading the documents."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! Democratic participation improves when citizens engage in public discussions.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. Democratic participation improves when citizens engage in public discussions.",
+        "insight": "Media Literacy Skill: Public Information Analysis | Democratic Value: Transparency"
+    },
+    {
+        "title": "Evidence Assessment",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: SportsTruthLeaks</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Anonymous Post Claims Famous Athlete Secretly Used Performance-Enhancing Drugs Before Championship Victory</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A post accuses a well-known athlete of cheating. No evidence, official reports, or statements from sports organizations are included.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Look for official investigations and credible reporting before believing the accusation."
+            },
+            {
+                "letter": "B",
+                "text": "Share the allegations widely across sports fan groups."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore all sports-related discussions."
+            },
+            {
+                "letter": "D",
+                "text": "Call for the athlete to lose awards immediately."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Serious accusations require reliable evidence. Spreading unverified claims can unfairly damage reputations.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Serious accusations require reliable evidence. Spreading unverified claims can unfairly damage reputations.",
+        "insight": "Media Literacy Skill: Evidence Assessment | Democratic Value: Fairness"
+    },
+    {
+        "title": "Community Awareness",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Green Community News</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Local Volunteers Organize Weekend Tree-Planting Event to Improve Air Quality Around Schools</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Community groups plan to plant hundreds of trees near schools and public spaces. Students and families are invited to participate.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Confirm event details through organizers and local authorities."
+            },
+            {
+                "letter": "B",
+                "text": "Share volunteer registration information and encourage participation."
+            },
+            {
+                "letter": "C",
+                "text": "Wait until the event is over before discussing it."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article as environmental activism."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! Verified community events can benefit the environment and encourage civic engagement.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. Verified community events can benefit the environment and encourage civic engagement.",
+        "insight": "Media Literacy Skill: Community Awareness | Democratic Value: Collective Action"
+    },
+    {
+        "title": "Data Literacy",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: NationalAlertNews</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Website Uses Dramatic Graph Showing Crime Doubled in One Year, But Does Not Explain Data Sources</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">The article presents alarming statistics and graphs suggesting crime is increasing rapidly. However, data sources and collection methods are not provided.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Find the original data and compare it with official crime reports."
+            },
+            {
+                "letter": "B",
+                "text": "Share the graph as proof that the community is becoming unsafe."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the report entirely."
+            },
+            {
+                "letter": "D",
+                "text": "Demand emergency measures based only on the graph."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Statistics can be misleading when context is missing. Reliable data should be verified.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Statistics can be misleading when context is missing. Reliable data should be verified.",
+        "insight": "Media Literacy Skill: Data Literacy | Democratic Value: Evidence-Based Decision Making"
+    },
+    {
+        "title": "Civic Participation",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: City Transport Bulletin</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Public Transit Agency Asks Residents to Vote on New Bus Routes Serving Schools and Hospitals</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Transportation planners are seeking public input before finalizing new routes. Officials hope to improve accessibility.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Review route proposals and understand their potential impact."
+            },
+            {
+                "letter": "B",
+                "text": "Share participation details and encourage informed community feedback."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the consultation process."
+            },
+            {
+                "letter": "D",
+                "text": "Oppose all route changes before reviewing proposals."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! Public consultations help communities influence important decisions.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. Public consultations help communities influence important decisions.",
+        "insight": "Media Literacy Skill: Civic Participation | Democratic Value: Representation"
+    },
+    {
+        "title": "Policy Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: @FreedomOnlineNow</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Influencer Shares Screenshot Claiming Government Plans to Ban Social Media for Everyone Under 18</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">The screenshot spreads rapidly online, but no government announcement or official document is linked.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Search for official policy documents and trusted reporting."
+            },
+            {
+                "letter": "B",
+                "text": "Share the screenshot and encourage protests immediately."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the topic because it seems unrealistic."
+            },
+            {
+                "letter": "D",
+                "text": "Sign petitions without checking whether the proposal exists."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Policy-related claims should be confirmed through reliable and official sources.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Policy-related claims should be confirmed through reliable and official sources.",
+        "insight": "Media Literacy Skill: Policy Verification | Democratic Value: Informed Citizenship"
+    },
+    {
+        "title": "Information Sharing",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Heritage Education Journal</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Local Museum Launches Free History Workshops Teaching Students How to Analyze Historical Sources</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">The museum introduced educational workshops that teach students how to evaluate documents, photographs, and historical evidence.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Confirm workshop schedules through the museum website."
+            },
+            {
+                "letter": "B",
+                "text": "Share the opportunity with teachers, students, and community groups."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the announcement because museums are not interesting."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article as promotional content."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! Educational opportunities support learning and critical thinking.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. Educational opportunities support learning and critical thinking.",
+        "insight": "Media Literacy Skill: Information Sharing | Democratic Value: Education"
+    },
+    {
+        "title": "Context Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: StudentVoiceNow (Social Media)</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Video Appears to Show School Principal Saying Students Should Not Question School Rules, Sparking Online Debate</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A short video clip shows a principal making controversial comments. Many students are sharing the clip, but the full speech is unavailable and some viewers suspect the video may have been edited.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Search for the complete speech, check school statements, and compare multiple reports."
+            },
+            {
+                "letter": "B",
+                "text": "Share the clip and encourage students to protest immediately."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the discussion because it is creating arguments online."
+            },
+            {
+                "letter": "D",
+                "text": "Start an online petition demanding the principal's removal."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Short clips can be edited or taken out of context. Viewing the full speech provides a more accurate understanding.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Short clips can be edited or taken out of context. Viewing the full speech provides a more accurate understanding.",
+        "insight": "Media Literacy Skill: Context Verification | Democratic Value: Fairness"
+    },
+    {
+        "title": "Evaluating Evidence",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: @NaturalLifeExpert</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Popular Influencer Claims Vaccines Reduce Children's Creativity and Academic Performance</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">An influencer shares personal stories and claims vaccines affect creativity. The post includes opinions but no medical research.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Check medical organizations, scientific studies, and healthcare experts."
+            },
+            {
+                "letter": "B",
+                "text": "Share the warning with parents and school groups."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the topic because health debates are confusing."
+            },
+            {
+                "letter": "D",
+                "text": "Encourage others to stop vaccinations immediately."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Health information should be supported by scientific evidence rather than personal opinions.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Health information should be supported by scientific evidence rather than personal opinions.",
+        "insight": "Media Literacy Skill: Evaluating Evidence | Democratic Value: Public Health"
+    },
+    {
+        "title": "Verification of Public Claims",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: ElectionTruthForum</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Anonymous Source Claims Thousands of Election Ballots Were Secretly Destroyed Before Counting Began</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">An anonymous post claims election officials destroyed ballots. No documents, witnesses, or official investigations are mentioned.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Verify the claim through election authorities and trusted reporting."
+            },
+            {
+                "letter": "B",
+                "text": "Share the allegation with community groups."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the story because politics is stressful."
+            },
+            {
+                "letter": "D",
+                "text": "Publicly accuse election workers of corruption."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Election-related claims can affect public trust. Reliable evidence is essential.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Election-related claims can affect public trust. Reliable evidence is essential.",
+        "insight": "Media Literacy Skill: Verification of Public Claims | Democratic Value: Election Integrity"
+    },
+    {
+        "title": "Data Interpretation",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: ClimateFactsToday.net</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Website Claims Climate Change Has Ended Because One Region Experienced Heavy Rainfall This Year</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">The article argues that climate change is no longer a concern because one area received record rainfall. Scientists are not quoted.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Review scientific climate reports and long-term environmental data."
+            },
+            {
+                "letter": "B",
+                "text": "Share the article as proof that environmental problems are solved."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the story completely."
+            },
+            {
+                "letter": "D",
+                "text": "Stop supporting environmental projects based on the article."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Climate trends are based on long-term data, not single weather events.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Climate trends are based on long-term data, not single weather events.",
+        "insight": "Media Literacy Skill: Data Interpretation | Democratic Value: Evidence-Based Decisions"
+    },
+    {
+        "title": "Scam Detection",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: StarFinance Live</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Celebrity Promotes New Student Investment Program Promising Guaranteed 300% Returns Within One Month</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A famous celebrity encourages followers to join an investment platform. The platform promises unusually high profits but provides little financial information.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Research financial experts, independent reviews, and regulatory warnings."
+            },
+            {
+                "letter": "B",
+                "text": "Share the opportunity with classmates to help them earn money."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore all investment-related discussions."
+            },
+            {
+                "letter": "D",
+                "text": "Invest immediately before spaces run out."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Financial opportunities should be evaluated carefully. Celebrity endorsements are not proof of legitimacy.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Financial opportunities should be evaluated carefully. Celebrity endorsements are not proof of legitimacy.",
+        "insight": "Media Literacy Skill: Scam Detection | Democratic Value: Consumer Protection"
+    },
+    {
+        "title": "Civic Engagement",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: Youth Civic Action</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Students Launch Petition Requesting Safer School Bus Routes After Several Near-Miss Traffic Incidents</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Students collected signatures asking local authorities to improve road safety around schools.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Verify the petition organizers and review the proposed safety improvements."
+            },
+            {
+                "letter": "B",
+                "text": "Share the petition and encourage informed participation."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the issue because it affects only certain neighborhoods."
+            },
+            {
+                "letter": "D",
+                "text": "Accuse transportation officials of negligence without evidence."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! The issue involves community safety and civic participation.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. The issue involves community safety and civic participation.",
+        "insight": "Media Literacy Skill: Civic Engagement | Democratic Value: Public Participation"
+    },
+    {
+        "title": "Image Authentication",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: NatureAlert Online</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Dramatic Wildlife Image Claims Rare Animals Have Completely Disappeared from Local National Park</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A powerful image spreads online showing empty forests. Some users believe the image may have been created using AI tools.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Verify the image source and review official wildlife reports."
+            },
+            {
+                "letter": "B",
+                "text": "Share the image and demand immediate action."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore environmental news."
+            },
+            {
+                "letter": "D",
+                "text": "Organize protests based only on the image."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Images can be manipulated or AI-generated. Verification prevents misinformation.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Images can be manipulated or AI-generated. Verification prevents misinformation.",
+        "insight": "Media Literacy Skill: Image Authentication | Democratic Value: Accountability"
+    },
+    {
+        "title": "Responsible Information Sharing",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: City Resource Bulletin</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">City Reports 40% Reduction in Water Usage After Successful Community Conservation Campaign</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">Officials report significant water savings after residents adopted conservation measures during a drought.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Review official conservation reports and statistics."
+            },
+            {
+                "letter": "B",
+                "text": "Share the success story and encourage continued participation."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the article because the drought has improved."
+            },
+            {
+                "letter": "D",
+                "text": "Report the article as government publicity."
+            }
+        ],
+        "correct": "B",
+        "feedback": "Correct! Sharing verified success stories can encourage positive community behavior.",
+        "incorrectFeedback": "Incorrect. The correct answer is B. Sharing verified success stories can encourage positive community behavior.",
+        "insight": "Media Literacy Skill: Responsible Information Sharing | Democratic Value: Community Cooperation"
+    },
+    {
+        "title": "Source Verification",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: @LibraryTruths</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Social Media Rumor Claims Public Libraries Will Soon Charge Entry Fees for All Visitors</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A rumor spreads online claiming libraries will introduce mandatory entry fees. No official library announcements support the claim.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Contact library officials and review official announcements."
+            },
+            {
+                "letter": "B",
+                "text": "Share warnings with students and parents."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the discussion completely."
+            },
+            {
+                "letter": "D",
+                "text": "Cancel library memberships immediately."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Public service announcements should be verified through official sources.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Public service announcements should be verified through official sources.",
+        "insight": "Media Literacy Skill: Source Verification | Democratic Value: Transparency"
+    },
+    {
+        "title": "High-Stakes Fact Checking",
+        "q": "<div style=\"font-size:0.75rem; text-transform:uppercase; color:var(--neon-amber); margin-bottom:8px; font-weight:700;\"><i class=\"fa-solid fa-bullhorn\"></i> Source: FreedomWatchLeaks</div> <div style=\"font-size:1.15rem; font-weight:800; color:var(--text-silver); margin-bottom:12px; line-height:1.35;\">Breaking Post Claims National Internet Shutdown Planned During Election Week to Control Public Discussion</div> <div style=\"font-size:0.88rem; color:var(--text-muted); line-height:1.5; margin-bottom:16px; background:rgba(255,255,255,0.01); padding:12px; border-radius:6px; border:1px dashed var(--border-smoke);\">A viral post alleges authorities will restrict internet access during election week. No government documents or official confirmations are provided.</div> <div style=\"font-size:0.92rem; font-weight:700; color:var(--text-silver); margin-bottom:4px;\">What is the most responsible action to take?</div>",
+        "options": [
+            {
+                "letter": "A",
+                "text": "Verify the claim through telecom authorities, government announcements, and trusted news organizations."
+            },
+            {
+                "letter": "B",
+                "text": "Share the warning widely and encourage people to panic-buy communication devices."
+            },
+            {
+                "letter": "C",
+                "text": "Ignore the report completely."
+            },
+            {
+                "letter": "D",
+                "text": "Organize demonstrations immediately without verifying the claim."
+            }
+        ],
+        "correct": "A",
+        "feedback": "Correct! Claims involving elections and communication systems can strongly affect public trust. Verification is essential before action.",
+        "incorrectFeedback": "Incorrect. The correct answer is A. Claims involving elections and communication systems can strongly affect public trust. Verification is essential before action.",
+        "insight": "Media Literacy Skill: High-Stakes Fact Checking | Democratic Value: Informed Citizenship"
+    }
+];
+
+            let currentQIndex = 0;
+            let score = 0;
+            let selectedLetter = null;
+            let hasSubmitted = false;
+
+            let stats = {
+                correct: 0,
+                incorrect: 0,
+                skips: 7
+            };
+
+            // Dynamic selection of 7 random questions
+            let activeQuestions = [];
+            const selectActiveQuestions = () => {
+                const shuffled = [...questions].sort(() => 0.5 - Math.random());
+                activeQuestions = shuffled.slice(0, 7);
+            };
+
+            // DOM Elements
+            const qIndicator = document.getElementById('q-indicator');
+            const qText = document.getElementById('q-text');
+            const optionsContainer = document.getElementById('options-container');
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackText = document.getElementById('feedback-text');
+            const insightBox = document.getElementById('insight-box');
+            const insightText = document.getElementById('insight-text');
+            const btnNext = document.getElementById('btn-next-q');
+            
+            // Progress tracker elements inside card
+            const progressPercentLabel = document.getElementById('progress-percent-label');
+            const progressBarFill = document.getElementById('progress-bar-fill-inner');
+            const scoreStatsLabel = document.getElementById('score-stats-label');
+
+            // --- LOAD QUESTION VIEW ---
+            const loadQuestion = (index) => {
+                hasSubmitted = false;
+                selectedLetter = null;
+                feedbackBox.style.display = 'none';
+                insightBox.style.display = 'none';
+                btnNext.textContent = 'Submit Answer';
+                btnNext.disabled = true;
+
+                const qData = activeQuestions[index];
+                qIndicator.textContent = `Question ${index + 1} of 7`;
+                qText.innerHTML = qData.q;
+
+                // Load options
+                optionsContainer.innerHTML = '';
+                qData.options.forEach(opt => {
+                    const item = document.createElement('div');
+                    item.className = 'quiz-option-item';
+                    item.setAttribute('data-letter', opt.letter);
+                    item.innerHTML = `
+                        <input type="radio" name="quiz-radio" id="opt-${opt.letter}" value="${opt.letter}">
+                        <label class="quiz-option-label" for="opt-${opt.letter}">
+                            <strong>${opt.letter}.</strong> ${opt.text}
+                        </label>
+                    `;
+
+                    // Choice select action
+                    item.addEventListener('click', () => {
+                        if (hasSubmitted) return;
+                        
+                        document.querySelectorAll('.quiz-option-item').forEach(el => el.classList.remove('selected'));
+                        item.classList.add('selected');
+                        const radio = item.querySelector('input[type="radio"]');
+                        radio.checked = true;
+                        
+                        selectedLetter = opt.letter;
+                        btnNext.disabled = false;
+                    });
+
+                    optionsContainer.appendChild(item);
+                });
+            };
+
+            // --- ACTION HANDLERS ---
+            btnNext.addEventListener('click', () => {
+                if (currentQIndex >= 7) {
+                    resetQuiz();
+                    return;
+                }
+                
+                const qData = activeQuestions[currentQIndex];
+
+                if (!hasSubmitted) {
+                    // Check and submit answer
+                    hasSubmitted = true;
+                    stats.skips--; // reduce skipped count
+                    
+                    const isCorrect = (selectedLetter === qData.correct);
+                    
+                    // Highlight options
+                    document.querySelectorAll('.quiz-option-item').forEach(item => {
+                        const letter = item.getAttribute('data-letter');
+                        if (letter === qData.correct) {
+                            item.style.borderColor = '#10b981';
+                            item.style.background = 'rgba(16, 185, 129, 0.05)';
+                        } else if (letter === selectedLetter) {
+                            item.style.borderColor = '#ef4444';
+                            item.style.background = 'rgba(239, 68, 68, 0.05)';
+                        }
+                    });
+
+                    // Update Score & Statuses
+                    if (isCorrect) {
+                        score += 100;
+                        stats.correct++;
+                        feedbackBox.className = 'quiz-feedback-box correct';
+                        feedbackTitle.innerHTML = '<i class="fa-solid fa-circle-check"></i> Correct!';
+                        feedbackTitle.className = 'quiz-feedback-title correct';
+                        feedbackText.textContent = qData.feedback;
+                    } else {
+                        stats.incorrect++;
+                        feedbackBox.className = 'quiz-feedback-box incorrect';
+                        feedbackTitle.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Incorrect';
+                        feedbackTitle.className = 'quiz-feedback-title incorrect';
+                        feedbackText.textContent = qData.incorrectFeedback;
+                    }
+
+                    // Load insight text
+                    insightText.textContent = qData.insight;
+                    feedbackBox.style.display = 'block';
+                    insightBox.style.display = 'flex';
+
+                    // Update metrics labels
+                    scoreStatsLabel.textContent = `Score: ${score} / 700`;
+                    const overallPercent = Math.round(((currentQIndex + 1) / 7) * 100);
+                    progressPercentLabel.textContent = `${overallPercent}%`;
+                    progressBarFill.style.width = `${overallPercent}%`;
+
+                    btnNext.textContent = currentQIndex === 6 ? 'View Results' : 'Next Question >';
+                } else {
+                    // Go to next question or complete
+                    currentQIndex++;
+                    if (currentQIndex < 7) {
+                        loadQuestion(currentQIndex);
+                    } else {
+                        // Completed! Update final UI
+                        const finalPercent = (score / 700) * 100;
+                        let completionStatus = finalPercent >= 80 ? "🏆 Democracy Defender Certified!" : "⚠️ Complete! Try again to achieve certificate badge.";
+                        
+                        // Increment citizens certified count
+                        let certifiedCount = localStorage.getItem('citizensCertifiedCount');
+                        if (!certifiedCount) {
+                            certifiedCount = 25;
+                        } else {
+                            certifiedCount = parseInt(certifiedCount, 10);
+                        }
+                        localStorage.setItem('citizensCertifiedCount', certifiedCount + 1);
+
+                        // Save new community rating percentage by default
+                        localStorage.setItem('communityRating', finalPercent.toFixed(1));
+                        
+                        showModal({
+                            title: 'Quiz Completed!',
+                            content: `
+                                <div style="text-align: center; margin-bottom: 10px;">
+                                    <div style="font-size: 3rem; margin-bottom: 10px;">${finalPercent >= 80 ? '🏆' : '🎯'}</div>
+                                    <h3 style="color: var(--text-silver); margin-bottom: 8px;">Final Score: ${score} / 700</h3>
+                                    <p style="font-size: 1.1rem; color: var(--neon-amber); font-weight: 700; margin-bottom: 4px;">(${Math.round(finalPercent)}%)</p>
+                                    <p id="modal-rating-display" style="font-size: 0.95rem; color: var(--text-silver); font-weight: 600; margin-bottom: 12px;">Community Rating Updated: ${finalPercent.toFixed(1)}%</p>
+                                    <p style="color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${completionStatus}</p>
+                                    
+                                    <!-- Interactive Star Rating Option -->
+                                    <div style="margin-top: 18px; border-top: 1px solid var(--border-smoke); padding-top: 16px;">
+                                        <p style="font-size: 0.88rem; color: var(--text-silver); font-weight: 700; margin-bottom: 8px; letter-spacing: 0.5px;">RATE THIS SIMULATOR EXPERIENCE</p>
+                                        <div class="star-rating-container" style="display: flex; justify-content: center; gap: 10px; font-size: 1.8rem; cursor: pointer; margin-bottom: 8px;">
+                                            <i class="fa-regular fa-star star-rating-btn" data-star="1" style="color: var(--neon-gold); transition: var(--transition-fluid);"></i>
+                                            <i class="fa-regular fa-star star-rating-btn" data-star="2" style="color: var(--neon-gold); transition: var(--transition-fluid);"></i>
+                                            <i class="fa-regular fa-star star-rating-btn" data-star="3" style="color: var(--neon-gold); transition: var(--transition-fluid);"></i>
+                                            <i class="fa-regular fa-star star-rating-btn" data-star="4" style="color: var(--neon-gold); transition: var(--transition-fluid);"></i>
+                                            <i class="fa-regular fa-star star-rating-btn" data-star="5" style="color: var(--neon-gold); transition: var(--transition-fluid);"></i>
+                                        </div>
+                                        <p id="star-rating-status" style="font-size: 0.82rem; color: var(--text-muted); font-weight: 600; margin: 0;">Click stars to submit rating (recalculates Community Rating)</p>
+                                    </div>
+                                </div>
+                            `
+                        });
+
+                        // Bind interactive star rating logic
+                        const starBtns = document.querySelectorAll('.star-rating-btn');
+                        const starStatus = document.getElementById('star-rating-status');
+                        const ratingDisplay = document.getElementById('modal-rating-display');
+
+                        starBtns.forEach(btn => {
+                            btn.addEventListener('mouseenter', () => {
+                                const hoverVal = parseInt(btn.getAttribute('data-star'), 10);
+                                starBtns.forEach(b => {
+                                    const bVal = parseInt(b.getAttribute('data-star'), 10);
+                                    if (bVal <= hoverVal) {
+                                        b.classList.remove('fa-regular');
+                                        b.classList.add('fa-solid');
+                                    } else {
+                                        b.classList.remove('fa-solid');
+                                        b.classList.add('fa-regular');
+                                    }
+                                });
+                            });
+
+                            btn.addEventListener('mouseleave', () => {
+                                const currentRating = parseFloat(localStorage.getItem('userQuizStarRating') || 0);
+                                starBtns.forEach(b => {
+                                    const bVal = parseInt(b.getAttribute('data-star'), 10);
+                                    if (bVal <= currentRating) {
+                                        b.classList.remove('fa-regular');
+                                        b.classList.add('fa-solid');
+                                    } else {
+                                        b.classList.remove('fa-solid');
+                                        b.classList.add('fa-regular');
+                                    }
+                                });
+                            });
+
+                            btn.addEventListener('click', () => {
+                                const selectedStars = parseInt(btn.getAttribute('data-star'), 10);
+                                localStorage.setItem('userQuizStarRating', selectedStars);
+                                
+                                // Calculate updated community rating percentage:
+                                // Star rating maps to: 1 = 20%, 2 = 40%, 3 = 60%, 4 = 80%, 5 = 100%
+                                const newRating = (selectedStars / 5) * 100;
+                                localStorage.setItem('communityRating', newRating.toFixed(1));
+                                
+                                ratingDisplay.textContent = `Community Rating Updated: ${newRating.toFixed(1)}%`;
+                                starStatus.textContent = `Thank you! Rated ${selectedStars} Stars (${newRating.toFixed(1)}%)`;
+                                starStatus.style.color = '#10b981'; // Green confirmation color
+                                
+                                // Highlight stars persistently
+                                starBtns.forEach(b => {
+                                    const bVal = parseInt(b.getAttribute('data-star'), 10);
+                                    if (bVal <= selectedStars) {
+                                        b.classList.remove('fa-regular');
+                                        b.classList.add('fa-solid');
+                                    } else {
+                                        b.classList.remove('fa-solid');
+                                        b.classList.add('fa-regular');
+                                    }
+                                });
+                            });
+                        });
+                        
+                        // Reset next btn to restart option
+                        btnNext.textContent = 'Restart Quiz';
+                    }
+                }
+            });
+
+            const showModal = ({ title, content, isConfirm = false, onConfirm = null }) => {
+                const existing = document.getElementById('custom-modal');
+                if (existing) existing.remove();
+
+                const modal = document.createElement('div');
+                modal.id = 'custom-modal';
+                modal.className = 'custom-modal-overlay';
+                modal.innerHTML = `
+                    <div class="custom-modal-container">
+                        <div class="custom-modal-header">
+                            <div class="custom-modal-title"><i class="fa-solid fa-scale-balanced"></i> ${title}</div>
+                            <button class="custom-modal-close" id="modal-close-btn">&times;</button>
+                        </div>
+                        <div class="custom-modal-body">
+                            ${content}
+                        </div>
+                        <div class="custom-modal-footer">
+                            ${isConfirm ? `<button class="custom-modal-btn btn-cancel" id="modal-cancel-btn">Cancel</button>` : ''}
+                            <button class="custom-modal-btn btn-confirm" id="modal-confirm-btn">${isConfirm ? 'Confirm' : 'Close'}</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+
+                setTimeout(() => modal.classList.add('active'), 10);
+
+                const closeModal = () => {
+                    modal.classList.remove('active');
+                    setTimeout(() => modal.remove(), 300);
+                };
+
+                modal.querySelector('#modal-close-btn').addEventListener('click', closeModal);
+                if (isConfirm) {
+                    modal.querySelector('#modal-cancel-btn').addEventListener('click', closeModal);
+                }
+                modal.querySelector('#modal-confirm-btn').addEventListener('click', () => {
+                    closeModal();
+                    if (onConfirm) onConfirm();
+                });
+            };
+
+            const resetQuiz = () => {
+                currentQIndex = 0;
+                score = 0;
+                stats = {
+                    correct: 0,
+                    incorrect: 0,
+                    skips: 7
+                };
+                localStorage.removeItem('userQuizStarRating');
+                
+                // Reset Progress Trackers
+                progressPercentLabel.textContent = '0%';
+                progressBarFill.style.width = '0%';
+                scoreStatsLabel.textContent = 'Score: 0 / 700';
+
+                selectActiveQuestions();
+                loadQuestion(currentQIndex);
+            };
+
+            // Global reset triggers
+            document.getElementById('btn-help').addEventListener('click', () => {
+                showModal({
+                    title: 'System Guide & Instructions',
+                    content: `
+                        <div class="modal-guide-container">
+                            <div class="modal-guide-card" style="display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px;">
+                                <div style="background: rgba(245, 158, 11, 0.1); padding: 10px; border-radius: 6px; color: var(--neon-amber); display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-book-open" style="font-size: 1.1rem; width: 18px; text-align: center;"></i></div>
+                                <div>
+                                    <h4 style="color: var(--text-silver); font-size: 0.95rem; font-weight: 700; margin: 0 0 4px 0;">1. Read & Analyze Scenarios</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Examine each situation, verifying the cited headlines, news sources, and action choices.</p>
+                                </div>
+                            </div>
+                            <div class="modal-guide-card" style="display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px;">
+                                <div style="background: rgba(249, 115, 22, 0.1); padding: 10px; border-radius: 6px; color: var(--neon-orange); display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-gavel" style="font-size: 1.1rem; width: 18px; text-align: center;"></i></div>
+                                <div>
+                                    <h4 style="color: var(--text-silver); font-size: 0.95rem; font-weight: 700; margin: 0 0 4px 0;">2. Uphold Democratic Values</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Select options that support transparency, fact verification, and independent reporting.</p>
+                                </div>
+                            </div>
+                            <div class="modal-guide-card" style="display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px;">
+                                <div style="background: rgba(245, 158, 11, 0.1); padding: 10px; border-radius: 6px; color: var(--neon-gold); display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-lightbulb" style="font-size: 1.1rem; width: 18px; text-align: center;"></i></div>
+                                <div>
+                                    <h4 style="color: var(--text-silver); font-size: 0.95rem; font-weight: 700; margin: 0 0 4px 0;">3. Submit & Review Insights</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Submit answers to check correctness, review detailed explanations, and study key literacy insights.</p>
+                                </div>
+                            </div>
+                            <div class="modal-guide-card" style="display: flex; gap: 14px; align-items: flex-start; margin-bottom: 0;">
+                                <div style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 6px; color: #10b981; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-award" style="font-size: 1.1rem; width: 18px; text-align: center;"></i></div>
+                                <div>
+                                    <h4 style="color: var(--text-silver); font-size: 0.95rem; font-weight: 700; margin: 0 0 4px 0;">4. Earn Defender Certification</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin: 0;">Complete 7 random scenarios. Score <strong>80% (560 points)</strong> or higher to certify as a Democracy Defender! Completing the quiz dynamically recalculates the Community Rating and increments the Citizens Trained count on the Simulation Hub.</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                });
+            });
+
+            document.getElementById('btn-reset-quiz').addEventListener('click', () => {
+                showModal({
+                    title: 'Reset Quiz',
+                    content: 'Are you sure you want to reset the quiz? This will start a new quiz with 7 random scenarios selected from the 50-scenario pool.',
+                    isConfirm: true,
+                    onConfirm: () => {
+                        resetQuiz();
+                    }
+                });
+            });
+
+            // Start Quiz
+            selectActiveQuestions();
+            loadQuestion(currentQIndex);
+
+        });
+    </script>
+</body>
+</html>

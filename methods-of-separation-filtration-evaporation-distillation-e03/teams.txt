@@ -1,0 +1,56 @@
+TEAM INNOVATORS- E03
+
+Team Members - Roles and Responsibilities
+
+1. N.Jahnavi - UI/UX  Learning Designer and StoryBoard Designer
+
+   * Designed an engaging learning experience for students.
+   * Planned navigation flow between Home, Simulation, Virtual Lab, and Quiz sections.
+   * Added multilingual support (English and Telugu) and audio narration for accessibility.
+
+   * Created the visual flow of the simulation.
+   * Planned the sequence of learning: Introduction → Concept Explanation → Interactive Simulation → Virtual Lab → Quiz.
+   * Designed layouts for each separation method.
+
+2. K. Gowtham Chowdary - Research Lead and FrontEnd Developer
+
+   * Researched methods of separation from school science curriculum.
+   * Collected information on Filtration, Evaporation, and Distillation.
+   * Identified learning objectives and real-life applications.
+
+   * Developed the complete user interface using HTML5, CSS3, and JavaScript.
+   * Implemented animations for Filtration, Evaporation, and Distillation.
+   * Added Play, Pause, and Replay controls.
+   * Developed Virtual Lab, Progress Tracking, Achievement Badges, and Quiz functionality.
+
+
+3. K. Sreyash Chowdary - Documentation Lead and Testing Lead
+
+   * Prepared project documentation.
+   * Maintained README.md.
+   * Documented project objectives, features, implementation details, and deployment process.
+
+   * Tested all simulations and interactions.
+   * Verified responsiveness on different screen sizes.
+   * Checked quiz functionality, language switching, audio narration, and virtual lab operations.
+   * Fixed bugs and improved user experience.
+
+Phase 5 – Task Division Summary
+
+Research and Content Collection
+→ Research Lead
+
+User Experience and Learning Design
+→ UX / Learning Designer
+
+Storyboard and Screen Flow Design
+→ Storyboard Designer
+
+Simulation Development and Frontend Implementation
+→ Frontend Developer
+
+Project Documentation
+→ Documentation Lead
+
+Testing and Quality Assurance
+→ Testing Lead

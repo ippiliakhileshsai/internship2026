@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Announcements | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="admin-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Admin
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="adminAvatar" class="profile-avatar admin">⚡</div>
+            <h2 id="adminUsername">System Admin</h2>
+            <span class="profile-role-badge admin">Super Administrator</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="admin-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="admin-users.html" class="menu-btn"><span class="icon">👥</span> User Directory</a></li>
+                <li><a href="admin-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="admin-reports.html" class="menu-btn"><span class="icon">📄</span> System Reports</a></li>
+                <li><a href="admin-settings.html" class="menu-btn"><span class="icon">⚙️</span> Configurations</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="window.ConductoVerseAdmin.logout()" class="btn danger" style="width: 100%;">Disconnect Admin ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px;">
+            <!-- Left Panel: Create Announcement Form -->
+            <article class="dashboard-card" style="height: fit-content; margin-bottom: 0;">
+                <h2>📣 Broadcast Announcement</h2>
+                <form id="announcementForm" onsubmit="handleAnnouncementSubmit(event)">
+                    <div class="admin-field-group">
+                        <label for="annTitle">Announcement Title</label>
+                        <input type="text" id="annTitle" class="admin-input" required placeholder="e.g. System Maintenance Update">
+                    </div>
+                    <div class="admin-field-group">
+                        <label for="annContent">Message Content</label>
+                        <textarea id="annContent" class="admin-textarea" required rows="6" placeholder="Type announcement details here. This message will immediately be visible on student and teacher notification dashboards."></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; min-height: 44px; margin-top: 12px;">Broadcast to Platform 🚀</button>
+                </form>
+            </article>
+
+            <!-- Right Panel: Announcements List -->
+            <article class="dashboard-card" style="margin-bottom: 0;">
+                <h2>📜 Past Broadcast Logs</h2>
+                <div id="broadcastsList" style="display: flex; flex-direction: column; gap: 16px; max-height: 520px; overflow-y: auto; padding-right: 8px;">
+                    <!-- Announcements Injector -->
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/admin-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    loadAnnouncementsList();
+});
+
+function loadAnnouncementsList() {
+    const listContainer = document.getElementById("broadcastsList");
+    listContainer.innerHTML = "";
+
+    const announcements = window.ConductoVerseAdmin.getAnnouncements();
+    // Sort announcements by posted date (descending)
+    const sorted = [...announcements].sort((a, b) => new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime());
+
+    if (sorted.length === 0) {
+        listContainer.innerHTML = `
+            <div style="text-align: center; color: var(--admin-muted); padding: 50px;">
+                <span style="font-size: 2.5rem; display: block; margin-bottom: 12px;">📯</span>
+                <strong>No Active Broadcasts</strong>
+                <p style="font-size: 0.85rem; margin-top: 4px;">Use the form to publish the first system announcement.</p>
+            </div>
+        `;
+        return;
+    }
+
+    sorted.forEach(ann => {
+        const dateStr = new Date(ann.postedAt).toLocaleDateString(undefined, { 
+            month: 'short', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+
+        const card = document.createElement("div");
+        card.style.background = "rgba(8, 12, 24, 0.4)";
+        card.style.border = "1px solid rgba(255, 255, 255, 0.05)";
+        card.style.borderRadius = "16px";
+        card.style.padding = "20px";
+        card.style.position = "relative";
+        card.style.display = "flex";
+        card.style.flexDirection = "column";
+        card.style.gap = "8px";
+
+        card.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
+                <h3 style="color: var(--admin-text); font-size: 1.05rem; font-weight: 700; margin: 0;">${ann.title}</h3>
+                <button onclick="triggerDeleteAnnouncement('${ann.id}')" class="btn danger" style="font-size: 0.72rem; min-height: 28px; padding: 4px 8px; border-radius: 8px;">Delete</button>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--admin-muted); line-height: 1.5; margin: 0; white-space: pre-wrap;">${ann.content}</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 0.75rem; color: var(--admin-muted);">
+                <span>Posted by: <strong>${ann.postedBy}</strong></span>
+                <span>${dateStr}</span>
+            </div>
+        `;
+        listContainer.appendChild(card);
+    });
+}
+
+function handleAnnouncementSubmit(e) {
+    e.preventDefault();
+    const title = document.getElementById("annTitle").value.trim();
+    const content = document.getElementById("annContent").value.trim();
+
+    const result = window.ConductoVerseAdmin.createAnnouncement(title, content);
+    if (result.success) {
+        document.getElementById("announcementForm").reset();
+        loadAnnouncementsList();
+    } else {
+        alert("Error creating announcement: " + result.message);
+    }
+}
+
+function triggerDeleteAnnouncement(id) {
+    if (confirm("Are you sure you want to delete this announcement? This action is permanent and will remove it from all users' dashboards.")) {
+        const result = window.ConductoVerseAdmin.deleteAnnouncement(id);
+        if (result.success) {
+            loadAnnouncementsList();
+        } else {
+            alert("Error deleting announcement: " + result.message);
+        }
+    }
+}
+</script>
+</body>
+</html>

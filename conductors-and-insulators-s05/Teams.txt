@@ -1,0 +1,23 @@
+Member 1 
+• Storyboard Design
+• Frontend Design
+• Initial Prototype Development
+• Project Planning
+
+Member 2 
+• Frontend Development
+• Storyboard Support and Refinement
+• Initial Prototype Development
+• UI Implementation
+
+Member 3 
+• Deployment Research
+• Technology Research and Analysis
+• Backend Planning
+• Project Groundwork
+
+Member 4 
+• Deployment Setup Research
+• Backend Architecture Planning
+• Integration Planning
+• Technical Groundwork

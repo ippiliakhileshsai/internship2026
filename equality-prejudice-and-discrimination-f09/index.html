@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 12th Man | Equality & Fair Selection Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Animated Background -->
+
+    <div class="background">
+
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+
+        <div class="ball">🏏</div>
+
+    </div>
+
+    <!-- Header -->
+
+    <header>
+
+        <div class="logo">
+
+            🏏 THE 12TH MAN
+
+        </div>
+
+        <div class="meter">
+
+            ❤️ Fairness
+
+            <div class="meter-bar">
+
+                <div id="meterFill"></div>
+
+            </div>
+
+            <span id="meterText">
+
+                100%
+
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- Main Game Area -->
+
+    <main>
+
+        <div id="gameScreen">
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <button id="soundBtn">
+
+            🔊 Sound ON
+
+        </button>
+
+    </footer>
+
+    <!-- Templates -->
+
+    <!-- Start Screen -->
+
+    <template id="startTemplate">
+
+        <section class="screen">
+
+            <h1>
+
+                THE 12TH MAN
+
+            </h1>
+
+            <div class="kids">
+
+                👦🏏 👧🏏
+
+            </div>
+
+            <p>
+
+                Your batting, bowling, fielding, and fitness scores are all strong.
+
+            </p>
+            
+
+            <p>
+
+                Enter your name to join the team.
+
+            </p>
+
+            <input id="playerNameInput" type="text" placeholder="Your name" maxlength="20">
+
+            <button onclick="startGame()">
+
+                ▶ Start Game
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <!-- Story -->
+
+    <template id="storyTemplate">
+
+        <section class="screen">
+
+            <h2>
+
+                🧩 GAME STORY
+
+            </h2>
+
+            <p id="storyGreeting">
+
+            </p>
+
+            <p>
+
+                The coach will choose eleven players, and you want to see if the decision is fair.
+
+            </p>
+
+            <p>
+
+                Players and commentator all want a fair choice.
+
+            </p>
+
+            <div class="characters">
+
+                👨‍🏫 Coach
+
+                👦 Players
+
+                🎤 Commentator
+
+            </div>
+
+            <button onclick="showTrials()">
+
+                ▶ Continue
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <!-- Player Trials -->
+
+    <template id="trialTemplate">
+
+        <section class="screen">
+
+            <h2>
+
+                🏏 PLAYER TRIALS
+
+            </h2>
+
+            <p id="trialGreeting">
+
+            </p>
+
+            <p>
+
+                All players completed the trials and earned scores in batting, bowling, and fitness.
+
+            </p>
+
+            <p>
+
+                Your performance is strong too — now see who the coach chooses for the team.
+
+            </p>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Player</th>
+                        <th>Batting</th>
+                        <th>Bowling</th>
+                        <th>Fitness</th>
+                        <th>Total</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="trialTable">
+
+                </tbody>
+
+            </table>
+
+            <button onclick="showAnnouncement()">
+
+                ▶ Continue
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <!-- Announcement -->
+
+    <template id="announcementTemplate">
+
+        <section class="screen">
+
+            <h2>
+
+                📰 TEAM ANNOUNCEMENT
+
+            </h2>
+
+            <p>
+
+                The coach announces the selected team. All player names are shown below.
+
+            </p>
+
+            <div class="announcement">
+
+                <p><strong>Selected players are marked with ✅</strong></p>
+
+                <ul id="announcementList"></ul>
+
+            </div>
+
+            <p id="announcementQuestion">
+
+            </p>
+
+                Is your name there?
+
+            </p>
+
+            <button onclick="showSelectorsReason()">
+
+                ▶ See What They Were Thinking
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <!-- Selector Thoughts -->
+
+    <template id="selectorsTemplate">
+
+        <section class="screen">
+
+            <h2>
+
+                🧠 SELECTORS THOUGHTS
+
+            </h2>
+
+            <p>
+
+                The selectors are thinking about things that are not fair.
+
+            </p>
+
+            <div class="characters">
+
+                “He's new.”
+
+                <br><br>
+
+                “We don't know him.”
+
+                <br><br>
+
+                “He's from another school.”
+
+            </div>
+
+            <button onclick="showDiscriminationReveal()">
+
+                ▶ Continue
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <!-- Discrimination Reveal -->
+
+    <template id="discriminationTemplate">
+
+        <section class="screen">
+
+            <h2>
+
+                😢 DISCRIMINATION REVEAL
+
+            </h2>
+
+            <p>
+
+                Your name is left out even though your performance is strong.
+
+            </p>
+
+            <p>
+
+                This is discrimination — choosing someone for the wrong reason instead of their skills.
+
+            </p>
+
+            <button onclick="showFairSelectionIntro()">
+
+                ▶ Choose Fair Team
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <!-- Selection -->
+
+    <template id="selectionTemplate">
+
+        <section class="screen">
+
+            <h2>
+
+                TEAM SELECTION
+
+            </h2>
+
+            <p id="selectionMessage">
+
+            </p>
+
+            <p>
+
+                Select eleven players for the team using the trial scores.
+
+            </p>
+
+            <p>
+
+                This is your chance to correct the unfair decision and choose the best team fairly.
+
+            </p>
+
+            <div class="selection-area">
+
+                <div class="player-pool" id="playerPool"></div>
+
+                <div class="team-bin">
+
+                    <h3>Your Team Bin</h3>
+
+                    <p>Drag 11 players here to select your squad.</p>
+
+                    <div id="binDropZone" class="dropZone">
+
+                        Drop players here
+
+                    </div>
+
+                    <div id="selectedCount" class="selectedCount">Selected: 0 / 11</div>
+
+                </div>
+
+            </div>
+
+            <button onclick="submitSelection()">
+
+                ▶ Submit Selection
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <!-- Message Screen -->
+
+    <template id="messageTemplate">
+
+        <section class="screen">
+
+            <h2 id="messageTitle">
+
+            </h2>
+
+            <div id="messageEmoji" class="emoji">
+
+            </div>
+
+            <p id="messageText">
+
+            </p>
+
+            <button onclick="nextStep()">
+
+                Continue
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <!-- Analysis -->
+
+    <template id="analysisTemplate">
+
+        <section class="screen">
+
+            <h2>
+
+                🧠 CONSEQUENCE ANALYSIS
+
+            </h2>
+
+            <table>
+
+                <tr>
+
+                    <th>
+
+                        Mode
+
+                    </th>
+
+                    <th>
+
+                        Team Score
+
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Fair Selection
+
+                    </td>
+
+                    <td>
+
+                        85%
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Biased Selection
+
+                    </td>
+
+                    <td>
+
+                        45%
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <div id="analysisResult">
+
+            </div>
+
+            <button onclick="restoreEquality()">
+
+                ▶ Correct the Decision
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <!-- Reward -->
+
+    <template id="rewardTemplate">
+
+        <section class="screen">
+
+            <h2>
+
+                🏆 REWARD ZONE
+
+            </h2>
+
+            <div class="rewards">
+
+                ⭐ Equality Hero
+
+                <br><br>
+
+                🏆 Fair Player
+
+                <br><br>
+
+                🎖 Team Builder
+
+            </div>
+
+            <button onclick="showSummary()">
+
+                ▶ Final Summary
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <!-- Summary -->
+
+    <template id="summaryTemplate">
+
+        <section class="screen">
+
+            <h2>
+
+                🎓 FINAL SUMMARY
+
+            </h2>
+
+            <p>
+
+                You learned what fair selection looks like and why unfair choices hurt the team.
+
+            </p>
+
+            <p>
+
+                When selection is fair, the team plays better and everyone feels included.
+
+            </p>
+
+            <ul>
+
+                <li>Everyone deserves a fair opportunity.</li>
+
+                <li>Choose players based on skill and effort.</li>
+
+                <li>Prejudice and discrimination are unfair.</li>
+
+                <li>Fair choices make teams stronger.</li>
+
+            </ul>
+
+            <button onclick="restartGame()">
+
+                🔄 Play Again
+
+            </button>
+
+        </section>
+
+    </template>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

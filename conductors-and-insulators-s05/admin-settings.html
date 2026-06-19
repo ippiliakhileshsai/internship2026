@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - System Settings | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/admin.css">
+<style>
+.settings-section-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.settings-section-row:last-child {
+    border-bottom: none;
+}
+/* Cyber switch styling */
+.cyber-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 26px;
+}
+.cyber-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.switch-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #141c2f;
+    border: 1px solid var(--admin-border);
+    transition: .3s;
+    border-radius: 34px;
+}
+.switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--admin-muted);
+    transition: .3s;
+    border-radius: 50%;
+}
+input:checked + .switch-slider {
+    background-color: rgba(0, 243, 255, 0.1);
+    border-color: var(--admin-cyan);
+}
+input:checked + .switch-slider:before {
+    transform: translateX(26px);
+    background-color: var(--admin-cyan);
+    box-shadow: 0 0 8px var(--admin-cyan);
+}
+</style>
+</head>
+<body class="admin-body">
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="admin-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Admin
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="adminAvatar" class="profile-avatar admin">⚡</div>
+            <h2 id="adminUsername">System Admin</h2>
+            <span class="profile-role-badge admin">Super Administrator</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="admin-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="admin-users.html" class="menu-btn"><span class="icon">👥</span> User Directory</a></li>
+                <li><a href="admin-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="admin-reports.html" class="menu-btn"><span class="icon">📄</span> System Reports</a></li>
+                <li><a href="admin-settings.html" class="menu-btn"><span class="icon">⚙️</span> Configurations</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="window.ConductoVerseAdmin.logout()" class="btn danger" style="width: 100%;">Disconnect Admin ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px;">
+            <!-- Left: Feature Toggles & Credentials -->
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                <!-- Feature Flag controls -->
+                <article class="dashboard-card" style="margin-bottom: 0;">
+                    <h2>📟 Platform Controls</h2>
+                    
+                    <div class="settings-section-row">
+                        <div>
+                            <strong style="display:block; font-size:0.92rem; color:var(--admin-text);">Maintenance Mode</strong>
+                            <span style="font-size:0.8rem; color:var(--admin-muted);">Simulate landing page lockdown and API freeze.</span>
+                        </div>
+                        <label class="cyber-switch">
+                            <input type="checkbox" id="toggleMaintenance" onchange="handleMaintenanceToggle()">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="settings-section-row">
+                        <div>
+                            <strong style="display:block; font-size:0.92rem; color:var(--admin-text);">Lock Student Registration</strong>
+                            <span style="font-size:0.8rem; color:var(--admin-muted);">Bans creation of new student accounts.</span>
+                        </div>
+                        <label class="cyber-switch">
+                            <input type="checkbox" id="toggleRegistration" onchange="handleRegistrationToggle()">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                </article>
+
+                <!-- Update Credentials -->
+                <article class="dashboard-card" style="margin-bottom: 0;">
+                    <h2>🔒 Admin Credentials</h2>
+                    <form id="adminCredentialsForm" onsubmit="handleCredentialsUpdate(e)">
+                        <div class="admin-field-group">
+                            <label for="adminUserField">Admin Username</label>
+                            <input type="text" id="adminUserField" class="admin-input" required>
+                        </div>
+                        <div class="admin-field-group">
+                            <label for="adminPassField">Admin Password</label>
+                            <input type="password" id="adminPassField" class="admin-input" required placeholder="••••••••">
+                        </div>
+                        <button type="button" onclick="updateAdminCredentials()" class="btn" style="width: 100%; min-height: 40px; margin-top: 8px;">Update Login Credentials</button>
+                    </form>
+                </article>
+            </div>
+
+            <!-- Right: Database Wipe / Danger Zone -->
+            <article class="dashboard-card" style="border-color: rgba(255, 51, 51, 0.3); box-shadow: var(--admin-red-glow); margin-bottom: 0;">
+                <h2 style="color: #ff3333 !important;">🚨 Danger Zone</h2>
+                <p style="font-size: 0.88rem; color: var(--admin-muted); line-height: 1.6; margin-bottom: 24px;">
+                    Performing a database wipe will delete all registered users (students and teachers), clear all test results/scores, delete announcement records, and clean audit logs.
+                </p>
+                <div style="background: rgba(255, 51, 51, 0.05); border: 1px dashed rgba(255, 51, 51, 0.25); border-radius: 16px; padding: 20px; text-align: center; display: flex; flex-direction: column; gap: 15px;">
+                    <strong style="color: #ff3333; font-size: 0.9rem;">THIS ACTION CANNOT BE UNDONE</strong>
+                    <button onclick="triggerDatabaseWipe()" class="btn danger" style="width: 100%; min-height: 44px;">Wipe Platform Database ⚡</button>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/admin-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    loadSettingsData();
+});
+
+function loadSettingsData() {
+    // 1. Load feature flags
+    const isMaintenance = localStorage.getItem("conductoverseMaintenanceMode") === "true";
+    const isRegLocked = localStorage.getItem("conductoverseDisableRegistration") === "true";
+
+    document.getElementById("toggleMaintenance").checked = isMaintenance;
+    document.getElementById("toggleRegistration").checked = isRegLocked;
+
+    // 2. Load current admin config
+    const adminConfig = JSON.parse(localStorage.getItem("conductoverseAdminConfig") || '{"username":"admin@123","password":"1234"}');
+    document.getElementById("adminUserField").value = adminConfig.username;
+    document.getElementById("adminPassField").value = adminConfig.password;
+}
+
+function handleMaintenanceToggle() {
+    const checked = document.getElementById("toggleMaintenance").checked;
+    localStorage.setItem("conductoverseMaintenanceMode", checked ? "true" : "false");
+    window.ConductoVerseAdmin.addSystemLog(`Maintenance Mode toggled to: ${checked ? "ENABLED" : "DISABLED"}`, "warning");
+}
+
+function handleRegistrationToggle() {
+    const checked = document.getElementById("toggleRegistration").checked;
+    localStorage.setItem("conductoverseDisableRegistration", checked ? "true" : "false");
+    window.ConductoVerseAdmin.addSystemLog(`New User Registration locks toggled to: ${checked ? "LOCKED" : "UNLOCKED"}`, "warning");
+}
+
+function updateAdminCredentials() {
+    const newUsername = document.getElementById("adminUserField").value.trim();
+    const newPassword = document.getElementById("adminPassField").value.trim();
+
+    if (!newUsername || !newPassword) {
+        alert("Credentials fields cannot be empty!");
+        return;
+    }
+
+    if (confirm("Are you sure you want to update the root Admin login credentials? You will be logged out to verify new credentials.")) {
+        const config = { username: newUsername, password: newPassword };
+        localStorage.setItem("conductoverseAdminConfig", JSON.stringify(config));
+        
+        // Log out immediately
+        window.ConductoVerseAdmin.addSystemLog(`Root Admin login credentials updated.`, "warning");
+        window.ConductoVerseAdmin.logout();
+    }
+}
+
+function triggerDatabaseWipe() {
+    const confirmation = prompt("To confirm database wipe, type 'WIPE DATABASE' in the box below:");
+    if (confirmation === "WIPE DATABASE") {
+        window.ConductoVerseAdmin.wipeDatabase();
+        alert("Platform database wiped successfully. All student scores, classes, and registration feeds have been restored to fresh state.");
+        // Reload settings page
+        window.location.reload();
+    } else if (confirmation !== null) {
+        alert("Wipe cancelled. Confirmation text did not match.");
+    }
+}
+</script>
+</body>
+</html>

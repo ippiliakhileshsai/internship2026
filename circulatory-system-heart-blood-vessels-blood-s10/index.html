@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circulatory System Explorer - Educational Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-heart"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Floating Background Animation -->
+    <div class="blood-cells-background"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="heart-icon">❤️</span>
+                <span>Circulatory Explorer</span>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search topics...">
+                <button class="search-btn">🔍</button>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle">☰</button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#heart">Heart</a></li>
+                <li><a href="#vessels">Blood Vessels</a></li>
+                <li><a href="#blood">Blood Components</a></li>
+                <li><a href="#simulation">Simulation</a></li>
+                <li><a href="#health">Health Tips</a></li>
+                <li><a href="#facts">Fun Facts</a></li>
+                <li><a href="#quiz">Quiz</a></li>
+                <li><button class="dark-mode-toggle" id="darkModeToggle">🌙</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="animated-heart-container">
+                <div class="animated-heart"></div>
+            </div>
+            <h1 class="hero-title">Circulatory System Explorer</h1>
+            <p class="hero-subtitle">Discover the fascinating journey of blood through your body. Learn about the heart, blood vessels, and how your circulatory system keeps you alive.</p>
+            <button class="explore-btn" onclick="smoothScroll('#heart')">Start Exploring ↓</button>
+        </div>
+        
+    </section>
+
+    <!-- Heart Section -->
+    <section id="heart" class="section">
+    <div class="section-header">
+        <h2>The Heart</h2>
+        <p class="section-subtitle">The engine that pumps life through your body</p>
+    </div>
+
+    <div class="heart-container">
+
+        <div class="heart-content">
+            <!-- Your existing content-grid can stay here -->
+        </div>
+
+        <div class="heart-image-container">
+            <img src="images/heart.png.webp" alt="Human Heart Anatomy" class="medical-image">
+
+            <!-- Heart Labels -->
+            <div class="label atrium">Left Atrium</div>
+            <div class="label ventricle">Left Ventricle</div>
+            <div class="label aorta">Aorta</div>
+            <div class="label artery">Pulmonary Artery</div>
+
+        </div>
+
+    </div>
+
+    <div class="content-grid">
+            <!-- Heart Structure -->
+            <div class="card glass-card">
+                <div class="card-header">
+                    <h3>Structure of the Heart</h3>
+                    <button class="expand-btn" onclick="toggleExpand(this)">+</button>
+                </div>
+                <div class="card-content expandable">
+                    <p>The heart is a muscular organ about the size of a fist. It's divided into four chambers:</p>
+                    <ul>
+                        <li><strong>Right Atrium:</strong> Receives oxygen-poor blood from the body</li>
+                        <li><strong>Right Ventricle:</strong> Pumps blood to the lungs</li>
+                        <li><strong>Left Atrium:</strong> Receives oxygen-rich blood from the lungs</li>
+                        <li><strong>Left Ventricle:</strong> Pumps blood to the entire body</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Heart Valves -->
+            <div class="card glass-card">
+                <div class="card-header">
+                    <h3>Heart Valves</h3>
+                    <button class="expand-btn" onclick="toggleExpand(this)">+</button>
+                </div>
+                <div class="card-content expandable">
+                    <p>Valves ensure blood flows in one direction:</p>
+                    <ul>
+                        <li><strong>Tricuspid Valve:</strong> Between right atrium and ventricle</li>
+                        <li><strong>Pulmonary Valve:</strong> Between right ventricle and lungs</li>
+                        <li><strong>Mitral Valve:</strong> Between left atrium and ventricle</li>
+                        <li><strong>Aortic Valve:</strong> Between left ventricle and body</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Heart Function -->
+            <div class="card glass-card">
+                <div class="card-header">
+                    <h3>How the Heart Works</h3>
+                    <button class="expand-btn" onclick="toggleExpand(this)">+</button>
+                </div>
+                <div class="card-content expandable">
+                    <p><strong>The Heartbeat Cycle:</strong></p>
+                    <ol>
+                        <li><strong>Diastole:</strong> Heart relaxes and fills with blood</li>
+                        <li><strong>Atrial Systole:</strong> Atria contract, pushing blood into ventricles</li>
+                        <li><strong>Ventricular Systole:</strong> Ventricles contract, pumping blood out</li>
+                    </ol>
+                    <p><strong>Resting Heart Rate:</strong> 60-100 beats per minute</p>
+                </div>
+            </div>
+
+            <!-- Heart Facts -->
+            <div class="card glass-card">
+                <div class="card-header">
+                    <h3>Heart Facts</h3>
+                    <button class="expand-btn" onclick="toggleExpand(this)">+</button>
+                </div>
+                <div class="card-content expandable">
+                    <ul>
+                        <li>The heart weighs 200-425 grams (7-15 ounces)</li>
+                        <li>It's located slightly to the left of center in the chest</li>
+                        <li>Protected by the ribcage and pericardium</li>
+                        <li>Made mostly of myocardium (heart muscle)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blood Vessels Section -->
+    <section id="vessels" class="section">
+        <div class="section-header">
+            <h2>Blood Vessels</h2>
+            <p class="section-subtitle">The highways of circulation</p>
+        </div>
+        <div class="vessels-grid">
+            <div class="vessel-card">
+                <div class="vessel-icon">❤️</div>
+                <h3>Arteries</h3>
+                <div class="vessel-details">
+                    <ul>
+                        <li>Carry oxygen-rich blood from heart</li>
+                        <li>Thick, muscular, elastic walls</li>
+                        <li>High pressure blood flow</li>
+                        <li>Bright red color</li>
+                        <li>Pulse can be felt</li>
+                    </ul>
+                </div>
+                <div class="blood-flow-animation artery-flow"></div>
+            </div>
+
+            <div class="vessel-card">
+                <div class="vessel-icon">💙</div>
+                <h3>Veins</h3>
+                <div class="vessel-details">
+                    <ul>
+                        <li>Return deoxygenated blood to heart</li>
+                        <li>Thin, less muscular walls</li>
+                        <li>Low pressure blood flow</li>
+                        <li>Dark red/blue color</li>
+                        <li>One-way valves prevent backflow</li>
+                    </ul>
+                </div>
+                <div class="blood-flow-animation vein-flow"></div>
+            </div>
+
+            <div class="vessel-card">
+                <div class="vessel-icon">💛</div>
+                <h3>Capillaries</h3>
+                <div class="vessel-details">
+                    <ul>
+                        <li>Exchange gases and nutrients with cells</li>
+                        <li>Microscopic size (7-10 micrometers)</li>
+                        <li>Single cell layer walls</li>
+                        <li>Extremely permeable</li>
+                        <li>Highest surface area for exchange</li>
+                    </ul>
+                </div>
+                <div class="blood-flow-animation capillary-flow"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blood Components Section -->
+    <section id="blood" class="section">
+        <div class="section-header">
+            <h2>Blood Components</h2>
+            <p class="section-subtitle">The precious fluid that sustains life</p>
+        </div>
+        <div class="blood-components-grid">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Red Blood Cells</p>
+                        <span>🔴</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <p><strong>Count:</strong> 4-6 million/μL</p>
+                        <p><strong>Function:</strong> Carry oxygen</p>
+                        <p><strong>Lifespan:</strong> 120 days</p>
+                        <p><strong>Color:</strong> Hemoglobin (iron)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>White Blood Cells</p>
+                        <span>⚪</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <p><strong>Count:</strong> 4,500-11,000/μL</p>
+                        <p><strong>Function:</strong> Protect from infection</p>
+                        <p><strong>Types:</strong> Neutrophils, Lymphocytes, Monocytes</p>
+                        <p><strong>Lifespan:</strong> Hours to years</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Platelets</p>
+                        <span>💜</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <p><strong>Count:</strong> 150,000-400,000/μL</p>
+                        <p><strong>Function:</strong> Form blood clots</p>
+                        <p><strong>Type:</strong> Cell fragments</p>
+                        <p><strong>Lifespan:</strong> 8-10 days</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <p>Plasma</p>
+                        <span>💧</span>
+                    </div>
+                    <div class="flip-card-back">
+                        <p><strong>Content:</strong> 90% water</p>
+                        <p><strong>Function:</strong> Transport medium</p>
+                        <p><strong>Percentage:</strong> 55% of blood</p>
+                        <p><strong>Contains:</strong> Proteins, hormones, nutrients</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Circulation Simulation Section -->
+    <section id="simulation" class="section">
+        <div class="section-header">
+            <h2>Blood Circulation Simulation</h2>
+            <p class="section-subtitle">Watch how blood flows through your body</p>
+        </div>
+
+        <div class="simulation-container">
+            <svg class="circulation-diagram" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- Body -->
+                <rect x="50" y="80" width="120" height="120" rx="20" fill="none" stroke="#ffb3ba" stroke-width="3" class="body-outline"/>
+                <text x="110" y="150" text-anchor="middle" class="diagram-label">Body</text>
+
+                <!-- Heart chambers -->
+                <circle cx="350" cy="100" r="25" fill="none" stroke="#ff6b9d" stroke-width="3" class="heart-chamber"/>
+                <text x="350" y="105" text-anchor="middle" class="chamber-label">RA</text>
+
+                <circle cx="350" cy="200" r="25" fill="none" stroke="#ff6b9d" stroke-width="3" class="heart-chamber"/>
+                <text x="350" y="205" text-anchor="middle" class="chamber-label">RV</text>
+
+                <!-- Lungs -->
+                <rect x="500" y="50" width="100" height="80" rx="10" fill="none" stroke="#87ceeb" stroke-width="3" class="lungs"/>
+                <text x="550" y="95" text-anchor="middle" class="diagram-label">Lungs</text>
+
+                <!-- Left chambers -->
+                <circle cx="350" cy="300" r="25" fill="none" stroke="#ffc0cb" stroke-width="3" class="heart-chamber"/>
+                <text x="350" y="305" text-anchor="middle" class="chamber-label">LA</text>
+
+                <circle cx="450" cy="200" r="25" fill="none" stroke="#ffc0cb" stroke-width="3" class="heart-chamber"/>
+                <text x="450" y="205" text-anchor="middle" class="chamber-label">LV</text>
+
+                <!-- Blood paths -->
+                <path d="M 170 140 Q 250 120 325 100" stroke="#4169e1" stroke-width="3" fill="none" class="blood-path"/>
+                <path d="M 350 125 L 350 175" stroke="#ff6b9d" stroke-width="2" fill="none"/>
+                <path d="M 375 190 Q 430 160 500 90" stroke="#4169e1" stroke-width="3" fill="none" class="blood-path"/>
+                <path d="M 550 130 Q 480 210 375 300" stroke="#dc143c" stroke-width="3" fill="none" class="blood-path"/>
+                <path d="M 350 325 L 425 225" stroke="#ffc0cb" stroke-width="2" fill="none"/>
+                <path d="M 425 175 Q 300 160 170 140" stroke="#dc143c" stroke-width="3" fill="none" class="blood-path"/>
+
+                <g id="bloodCells" class="blood-cells-simulation"></g>
+            </svg>
+
+            <div class="simulation-controls">
+                <button class="simulation-btn" onclick="startSimulation()">▶ Start Simulation</button>
+                <button class="simulation-btn" onclick="resetSimulation()">🔄 Reset</button>
+                <div class="simulation-legend">
+                    <span><span style="color: #dc143c;">━</span> Oxygen-Rich Blood</span>
+                    <span><span style="color: #4169e1;">━</span> Oxygen-Poor Blood</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Tips Section -->
+    <section id="health" class="section">
+        <div class="section-header">
+            <h2>Keep Your Heart Healthy</h2>
+            <p class="section-subtitle">Tips for maintaining a strong circulatory system</p>
+        </div>
+
+        <div class="health-tips-grid">
+            <div class="health-card">
+                <div class="health-icon">🏃</div>
+                <h3>Exercise Regularly</h3>
+                <p>Aim for 150 minutes of moderate aerobic activity per week. Exercise strengthens your heart and improves circulation.</p>
+            </div>
+
+            <div class="health-card">
+                <div class="health-icon">🥗</div>
+                <h3>Eat Healthy Foods</h3>
+                <p>Consume fruits, vegetables, whole grains, and lean proteins. Avoid excessive salt and saturated fats.</p>
+            </div>
+
+            <div class="health-card">
+                <div class="health-icon">💧</div>
+                <h3>Drink Water</h3>
+                <p>Stay hydrated by drinking 8-10 glasses of water daily. Proper hydration helps maintain blood volume.</p>
+            </div>
+
+            <div class="health-card">
+                <div class="health-icon">😴</div>
+                <h3>Get Enough Sleep</h3>
+                <p>Sleep 7-9 hours every night. Quality sleep helps regulate blood pressure and heart rate.</p>
+            </div>
+
+            <div class="health-card">
+                <div class="health-icon">🚭</div>
+                <h3>Avoid Smoking</h3>
+                <p>Smoking damages blood vessels and increases heart disease risk. Quitting is the best choice.</p>
+            </div>
+
+            <div class="health-card">
+                <div class="health-icon">🧘</div>
+                <h3>Manage Stress</h3>
+                <p>Practice meditation, yoga, or relaxation techniques. Chronic stress harms cardiovascular health.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun Facts Section -->
+    <section id="facts" class="section">
+        <div class="section-header">
+            <h2>Fun Facts</h2>
+            <p class="section-subtitle">Amazing facts about your circulatory system</p>
+        </div>
+
+        <div class="facts-container">
+            <div class="fact-card">
+                <span class="fact-number">1</span>
+                <h3>Heart Beats</h3>
+                <p>Your heart beats approximately <strong>100,000 times per day</strong> and pumps roughly 2,000 gallons of blood daily.</p>
+            </div>
+
+            <div class="fact-card">
+                <span class="fact-number">2</span>
+                <h3>Blood Volume</h3>
+                <p>Adults have approximately <strong>5 liters of blood</strong> (about 10-12 pints) circulating through their bodies.</p>
+            </div>
+
+            <div class="fact-card">
+                <span class="fact-number">3</span>
+                <h3>Blood Vessels</h3>
+                <p>If all blood vessels were laid end to end, they would stretch <strong>60,000-100,000 kilometers</strong> (37,000-62,000 miles).</p>
+            </div>
+
+            <div class="fact-card">
+                <span class="fact-number">4</span>
+                <h3>Continuous Pumping</h3>
+                <p>The heart pumps blood continuously throughout your entire life, <strong>24 hours a day</strong>, without ever resting.</p>
+            </div>
+
+            <div class="fact-card">
+                <span class="fact-number">5</span>
+                <h3>Blood Pressure</h3>
+                <p>Normal blood pressure is around <strong>120/80 mmHg</strong>. The number represents systolic/diastolic pressure.</p>
+            </div>
+
+            <div class="fact-card">
+                <span class="fact-number">6</span>
+                <h3>Red Blood Cells</h3>
+                <p>Your body produces approximately <strong>2.4 million red blood cells every second</strong> to replace those that die.</p>
+            </div>
+
+            <div class="fact-card">
+                <span class="fact-number">7</span>
+                <h3>Pulse Rate</h3>
+                <p>A normal resting heart rate is <strong>60-100 beats per minute</strong>, but athletes may have rates as low as 40 bpm.</p>
+            </div>
+
+            <div class="fact-card">
+                <span class="fact-number">8</span>
+                <h3>Unique Heartbeat</h3>
+                <p>Your heart's heartbeat signature is as unique as your fingerprints - each person's is <strong>completely individual</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="section">
+        <div class="section-header">
+            <h2>Test Your Knowledge</h2>
+            <p class="section-subtitle">Take this 10-question quiz to see how much you've learned about the circulatory system</p>
+        </div>
+
+        <div class="quiz-container">
+            <div id="quizContent"></div>
+        </div>
+    </section>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About This Project</h4>
+                <p>An interactive educational website about the circulatory system, designed to help students learn about the heart, blood vessels, and blood in an engaging way.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Educational Disclaimer</h4>
+                <p>This website is for educational purposes only. For medical advice, please consult a healthcare professional.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Image Credits</h4>
+                <p>Medical images are from Unsplash educational/medical databases. Used for learning purposes.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#" title="GitHub">GitHub</a>
+                    <a href="#" title="Email">Email</a>
+                    <a href="#" title="LinkedIn">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Circulatory System Explorer. Created with ❤️ for educational purposes.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

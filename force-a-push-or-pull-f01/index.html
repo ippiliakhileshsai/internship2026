@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Forces & Motion Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    /* Premium Jewel Tones */
+    --ruby: #E11D48;
+    --emerald: #10B981;
+    --sapphire: #2563EB;
+    --purple: #7C3AED;
+    --marigold: #F59E0B;
+    --dark-slate: #cbd4e9;
+    --slate-border: #020617;
+    --card-bg: #F8FAFC;
+    --white: #FFFFFF;
+    
+    /* Pop-Art Arcade Variables */
+    --shadow-default: 4px 4px 0 var(--slate-border);
+    --shadow-hover: 6px 6px 0 var(--slate-border);
+    --shadow-active: 1px 1px 0 var(--slate-border);
+    --border: 3px solid var(--slate-border);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  /* ════ GAMER LAB THEME ════ */
+  body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--dark-slate);
+    /* High-tech geometric grid */
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    color: var(--slate-border);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; letter-spacing: 0.5px; }
+
+  /* ════ TOP NAVIGATION ════ */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem; background: var(--dark-slate);
+    border-bottom: var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    position: sticky; top: 0; z-index: 100; margin-bottom: 2rem;
+  }
+  .nav-logo { font-size: 1.8rem; font-weight: 700; color: var(--marigold); text-shadow: 2px 2px 0 var(--slate-border); }
+  .nav-links { display: flex; gap: 1.2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 1rem; font-weight: 900; color: var(--white);
+    background: var(--sapphire); border: 2px solid var(--slate-border); padding: 8px 18px;
+    border-radius: 8px; transition: all 0.15s ease; box-shadow: var(--shadow-default);
+  }
+  .nav-links a:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-hover); background: var(--purple); }
+  .nav-links a:active { transform: translate(2px, 2px); box-shadow: var(--shadow-active); }
+  
+  @media(max-width: 768px) { .nav-links { display: none; } }
+
+  .page { max-width: 1200px; margin: 0 auto; padding: 1rem 1rem 8rem; display: grid; gap: 3rem; }
+
+  /* ════ DEFINITIONS & CARDS ════ */
+  .section-title { font-size: 2.2rem; color: var(--white); text-align: center; margin-bottom: 1.5rem; text-transform: uppercase; text-shadow: 3px 3px 0 var(--slate-border); letter-spacing: 1px; }
+  .learn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.8rem; }
+  
+  .premium-card {
+    background: var(--card-bg); border: var(--border); border-radius: 12px;
+    padding: 1.5rem; box-shadow: var(--shadow-default); text-align: center;
+    transition: all 0.2s ease;
+  }
+  .premium-card:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-hover); }
+  
+  .card-icon { font-size: 3.5rem; margin-bottom: 0.5rem; display: block; filter: drop-shadow(2px 2px 0 var(--slate-border)); }
+  .premium-card h3 { font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--slate-border); }
+  .premium-card p { font-size: 1.1rem; font-weight: 700; line-height: 1.5; color: #334155; }
+  
+  .text-sapphire { color: var(--sapphire); }
+  .text-emerald { color: var(--emerald); }
+
+  /* ════ MAIN LAB SIMULATOR ════ */
+  .lab-container { background: var(--card-bg); border: var(--border); border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow-default); }
+  .lab-title { font-size: 2rem; font-weight: 700; color: var(--slate-border); text-transform: uppercase; }
+  .lab-sub { font-size: 1.1rem; font-weight: 700; color: #64748B; margin-bottom: 1.5rem; }
+
+  .workspace { display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; }
+  @media(max-width:850px){ .workspace{grid-template-columns:1fr;} }
+
+  .canvas-container { position: relative; width: 100%; height: 380px; border-radius: 12px; border: var(--border); overflow: hidden; background: #87CEEB; }
+  canvas { width: 100%; height: 100%; display: block; cursor: crosshair; }
+
+  /* ════ METRICS SCOREBOARD ════ */
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin-top: 1.2rem; }
+  .metric { background: var(--dark-slate); border-radius: 8px; padding: 12px; color: var(--white); font-weight: 900; text-align: center; border: 2px solid var(--slate-border); box-shadow: 0 4px 0 var(--slate-border); }
+  .metric span { display: block; font-size: 0.8rem; color: var(--marigold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-family: 'Fredoka'; }
+  .metric strong { font-size: 1.3rem; }
+
+  /* ════ CONTROLS SIDEBAR ════ */
+  .ctrl { display: flex; flex-direction: column; gap: 1.2rem; background: var(--white); padding: 1.5rem; border-radius: 12px; border: var(--border); box-shadow: inset 0 0 0 2px rgba(0,0,0,0.05); }
+  .ctrl-hd { font-size: 1.1rem; font-family: 'Fredoka'; color: var(--slate-border); border-bottom: 3px dashed #CBD5E1; padding-bottom: 5px; text-transform: uppercase; }
+  
+  .surf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .sf { padding: 10px; font-size: 0.95rem; font-weight: 900; border: 2px solid var(--slate-border); background: var(--card-bg); border-radius: 8px; cursor: pointer; text-align: center; transition: all 0.1s; box-shadow: 0 3px 0 var(--slate-border); }
+  .sf:active { transform: translateY(3px); box-shadow: 0 0 0 var(--slate-border); }
+  .sf.on { background: var(--marigold); color: var(--slate-border); transform: translateY(3px); box-shadow: 0 0 0 var(--slate-border); }
+
+  .sl label { font-size: 1rem; font-weight: 900; display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .sl label em { font-style: normal; font-size: 1.2rem; }
+  .sl input[type=range] { width: 100%; height: 12px; border-radius: 10px; background: #E2E8F0; border: 2px solid var(--slate-border); outline: none; }
+  .sl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--sapphire); border: 2px solid var(--slate-border); cursor: pointer; }
+
+  /* Arcade Buttons (Pull - Reset - Push) */
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 5px; }
+  .btn { padding: 14px 5px; border: 3px solid var(--slate-border); border-radius: 8px; font-family: 'Fredoka'; font-weight: 900; font-size: 0.9rem; cursor: pointer; transition: all 0.1s; box-shadow: var(--shadow-default); text-transform: uppercase; }
+  .btn:active, .btn.on { transform: translate(3px, 3px); box-shadow: var(--shadow-active); }
+  
+  .btn-pull { background: var(--emerald); color: var(--white); }
+  .btn-push { background: var(--sapphire); color: var(--white); }
+  .btn-reset { background: var(--marigold); color: var(--slate-border); }
+
+  /* ════ REAL-WORLD GAMES (Examples) ════ */
+  .examples-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+  .ex-card { background: var(--card-bg); border: var(--border); padding: 1.5rem; border-radius: 12px; position: relative; text-align: center; cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow-default); }
+  .ex-card:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-hover); background: #FFFBEB; }
+  .ex-card.running { border-color: var(--ruby); background: #FFE4E6; transform: scale(1.02); box-shadow: 0 0 15px rgba(225, 29, 72, 0.4); }
+  
+  .ex-card .eico { font-size: 3.5rem; display: block; margin-bottom: 8px; filter: drop-shadow(2px 2px 0 var(--slate-border)); }
+  .ex-card h4 { font-size: 1.3rem; font-weight: 900; margin-bottom: 8px; color: var(--slate-border); }
+  .ex-card p { font-size: 0.95rem; font-weight: 700; color: #475569; margin-bottom: 15px; line-height: 1.4; }
+  
+  .sim-btn { width: 100%; padding: 10px; border: 2px solid var(--slate-border); border-radius: 6px; background: var(--white); color: var(--slate-border); font-family: 'Fredoka'; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 3px 0 var(--slate-border); transition: 0.1s; }
+  .sim-btn:active { transform: translateY(3px); box-shadow: 0 0 0 var(--slate-border); }
+  .ex-card:hover .sim-btn { background: var(--marigold); }
+
+  /* ════ KEY FACTS & FORMULAS ════ */
+  .facts-card { background: var(--purple); border: var(--border); border-radius: 16px; padding: 2rem; box-shadow: var(--shadow-default); color: var(--white); }
+  .facts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  @media(max-width:768px){.facts-grid{grid-template-columns:1fr}}
+  
+  .fact-box { background: var(--white); border: var(--border); border-radius: 12px; padding: 1.5rem; color: var(--slate-border); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.1); }
+  .fact-box h3 { font-size: 1.6rem; color: var(--ruby); margin-bottom: 0.8rem; }
+  .fact-box p { font-size: 1.1rem; font-weight: 700; line-height: 1.6; color: #334155; }
+  
+  .formula-badge { display: inline-block; background: var(--marigold); border: 3px solid var(--slate-border); padding: 12px 24px; font-size: 1.5rem; font-weight: 900; border-radius: 8px; margin-top: 1.5rem; box-shadow: 4px 4px 0 var(--slate-border); transform: rotate(-2deg); letter-spacing: 1px; color: var(--slate-border); }
+
+  /* ════ SORTING GAME ════ */
+  .sort-card { background: var(--sapphire); border: var(--border); border-radius: 16px; padding: 2rem; display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; box-shadow: var(--shadow-default); color: var(--white); }
+  @media(max-width:768px){.sort-card{grid-template-columns:1fr}}
+  
+  .drag-pool { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px; }
+  .di { padding: 10px 18px; background: var(--white); color: var(--slate-border); border: 3px solid var(--slate-border); border-radius: 8px; font-size: 1rem; font-weight: 900; cursor: grab; user-select: none; box-shadow: 0 4px 0 var(--slate-border); font-family: 'Fredoka'; transition: transform 0.1s; }
+  .di:active { cursor: grabbing; transform: scale(1.05); }
+  .di:hover { background: var(--card-bg); }
+  
+  .drop-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .dzone { background: rgba(0,0,0,0.2); border: 4px dashed rgba(255,255,255,0.5); border-radius: 12px; padding: 20px; min-height: 160px; text-align: center; }
+  .dzone h4 { font-size: 1.3rem; color: var(--marigold); margin-bottom: 8px; text-shadow: 1px 1px 0 var(--slate-border); }
+
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <span class="nav-logo">⚡ The Force Field</span>
+  <ul class="nav-links">
+    <li><a href="#what">What is it?</a></li>
+    <li><a href="#simulate">Playground</a></li>
+    <li><a href="#examples">Mini-Games</a></li>
+    <li><a href="#facts">Key Facts</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  
+  <section id="what">
+    <h2 class="section-title">🤔 What is a Force?</h2>
+    <div class="learn-grid">
+      <div class="premium-card">
+        <span class="card-icon">🤜</span>
+        <h3 class="text-sapphire">Push Force</h3>
+        <p>A push is a force that moves things <strong>AWAY</strong> from you! Like kicking a soccer ball, pushing a swing, or closing a drawer.</p>
+      </div>
+      <div class="premium-card">
+        <span class="card-icon">🧲</span>
+        <h3 class="text-emerald">Pull Force</h3>
+        <p>A pull is a force that brings things <strong>CLOSER</strong> to you! Like opening a fridge door, pulling a wagon, or playing tug-of-war.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="simulate" class="lab-container">
+    <div class="lab-title" id="labTitle">🎮 Free Play Playground</div>
+    <div class="lab-sub" id="labSub">Hold the Push or Pull buttons to accelerate! Watch the vector arrows calculate net force live.</div>
+
+    <div class="workspace">
+      <div>
+        <div class="canvas-container">
+          <canvas id="cv"></canvas>
+        </div>
+        
+        <div class="metrics">
+          <div class="metric" id="met1"><span>Net Force</span><strong id="mNet">0 N</strong></div>
+          <div class="metric" id="met2"><span>Speed</span><strong id="mSpd">0.0 m/s</strong></div>
+          <div class="metric" id="mAccC"><span>Acceleration</span><strong id="mAcc">0.00 m/s²</strong></div>
+          <div class="metric" id="met3"><span>Status</span><strong id="mSt" style="color:var(--marigold)">At Rest 😎</strong></div>
+        </div>
+      </div>
+
+      <div class="ctrl" id="ctrlPanel">
+        <div class="ctrl-hd">🌍 Ground Friction</div>
+        <div class="surf-grid">
+          <div class="sf on" id="sf-ice"   onclick="setSurf('ice',0,'🧊 Ice')">🧊 Ice (Fast!)</div>
+          <div class="sf"    id="sf-floor" onclick="setSurf('floor',.04,'🪵 Wood')">🪵 Wood Floor</div>
+          <div class="sf"    id="sf-road"  onclick="setSurf('road',.15,'🛣 Road')">🛣 Bumpy Road</div>
+          <div class="sf"    id="sf-grass" onclick="setSurf('grass',.35,'🌿 Grass')">🌿 Sticky Grass</div>
+        </div>
+
+        <div class="ctrl-hd">⚙️ Configure Mass & Power</div>
+        <div class="sl">
+          <label>Left Pull Power: <em id="vL" style="color:var(--emerald)">0 N</em></label>
+          <input type="range" id="iL" min="0" max="250" value="0" oninput="fLeft=+this.value;document.getElementById('vL').textContent=fLeft+' N'">
+        </div>
+        <div class="sl">
+          <label>Right Push Power: <em id="vR" style="color:var(--sapphire)">150 N</em></label>
+          <input type="range" id="iR" min="0" max="250" value="150" oninput="fRight=+this.value;document.getElementById('vR').textContent=fRight+' N'">
+        </div>
+        <div class="sl">
+          <label>Box Mass: <em id="vM" style="color:var(--ruby)">10 kg</em></label>
+          <input type="range" id="iMass" min="5" max="45" value="10" oninput="mass=+this.value;document.getElementById('vM').textContent=mass+' kg';">
+        </div>
+
+        <div class="ctrl-hd">🕹️ ACTION CONTROLS (Hold)</div>
+        <div class="btn-row">
+          <button class="btn btn-pull" id="btnL">← PULL</button>
+          <button class="btn btn-reset" onclick="doReset()">🔄 RESET</button>
+          <button class="btn btn-push" id="btnR">PUSH →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="examples">
+    <h2 class="section-title">🌟 Interactive Mini-Games</h2>
+    <div class="examples-grid">
+
+      <div class="ex-card running" id="xc-sandbox" onclick="doReset()">
+        <span class="eico">🧱</span>
+        <h4>Free Play Sandbox</h4>
+        <p>Return to the main simulator controls and experiment with friction and mass!</p>
+        <button class="sim-btn">Play Now!</button>
+      </div>
+
+      <div class="ex-card" id="xc-door" onclick="startRealLifeMode('door')">
+        <span class="eico">🚪</span>
+        <h4>Opening a Door</h4>
+        <p>You push the door away from you to open it outward. Swipe fast to accelerate!</p>
+        <button class="sim-btn">Play Now!</button>
+      </div>
+
+      <div class="ex-card" id="xc-kick" onclick="startRealLifeMode('kick')">
+        <span class="eico">⚽</span>
+        <h4>Kicking a Ball</h4>
+        <p>Your foot pushes the ball forward with a sudden, powerful impulse force.</p>
+        <button class="sim-btn">Play Now!</button>
+      </div>
+
+      <div class="ex-card" id="xc-cart" onclick="startRealLifeMode('cart')">
+        <span class="eico">🛒</span>
+        <h4>Pushing a Cart</h4>
+        <p>You push a cart forward. Watch how extra mass (heavy bricks) resists acceleration.</p>
+        <button class="sim-btn">Play Now!</button>
+      </div>
+
+      <div class="ex-card" id="xc-magnet" onclick="startRealLifeMode('magnet')">
+        <span class="eico">🧲</span>
+        <h4>Magnet & Iron</h4>
+        <p>A magnet pulls iron objects toward it from a distance. Non-contact force!</p>
+        <button class="sim-btn">Play Now!</button>
+      </div>
+
+      <div class="ex-card" id="xc-gravity" onclick="startRealLifeMode('gravity')">
+        <span class="eico">🌍</span>
+        <h4>Gravity Drop</h4>
+        <p>Earth constantly pulls objects toward its center. Try dropping it on the Moon!</p>
+        <button class="sim-btn">Play Now!</button>
+      </div>
+
+      <div class="ex-card" id="xc-bow" onclick="startRealLifeMode('bow')">
+        <span class="eico">🏹</span>
+        <h4>Pulling a Bow</h4>
+        <p>You pull the bowstring back, storing tension energy to launch an arrow.</p>
+        <button class="sim-btn">Play Now!</button>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="sort-card">
+    <div>
+      <h2 style="font-size:2rem; margin-bottom: 0.5rem; text-shadow: 2px 2px 0 var(--slate-border);">🧩 Sort the Forces!</h2>
+      <p style="font-size:1.1rem; font-weight:700; line-height: 1.5; opacity: 0.9;">Drag the force chips into the correct drop zone! Is it a "Contact Force" where things physically touch? Or a "Non-Contact Force" that works like invisible magic?</p>
+      <div class="drag-pool" id="dragPool">
+        <div class="di" draggable="true" id="df-push">Muscle Push 🤜</div>
+        <div class="di" draggable="true" id="df-fric">Friction 🛹</div>
+        <div class="di" draggable="true" id="df-pull">Rope Pull 🪢</div>
+        <div class="di" draggable="true" id="df-grav">Gravity Drop 🍎</div>
+        <div class="di" draggable="true" id="df-mag">Magnetism 🧲</div>
+      </div>
+    </div>
+    <div class="drop-cols">
+      <div class="dzone" ondragover="event.preventDefault()" ondrop="doDrop(event,'contact')">
+        <h4>👋 CONTACT FORCES</h4>
+        <p style="font-size: 0.85rem; font-weight:bold; color: var(--card-bg);">Things have to touch!</p>
+      </div>
+      <div class="dzone" ondragover="event.preventDefault()" ondrop="doDrop(event,'noncontact')">
+        <h4>👻 NON-CONTACT</h4>
+        <p style="font-size: 0.85rem; font-weight:bold; color: var(--card-bg);">Forces from a distance!</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts-card" id="facts">
+    <h2 class="section-title">🧠 Key Facts & Secret Formulas</h2>
+    <div class="facts-grid">
+      <div class="fact-box">
+        <h3>⚖️ Newton's 1st Law: The "Lazy" Rule!</h3>
+        <p>Objects are inherently lazy! An object sitting still wants to stay still forever. An object moving fast wants to keep moving fast forever... <strong>unless a force pushes or pulls it!</strong> Both push and pull forces break this state of rest.</p>
+      </div>
+      <div class="fact-box">
+        <h3>🚀 Newton's 2nd Law: The Power Formula!</h3>
+        <p>The heavier an object is (its Mass), the harder you have to push it (Force) to make it speed up (Acceleration). This creates the most famous rule in physics:</p>
+        <div style="text-align: center;">
+          <div class="formula-badge">Force = Mass × Acceleration</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// Rounded Rectangle Helper for Canvas
+function rr(ctx,x,y,w,h,r){
+  r=Math.min(r,w/2,h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+// ─── CANVAS SETUP ───
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+const DPR = window.devicePixelRatio||1;
+let CW=600, CH=380, GY=300;
+
+function resize(){
+  CW = cv.parentElement.clientWidth;
+  cv.style.width=CW+'px'; cv.style.height=CH+'px';
+  cv.width=CW*DPR; cv.height=CH*DPR;
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  GY = Math.round(CH*0.8);
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ─── GAME STATE ENGINE ───
+let currentMode = 'sandbox'; 
+let posX=CW/2, velX=0, accX=0, posY=0, velY=0;
+let mass=10, frCoeff=0, surfName='🧊 Ice';
+let isLeftOn=false, isRightOn=false;
+let fLeft=0, fRight=150;
+let walkPh=0;
+let emoji='📦';
+let particleTrail = []; // Vector Particle Trail Array
+
+// Mini-game variables
+let isDragging = false;
+let dragStartX = 0, dragStartY = 0;
+let currentDragX = 0, currentDragY = 0;
+let doorAngle = 0, doorVel = 0;
+let bowPulledDist = 0, arrowFired = false, arrowVelX = 0, arrowPosX = 0;
+let cartType = 'empty'; 
+let gravityTarget = 'earth'; 
+let impulseKickReady = true, kickImpactActive = false;
+
+// ─── MOUSE / TOUCH CONTROLS ───
+function getMousePos(e) {
+  const rect = cv.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  return { x: clientX - rect.left, y: clientY - rect.top };
+}
+
+function handleStart(e) {
+  const pos = getMousePos(e);
+  isDragging = true;
+  dragStartX = pos.x; dragStartY = pos.y;
+  currentDragX = pos.x; currentDragY = pos.y;
+
+  if (currentMode === 'bow' && !arrowFired) {
+    let stringX = CW * 0.3 - bowPulledDist;
+    if (Math.abs(pos.x - stringX) < 40 && Math.abs(pos.y - GY + 60) < 60) {
+      isDragging = true;
+    } else { isDragging = false; }
+  }
+}
+
+function handleMove(e) {
+  if (!isDragging) return;
+  e.preventDefault();
+  const pos = getMousePos(e);
+  currentDragX = pos.x; currentDragY = pos.y;
+
+  if (currentMode === 'door') {
+    let diff = dragStartX - currentDragX;
+    doorVel = Math.max(0, diff * 0.005);
+  }
+  if (currentMode === 'bow' && !arrowFired) {
+    let pull = dragStartX - currentDragX;
+    bowPulledDist = Math.max(0, Math.min(120, pull));
+  }
+}
+
+function handleEnd() {
+  if (!isDragging) return;
+  isDragging = false;
+
+  if (currentMode === 'kick' && impulseKickReady) {
+    let swipeDist = dragStartX - currentDragX;
+    if (swipeDist > 40) {
+      kickImpactActive = true;
+      impulseKickReady = false;
+    }
+  }
+  if (currentMode === 'bow' && !arrowFired && bowPulledDist > 10) {
+    arrowFired = true;
+    let forceProduced = bowPulledDist * 2.5; 
+    let calcMass = 4;
+    arrowVelX = (forceProduced / calcMass) * 0.6;
+    arrowPosX = CW * 0.3;
+  }
+}
+
+cv.addEventListener('mousedown', handleStart);
+cv.addEventListener('mousemove', handleMove);
+window.addEventListener('mouseup', handleEnd);
+cv.addEventListener('touchstart', handleStart, {passive:false});
+cv.addEventListener('touchmove', handleMove, {passive:false});
+window.addEventListener('touchend', handleEnd);
+
+// ─── BUTTONS & SLIDERS ───
+const btnL=document.getElementById('btnL');
+const btnR=document.getElementById('btnR');
+
+function setL(v){ isLeftOn=v; btnL.classList.toggle('on',v); }
+function setR(v){ isRightOn=v; btnR.classList.toggle('on',v); }
+
+btnL.addEventListener('mousedown', function(e){e.preventDefault(); if(currentMode==='sandbox') setL(true)});
+btnL.addEventListener('mouseup',   function(e){e.preventDefault(); setL(false)});
+btnL.addEventListener('mouseleave',function(e){setL(false)});
+btnL.addEventListener('touchstart',function(e){e.preventDefault(); if(currentMode==='sandbox') setL(true)});
+btnL.addEventListener('touchend',  function(e){e.preventDefault(); setL(false)});
+
+btnR.addEventListener('mousedown', function(e){e.preventDefault(); if(currentMode==='sandbox') setR(true)});
+btnR.addEventListener('mouseup',   function(e){e.preventDefault(); setR(false)});
+btnR.addEventListener('mouseleave',function(e){setR(false)});
+btnR.addEventListener('touchstart',function(e){e.preventDefault(); if(currentMode==='sandbox') setR(true)});
+btnR.addEventListener('touchend',  function(e){e.preventDefault(); setR(false)});
+
+function setSurf(key,coeff,name){
+  frCoeff=coeff; surfName=name;
+  ['ice','floor','road','grass'].forEach(k=>{
+    var el=document.getElementById('sf-'+k);
+    if(el) el.classList.toggle('on', k===key);
+  });
+}
+
+// ─── RESET LOGIC ───
+function doReset(){
+  currentMode = 'sandbox';
+  posX=CW/2; velX=0; accX=0; posY=0; velY=0;
+  mass=10; fLeft=0; fRight=150; emoji='📦';
+  isDragging = false; doorAngle = 0; doorVel = 0;
+  bowPulledDist = 0; arrowFired = false;
+  particleTrail = [];
+  
+  // Reset UI sliders
+  document.getElementById('iL').value = 0;
+  document.getElementById('iR').value = 150;
+  document.getElementById('iMass').value = 10;
+  document.getElementById('vL').textContent = "0 N";
+  document.getElementById('vR').textContent = "150 N";
+  document.getElementById('vM').textContent = "10 kg";
+  
+  document.getElementById('labTitle').textContent = "🎮 Free Play Playground";
+  document.getElementById('labSub').textContent = "Hold the Push or Pull buttons to accelerate! Watch the vector arrows calculate net force live.";
+  document.getElementById('ctrlPanel').style.opacity = "1";
+  document.getElementById('ctrlPanel').style.pointerEvents = "auto";
+  
+  document.querySelectorAll('.ex-card.running').forEach(c=>c.classList.remove('running'));
+  document.getElementById('xc-sandbox').classList.add('running');
+  
+  document.getElementById('met1').innerHTML = `<span>Net Force</span><strong id="mNet">0 N</strong>`;
+  document.getElementById('met2').innerHTML = `<span>Speed</span><strong id="mSpd">0.0 m/s</strong>`;
+  document.getElementById('met3').innerHTML = `<span>Status</span><strong id="mSt" style="color:var(--marigold)">At Rest 😎</strong>`;
+}
+
+// ─── MINI GAMES STARTER ───
+function startRealLifeMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.ex-card.running').forEach(c=>c.classList.remove('running'));
+  document.getElementById('xc-'+mode).classList.add('running');
+  document.getElementById('ctrlPanel').style.opacity = "0.3";
+  document.getElementById('ctrlPanel').style.pointerEvents = "none";
+
+  if(mode === 'door') {
+    document.getElementById('labTitle').textContent = "🚪 Slam the Door!";
+    document.getElementById('labSub').textContent = "Click on the brass handle and swipe LEFT as fast as you can to apply push force!";
+  }
+  if(mode === 'kick') {
+    document.getElementById('labTitle').textContent = "⚽ Super Soccer Kick!";
+    document.getElementById('labSub').textContent = "Swipe left over the grass to swing the foot and apply impulse force!";
+    impulseKickReady = true; kickImpactActive = false; posX = CW * 0.7; velX = 0;
+  }
+  if(mode === 'cart') {
+    document.getElementById('labTitle').textContent = "🛒 Massive Cart Lab";
+    document.getElementById('labSub').textContent = "Click inside the screen and drag to push the cart against friction!";
+    posX = 100; velX = 0; cartType = 'empty';
+    document.getElementById('met1').innerHTML = `<span>Cart Mass</span><strong id="mCartType" style="color:var(--sapphire);cursor:pointer;" onclick="toggleCartMass()">🛒 Empty (Light)</strong>`;
+  }
+  if(mode === 'magnet') {
+    document.getElementById('labTitle').textContent = "🧲 Magnetic Field Lab";
+    document.getElementById('labSub').textContent = "Drag the big magnet closer to the pins. Experience non-contact force!";
+    posX = 120;
+  }
+  if(mode === 'gravity') {
+    document.getElementById('labTitle').textContent = "🌍 Non-Contact Gravity Chamber";
+    document.getElementById('labSub').textContent = "Drag the apple up and let it go. Watch gravitational pull accelerate it!";
+    posY = 40; velY = 0; gravityTarget = 'earth';
+    document.getElementById('met1').innerHTML = `<span>Gravity Field</span><strong id="mGravType" style="color:var(--emerald);cursor:pointer;" onclick="toggleGravityEnv()">🌍 Earth (Strong)</strong>`;
+  }
+  if(mode === 'bow') {
+    document.getElementById('labTitle').textContent = "🏹 Elastic Tension Range";
+    document.getElementById('labSub').textContent = "Click the string, drag it to the left to build pull power, and release to shoot!";
+    bowPulledDist = 0; arrowFired = false; arrowVelX = 0; arrowPosX = CW * 0.3;
+    document.getElementById('met1').innerHTML = `<span>Tension</span><strong id="mBowTension">0 N</strong>`;
+    document.getElementById('met2').innerHTML = `<span>Potential Energy</span><strong id="mBowEnergy">0 J</strong>`;
+  }
+}
+
+function toggleCartMass() {
+  if(cartType === 'empty') {
+    cartType = 'heavy';
+    document.getElementById('mCartType').textContent = "🧱 Bricks (Heavy!)";
+    document.getElementById('mCartType').style.color = "var(--ruby)";
+  } else {
+    cartType = 'empty';
+    document.getElementById('mCartType').textContent = "🛒 Empty (Light)";
+    document.getElementById('mCartType').style.color = "var(--sapphire)";
+  }
+  posX = 100; velX = 0;
+}
+
+function toggleGravityEnv() {
+  if(gravityTarget === 'earth') {
+    gravityTarget = 'moon';
+    document.getElementById('mGravType').textContent = "🌙 Moon (Weak)";
+    document.getElementById('mGravType').style.color = "var(--purple)";
+  } else {
+    gravityTarget = 'earth';
+    document.getElementById('mGravType').textContent = "🌍 Earth (Strong)";
+    document.getElementById('mGravType').style.color = "var(--emerald)";
+  }
+  posY = 40; velY = 0;
+}
+
+// ─── PHYSICS CALCULATOR ───
+function physStep(){
+  if(currentMode === 'sandbox') {
+    var fApp=(isRightOn?fRight:0)-(isLeftOn?fLeft:0);
+    var normalF=mass*9.8;
+    var frMax=normalF*frCoeff;
+    var fr=0;
+    
+    // Friction calculation
+    if(velX>0.01) fr=-frMax;
+    else if(velX<-0.01) fr=frMax;
+    else fr=(Math.abs(fApp)<=frMax)?-fApp:-Math.sign(fApp)*frMax;
+    
+    var fNet=fApp+fr;
+    accX=fNet/mass;
+    velX+=accX*0.04; // Discrete time step
+    
+    if(!isRightOn&&!isLeftOn&&Math.abs(velX)<0.07) velX=0;
+    posX+=velX;
+    
+    // Box bounds and elastic bounce
+    var sz=40+(mass*1.5);
+    if(posX<sz/2){posX=sz/2;velX=Math.abs(velX)*.3;} 
+    if(posX>CW-sz/2){posX=CW-sz/2;velX=-Math.abs(velX)*.3;}
+    if(isRightOn||isLeftOn) walkPh+=0.3; else walkPh=0;
+
+    // Vector Particle Tracking Trail
+    if((isRightOn && fRight > 0) || (isLeftOn && fLeft > 0)) {
+        particleTrail.push({x: posX, y: GY - sz/2, t: 1, push: isRightOn});
+    }
+    particleTrail.forEach(p => p.t -= 0.05);
+    particleTrail = particleTrail.filter(p => p.t > 0);
+
+    // Update UI Metrics
+    document.getElementById('mNet').textContent=Math.round(fNet)+' N';
+    document.getElementById('mSpd').textContent=(Math.abs(velX)*2).toFixed(1)+' m/s';
+    document.getElementById('mAcc').textContent=Math.abs(accX).toFixed(2)+' m/s²';
+    var st=document.getElementById('mSt');
+    if(Math.abs(velX)<0.02&&!isRightOn&&!isLeftOn){st.textContent='At Rest 😎';st.style.color='var(--marigold)';}
+    else {st.textContent='Moving! 🏃';st.style.color='var(--emerald)';}
+    return {fApp, fr, fNet};
+  }
+  
+  // Custom mode physics processing
+  if(currentMode === 'door') {
+    doorAngle += doorVel;
+    doorVel *= 0.95; 
+    document.getElementById('mSpd').textContent = (doorVel*100).toFixed(0) + ' rad/s';
+    document.getElementById('mSt').textContent = doorVel > 0.01 ? 'Swinging! 🌪️' : 'Closed 🤫';
+  }
+  
+  if(currentMode === 'kick') {
+    if(kickImpactActive) { velX = -18; kickImpactActive = false; }
+    posX += velX;
+    velX *= 0.96; 
+    document.getElementById('mSpd').textContent = Math.abs(velX).toFixed(1) + ' m/s';
+    document.getElementById('mSt').textContent = Math.abs(velX) > 0.1 ? 'Zooming! 🚀' : 'Stopped 🛑';
+    if(Math.abs(velX) <= 0.1 && !impulseKickReady) {
+      setTimeout(() => { impulseKickReady = true; posX = CW * 0.7; velX = 0; }, 1000);
+    }
+  }
+
+  if(currentMode === 'cart') {
+    if(isDragging) {
+      let applied = (currentDragX - dragStartX) * 0.05;
+      velX = applied;
+    } else { velX *= 0.9; }
+    posX += velX;
+    if(posX < 50) posX = 50;
+    if(posX > CW - 80) posX = CW - 80;
+    document.getElementById('mSpd').textContent = Math.abs(velX).toFixed(1) + ' m/s';
+    document.getElementById('mSt').textContent = Math.abs(velX) > 0.1 ? 'Rolling 💨' : 'Parked 🅿️';
+  }
+
+  if(currentMode === 'magnet') {
+    if(isDragging) {
+      posX = currentDragX;
+      if(posX < 50) posX = 50;
+      if(posX > CW - 150) posX = CW - 150;
+    }
+    let nailX = CW * 0.75;
+    let distance = Math.abs(nailX - posX);
+    if(distance < 130) {
+      let snapSpeed = (130 - distance) * 0.15;
+      nailX -= snapSpeed;
+    }
+    document.getElementById('mSpd').textContent = isDragging ? 'Dragging' : 'Static';
+    document.getElementById('mSt').textContent = distance < 130 ? 'PULLING! ⚡' : 'Too Far 🥱';
+  }
+
+  if(currentMode === 'gravity') {
+    let gravityConstant = (gravityTarget === 'earth') ? 0.9 : 0.15;
+    if(isDragging) {
+      posY = currentDragY; velY = 0;
+      if(posY < 30) posY = 30;
+      if(posY > GY - 40) posY = GY - 40;
+    } else {
+      if(posY < GY - 40) {
+        velY += gravityConstant;
+        posY += velY;
+      } else {
+        posY = GY - 40;
+        if(velY > 2) velY = -velY * 0.4; // Bounce
+        else velY = 0;
+      }
+    }
+    document.getElementById('mSpd').textContent = Math.abs(velY).toFixed(1) + ' m/s';
+    document.getElementById('mSt').textContent = posY < GY - 45 ? 'Free Falling! 😱' : 'Grounded';
+  }
+
+  if(currentMode === 'bow') {
+    if(!arrowFired) {
+      document.getElementById('mBowTension').textContent = Math.round(bowPulledDist * 2.5) + ' N';
+      document.getElementById('mBowEnergy').textContent = Math.round(0.5 * bowPulledDist * bowPulledDist * 0.05) + ' J';
+    } else {
+      arrowPosX += arrowVelX;
+      if(arrowPosX > CW + 50) {
+        setTimeout(() => { arrowFired = false; bowPulledDist = 0; arrowPosX = CW * 0.3; }, 800);
+      }
+    }
+  }
+  return {fApp:0, fr:0, fNet:0};
+}
+
+// ─── DRAWING THE SCREEN ───
+function drawScene(fApp,fr,fNet){
+  ctx.clearRect(0,0,CW,CH);
+  
+  if(currentMode === 'sandbox') {
+    // Sky gradient
+    var sky=ctx.createLinearGradient(0,0,0,GY);
+    sky.addColorStop(0,'#E0F2FE'); sky.addColorStop(1,'#FFFFFF');
+    ctx.fillStyle=sky; ctx.fillRect(0,0,CW,GY);
+    
+    // Background Reference Grid
+    ctx.strokeStyle='rgba(15, 23, 42, 0.05)'; ctx.lineWidth=2;
+    for(var x=0;x<CW;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,GY);ctx.stroke();}
+    
+    // Floor Textures
+    var gcols={ice:'#BAE6FD',floor:'#FCD34D',road:'#94A3B8',grass:'#34D399'};
+    ctx.fillStyle=gcols[frCoeff===0?'ice':frCoeff<.1?'floor':frCoeff<.2?'road':'grass']; 
+    ctx.fillRect(0,GY,CW,CH-GY);
+    ctx.strokeStyle="#020617"; ctx.lineWidth=4;
+    ctx.beginPath(); ctx.moveTo(0,GY); ctx.lineTo(CW,GY); ctx.stroke();
+
+    var sz=40+(mass*1.5); var bx=posX-sz/2, by=GY-sz;
+    
+    // Shadow
+    ctx.fillStyle='rgba(0,0,0,0.15)'; ctx.beginPath(); ctx.ellipse(posX,GY+5,sz*0.6,6,0,0,Math.PI*2); ctx.fill();
+
+    // Render Trails Behind Box
+    particleTrail.forEach(p => {
+      ctx.globalAlpha = p.t * 0.2;
+      ctx.fillStyle = p.push ? '#2563EB' : '#10B981'; // Sapphire / Emerald
+      ctx.beginPath(); ctx.arc(p.x, p.y, sz / 3, 0, Math.PI * 2); ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    
+    drawBoy(bx,by,sz,sz);
+    
+    // The Main Box
+    ctx.fillStyle=fApp===0?'#94A3B8':(Math.abs(fNet)<1?'#F59E0B':(fApp>0?'#2563EB':'#10B981'));
+    ctx.strokeStyle="#020617"; ctx.lineWidth=4;
+    rr(ctx,bx,by,sz,sz,8); ctx.fill(); ctx.stroke();
+    
+    ctx.font=Math.max(20,sz*0.5)+'px Arial'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(emoji,posX,by+sz/2);
+    ctx.fillStyle='#FFF'; ctx.font='900 14px "Fredoka",Arial'; ctx.textAlign='center';
+    ctx.fillText(mass+' kg',posX,by-10);
+
+    // Vector Force Arrows Logic
+    var vecMid=by+sz*.5; var vecFr=by+sz*.85; var vecNet=by+sz*.15;
+    if(isRightOn&&fRight>0) drawArrow(bx+sz, vecMid, fRight*.4, '#2563EB', 'PUSH '+fRight+' N', true); // Blue
+    if(isLeftOn&&fLeft>0)   drawArrow(bx,    vecMid, -fLeft*.4, '#10B981', 'PULL '+fLeft+' N', true); // Green
+    if(Math.abs(fr)>1){
+      var fs=fr>0?bx:bx+sz;
+      drawArrow(fs, vecFr, fr*.4, '#E11D48', 'Friction', false); // Red
+    }
+    // Net Force Tracker
+    if(Math.abs(fNet)>2) drawArrow(posX, vecNet, fNet*.45, '#020617', 'NET '+Math.round(Math.abs(fNet))+' N', true);
+    return;
+  }
+  
+  if(currentMode === 'door') {
+    ctx.fillStyle = "#F8FAFC"; ctx.fillRect(0,0,CW,CH);
+    ctx.strokeStyle = "#020617"; ctx.lineWidth = 12;
+    ctx.strokeRect(CW*0.3, 40, CW*0.4, CH-80); 
+    
+    ctx.save();
+    ctx.translate(CW*0.3, 40);
+    let openWidth = (CW*0.4) * Math.cos(doorAngle);
+    ctx.fillStyle = "#FCD34D"; ctx.fillRect(0, 0, openWidth, CH-80);
+    ctx.strokeStyle = "#020617"; ctx.lineWidth = 6; ctx.strokeRect(0, 0, openWidth, CH-80);
+    
+    // Handle
+    ctx.fillStyle = "#B45309"; ctx.strokeStyle="#020617"; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.arc(openWidth - 20, (CH-80)/2, 12, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.restore();
+    
+    ctx.fillStyle = "#020617"; ctx.font = '900 18px "Fredoka"'; ctx.textAlign="center";
+    ctx.fillText("Grab Handle & SWIPE LEFT! ⬅️", CW/2, CH - 20);
+    return;
+  }
+  
+  if(currentMode === 'kick') {
+    ctx.fillStyle = "#34D399"; ctx.fillRect(0,0,CW,CH); 
+    ctx.strokeStyle = "white"; ctx.lineWidth = 6; ctx.strokeRect(20,20,CW-40,CH-40);
+    
+    ctx.fillStyle = "#FCD34D";
+    let footX = CW * 0.85;
+    if(isDragging) footX -= (dragStartX - currentDragX)*0.6;
+    ctx.font = "60px Arial"; ctx.fillText("👟", footX, GY - 40);
+    ctx.font = "50px Arial"; ctx.fillText("⚽", posX, GY - 20);
+    return;
+  }
+
+  if(currentMode === 'cart') {
+    ctx.fillStyle = "#E0F2FE"; ctx.fillRect(0,0,CW,CH);
+    ctx.fillStyle = "#94A3B8"; ctx.fillRect(0, GY, CW, CH-GY); 
+    ctx.strokeStyle="#020617"; ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(0,GY); ctx.lineTo(CW,GY); ctx.stroke();
+    
+    ctx.font = "60px Arial";
+    ctx.fillText("🏃", posX - 50, GY - 10);
+    ctx.fillText("🛒", posX, GY - 10);
+    
+    if(cartType === 'heavy') {
+      ctx.fillStyle = "#E11D48"; ctx.strokeStyle="#020617"; ctx.lineWidth=3;
+      ctx.fillRect(posX + 15, GY - 55, 35, 25); 
+      ctx.strokeRect(posX + 15, GY - 55, 35, 25);
+    }
+    return;
+  }
+
+  if(currentMode === 'magnet') {
+    ctx.fillStyle = "#FEF3C7"; ctx.fillRect(0,0,CW,CH);
+    ctx.font = "80px Arial"; ctx.fillText("🧲", posX, CH/2 + 20);
+    
+    let targetNailX = CW * 0.8;
+    let distance = Math.abs(targetNailX - posX);
+    if(distance < 130) {
+      targetNailX = posX + 65;
+      ctx.strokeStyle = "#2563EB"; ctx.lineWidth = 4; ctx.setLineDash([10, 10]);
+      ctx.beginPath(); ctx.moveTo(posX + 60, CH/2); ctx.lineTo(CW*0.8, CH/2); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    ctx.font = "50px Arial"; ctx.fillText("📌", targetNailX, CH/2 + 10);
+    return;
+  }
+
+  if(currentMode === 'gravity') {
+    ctx.fillStyle = (gravityTarget === 'earth') ? "#E0F2FE" : "#1E293B"; 
+    ctx.fillRect(0,0,CW,CH);
+    ctx.fillStyle = (gravityTarget === 'earth') ? "#34D399" : "#64748B"; ctx.fillRect(0, GY, CW, CH-GY); 
+    ctx.strokeStyle="#020617"; ctx.lineWidth=4; ctx.beginPath(); ctx.moveTo(0,GY); ctx.lineTo(CW,GY); ctx.stroke();
+
+    ctx.font = "60px Arial"; ctx.fillText("🍎", CW/2 - 30, posY);
+    
+    ctx.fillStyle = (gravityTarget === 'earth') ? "#020617" : "#FFF";
+    ctx.font = '900 20px "Fredoka"'; ctx.textAlign="center";
+    ctx.fillText(gravityTarget==='earth'?"🌍 Earth: Fast Gravity!":"🌙 Moon: Slow Gravity!", CW/2, 40);
+    return;
+  }
+
+  if(currentMode === 'bow') {
+    ctx.fillStyle = "#F8FAFC"; ctx.fillRect(0,0,CW,CH);
+    let centerX = CW * 0.3; let centerY = GY - 50;
+    
+    // Target
+    ctx.fillStyle = "#E11D48"; ctx.beginPath(); ctx.arc(CW - 80, centerY, 50, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "white"; ctx.beginPath(); ctx.arc(CW - 80, centerY, 30, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#F59E0B"; ctx.beginPath(); ctx.arc(CW - 80, centerY, 15, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    
+    // Bow
+    ctx.strokeStyle = "#64748B"; ctx.lineWidth = 10; ctx.lineCap="round";
+    ctx.beginPath(); ctx.arc(centerX, centerY, 80, -Math.PI*0.5, Math.PI*0.5); ctx.stroke();
+    
+    let stringX = centerX - bowPulledDist;
+    ctx.strokeStyle = "#020617"; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(centerX, centerY - 80); ctx.lineTo(stringX, centerY); ctx.lineTo(centerX, centerY + 80); ctx.stroke();
+    
+    // Arrow
+    ctx.save();
+    if(!arrowFired) {
+      ctx.translate(stringX, centerY);
+    } else {
+      ctx.translate(arrowPosX, centerY);
+    }
+    ctx.fillStyle = "#020617"; ctx.fillRect(0, -4, 60, 8); 
+    ctx.fillStyle = "#E11D48"; ctx.beginPath(); ctx.moveTo(60, -10); ctx.lineTo(80, 0); ctx.lineTo(60, 10); ctx.fill();
+    ctx.restore();
+    return;
+  }
+}
+
+// ─── DRAWING TOOLS ───
+function drawArrow(x1,y1,len,color,label,above){
+  if(Math.abs(len)<5) return;
+  var arrowLength = Math.min(Math.abs(len), 130); // Cap drawing length so it fits canvas
+  var x2 = x1 + Math.sign(len) * arrowLength; 
+  var d = Math.sign(len), hs = 10;
+
+  ctx.save();
+  // Stroke shadow mapping
+  ctx.strokeStyle="#020617"; ctx.lineWidth=10; ctx.lineCap='round';
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y1); ctx.stroke();
+  ctx.strokeStyle=color; ctx.lineWidth=6; 
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y1); ctx.stroke();
+  
+  // Arrowhead mapping
+  ctx.fillStyle=color; ctx.strokeStyle="#020617"; ctx.lineWidth=3;
+  ctx.beginPath(); ctx.moveTo(x2+d*4,y1); ctx.lineTo(x2-d*hs,y1-hs*.8); ctx.lineTo(x2-d*hs,y1+hs*.8); ctx.closePath(); ctx.fill(); ctx.stroke();
+  
+  ctx.font='900 13px "Fredoka",Arial';
+  ctx.textAlign=len>0?'left':'right';
+  ctx.fillStyle="#020617";
+  ctx.fillText(label, x2+d*10, above?y1-12:y1+22);
+  ctx.restore();
+}
+
+function drawBoy(bx,by,bw,bh){
+  var pushing=isRightOn&&fRight>0; var pulling=isLeftOn&&fLeft>0; if(!pushing&&!pulling) return;
+  var dir=pushing?1:-1; var H=100, hR=18; var bodyX=pushing?bx-40:bx+bw+40;
+  var hipY=GY-H*.4, shlY=GY-H*.8, hdY=GY-H+hR; var handX=pushing?bx-5:bx+bw+5; var handY=by+bh*.5; var lg=Math.sin(walkPh)*15;
+  
+  ctx.save(); ctx.lineCap='round';
+  // Feet
+  ctx.fillStyle='#E11D48'; ctx.beginPath(); ctx.ellipse(bodyX-dir*5+lg,GY+2,12,6,0,0,Math.PI*2); ctx.fill(); 
+  ctx.beginPath(); ctx.ellipse(bodyX+dir*5-lg,GY+2,12,6,0,0,Math.PI*2); ctx.fill();
+  // Legs
+  ctx.strokeStyle='#020617'; ctx.lineWidth=8; ctx.beginPath(); ctx.moveTo(bodyX,hipY); ctx.lineTo(bodyX-dir*5+lg,GY); ctx.stroke(); 
+  ctx.beginPath(); ctx.moveTo(bodyX,hipY); ctx.lineTo(bodyX+dir*5-lg,GY); ctx.stroke();
+  // Arms
+  ctx.strokeStyle='#2563EB'; ctx.lineWidth=10; ctx.beginPath(); ctx.moveTo(bodyX,hipY); ctx.lineTo(bodyX+0.15*dir*40,shlY); ctx.stroke();
+  // Hands
+  ctx.fillStyle='#FCD34D'; ctx.beginPath(); ctx.arc(handX,handY,10,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  // Head
+  ctx.fillStyle='#FCD34D'; ctx.beginPath(); ctx.ellipse(bodyX+0.15*dir*40,hdY,hR,hR+2,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  // Hair
+  ctx.fillStyle='#020617'; ctx.beginPath(); ctx.arc(bodyX+0.15*dir*40,hdY-5,hR,Math.PI,0); ctx.fill();
+  ctx.restore();
+}
+
+// ─── DRAG & DROP GAME ───
+var CMAP={'df-push':'contact','df-fric':'contact','df-pull':'contact','df-grav':'noncontact','df-mag':'noncontact'};
+document.querySelectorAll('.di').forEach(el=>{
+  el.addEventListener('dragstart', ev => ev.dataTransfer.setData('text', ev.target.id));
+});
+function doDrop(ev,zone){
+  ev.preventDefault();
+  var id=ev.dataTransfer.getData('text'); var node=document.getElementById(id); if(!node) return;
+  if(CMAP[id]===zone){
+    ev.currentTarget.appendChild(node); 
+    node.style.background='#10B981'; node.style.color='white'; node.style.borderColor='#020617';
+    node.setAttribute('draggable','false');
+  } else {
+    node.style.background='#E11D48'; node.style.color='white';
+    setTimeout(()=>{ node.style.background='white'; node.style.color='var(--slate-border)'; },800);
+  }
+}
+
+// ─── START THE LOOP ───
+function loop(){
+  var r=physStep();
+  drawScene(r.fApp,r.fr,r.fNet);
+  requestAnimationFrame(loop);
+}
+setSurf('ice',0,'🧊 Ice');
+loop();
+</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Users Directory | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="admin-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Admin
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="adminAvatar" class="profile-avatar admin">⚡</div>
+            <h2 id="adminUsername">System Admin</h2>
+            <span class="profile-role-badge admin">Super Administrator</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="admin-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="admin-users.html" class="menu-btn"><span class="icon">👥</span> User Directory</a></li>
+                <li><a href="admin-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="admin-reports.html" class="menu-btn"><span class="icon">📄</span> System Reports</a></li>
+                <li><a href="admin-settings.html" class="menu-btn"><span class="icon">⚙️</span> Configurations</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="window.ConductoVerseAdmin.logout()" class="btn danger" style="width: 100%;">Disconnect Admin ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <article class="dashboard-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+                <h2>👥 Platform User Directory</h2>
+                <button onclick="openCreateUserModal()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 16px;">Create New User Account</button>
+            </div>
+
+            <!-- Search and Filter controls -->
+            <div style="display: flex; gap: 15px; margin-bottom: 24px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px; position: relative;">
+                    <input type="text" id="searchBar" oninput="filterUsersTable()" class="admin-input" style="width: 100%; padding-left: 36px;" placeholder="Search by username...">
+                    <span style="position: absolute; left: 14px; top: 12px; font-size: 0.9rem; color: var(--admin-muted);">🔍</span>
+                </div>
+                <div>
+                    <select id="roleFilter" onchange="filterUsersTable()" class="admin-select" style="min-width: 160px;">
+                        <option value="all">All Roles</option>
+                        <option value="student">Students Only</option>
+                        <option value="teacher">Teachers Only</option>
+                        <option value="admin">Administrators Only</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Table view -->
+            <div style="overflow-x: auto;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Registration Date</th>
+                            <th style="text-align: right;">Administrative Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <!-- Dynamic User entries Injected Here -->
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </section>
+</main>
+
+<!-- Create User Modal -->
+<div class="admin-modal" id="createUserModal">
+    <div class="admin-modal-card">
+        <header class="admin-modal-header">
+            <h2>Create New User</h2>
+            <button class="admin-modal-close" onclick="closeCreateUserModal()">&times;</button>
+        </header>
+        <form id="createUserForm" onsubmit="handleCreateUserForm(event)">
+            <div class="admin-field-group">
+                <label for="newUsername">Username</label>
+                <input type="text" id="newUsername" class="admin-input" required placeholder="e.g. john_doe">
+            </div>
+            <div class="admin-field-group">
+                <label for="newPassword">Password</label>
+                <input type="password" id="newPassword" class="admin-input" required placeholder="••••••••">
+            </div>
+            <div class="admin-field-group">
+                <label for="newRole">Role</label>
+                <select id="newRole" class="admin-select">
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher / Instructor</option>
+                </select>
+            </div>
+            <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px;">
+                <button type="button" class="btn secondary" onclick="closeCreateUserModal()">Cancel</button>
+                <button type="submit" class="btn">Register Account</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/admin-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    loadUsersTable();
+});
+
+let loadedUsers = [];
+
+function loadUsersTable() {
+    loadedUsers = window.ConductoVerseAdmin.getUsers();
+    
+    // Fallback: If no users are stored (e.g. fresh start), save admin session user
+    if (loadedUsers.length === 0) {
+        window.ConductoVerseAdmin.createUser("admin@123", "1234", "admin");
+        loadedUsers = window.ConductoVerseAdmin.getUsers();
+    }
+    
+    filterUsersTable();
+}
+
+function filterUsersTable() {
+    const searchVal = document.getElementById("searchBar").value.toLowerCase().trim();
+    const roleVal = document.getElementById("roleFilter").value;
+    const tbody = document.getElementById("users-table-body");
+    tbody.innerHTML = "";
+
+    const filtered = loadedUsers.filter(u => {
+        const matchesSearch = u.username.toLowerCase().includes(searchVal);
+        const matchesRole = roleVal === "all" || u.role === roleVal;
+        return matchesSearch && matchesRole;
+    });
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="4" style="text-align: center; color: var(--admin-muted); padding: 40px;">
+                    No matching users found in the system.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    filtered.forEach(u => {
+        const regDate = u.registeredAt ? new Date(u.registeredAt).toLocaleDateString() : "System Default";
+        const tr = document.createElement("tr");
+        
+        // Disable delete/reset password button for the main active admin account
+        const isAdminAccount = u.role === "admin";
+        const actionButtonsHtml = isAdminAccount ? `
+            <span style="color: var(--admin-muted); font-size: 0.8rem; font-weight: 700; padding-right: 12px;">Protected Root Account</span>
+        ` : `
+            <button onclick="triggerResetPassword('${u.username}')" class="btn secondary" style="font-size:0.75rem; min-height:30px; padding: 4px 10px; margin-right: 6px;">Reset PW</button>
+            <button onclick="triggerDeleteUser('${u.username}')" class="btn danger" style="font-size:0.75rem; min-height:30px; padding: 4px 10px;">Delete Account</button>
+        `;
+
+        tr.innerHTML = `
+            <td style="font-weight: 600;">${u.username}</td>
+            <td><span class="admin-badge ${u.role}">${u.role}</span></td>
+            <td>${regDate}</td>
+            <td style="text-align: right;">${actionButtonsHtml}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function openCreateUserModal() {
+    document.getElementById("createUserModal").classList.add("open");
+}
+
+function closeCreateUserModal() {
+    document.getElementById("createUserModal").classList.remove("open");
+    document.getElementById("createUserForm").reset();
+}
+
+function handleCreateUserForm(e) {
+    e.preventDefault();
+    const username = document.getElementById("newUsername").value.trim();
+    const password = document.getElementById("newPassword").value.trim();
+    const role = document.getElementById("newRole").value;
+
+    const result = window.ConductoVerseAdmin.createUser(username, password, role);
+    if (result.success) {
+        closeCreateUserModal();
+        loadUsersTable();
+    } else {
+        alert("Error creating account: " + result.message);
+    }
+}
+
+function triggerDeleteUser(username) {
+    if (confirm(`⚠️ Are you sure you want to delete user account "${username}"? This will also purge their test results and completions.`)) {
+        const result = window.ConductoVerseAdmin.deleteUser(username);
+        if (result.success) {
+            loadUsersTable();
+        } else {
+            alert("Error deleting user: " + result.message);
+        }
+    }
+}
+
+function triggerResetPassword(username) {
+    const newPassword = prompt(`Enter new password for user "${username}":`);
+    if (newPassword === null) return; // user cancelled prompt
+    
+    if (newPassword.trim() === "") {
+        alert("Password cannot be empty!");
+        return;
+    }
+
+    const result = window.ConductoVerseAdmin.resetUserPassword(username, newPassword.trim());
+    if (result.success) {
+        alert(`Successfully reset password for "${username}"!`);
+        loadUsersTable();
+    } else {
+        alert("Error resetting password: " + result.message);
+    }
+}
+</script>
+</body>
+</html>

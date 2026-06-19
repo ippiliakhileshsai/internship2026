@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Portal - Quizzes | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="teacher-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Teacher
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="teacherAvatar" class="profile-avatar teacher">🔋</div>
+            <h2 id="teacherUsername">Teacher Name</h2>
+            <span class="profile-role-badge teacher">Instructor</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="teacher-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="teacher-students.html" class="menu-btn"><span class="icon">👥</span> Students</a></li>
+                <li><a href="teacher-assignments.html" class="menu-btn"><span class="icon">📝</span> Assignments</a></li>
+                <li><a href="teacher-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Quizzes</a></li>
+                <li><a href="teacher-analytics.html" class="menu-btn"><span class="icon">📈</span> Analytics</a></li>
+                <li><a href="teacher-certificates.html" class="menu-btn"><span class="icon">🏆</span> Certificates</a></li>
+                <li><a href="teacher-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="teacher-reports.html" class="menu-btn"><span class="icon">📄</span> Reports</a></li>
+                <li><a href="teacher-settings.html" class="menu-btn"><span class="icon">⚙️</span> Settings</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">Welcome, Instructor!</h1>
+            <p id="welcomeDescription">Review active concept quiz metrics, difficulty levels, and clear counts across student cycles.</p>
+        </header>
+
+        <section id="tab-quizzes" class="tab-content active">
+            <article class="dashboard-card">
+                <h2>🧠 Concept Quiz Assessment Manager</h2>
+                <p style="margin-bottom:20px; font-size:0.92rem; color:var(--muted); font-weight: 600;">
+                    Monitor quiz completion metrics across all chapters. Quizzes are updated immediately on live student feeds.
+                </p>
+
+                <div class="quick-stats-row" style="margin-bottom:30px;">
+                    <div class="quick-stat-box">
+                        <span>Basics Taken (Lvl 1)</span>
+                        <strong id="lvl1-count">0</strong>
+                    </div>
+                    <div class="quick-stat-box">
+                        <span>Safety Taken (Lvl 2)</span>
+                        <strong id="lvl2-count">0</strong>
+                    </div>
+                    <div class="quick-stat-box">
+                        <span>Advanced Taken (Lvl 3)</span>
+                        <strong id="lvl3-count">0</strong>
+                    </div>
+                </div>
+
+                <div class="dashboard-actions-row">
+                    <h2>📖 Active Quiz Question Pools</h2>
+                </div>
+
+                <div class="table-container">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Level</th>
+                                <th>Question Statement</th>
+                                <th>Correct Option</th>
+                                <th>Total Choices</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quiz-pool-body">
+                            <!-- Dynamic questions -->
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/teacher-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    renderQuizzesPool();
+});
+
+function renderQuizzesPool() {
+    let l1 = 0, l2 = 0, l3 = 0;
+    studentsData.forEach(s => {
+        const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${s.username}`) || "null");
+        if (quiz) {
+            if (quiz.level === 1) l1++;
+            if (quiz.level === 2) l2++;
+            if (quiz.level >= 3) l3++;
+        }
+    });
+    document.getElementById("lvl1-count").textContent = l1;
+    document.getElementById("lvl2-count").textContent = l2;
+    document.getElementById("lvl3-count").textContent = l3;
+
+    const defaultQuestionsDb = {
+        1: [
+            { question: "Which material is a conductor?", answer: "Copper", options: ["Rubber", "Copper", "Plastic"] },
+            { question: "In a conductor like copper, what is special about its outer electrons?", answer: "They are \"free electrons\" that can drift easily", options: ["They are locked in tight bonds", "They are \"free electrons\" that can drift easily", "They orbit backwards"] }
+        ],
+        2: [
+            { question: "Why is it dangerous to touch switches with wet hands?", answer: "Tap water contains dissolved minerals that conduct electricity", options: ["Water is always pure", "Tap water contains dissolved minerals that conduct electricity", "Wet skin becomes a perfect insulator"] }
+        ],
+        3: [
+            { question: "How does a safety fuse protect your house?", answer: "It melts and breaks the circuit if the current gets too high", options: ["It turns off the main valve", "It melts and breaks the circuit if the current gets too high", "It absorbs the extra electrons like a sponge"] }
+        ]
+    };
+    const db = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDb;
+    const tbody = document.getElementById("quiz-pool-body");
+    let html = "";
+
+    Object.keys(db).forEach(lvl => {
+        db[lvl].forEach((q, idx) => {
+            html += `
+                <tr>
+                    <td><span class="question-level-badge">Level ${lvl}</span></td>
+                    <td>${q.question}</td>
+                    <td><strong style="color:var(--green)">${q.answer}</strong></td>
+                    <td>${q.options.length} options</td>
+                </tr>
+            `;
+        });
+    });
+
+    tbody.innerHTML = html;
+}
+</script>
+</body>
+</html>

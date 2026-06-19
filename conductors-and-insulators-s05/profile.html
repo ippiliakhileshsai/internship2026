@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Hub | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="index.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse
+    </a>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="bulb.html">Bulb Test</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="uses.html">Uses</a></li>
+        <li><a href="lab.html">Virtual Lab</a></li>
+        <li><a href="results.html">Results</a></li>
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar profile card -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="profileAvatar" class="profile-avatar">👤</div>
+            <h2 id="profileUsername">Username</h2>
+            <span id="profileRoleBadge" class="profile-role-badge">Student</span>
+            <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 10px;">
+                <a href="index.html" class="btn secondary" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%;">Go Home</a>
+                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Dashboard Section -->
+    <section class="dashboard-main">
+        <!-- Common Welcome Hero banner -->
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">Welcome, Explorer!</h1>
+            <p id="welcomeDescription">Establishing active pathway connections for core simulation activities.</p>
+        </header>
+
+        <!-- STUDENT PROFILE PANEL -->
+        <section id="studentProfile" style="display: none;" class="dashboard-main">
+            <div class="quick-stats-row">
+                <div class="quick-stat-box">
+                    <span>Quiz Score</span>
+                    <strong id="statQuizScore">-</strong>
+                </div>
+                <div class="quick-stat-box">
+                    <span>Activity Score</span>
+                    <strong id="statActivityScore">-</strong>
+                </div>
+                <div class="quick-stat-box">
+                    <span>Best Streak</span>
+                    <strong id="statStreak">0</strong>
+                </div>
+                <div class="quick-stat-box">
+                    <span>Time Spent</span>
+                    <strong id="statTime">0s</strong>
+                </div>
+            </div>
+
+            <!-- Certificate Unlock status box -->
+            <article class="cert-unlock-box" id="certUnlockBox">
+                <div class="cert-icon" id="certIcon">🔒</div>
+                <h3 id="certStatusTitle">Certificate Locked</h3>
+                <p id="certStatusText">Score 80% overall in quiz and activity pathways to unlock certificate of energy mastery.</p>
+                <div id="certActions">
+                    <a href="quiz.html" class="btn">Take Quiz Challenge</a>
+                </div>
+            </article>
+
+            <!-- Student Badges -->
+            <article class="dashboard-card">
+                <h2>🏅 Achieved Badges</h2>
+                <div class="badge-row" id="studentBadges">
+                    <span class="badge-pill info">⚡ Circuit Connection</span>
+                </div>
+            </article>
+
+            <!-- Action panels -->
+            <article class="dashboard-card">
+                <h2>🚀 Recommended Learning Steps</h2>
+                <div class="cards" style="width: 100%; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 0;">
+                    <div class="card" style="padding: 20px;">
+                        <h3>1. Learn Theory</h3>
+                        <p style="margin-top: 6px; font-size: 0.86rem;">Understand the atomic electron pathways.</p>
+                        <a href="learn.html" class="btn" style="margin-top:14px; min-height:36px; padding: 6px 12px; font-size: 0.8rem;">Open Lessons</a>
+                    </div>
+                    <div class="card" style="padding: 20px;">
+                        <h3>2. Test materials</h3>
+                        <p style="margin-top: 6px; font-size: 0.86rem;">Complete hands-on circuit tests.</p>
+                        <a href="bulb.html" class="btn" style="margin-top:14px; min-height:36px; padding: 6px 12px; font-size: 0.8rem;">Try Bulb Test</a>
+                    </div>
+                    <div class="card" style="padding: 20px;">
+                        <h3>3. Drag Lab</h3>
+                        <p style="margin-top: 6px; font-size: 0.86rem;">Separate conductors from insulators.</p>
+                        <a href="lab.html" class="btn" style="margin-top:14px; min-height:36px; padding: 6px 12px; font-size: 0.8rem;">Open Lab</a>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- TEACHER & ADMIN SHARED PANEL (Student Results Console) -->
+        <section id="teacherProfile" style="display: none;" class="dashboard-main">
+            <div class="quick-stats-row">
+                <div class="quick-stat-box">
+                    <span>Total Students</span>
+                    <strong id="teacherStatStudents">0</strong>
+                </div>
+                <div class="quick-stat-box">
+                    <span>Class Average</span>
+                    <strong id="teacherStatAverage">0%</strong>
+                </div>
+                <div class="quick-stat-box">
+                    <span>Certificate Rate</span>
+                    <strong id="teacherStatCertRate">0%</strong>
+                </div>
+            </div>
+
+            <article class="dashboard-card">
+                <div class="dashboard-actions-row">
+                    <h2>📊 Student Progress Gradebook</h2>
+                    <div class="dashboard-btn-group">
+                        <button onclick="openAddSubmissionModal()" class="btn secondary" style="min-height:36px; font-size:0.85rem; padding: 6px 14px;">➕ Add Score</button>
+                        <button onclick="exportCSV()" class="btn" style="min-height:36px; font-size:0.85rem; padding: 6px 14px;">⬇️ Export CSV</button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Quiz Score</th>
+                                <th>Activity Score</th>
+                                <th>Best Streak</th>
+                                <th>Time Spent</th>
+                                <th>Overall Score</th>
+                                <th>Status</th>
+                                <th class="admin-only" style="display:none;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentGradesBody">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+
+        <!-- ADMIN EXCLUSIVE USER MANAGEMENT & QUESTION DATABASE EDITOR -->
+        <section id="adminProfile" style="display: none;" class="dashboard-main">
+            <!-- User Control Console -->
+            <article class="dashboard-card">
+                <div class="dashboard-actions-row">
+                    <h2>👥 User Directory & Terminals</h2>
+                    <button onclick="openAddUserModal()" class="btn" style="min-height:36px; font-size:0.85rem; padding: 6px 14px;">➕ Add User</button>
+                </div>
+                
+                <div class="table-container">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Registered At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userDirectoryBody">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+
+            <!-- Quiz Database Editor -->
+            <article class="dashboard-card">
+                <div class="dashboard-actions-row">
+                    <h2>✏️ Quiz Question Database Editor</h2>
+                    <div class="dashboard-btn-group">
+                        <button onclick="openAddQuestionModal()" class="btn" style="min-height:36px; font-size:0.85rem; padding: 6px 14px;">➕ Add Question</button>
+                        <button onclick="resetQuestionsToDefault()" class="btn secondary" style="min-height:36px; font-size:0.85rem; padding: 6px 14px; border-color: var(--red); color: var(--red);">Reset Defaults</button>
+                    </div>
+                </div>
+
+                <!-- Tabs/Levels selectors -->
+                <div class="hero-controls-panel" style="grid-template-columns: 1fr; margin-bottom: 20px;">
+                    <div class="hero-selector-grid" style="grid-template-columns: repeat(3, 1fr);">
+                        <button class="hero-choice-btn active" id="btnLevel1" onclick="switchEditorLevel(1)" style="justify-content: center; text-align: center !important;">🔋 Level 1: Basics</button>
+                        <button class="hero-choice-btn" id="btnLevel2" onclick="switchEditorLevel(2)" style="justify-content: center; text-align: center !important;">🧤 Level 2: Safety</button>
+                        <button class="hero-choice-btn" id="btnLevel3" onclick="switchEditorLevel(3)" style="justify-content: center; text-align: center !important;">🎛️ Level 3: Advanced</button>
+                    </div>
+                </div>
+
+                <div class="question-list" id="editorQuestionList">
+                    <!-- Injected dynamically -->
+                </div>
+            </article>
+        </section>
+    </section>
+</main>
+
+<!-- MODALS -->
+
+<!-- Modal 1: Add Mock Student Score -->
+<div class="modal-overlay" id="addSubmissionModal" role="dialog" aria-modal="true" aria-labelledby="addSubTitle">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeAddSubmissionModal()" aria-label="Close modal">×</button>
+        <h2 id="addSubTitle" style="font-family:'Outfit', sans-serif; font-weight:800; color:var(--blue-dark); margin-bottom: 20px;">Add Student Score</h2>
+        <form id="addSubmissionForm">
+            <div class="auth-form-group">
+                <label for="subName" class="auth-label">Student Name</label>
+                <input type="text" id="subName" class="auth-input" style="padding-left:14px;" required placeholder="e.g., Benjamin Franklin">
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="auth-form-group">
+                    <label for="subQuiz" class="auth-label">Quiz Score (e.g. 4/5)</label>
+                    <input type="text" id="subQuiz" class="auth-input" style="padding-left:14px;" required placeholder="e.g. 5/5" pattern="^[0-5]\/[0-5]$">
+                </div>
+                <div class="auth-form-group">
+                    <label for="subActivity" class="auth-label">Activity Score (e.g. 10/12)</label>
+                    <input type="text" id="subActivity" class="auth-input" style="padding-left:14px;" required placeholder="e.g. 12/12" pattern="^[0-9]+\/[0-9]+$">
+                </div>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="auth-form-group">
+                    <label for="subStreak" class="auth-label">Best Streak</label>
+                    <input type="number" id="subStreak" class="auth-input" style="padding-left:14px;" min="0" required placeholder="e.g., 5">
+                </div>
+                <div class="auth-form-group">
+                    <label for="subTime" class="auth-label">Time Spent</label>
+                    <input type="text" id="subTime" class="auth-input" style="padding-left:14px;" required placeholder="e.g. 1m 24s">
+                </div>
+            </div>
+            <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, var(--green), var(--blue)); box-shadow: 0 8px 20px rgba(42, 157, 143, 0.25);">Insert Score Record ⚡</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 2: Add User (Admin console) -->
+<div class="modal-overlay" id="addUserModal" role="dialog" aria-modal="true" aria-labelledby="addUserTitle">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeAddUserModal()" aria-label="Close modal">×</button>
+        <h2 id="addUserTitle" style="font-family:'Outfit', sans-serif; font-weight:800; color:var(--blue-dark); margin-bottom: 20px;">Register User Account</h2>
+        <form id="addUserForm">
+            <div class="auth-form-group">
+                <label for="newUsername" class="auth-label">Username</label>
+                <input type="text" id="newUsername" class="auth-input" style="padding-left:14px;" required placeholder="e.g., Faraday7">
+            </div>
+            <div class="auth-form-group">
+                <label for="newPassword" class="auth-label">Password</label>
+                <input type="password" id="newPassword" class="auth-input" style="padding-left:14px;" minlength="4" required placeholder="••••••••">
+            </div>
+            <div class="auth-form-group">
+                <label for="newRole" class="auth-label">Role</label>
+                <select id="newRole" class="auth-input" style="padding-left:14px;" required>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, var(--blue), var(--cyan)); box-shadow: 0 8px 20px rgba(22, 104, 255, 0.25);">Generate Profile ⚡</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal 3: Add Question (Admin Quiz console) -->
+<div class="modal-overlay" id="addQuestionModal" role="dialog" aria-modal="true" aria-labelledby="addQTitle">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeAddQuestionModal()" aria-label="Close modal">×</button>
+        <h2 id="addQTitle" style="font-family:'Outfit', sans-serif; font-weight:800; color:var(--blue-dark); margin-bottom: 20px;">Add Quiz Question</h2>
+        <form id="addQuestionForm">
+            <div class="auth-form-group">
+                <label for="qText" class="auth-label">Question Text</label>
+                <input type="text" id="qText" class="auth-input" style="padding-left:14px;" required placeholder="Which material blocks flow?">
+            </div>
+            <div class="auth-form-group">
+                <label for="qVisual" class="auth-label">Visual/Emoji Indicator</label>
+                <input type="text" id="qVisual" class="auth-input" style="padding-left:14px;" required placeholder="🛡️ Blocked current">
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap: 8px; margin-bottom: 16px;">
+                <label class="auth-label" style="margin-bottom:0;">Option Choices</label>
+                <input type="text" id="qOpt0" class="auth-input" style="padding-left:14px; min-height:36px; padding: 6px 12px;" required placeholder="Option 1">
+                <input type="text" id="qOpt1" class="auth-input" style="padding-left:14px; min-height:36px; padding: 6px 12px;" required placeholder="Option 2">
+                <input type="text" id="qOpt2" class="auth-input" style="padding-left:14px; min-height:36px; padding: 6px 12px;" required placeholder="Option 3">
+            </div>
+            
+            <div class="auth-form-group">
+                <label for="qAnswer" class="auth-label">Correct Answer</label>
+                <select id="qAnswer" class="auth-input" style="padding-left:14px;" required>
+                    <option value="0">Option 1</option>
+                    <option value="1">Option 2</option>
+                    <option value="2">Option 3</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, var(--orange), var(--yellow)); box-shadow: 0 8px 20px rgba(251, 133, 0, 0.25);">Insert Question ⚡</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<!-- Auth dependencies -->
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+
+<script>
+// --- Global Question Editor State ---
+let currentEditorLevel = 1;
+
+const defaultQuestionsDb = {
+    1: [
+        { question: "Which material is a conductor?", visual: "🧵 Conducting path", options: ["Rubber", "Copper", "Plastic"], answer: "Copper" },
+        { question: "In a conductor like copper, what is special about its outer electrons?", visual: "⚛️ Atomic structure", options: ["They are locked in tight bonds", "They are \"free electrons\" that can drift easily", "They orbit backwards"], answer: "They are \"free electrons\" that can drift easily" },
+        { question: "What is electric current?", visual: "⚡ Electric flow", options: ["The flow of protons", "The flow of free electrons along a path", "A magnetic wave"], answer: "The flow of free electrons along a path" },
+        { question: "Why do insulators block electric current?", visual: "🛡️ Blocked flow", options: ["Their electrons are locked tight and cannot drift", "They have too many free electrons", "They are made of metal"], answer: "Their electrons are locked tight and cannot drift" },
+        { question: "What happens to free electrons when voltage (electrical pressure) is increased?", visual: "📈 Voltage push", options: ["They stop moving", "They drift faster", "They turn into protons"], answer: "They drift faster" }
+    ],
+    2: [
+        { question: "Why is it dangerous to touch electric appliances with wet hands?", visual: "💧 Moisture hazard", options: ["Water is always pure", "Tap water contains dissolved minerals that conduct electricity", "Wet skin becomes a perfect insulator"], answer: "Tap water contains dissolved minerals that conduct electricity" },
+        { question: "Why are electrician tools covered in thick rubber or plastic handles?", visual: "🛠️ Insulated grips", options: ["To make them heavier", "Rubber and plastic are insulators that block shock currents", "To absorb sweat"], answer: "Rubber and plastic are insulators that block shock currents" },
+        { question: "What should you do if an electric wire has its protective plastic cover worn out or cracked?", visual: "⚠️ Exposed core", options: ["Touch it to see if it's hot", "Ignore it", "Turn off power and replace/tape it immediately"], answer: "Turn off power and replace/tape it immediately" },
+        { question: "Which of these is the safest action when a severe lightning storm is directly overhead?", visual: "⛈️ Lightning shield", options: ["Stand under a tall lone tree", "Stay indoors away from electrical devices", "Swim in an outdoor pool"], answer: "Stay indoors away from electrical devices" },
+        { question: "Why are rubber gloves worn by power line technicians?", visual: "🧤 Protective gear", options: ["To keep their hands warm", "To prevent grease marks", "To shield them from high-voltage currents"], answer: "To shield them from high-voltage currents" }
+    ],
+    3: [
+        { question: "How does a safety fuse protect your house from an electrical fire?", visual: "🔥 Fuse safety", options: ["It turns off the main valve", "It melts and breaks the circuit if the current gets too high", "It absorbs the extra electrons like a sponge"], answer: "It melts and breaks the circuit if the current gets too high" },
+        { question: "Inside an incandescent light bulb, the glowing filament is a conductor (tungsten), but what supports it?", visual: "💡 Filament structure", options: ["Insulating glass support mounts", "Conducting copper wires", "Soft paper mounts"], answer: "Insulating glass support mounts" },
+        { question: "What is the purpose of a lightning rod on top of a tall building?", visual: "🗼 Lightning rod", options: ["To attract lightning and safely guide the charge to the ground", "To store electricity for the building", "To block lightning from forming"], answer: "To attract lightning and safely guide the charge to the ground" },
+        { question: "The high-voltage power cables on utility poles are supported by large bell-shaped cups made of ceramic or glass. Why?", visual: "🕭 Ceramic cup", options: ["To make the poles look decorative", "They are heavy weights", "They are insulators that prevent current from escaping to the pole"], answer: "They are insulators that prevent current from escaping to the pole" },
+        { question: "When a plug is connected to an outlet, which parts conduct the electricity?", visual: "🔌 Socket connection", options: ["The outer plastic housing", "The two metal prongs inside the plug", "The paper label on the cord"], answer: "The two metal prongs inside the plug" }
+    ]
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    const user = window.ConductoVerseAuth.getCurrentUser();
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    // 1. Sidebar profile card rendering
+    document.getElementById("profileUsername").textContent = user.username;
+    
+    const avatar = document.getElementById("profileAvatar");
+    const badge = document.getElementById("profileRoleBadge");
+    
+    avatar.className = `profile-avatar ${user.role}`;
+    badge.className = `profile-role-badge ${user.role}`;
+    badge.textContent = user.role;
+    
+    if (user.role === 'student') avatar.textContent = "💡";
+    if (user.role === 'teacher') avatar.textContent = "🔋";
+    if (user.role === 'admin') avatar.textContent = "⚡";
+
+    // 2. Load theme overrides and panels
+    document.getElementById("welcomeTitle").textContent = `Welcome, ${user.username}!`;
+    
+    if (user.role === 'student') {
+        document.getElementById("welcomeDescription").textContent = "Observe the flow of current, practice concepts, and earn your certificate.";
+        initStudentProfile(user);
+    } else if (user.role === 'teacher') {
+        document.getElementById("welcomeDescription").textContent = "Review grades and analyze student sorting performances across simulation paths.";
+        initTeacherProfile();
+    } else if (user.role === 'admin') {
+        document.getElementById("welcomeDescription").textContent = "Control panel interface. Modify quiz database, user profiles, and view gradebook.";
+        initAdminProfile();
+    }
+});
+
+function logout() {
+    localStorage.removeItem("conductoverseCurrentUser");
+    window.location.href = "index.html";
+}
+
+// --- STUDENT PROFILE LOGIC ---
+function initStudentProfile(user) {
+    document.getElementById("studentProfile").style.display = "flex";
+
+    // Read user-specific scores
+    const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${user.username}`) || "null");
+    const activity = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${user.username}`) || "null");
+
+    const quizPct = quiz ? quiz.percent : 0;
+    const activityPct = activity ? activity.percent : 0;
+    const completedCount = (quiz ? 1 : 0) + (activity ? 1 : 0);
+    const overall = completedCount ? Math.round((quizPct + activityPct) / completedCount) : 0;
+    const totalSeconds = (quiz?.secondsSpent || 0) + (activity?.secondsSpent || 0);
+
+    // Format time spent
+    let timeStr = "0s";
+    if (totalSeconds > 0) {
+        if (totalSeconds < 60) timeStr = `${totalSeconds}s`;
+        else timeStr = `${Math.floor(totalSeconds / 60)}m ${totalSeconds % 60}s`;
+    }
+
+    document.getElementById("statQuizScore").textContent = quiz ? `${quiz.score}/${quiz.total}` : "Not taken";
+    document.getElementById("statActivityScore").textContent = activity ? `${activity.score}/${activity.total}` : "Not played";
+    document.getElementById("statStreak").textContent = activity ? activity.bestStreak : "0";
+    document.getElementById("statTime").textContent = timeStr;
+
+    // Badges evaluation
+    const badgesBox = document.getElementById("studentBadges");
+    let badgesHtml = '<span class="badge-pill info">🔌 Circuit Connected</span>';
+    
+    if (quiz) badgesHtml += '<span class="badge-pill success">🧠 Quiz Completed</span>';
+    if (activity) badgesHtml += '<span class="badge-pill success">🗂️ Sorting Master</span>';
+    if (activity && activity.bestStreak >= 4) badgesHtml += '<span class="badge-pill warning">🔥 Electric Streak</span>';
+    if (overall >= 80) badgesHtml += '<span class="badge-pill warning">🏆 Mastery Badge</span>';
+    badgesBox.innerHTML = badgesHtml;
+
+    // Certificate Unlock state
+    const box = document.getElementById("certUnlockBox");
+    const icon = document.getElementById("certIcon");
+    const title = document.getElementById("certStatusTitle");
+    const desc = document.getElementById("certStatusText");
+    const actions = document.getElementById("certActions");
+
+    if (overall >= 80) {
+        box.className = "cert-unlock-box unlocked";
+        icon.textContent = "🏆";
+        title.textContent = "Certificate Unlocked!";
+        desc.innerHTML = `Congratulations, ${user.username}! Your energy pathway knowledge overall grade of <strong>${overall}%</strong> validates your energy mastery.`;
+        actions.innerHTML = `<a href="results.html" class="btn" style="box-shadow: 0 10px 24px rgba(42,157,143,0.3); background: linear-gradient(135deg, var(--green), #00b4d8);">View Certificate 🏆</a>`;
+    } else {
+        box.className = "cert-unlock-box";
+        icon.textContent = "🔒";
+        title.textContent = "Certificate Locked";
+        if (completedCount === 0) {
+            desc.textContent = "Take the concept quiz and play the real-world sorting activities to establish your score.";
+        } else {
+            desc.innerHTML = `Your overall score is <strong>${overall}%</strong>. You need <strong>80%</strong> to unlock. Take the quiz again to boost your score!`;
+        }
+        actions.innerHTML = `<a href="quiz.html" class="btn">Take Quiz Challenge</a>`;
+    }
+}
+
+
+// --- TEACHER & ADMIN SHARED LOGIC (Student Results Table) ---
+function initTeacherProfile() {
+    document.getElementById("teacherProfile").style.display = "flex";
+    loadGradebook();
+}
+
+function loadGradebook() {
+    const users = JSON.parse(localStorage.getItem("conductoverseUsers") || "[]");
+    const tbody = document.getElementById("studentGradesBody");
+    const currentUser = window.ConductoVerseAuth.getCurrentUser();
+    
+    let html = "";
+    let totalScoreSum = 0;
+    let certCount = 0;
+    let studentCount = 0;
+
+    users.forEach((u) => {
+        // Only display student roles in the class gradebook
+        if (u.role !== 'student') return;
+
+        studentCount++;
+
+        // Read specific scores for this student username
+        const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${u.username}`) || "null");
+        const activity = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${u.username}`) || "null");
+
+        const quizPct = quiz ? quiz.percent : 0;
+        const activityPct = activity ? activity.percent : 0;
+        const completedCount = (quiz ? 1 : 0) + (activity ? 1 : 0);
+        const overall = completedCount ? Math.round((quizPct + activityPct) / completedCount) : 0;
+
+        totalScoreSum += overall;
+        if (overall >= 80) certCount++;
+
+        const quizScoreText = quiz ? `${quiz.score}/${quiz.total}` : "Not taken";
+        const activityScoreText = activity ? `${activity.score}/${activity.total}` : "Not played";
+        const streak = activity ? activity.bestStreak : 0;
+
+        const totalSeconds = (quiz?.secondsSpent || 0) + (activity?.secondsSpent || 0);
+        let timeStr = "0s";
+        if (totalSeconds > 0) {
+            if (totalSeconds < 60) timeStr = `${totalSeconds}s`;
+            else timeStr = `${Math.floor(totalSeconds / 60)}m ${totalSeconds % 60}s`;
+        }
+
+        const badgeClass = overall >= 80 ? "profile-role-badge student" : (overall >= 50 ? "profile-role-badge teacher" : "profile-role-badge admin");
+        const statusLabel = overall >= 80 ? "Mastery" : (overall >= 50 ? "Passing" : "Practice");
+        
+        const deleteBtn = currentUser.role === 'admin' ? 
+            `<td class="admin-only"><button onclick="clearStudentScores('${u.username}')" class="btn" style="min-height:28px; font-size:0.75rem; padding: 4px 8px; background:var(--red); box-shadow:none;">Reset</button></td>` : '';
+
+        html += `
+            <tr>
+                <td><strong>${u.username}</strong></td>
+                <td>${quizScoreText}</td>
+                <td>${activityScoreText}</td>
+                <td>${streak}</td>
+                <td>${timeStr}</td>
+                <td><strong>${overall}%</strong></td>
+                <td><span class="${badgeClass}" style="margin-top:0; padding:2px 8px; font-size:0.68rem;">${statusLabel}</span></td>
+                ${deleteBtn}
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html || `<tr><td colspan="${currentUser.role === 'admin' ? 8 : 7}" style="text-align:center; padding:30px; font-weight:700; color:var(--muted)">No registered student users in database.</td></tr>`;
+
+    // Update statistics
+    document.getElementById("teacherStatStudents").textContent = studentCount;
+    const average = studentCount ? Math.round(totalScoreSum / studentCount) : 0;
+    document.getElementById("teacherStatAverage").textContent = `${average}%`;
+    const rate = studentCount ? Math.round((certCount / studentCount) * 100) : 0;
+    document.getElementById("teacherStatCertRate").textContent = `${rate}%`;
+
+    // Toggle admin table header
+    const headers = document.querySelectorAll(".admin-only");
+    headers.forEach(h => {
+        h.style.display = currentUser.role === 'admin' ? 'table-cell' : 'none';
+    });
+}
+
+function clearStudentScores(username) {
+    if (confirm(`Are you sure you want to reset all scores for student "${username}"?`)) {
+        localStorage.removeItem(`conductoverseQuizResult_${username}`);
+        localStorage.removeItem(`conductoverseSpotResult_${username}`);
+        loadGradebook();
+    }
+}
+
+function exportCSV() {
+    const users = JSON.parse(localStorage.getItem("conductoverseUsers") || "[]");
+    let csv = "Student Name,Quiz Score,Activity Score,Streak,Time Spent,Overall Knowledge\n";
+    
+    users.forEach(u => {
+        if (u.role !== 'student') return;
+
+        const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${u.username}`) || "null");
+        const activity = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${u.username}`) || "null");
+
+        const quizPct = quiz ? quiz.percent : 0;
+        const activityPct = activity ? activity.percent : 0;
+        const completedCount = (quiz ? 1 : 0) + (activity ? 1 : 0);
+        const overall = completedCount ? Math.round((quizPct + activityPct) / completedCount) : 0;
+
+        const quizScoreText = quiz ? `${quiz.score}/${quiz.total}` : "Not taken";
+        const activityScoreText = activity ? `${activity.score}/${activity.total}` : "Not played";
+        const streak = activity ? activity.bestStreak : 0;
+
+        const totalSeconds = (quiz?.secondsSpent || 0) + (activity?.secondsSpent || 0);
+        let timeStr = "0s";
+        if (totalSeconds > 0) {
+            if (totalSeconds < 60) timeStr = `${totalSeconds}s`;
+            else timeStr = `${Math.floor(totalSeconds / 60)}m ${totalSeconds % 60}s`;
+        }
+
+        csv += `"${u.username}",${quizScoreText},${activityScoreText},${streak},${timeStr},${overall}%\n`;
+    });
+    
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute("download", "conductoverse_grades_report.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Modal score insert (registers user if not present, and sets scores)
+function openAddSubmissionModal() {
+    document.getElementById("addSubmissionModal").style.display = "flex";
+}
+function closeAddSubmissionModal() {
+    document.getElementById("addSubmissionModal").style.display = "none";
+}
+
+document.getElementById("addSubmissionForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("subName").value.trim();
+    const quiz = document.getElementById("subQuiz").value.trim();
+    const activity = document.getElementById("subActivity").value.trim();
+    const streak = parseInt(document.getElementById("subStreak").value, 10);
+    const time = document.getElementById("subTime").value.trim();
+
+    // Parse quiz score
+    const qParts = quiz.split("/");
+    const qCorrect = parseInt(qParts[0], 10);
+    const qTotal = parseInt(qParts[1], 10);
+    const qPct = (qCorrect / qTotal) * 100;
+
+    // Parse activity score
+    const actParts = activity.split("/");
+    const aCorrect = parseInt(actParts[0], 10);
+    const aTotal = parseInt(actParts[1], 10);
+    const aPct = (aCorrect / aTotal) * 100;
+
+    // Parse time spent
+    let seconds = 60;
+    if (time.includes("m")) {
+        const parts = time.split("m");
+        const minutes = parseInt(parts[0], 10) || 0;
+        const secs = parseInt(parts[1], 10) || 0;
+        seconds = minutes * 60 + secs;
+    } else {
+        seconds = parseInt(time, 10) || 60;
+    }
+
+    // Register user profile if not exists
+    let users = JSON.parse(localStorage.getItem("conductoverseUsers") || "[]");
+    if (!users.some(u => u.username.toLowerCase() === name.toLowerCase())) {
+        users.push({ username: name, password: "1234", role: "student", registeredAt: new Date().toISOString() });
+        localStorage.setItem("conductoverseUsers", JSON.stringify(users));
+    }
+
+    // Set score keys for this name
+    localStorage.setItem(`conductoverseQuizResult_${name}`, JSON.stringify({
+        level: 1,
+        score: qCorrect,
+        total: qTotal,
+        percent: Math.round(qPct),
+        secondsSpent: seconds
+    }));
+
+    localStorage.setItem(`conductoverseSpotResult_${name}`, JSON.stringify({
+        score: aCorrect,
+        total: aTotal,
+        percent: Math.round(aPct),
+        bestStreak: streak,
+        misses: aTotal - aCorrect,
+        secondsSpent: seconds
+    }));
+
+    loadGradebook();
+    
+    const currentUser = window.ConductoVerseAuth.getCurrentUser();
+    if (currentUser.role === 'admin') {
+        loadUserDirectory();
+    }
+    
+    closeAddSubmissionModal();
+    document.getElementById("addSubmissionForm").reset();
+});
+
+
+// --- ADMIN EXCLUSIVE LOGIC (User Manager & Question Editor) ---
+function initAdminProfile() {
+    // 1. Render Teacher/Gradebook elements
+    initTeacherProfile();
+
+    // 2. Display Admin panel
+    document.getElementById("adminProfile").style.display = "flex";
+
+    // Initialize Questions if not present
+    if (!localStorage.getItem("conductoverseQuestionsDatabase")) {
+        localStorage.setItem("conductoverseQuestionsDatabase", JSON.stringify(defaultQuestionsDb));
+    }
+
+    // Initialize default users if not present
+    const users = JSON.parse(localStorage.getItem("conductoverseUsers") || "[]");
+    if (users.length === 0) {
+        users.push({ username: "teacher@123", password: "1234", role: "teacher", registeredAt: new Date().toISOString() });
+        localStorage.setItem("conductoverseUsers", JSON.stringify(users));
+    }
+
+    loadUserDirectory();
+    loadQuestionsInEditor();
+}
+
+function loadUserDirectory() {
+    const users = JSON.parse(localStorage.getItem("conductoverseUsers") || "[]");
+    const tbody = document.getElementById("userDirectoryBody");
+    
+    let html = `
+        <tr>
+            <td><strong>Admin (Fixed Console)</strong></td>
+            <td><span class="profile-role-badge admin" style="margin-top:0; padding:2px 8px; font-size:0.68rem;">ADMIN</span></td>
+            <td>Permanent</td>
+            <td><em style="font-size:0.8rem; color:var(--muted)">Immutable</em></td>
+        </tr>
+    `;
+
+    users.forEach((u, index) => {
+        const roleBadge = `<span class="profile-role-badge ${u.role}" style="margin-top:0; padding:2px 8px; font-size:0.68rem;">${u.role.toUpperCase()}</span>`;
+        const dateStr = u.registeredAt ? new Date(u.registeredAt).toLocaleDateString() : 'Initial';
+
+        html += `
+            <tr>
+                <td><strong>${u.username}</strong></td>
+                <td>${roleBadge}</td>
+                <td>${dateStr}</td>
+                <td>
+                    <button onclick="toggleUserRole(${index})" class="btn secondary" style="min-height:28px; font-size:0.75rem; padding: 4px 8px; margin-right:6px;">Swap Role</button>
+                    <button onclick="deleteUser(${index})" class="btn" style="min-height:28px; font-size:0.75rem; padding: 4px 8px; background:var(--red); box-shadow:none;">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html;
+}
+
+function toggleUserRole(index) {
+    let users = JSON.parse(localStorage.getItem("conductoverseUsers") || "[]");
+    users[index].role = users[index].role === 'student' ? 'teacher' : 'student';
+    localStorage.setItem("conductoverseUsers", JSON.stringify(users));
+    loadUserDirectory();
+}
+
+function deleteUser(index) {
+    if (confirm("Are you sure you want to delete this user profile? They won't be able to log in.")) {
+        let users = JSON.parse(localStorage.getItem("conductoverseUsers") || "[]");
+        users.splice(index, 1);
+        localStorage.setItem("conductoverseUsers", JSON.stringify(users));
+        loadUserDirectory();
+    }
+}
+
+// User Modal Add
+function openAddUserModal() {
+    document.getElementById("addUserModal").style.display = "flex";
+}
+function closeAddUserModal() {
+    document.getElementById("addUserModal").style.display = "none";
+}
+
+document.getElementById("addUserForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("newUsername").value.trim();
+    const pass = document.getElementById("newPassword").value.trim();
+    const role = document.getElementById("newRole").value;
+
+    const result = window.ConductoVerseAuth.register(name, pass, role);
+    if (result.success) {
+        loadUserDirectory();
+        closeAddUserModal();
+        document.getElementById("addUserForm").reset();
+    } else {
+        alert(result.message);
+    }
+});
+
+
+// --- QUIZ QUESTION DATABASE EDITOR ---
+function switchEditorLevel(levelNum) {
+    currentEditorLevel = levelNum;
+    
+    // Toggle active buttons
+    document.getElementById("btnLevel1").classList.remove("active");
+    document.getElementById("btnLevel2").classList.remove("active");
+    document.getElementById("btnLevel3").classList.remove("active");
+    
+    document.getElementById(`btnLevel${levelNum}`).classList.add("active");
+    
+    loadQuestionsInEditor();
+}
+
+function loadQuestionsInEditor() {
+    const db = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDb;
+    const list = document.getElementById("editorQuestionList");
+    const questions = db[currentEditorLevel] || [];
+    
+    let html = "";
+    
+    if (questions.length === 0) {
+        list.innerHTML = `<div style="text-align:center; padding: 30px; font-weight:700; color:var(--muted)">No questions added in this level.</div>`;
+        return;
+    }
+
+    questions.forEach((q, index) => {
+        html += `
+            <div class="question-edit-card">
+                <div class="question-edit-header">
+                    <h3>Question #${index + 1}</h3>
+                    <span class="question-level-badge">Lvl ${currentEditorLevel}</span>
+                </div>
+                
+                <div class="question-grid">
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <div style="display:grid; grid-template-columns: 80px 1fr; gap: 8px;">
+                            <div>
+                                <label class="auth-label">Visual</label>
+                                <input type="text" id="qEditVisual_${index}" class="auth-input" style="padding-left:14px; min-height:38px; padding:6px 10px;" value="${q.visual}">
+                            </div>
+                            <div>
+                                <label class="auth-label">Question Text</label>
+                                <input type="text" id="qEditText_${index}" class="auth-input" style="padding-left:14px; min-height:38px; padding:6px 10px;" value="${q.question}">
+                            </div>
+                        </div>
+                        
+                        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                            <div>
+                                <label class="auth-label">Option 1</label>
+                                <input type="text" id="qEditOpt_${index}_0" class="auth-input" style="padding-left:10px; min-height:34px; padding:4px 8px; font-size:0.85rem;" value="${q.options[0]}">
+                            </div>
+                            <div>
+                                <label class="auth-label">Option 2</label>
+                                <input type="text" id="qEditOpt_${index}_1" class="auth-input" style="padding-left:10px; min-height:34px; padding:4px 8px; font-size:0.85rem;" value="${q.options[1]}">
+                            </div>
+                            <div>
+                                <label class="auth-label">Option 3</label>
+                                <input type="text" id="qEditOpt_${index}_2" class="auth-input" style="padding-left:10px; min-height:34px; padding:4px 8px; font-size:0.85rem;" value="${q.options[2]}">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display:flex; flex-direction:column; justify-content:space-between; gap:10px;">
+                        <div>
+                            <label class="auth-label">Correct Answer</label>
+                            <select id="qEditAns_${index}" class="auth-input" style="padding-left:14px; min-height:38px; padding:6px 10px;">
+                                <option value="0" ${q.answer === q.options[0] ? 'selected' : ''}>Option 1</option>
+                                <option value="1" ${q.answer === q.options[1] ? 'selected' : ''}>Option 2</option>
+                                <option value="2" ${q.answer === q.options[2] ? 'selected' : ''}>Option 3</option>
+                            </select>
+                        </div>
+                        
+                        <div style="display:flex; gap:8px;">
+                            <button onclick="saveQuestion(${index})" class="btn" style="flex:1; min-height:34px; font-size:0.8rem; padding:6px 10px; background:linear-gradient(135deg, var(--green), #2ec4b6);">Save</button>
+                            <button onclick="deleteQuestion(${index})" class="btn" style="min-height:34px; font-size:0.8rem; padding:6px 10px; background:var(--red); box-shadow:none;">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    list.innerHTML = html;
+}
+
+function saveQuestion(index) {
+    const questionText = document.getElementById(`qEditText_${index}`).value.trim();
+    const visual = document.getElementById(`qEditVisual_${index}`).value.trim();
+    const opt0 = document.getElementById(`qEditOpt_${index}_0`).value.trim();
+    const opt1 = document.getElementById(`qEditOpt_${index}_1`).value.trim();
+    const opt2 = document.getElementById(`qEditOpt_${index}_2`).value.trim();
+    const ansIdx = parseInt(document.getElementById(`qEditAns_${index}`).value, 10);
+    const options = [opt0, opt1, opt2];
+    const answer = options[ansIdx];
+
+    let db = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDb;
+    
+    // Update question
+    db[currentEditorLevel][index] = {
+        question: questionText,
+        visual: visual,
+        options: options,
+        answer: answer
+    };
+
+    localStorage.setItem("conductoverseQuestionsDatabase", JSON.stringify(db));
+    alert("Question updated successfully! This will display on the live Quiz.");
+    loadQuestionsInEditor();
+}
+
+function deleteQuestion(index) {
+    if (confirm("Are you sure you want to delete this question?")) {
+        let db = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDb;
+        db[currentEditorLevel].splice(index, 1);
+        localStorage.setItem("conductoverseQuestionsDatabase", JSON.stringify(db));
+        loadQuestionsInEditor();
+    }
+}
+
+function resetQuestionsToDefault() {
+    if (confirm("Are you sure you want to reset the entire quiz question database to factory defaults? Your custom changes will be lost.")) {
+        localStorage.setItem("conductoverseQuestionsDatabase", JSON.stringify(defaultQuestionsDb));
+        loadQuestionsInEditor();
+    }
+}
+
+// Question Modal Add
+function openAddQuestionModal() {
+    document.getElementById("addQuestionModal").style.display = "flex";
+}
+function closeAddQuestionModal() {
+    document.getElementById("addQuestionModal").style.display = "none";
+}
+
+document.getElementById("addQuestionForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = document.getElementById("qText").value.trim();
+    const visual = document.getElementById("qVisual").value.trim();
+    const opt0 = document.getElementById("qOpt0").value.trim();
+    const opt1 = document.getElementById("qOpt1").value.trim();
+    const opt2 = document.getElementById("qOpt2").value.trim();
+    const ansIdx = parseInt(document.getElementById("qAnswer").value, 10);
+    const options = [opt0, opt1, opt2];
+    const answer = options[ansIdx];
+
+    let db = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDb;
+    db[currentEditorLevel].push({
+        question: text,
+        visual: visual,
+        options: options,
+        answer: answer
+    });
+
+    localStorage.setItem("conductoverseQuestionsDatabase", JSON.stringify(db));
+    loadQuestionsInEditor();
+    closeAddQuestionModal();
+    document.getElementById("addQuestionForm").reset();
+});
+
+</script>
+</body>
+</html>

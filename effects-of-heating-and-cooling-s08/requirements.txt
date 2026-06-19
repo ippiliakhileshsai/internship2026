@@ -1,0 +1,122 @@
+The Effects of Heating and Cooling project is an interactive educational simulation developed to help children understand basic scientific concepts in a fun and engaging way. The application allows students to explore how different objects react when heat or cooling is applied through virtual experiments.
+
+The simulation includes activities such as melting chocolate, observing the expansion and contraction of a balloon, and understanding steam formation from hot water. By interacting with these experiments, students can visually learn important concepts like melting, solidification, evaporation, expansion, and contraction.
+
+The project combines education with technology by providing a child-friendly interface, interactive controls, progress tracking, and a reward system. This approach makes learning more enjoyable and encourages students to develop curiosity and scientific thinking skills.
+
+
+TEAM TASK DIVISION
+Trisha Reddy – Project Administrator, Team Lead, Tracker & Progress Manager
+• Coordinate all team activities.
+• Assign and monitor tasks for team members.
+• Track project progress and milestones.
+• Manage deadlines and ensure timely completion.
+• Conduct regular progress reviews.
+• Maintain communication among team members.
+• Update task status and project tracker.
+• Ensure smooth execution of all project phases.
+• Report project progress to faculty/mentor.
+• Oversee final project delivery and submission.
+Tejaswini Potnuru – Research & Content Collection
+• Research Thermal Conductivity concepts.
+• Research Specific Heat Capacity concepts.
+• Collect scientific resources and references.
+• Gather real-world examples related to heat transfer.
+• Verify scientific accuracy.
+• Assist in documentation verification.
+Nanditha Avirneni – Documentation & Content Writing
+• Prepare project documentation.
+• Write educational content.
+• Create learning explanations.
+• Maintain references and citations.
+Gunasekhar Kommineni – UI/UX Design & Storyboard Verification
+• Design application layout and wireframes.
+• Create user-friendly navigation.
+• Design material selection interface.
+• Create visual elements and icons.
+• Recheck storyboard file.
+• Update teams.txt file with Phase-5 details.
+Karthik tottanapudi – Frontend Development (HTML)
+• Update index.html file.
+• Manage HTML pages.
+• Maintain project folder structure.
+• Ensure proper page navigation and linking.
+Chelluru Jaswanth – GitHub Management, Frontend Support & Integration
+• Update CSS files.
+• Update JavaScript files.
+• Create and manage GitHub repository.
+• Maintain version control and commits.
+• Create and assign GitHub Issues.
+• Perform testing and bug fixing.
+• Integrate all modules into the final project.
+• Prepare final project submission and presentation.
+Srujan Podduturi – Simulation Logic Development & Gameplay System
+• Develop heating and cooling simulation algorithms.
+• Implement temperature change calculations.
+• Configure material properties.
+• Ensure scientific accuracy of simulation results.
+• Develop prediction-based gameplay.
+• Implement score calculation system.
+• Add reward and feedback mechanisms.
+Nadella Sriram Chowdary – Image & Resource Collection
+• Collect images required for simulation.
+• Organize image assets into folders.
+• Verify image quality and relevance.
+Challa Sri Valli – Quiz, Assessment & Requirements Management
+• Update requirements document.
+• Design Multiple Choice Questions (MCQs).
+• Create prediction-based assessment questions.
+• Develop quiz interface.
+• Implement score evaluation and feedback.
+• Generate learning outcome reports.
+• Update project documentation when required.
+GITHUB ISSUES CREATED
+Issue #1 – Research Thermal Conductivity
+Assigned To: Tejaswini Potnuru
+Status: Completed 
+Issue #2 – Research Specific Heat Capacity and Resources
+Assigned To: Tejaswini Potnuru
+Status: Completed 
+Issue #3 – Documentation and Educational Content Writing
+Assigned To: Nanditha Avirneni
+Status: Completed 
+Issue #4 – UI/UX Design and Visual Elements
+Assigned To: Gunasekhar Kommineni
+Status: Completed 
+Issue #5 – Develop Heat Transfer Simulation Logic
+Assigned To: Srujan Podduturi
+Status: Completed 
+Issue #6 – Implement Prediction Gameplay and Scoring System
+Assigned To: Srujan Podduturi
+Status: Completed 
+Issue #7 – Create Quiz and Assessment Module
+Assigned To: Challa Sri Valli
+Status: Completed 
+Issue #8 – GitHub Setup and Project Structure
+Assigned To: Chelluru Jaswanth
+Status: Completed 
+Issue #9 – Testing and Bug Fixing
+Assigned To: Chelluru Jaswanth
+Status: Completed 
+Issue #10 – Final Integration and Project Submission
+Assigned To: Chelluru Jaswanth
+Status: Completed 
+Issue #11 – Project Administration, Team Tracking & Progress Management
+Assigned To: Trisha Reddy
+Status: Completed 
+Issue #12 – HTML File Updates and Navigation Management
+Assigned To: Karthik tottanapudi
+Status: Completed 
+Issue #13 – CSS and JavaScript Updates
+Assigned To: Chelluru Jaswanth
+Status: Completed 
+Issue #14 – Image and Resource
+Collection
+Assigned To: Nadella Sriram Chowdary
+Status: Completed 
+Issue #15 – Storyboard Verification and Team File Updates
+Assigned To: Gunasekhar Kommineni
+Status: Completed 
+Issue #16 – Requirements Documentation Updates
+Assigned To: Challa Sri Valli
+Status: Completed

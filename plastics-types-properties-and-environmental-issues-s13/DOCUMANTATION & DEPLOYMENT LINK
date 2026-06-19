@@ -1,0 +1,76 @@
+<</PLASTICS-TYPES-PROPERTIES-ENVIRONMENTAL-ISSUES/>>
+[INTERACTIVE LEARNING SIMULATIONFOR STUDENTS]
+-->PROJECT TITLE: 
+PLASTICS TYPES PROPERTIES ENVIRONMENTAL ISSUES
+-->DESCRIPTION:
+
+Plastics: Types, Properties, and Environmental Issues is an educational project developed to increase awareness about plastics, 
+their characteristics, and their impact on the environment.
+The project provides detailed information about different types of plastics, including their properties, applications, recycling methods, 
+and environmental challenges such as pollution, waste accumulation, and harm to ecosystems.
+The project is built using HTML, CSS, and JavaScript to create an interactive and user-friendly interface,
+while Python is used to organize and display information efficiently. 
+The aim is to educate users about responsible plastic usage, proper waste management, recycling practices, 
+and sustainable alternatives, encouraging environmentally conscious decision-making.
+
+-->PROBLEM STATEMENT:
+
+Plastic is widely used in everyday life because of its durability, versatility, and low cost. 
+However, many people lack awareness of the different types of plastics, their properties, recycling codes, 
+and environmental impacts. Improper disposal and excessive use of plastics contribute to pollution, harm wildlife and marine ecosystems,
+and create long-term environmental challenges.
+There is a need for accessible educational resources that help people understand plastics and their environmental effects.
+
+-->SOLUTION STATEMENT:
+
+To address this problem, this project provides an interactive educational platform.
+That explains the types of plastics, their properties, uses, recycling methods, and environmental issues.
+Built using HTML, CSS, JavaScript, and Python, the platform presents information in a simple and engaging way,
+Helping users improve their understanding of plastics and encouraging responsible usage, recycling, and sustainable waste management.
+
+-->FEATURES:
+.Educational Features
+.Interactive learning environment
+.Real-life science examples
+.Easy-to-understand 
+.Student-friendly design
+
+-->TECHNICAL FEATURES:
+.Responsive web interface
+.Progress tracking system
+.Dynamic score calculation
+.Time limit Challange<60>
+.Visual feedback and animations
+.Final achievement screen
+.Restart and replay functionality
+
+-->LEARNING OUTCOMES:
+Students can understand 
+.Different types of plastics
+.Correct Recycling & Reusing
+.how much time that particular plastic can take to decompaces in environmentel
+.practical knowledge on plastics and there types
+
+-->TECH STACK USED:
+
+The project was developed using front-end web technologies along with Python to provide
+an interactive and educational learning experience.
+
+->Technology       | Purpose
+->HTML             | Structures the web pages and organizes the educational content.
+->CSS              | Styles the interface, improves layout, and creates a visually appealing design.
+->JavaScript       | Adds interactivity, dynamic content, and user-friendly functionality.
+->Python           | Processes and displays information related to plastic types, properties, and environmental issues.
+->Images & Icons   | Enhances visual understanding of different plastic types and recycling symbols.
+->Responsive Design| Ensures the website works smoothly across mobile, tablet, and desktop devices.
+->Git & GitHub     | Used for version control, collaboration, and project hosting.
+
+-->DEPLOYMENT LINK (Deployed in GOOGLE AI STUDIO)
+https://plastic-life-simulation-1090927796036.asia-southeast1.run.app
+
+--> CONCLUSION
+
+The Plastics: Types, Properties, and Environmental Issues project provides a simple and interactive way to learn about plastic types, 
+their properties, recycling, and environmental impacts.
+It promotes awareness of responsible plastic use and encourages sustainable practices to help reduce plastic pollution.
+

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ConductoVerse - Learn Conductors & Insulators</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="index.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse
+    </a>
+
+    <ul class="nav-links">
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a href="bulb.html">Bulb Test</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="uses.html">Uses</a></li>
+        <li><a href="lab.html">Virtual Lab</a></li>
+        <li><a href="results.html">Results</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section class="hero">
+        <div class="hero-copy">
+            <div class="eyebrow">Interactive science mission</div>
+            <h1>See how electricity chooses its path.</h1>
+            <p>
+                ConductoVerse turns conductors and insulators into a visual journey:
+                watch electrons move, test materials, sort real objects, and earn a
+                certificate after completing the challenge.
+            </p>
+
+            <div class="hero-actions">
+                <a href="learn.html" class="start-btn">Start Learning</a>
+                <a href="bulb.html" class="btn secondary">Try Bulb Test</a>
+            </div>
+
+            <div class="hero-stats" aria-label="Learning modules">
+                <div class="stat">
+                    <strong>7</strong>
+                    <span>learning screens</span>
+                </div>
+                <div class="stat">
+                    <strong>3</strong>
+                    <span>hands-on activities</span>
+                </div>
+                <div class="stat">
+                    <strong>100%</strong>
+                    <span>visual practice</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="visual-card" aria-label="Interactive electric circuit simulator">
+            <div class="circuit-hero-interactive" id="heroCircuit">
+                <!-- Live Circuit Stage -->
+                <div class="circuit-stage" id="heroCircuitStage">
+                    <div class="battery"></div>
+                    <div class="wire one"></div>
+                    <div class="wire two"></div>
+                    <div class="wire three"></div>
+                    <div class="wire four"></div>
+                    <div class="electron"></div>
+                    <div class="electron delay"></div>
+                    <div class="bulb-visual">
+                        <div class="bulb-glass"><span class="filament"></span></div>
+                        <div class="bulb-base"></div>
+                    </div>
+                    <!-- Slot for selected item -->
+                    <div id="heroTestItem" class="test-item-slot">Select Material</div>
+                    <div class="flow-path-label conductor-flow">Current flows</div>
+                    <div class="flow-path-label blocked-flow">Path blocked</div>
+                    <div class="visual-block-mark" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <!-- Switch Controller & Choices Grid -->
+                <div class="hero-controls-panel">
+                    <div class="switch-control">
+                        <span class="switch-label">Switch:</span>
+                        <button id="heroSwitchBtn" class="hero-switch-btn off">OFF</button>
+                    </div>
+
+                    <div class="hero-selector-grid">
+                        <button class="hero-choice-btn" data-kind="conductor" data-name="Copper Key" data-emoji="🔑" data-desc="Copper is a metal with free electrons! It completes the path to light up the bulb.">🔑 Copper Key</button>
+                        <button class="hero-choice-btn" data-kind="conductor" data-name="Silver Coin" data-emoji="🪙" data-desc="Silver is a great conductor! Electricity flows through it easily.">🪙 Silver Coin</button>
+                        <button class="hero-choice-btn" data-kind="insulator" data-name="Rubber Band" data-emoji="🎗️" data-desc="Rubber holds its electrons tightly. It blocks the path so the bulb stays off.">🎗️ Rubber Band</button>
+                        <button class="hero-choice-btn" data-kind="insulator" data-name="Plastic Spoon" data-emoji="🥄" data-desc="Plastic is an insulator. It does not allow current to pass.">🥄 Plastic Spoon</button>
+                    </div>
+                </div>
+
+                <!-- Mascot Speech Bubble -->
+                <div class="mascot-helper">
+                    <span class="mascot-avatar">🤖</span>
+                    <div class="mascot-bubble" id="heroMascotText">
+                        Hi! Select a material, turn the switch <strong>ON</strong>, and watch the electrons flow!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="section">
+        <div class="section-head">
+            <h2>Your learning path</h2>
+            <p>Each page adds one visual idea so students build confidence step by step.</p>
+        </div>
+
+        <div class="cards">
+            <article class="card">
+                <div class="icon-orb">📚</div>
+                <h2>Learn Basics</h2>
+                <p>Compare flowing electrons in conductors with blocked electrons in insulators.</p>
+                <a class="btn" href="learn.html">Open Lesson</a>
+            </article>
+
+            <article class="card">
+                <div class="icon-orb">💡</div>
+                <h2>Bulb Experiment</h2>
+                <p>Place a material into the circuit and instantly see if the bulb lights up.</p>
+                <a class="btn" href="bulb.html">Test Materials</a>
+            </article>
+
+            <article class="card">
+                <div class="icon-orb">🎯</div>
+                <h2>Quiz Challenge</h2>
+                <p>Answer short visual questions and get clear feedback on every concept.</p>
+                <a class="btn" href="quiz.html">Start Quiz</a>
+            </article>
+
+            <article class="card">
+                <div class="icon-orb">🌍</div>
+                <h2>Real Uses</h2>
+                <p>Connect the lesson to wires, chargers, gloves, switches, and power lines.</p>
+                <a class="btn" href="uses.html">Explore Uses</a>
+            </article>
+
+            <article class="card">
+                <div class="icon-orb">🧪</div>
+                <h2>Virtual Lab</h2>
+                <p>Drag objects into conductor and insulator zones to prove what you learned.</p>
+                <a class="btn" href="lab.html">Open Lab</a>
+            </article>
+
+            <article class="card">
+                <div class="icon-orb">🏆</div>
+                <h2>Results</h2>
+                <p>See your final score analysis, time spent, and overall knowledge level.</p>
+                <a class="btn" href="results.html">View Results</a>
+            </article>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="section">
+        <div class="storyboard-panel">
+            <div>
+                <div class="eyebrow">Storyboard to experience</div>
+                <h2>From power outage to science hero.</h2>
+                <p>
+                    The storyboard guides the site: students test materials, observe the circuit,
+                    choose safely, and restore power by understanding what conducts electricity.
+                </p>
+                <div class="steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div>
+                            <h3>Observe the problem</h3>
+                            <p>A circuit needs the right material to let electricity flow.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div>
+                            <h3>Test and compare</h3>
+                            <p>Conductors complete the path; insulators protect and block flow.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div>
+                            <h3>Apply in real life</h3>
+                            <p>Students connect the idea to home wiring, chargers, and safety.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-visual-strip" aria-label="Visual story symbols">
+                    <div class="story-symbol flow">
+                        <strong>1</strong>
+                        <span>Find the gap</span>
+                    </div>
+                    <div class="story-symbol test">
+                        <strong>2</strong>
+                        <span>Try a material</span>
+                    </div>
+                    <div class="story-symbol safe">
+                        <strong>3</strong>
+                        <span>Choose safely</span>
+                    </div>
+                </div>
+                <button class="storyboard-open" id="openStoryboard" type="button">Open storyboard large</button>
+            </div>
+            <button class="storyboard-image-button" id="storyboardImageButton" type="button" aria-label="Open storyboard in large view">
+                <img src="StoryBoard.png" alt="Conductors and insulators storyboard">
+                <span>Tap to zoom</span>
+            </button>
+        </div>
+    </section>
+
+    <div class="storyboard-modal" id="storyboardModal" role="dialog" aria-modal="true" aria-label="Large storyboard view">
+        <button class="storyboard-close" id="closeStoryboard" type="button" aria-label="Close storyboard">x</button>
+        <img src="StoryBoard.png" alt="Conductors and insulators storyboard large view">
+    </div>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/bg-simulation.js"></script>
+<script src="js/home-circuit.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

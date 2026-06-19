@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ScienceKids – Methods of Separation</title>
+  <meta name="description" content="Fun interactive learning platform for kids to learn Filtration, Evaporation and Distillation with animations, virtual labs and quizzes."/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<!-- Floating bubbles -->
+<div class="bg-bubbles" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<div class="page-wrapper">
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="navbar-brand">
+      <div class="navbar-logo">🔬</div>
+      <div class="navbar-title"><span data-i18n="nav.brand">ScienceKids</span></div>
+    </a>
+    <div class="navbar-controls">
+      <!-- Nav Progress -->
+      <div class="nav-progress">
+        <span class="nav-progress-label">0%</span>
+        <div class="nav-progress-bar"><div class="nav-progress-fill" style="width:0%"></div></div>
+      </div>
+      <!-- TTS -->
+      <div class="tts-bar" role="group" aria-label="Text to speech controls">
+        <span class="tts-label" data-i18n="tts.listen">Listen</span>
+        <button class="tts-btn tts-btn-play"  id="tts-play"  aria-label="Play narration"  title="Play">▶</button>
+        <button class="tts-btn tts-btn-pause" id="tts-pause" aria-label="Pause narration" title="Pause">⏸</button>
+        <button class="tts-btn tts-btn-stop"  id="tts-stop"  aria-label="Stop narration"  title="Stop">⏹</button>
+      </div>
+      <!-- Language Toggle -->
+      <div class="lang-toggle" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en" aria-label="Switch to English">EN</button>
+        <button class="lang-btn"        data-lang="te" aria-label="Switch to Telugu">తె</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE CONTENT ── -->
+  <main class="page-content">
+
+    <!-- ── HERO ── -->
+    <section class="hero tts-content">
+      <div class="container">
+        <div class="hero-badge" data-tts>
+          <span data-i18n="home.badge">🔬 Science Made Fun!</span>
+        </div>
+        <h1 class="hero-title">
+          <span data-i18n="home.title.1">Discover the Magic of</span><br>
+          <span class="highlight" data-i18n="home.title.2">Separation Science!</span>
+        </h1>
+        <p class="hero-subtitle" data-tts data-i18n="home.subtitle">
+          Learn how scientists separate mixtures using Filtration, Evaporation &amp; Distillation.
+          Explore virtual labs and take fun quizzes!
+        </p>
+        <div class="hero-actions">
+          <a href="filtration.html" class="btn btn-primary" id="btn-start">
+            <span data-i18n="home.btn.start">🚀 Start Learning</span>
+          </a>
+          <a href="lab.html" class="btn btn-teal" id="btn-lab">
+            <span data-i18n="home.btn.lab">🧪 Go to Lab</span>
+          </a>
+        </div>
+
+        <!-- Hero Illustration -->
+        <div class="hero-illustration" aria-hidden="true">
+          <svg viewBox="0 0 360 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;filter:drop-shadow(0 8px 32px rgba(108,63,224,0.4))">
+            <!-- Beaker -->
+            <rect x="120" y="80" width="120" height="140" rx="8" fill="rgba(79,195,247,0.15)" stroke="rgba(79,195,247,0.6)" stroke-width="3"/>
+            <!-- Water inside beaker -->
+            <rect x="124" y="160" width="112" height="56" rx="4" fill="rgba(79,195,247,0.35)"/>
+            <!-- Bubbles in beaker -->
+            <circle cx="155" cy="185" r="6" fill="rgba(255,255,255,0.3)"/>
+            <circle cx="175" cy="195" r="4" fill="rgba(255,255,255,0.3)"/>
+            <circle cx="200" cy="180" r="5" fill="rgba(255,255,255,0.3)"/>
+            <circle cx="220" cy="190" r="3" fill="rgba(255,255,255,0.3)"/>
+            <!-- Funnel -->
+            <polygon points="140,40 220,40 190,80 170,80" fill="rgba(255,215,0,0.2)" stroke="rgba(255,215,0,0.7)" stroke-width="2"/>
+            <rect x="175" y="80" width="10" height="30" fill="rgba(255,215,0,0.5)" stroke="rgba(255,215,0,0.7)" stroke-width="1"/>
+            <!-- Filter Paper inside funnel -->
+            <polygon points="145,44 215,44 188,76 172,76" fill="rgba(255,245,220,0.3)" stroke="rgba(255,245,220,0.5)" stroke-width="1"/>
+            <!-- Drops falling -->
+            <ellipse cx="180" cy="115" rx="4" ry="6" fill="rgba(79,195,247,0.8)"/>
+            <ellipse cx="180" cy="132" rx="3" ry="5" fill="rgba(79,195,247,0.6)"/>
+            <!-- Test Tube left -->
+            <rect x="55" y="100" width="30" height="80" rx="15" fill="rgba(0,201,167,0.2)" stroke="rgba(0,201,167,0.6)" stroke-width="2"/>
+            <rect x="59" y="145" width="22" height="32" rx="11" fill="rgba(0,201,167,0.4)"/>
+            <!-- Test Tube right -->
+            <rect x="275" y="100" width="30" height="80" rx="15" fill="rgba(255,107,53,0.2)" stroke="rgba(255,107,53,0.6)" stroke-width="2"/>
+            <rect x="279" y="148" width="22" height="30" rx="11" fill="rgba(255,107,53,0.4)"/>
+            <!-- Stars -->
+            <text x="40"  y="70" font-size="20" fill="rgba(255,215,0,0.8)">⭐</text>
+            <text x="300" y="65" font-size="16" fill="rgba(255,79,139,0.8)">✨</text>
+            <text x="290" y="180" font-size="14" fill="rgba(0,201,167,0.8)">💧</text>
+            <text x="45" y="200" font-size="14" fill="rgba(255,107,53,0.8)">🔥</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHY WE SEPARATE ── -->
+    <section class="section-sm tts-content">
+      <div class="container">
+        <div class="content-card" style="max-width:760px;margin:0 auto;">
+          <div class="content-card-header">
+            <div class="content-card-icon" style="background:linear-gradient(135deg,rgba(255,215,0,0.3),rgba(255,107,53,0.2))">🌍</div>
+            <h2 class="content-card-title" data-i18n="home.why.title">🌍 Why Do We Separate Mixtures?</h2>
+          </div>
+          <p data-tts data-i18n="home.why.text">
+            In our daily life, many substances are found mixed together. Scientists and engineers use
+            separation methods to get pure substances. For example, we filter drinking water to remove dirt,
+            evaporate sea water to get salt, and distill water to make it pure!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── NAV CARDS ── -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title" data-i18n="home.nav.title">📚 Choose a Topic</h2>
+        <p class="section-subtitle" data-i18n="home.nav.subtitle">Pick any topic below to start your science adventure!</p>
+
+        <div class="grid-5" role="list">
+          <a href="filtration.html" class="nav-card card card-filtration" role="listitem" id="card-filtration" aria-label="Learn about Filtration">
+            <div class="card-icon">💧</div>
+            <div class="card-title" data-i18n="card.filtration.title">Filtration</div>
+            <div class="card-desc"  data-i18n="card.filtration.desc">Separate solids from liquids using filter paper</div>
+          </a>
+          <a href="evaporation.html" class="nav-card card card-evaporation" role="listitem" id="card-evaporation" aria-label="Learn about Evaporation">
+            <div class="card-icon">☀️</div>
+            <div class="card-title" data-i18n="card.evaporation.title">Evaporation</div>
+            <div class="card-desc"  data-i18n="card.evaporation.desc">Remove liquid by heating a mixture</div>
+          </a>
+          <a href="distillation.html" class="nav-card card card-distillation" role="listitem" id="card-distillation" aria-label="Learn about Distillation">
+            <div class="card-icon">⚗️</div>
+            <div class="card-title" data-i18n="card.distillation.title">Distillation</div>
+            <div class="card-desc"  data-i18n="card.distillation.desc">Separate liquids using boiling &amp; cooling</div>
+          </a>
+          <a href="lab.html" class="nav-card card card-lab" role="listitem" id="card-lab" aria-label="Go to Virtual Lab">
+            <div class="card-icon">🧪</div>
+            <div class="card-title" data-i18n="card.lab.title">Virtual Lab</div>
+            <div class="card-desc"  data-i18n="card.lab.desc">Do real experiments in a virtual lab!</div>
+          </a>
+          <a href="quiz.html" class="nav-card card card-quiz" role="listitem" id="card-quiz" aria-label="Take a Quiz">
+            <div class="card-icon">🧠</div>
+            <div class="card-title" data-i18n="card.quiz.title">Take a Quiz</div>
+            <div class="card-desc"  data-i18n="card.quiz.desc">Test your science knowledge!</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROGRESS & BADGES ── -->
+    <section class="section-sm">
+      <div class="container">
+        <div class="grid-2" style="gap:28px;align-items:start">
+
+          <!-- Progress Tracker -->
+          <div class="progress-tracker">
+            <h3 data-i18n="home.progress.title">⭐ Your Learning Progress</h3>
+            <div class="progress-item" id="prog-filtration">
+              <span class="progress-item-label">💧 <span data-i18n="card.filtration.title">Filtration</span></span>
+              <div class="progress-item-bar"><div class="progress-item-fill" style="width:0%" id="prog-fill-filtration"></div></div>
+              <span class="progress-item-pct" id="prog-pct-filtration">0%</span>
+            </div>
+            <div class="progress-item" id="prog-evaporation">
+              <span class="progress-item-label">☀️ <span data-i18n="card.evaporation.title">Evaporation</span></span>
+              <div class="progress-item-bar"><div class="progress-item-fill" style="width:0%" id="prog-fill-evaporation"></div></div>
+              <span class="progress-item-pct" id="prog-pct-evaporation">0%</span>
+            </div>
+            <div class="progress-item" id="prog-distillation">
+              <span class="progress-item-label">⚗️ <span data-i18n="card.distillation.title">Distillation</span></span>
+              <div class="progress-item-bar"><div class="progress-item-fill" style="width:0%" id="prog-fill-distillation"></div></div>
+              <span class="progress-item-pct" id="prog-pct-distillation">0%</span>
+            </div>
+            <div class="progress-item" id="prog-lab">
+              <span class="progress-item-label">🧪 <span data-i18n="card.lab.title">Virtual Lab</span></span>
+              <div class="progress-item-bar"><div class="progress-item-fill" style="width:0%" id="prog-fill-lab"></div></div>
+              <span class="progress-item-pct" id="prog-pct-lab">0%</span>
+            </div>
+            <div class="progress-item" id="prog-quiz">
+              <span class="progress-item-label">🧠 <span data-i18n="card.quiz.title">Quiz</span></span>
+              <div class="progress-item-bar"><div class="progress-item-fill" style="width:0%" id="prog-fill-quiz"></div></div>
+              <span class="progress-item-pct" id="prog-pct-quiz">0%</span>
+            </div>
+          </div>
+
+          <!-- Achievement Badges -->
+          <div class="card" style="text-align:center">
+            <h3 style="font-family:var(--font-heading);font-size:1.3rem;margin-bottom:24px" data-i18n="home.badges.title">🏅 Your Achievements</h3>
+            <div class="badge-shelf">
+              <div class="badge-item" id="badge-filtration">
+                <div class="badge-icon">💧</div>
+                <div class="badge-label" data-i18n="badge.filtration">Filtration Master</div>
+              </div>
+              <div class="badge-item" id="badge-evaporation">
+                <div class="badge-icon">☀️</div>
+                <div class="badge-label" data-i18n="badge.evaporation">Evaporation Expert</div>
+              </div>
+              <div class="badge-item" id="badge-distillation">
+                <div class="badge-icon">⚗️</div>
+                <div class="badge-label" data-i18n="badge.distillation">Distillation Pro</div>
+              </div>
+              <div class="badge-item" id="badge-lab">
+                <div class="badge-icon">🧪</div>
+                <div class="badge-label" data-i18n="badge.lab">Lab Scientist</div>
+              </div>
+              <div class="badge-item" id="badge-quiz">
+                <div class="badge-icon">🏆</div>
+                <div class="badge-label" data-i18n="badge.quiz">Quiz Champion</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  // Populate progress bars and badges on home page
+  document.addEventListener('DOMContentLoaded', () => {
+    const topics = ['filtration','evaporation','distillation','lab','quiz'];
+    topics.forEach(key => {
+      const done = localStorage.getItem('progress_' + key) === 'true';
+      const fill = document.getElementById('prog-fill-' + key);
+      const pct  = document.getElementById('prog-pct-'  + key);
+      if (fill) fill.style.width = done ? '100%' : '0%';
+      if (pct)  pct.textContent  = done ? '100%' : '0%';
+      const badge = document.getElementById('badge-' + key);
+      if (badge && localStorage.getItem('badge_' + key) === 'true') badge.classList.add('earned');
+    });
+  });
+</script>
+</body>
+</html>

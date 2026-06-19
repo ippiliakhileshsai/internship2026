@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HeatQuest | Experiment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-experiment">
+  <header class="topbar">
+    <div>
+      <div class="brand">🧪 HeatQuest Experiment Lab</div>
+      <div id="greetingText" class="subtext"></div>
+    </div>
+
+    <div class="top-actions">
+      <button id="quizBtn" class="btn btn-secondary">Quiz Page</button>
+      <button id="resetBtn" class="btn btn-ghost">Restart Experiment</button>
+    </div>
+  </header>
+
+  <main class="content-page">
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Choose a Material</h2>
+          <p>Select one material to see what happens when it is heated or cooled.</p>
+        </div>
+        <div id="selectedLabel" class="pill">No material selected</div>
+      </div>
+
+      <div id="materialGrid" class="material-grid"></div>
+    </section>
+
+    <section class="sim-grid">
+      <div class="panel sim-panel">
+        <div class="sim-top">
+          <h2>Heating and Cooling Simulator</h2>
+          <div class="sim-actions">
+            <button id="heatBtn" class="btn btn-warn">Heat</button>
+            <button id="coolBtn" class="btn btn-secondary">Cool</button>
+          </div>
+        </div>
+
+        <div class="sim-body">
+          <div class="beaker-panel">
+            <div class="beaker-card">
+              <img id="materialVisual" alt="Selected material visual" />
+            </div>
+            <div id="resultText" class="result-box">
+              Select a material, then press Heat or Cool.
+            </div>
+          </div>
+
+          <div class="thermo-panel">
+            <div class="pill">Current Temperature</div>
+
+            <div class="thermometer" aria-hidden="true">
+              <div id="thermoFill" class="thermo-fill"></div>
+              <div class="thermo-bulb"></div>
+            </div>
+
+            <div id="temperature" class="temp-number">0<span>°C</span></div>
+            <div id="stateText" class="state-text">Very Cold</div>
+
+            <div class="particle-box">
+              <div class="small-title">Particle Activity</div>
+              <div id="particleBar" class="particle-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="info-grid">
+        <div class="panel info-card">
+          <h3>Material Information</h3>
+          <div class="kv"><span>Thermal Conductivity</span><span id="conductivity">—</span></div>
+          <div class="kv"><span>Specific Heat Capacity</span><span id="shc">—</span></div>
+          <div class="kv"><span>State</span><span id="stateValue">—</span></div>
+        </div>
+
+        <div class="panel info-card">
+          <h3>Scientific Explanation</h3>
+          <p id="explanation" class="explain-text">Pick a material to read the explanation.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

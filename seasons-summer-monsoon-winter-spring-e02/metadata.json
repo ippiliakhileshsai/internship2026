@@ -1,0 +1,10 @@
+{
+  "name": "Exploring Seasons",
+  "description": "An interactive, educational web app for children to explore the four seasons (Summer, Monsoon, Winter, Spring) with fun category tabs, a live simulated weather dashboard, and a playful puzzle captcha quiz.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,42 @@
+REQUIREMENTS:
+--> Objective: Develop an educationl simulation to help student understand different5 types of plastics and there ph values drop in correct bin
+-->Allow the user to identify the plastic type and learn the plastic type nature and also tell about decompose time in soil
+-->use simple language and engaging visuls suitable for school student 
+-->It include explanation for best understandin
+-->Ensure easy navigation and user friendly interface
+-->Add a 60s duration for quize
+-->User get a streaks  after completing the quize to get intrest in learning
+FEATURES AND MODULES
+-->Interactive learning
+-->Material Compration
+-->Explanations of plastics types & environmentel issues
+-->Interactive visual
+-->Quiz
+-->score Tracking system
+-->Easy Navigation
+MODULE 1:
+-->Plastic life simulation<</name of the app/>>
+MODULE 2 :
+-->Log-in page
+      (OR)
+-->Try for free trial
+-->sin-in with google account
+MODULE 3 :
+-->Main home 
+-->learn about plastics(6 types of plastics)
+MODULE 4:
+-->Master the 6 type of plastics with example
+-->At the down there is test your knowledge
+MODULE 5:
+-->Challenge mode (sort plastic correctly)
+-->time 60s
+-->Score
+-->Remaining
+-->There the 6 types of plasticand 6 types of recycle bin the user should drage the plastic correctly into th e correct recyclebin so user get scocr
+--> after the 60s the game get stop and the user can see the how many he/she placed correct/worng and Accuracy
+--> The user also get pro tips so user can learn from that
+MODULE 6:
+-->In this the user can see the challenges , Accuracy , Streak , points
+--> User can also see the Achievements 
+--> Recent Activity<</ your latest achievement />>
+-->Learn,Sort & Recycle Smartly<</goal of our app/>>

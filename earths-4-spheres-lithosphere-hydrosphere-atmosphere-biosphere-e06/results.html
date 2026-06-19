@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Results - Earth's Four Spheres</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body data-page="quiz-results" class="lang-en">
+
+  <!-- Fullscreen Confetti Canvas overlay -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <main class="container">
+    
+    <div class="results-card">
+      
+      <!-- Trophy bobbing icon -->
+      <div class="trophy-container">🏆</div>
+
+      <h1 style="margin-bottom: 5px;">
+        <span class="lang-en">Quest Completed!</span>
+        <span class="lang-te">అన్వేషణ పూర్తయింది!</span>
+      </h1>
+      <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 15px;">
+        <span class="lang-en">You successfully finished the Earth Guardian Quiz. Let's see how you did!</span>
+        <span class="lang-te">మీరు విజయవంతంగా ఎర్త్ గార్డియన్ క్విజ్ పూర్తి చేశారు. మీ ఫలితాలు చూడండి!</span>
+      </p>
+
+      <!-- Big percentage score circle -->
+      <div>
+        <div class="score-circle" id="res-percentage">0%</div>
+      </div>
+
+      <!-- Small statistics grid -->
+      <div class="score-stats-grid">
+        <div class="stat-item">
+          <div style="font-size: 1.8rem; color: var(--success);" id="res-correct">0</div>
+          <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">
+            <span class="lang-en">Correct Answers</span>
+            <span class="lang-te">సరైన సమాధానాలు</span>
+          </p>
+        </div>
+        <div class="stat-item">
+          <div style="font-size: 1.8rem; color: var(--error);" id="res-incorrect">0</div>
+          <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">
+            <span class="lang-en">Incorrect Answers</span>
+            <span class="lang-te">తప్పు సమాధానాలు</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Badge rewards display box -->
+      <div class="badge-reward-showcase" id="reward-card">
+        <!-- SVG container -->
+        <svg class="badge-icon" id="badge-svg-reward" viewBox="0 0 64 64" style="width: 70px; height: 70px; flex-shrink: 0;"></svg>
+        <div>
+          <h3 style="margin: 0 0 4px 0; font-size: 1.15rem; font-family: var(--font-header);" id="badge-title-reward">
+            <!-- Filled by JS -->
+          </h3>
+          <p style="margin: 0; font-size: 0.9rem; line-height: 1.4; color: var(--text-dark);" id="badge-desc-reward">
+            <!-- Filled by JS -->
+          </p>
+        </div>
+      </div>
+
+      <!-- Actions Buttons row -->
+      <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top: 30px;">
+        <button class="btn btn-secondary" onclick="toggleReview()">
+          <span>📊</span>
+          <span class="lang-en">Review Answers</span>
+          <span class="lang-te">సమాధానాలు సమీక్షించు</span>
+        </button>
+        <button class="btn btn-primary" onclick="retakeQuiz()">
+          <span>🔄</span>
+          <span class="lang-en">Retake Quiz</span>
+          <span class="lang-te">మళ్లీ రాయండి</span>
+        </button>
+        <a href="index.html" class="btn btn-secondary" style="background-color: #f1f5f9;">
+          <span>🏠</span>
+          <span class="lang-en">Return Home</span>
+          <span class="lang-te">హోమ్ పేజీ</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Review Answers Details Panel (hidden by default) -->
+    <section class="review-questions-box" id="review-container" style="display: none;">
+      <h2 style="border-bottom: 3px solid var(--border-color); padding-bottom: 12px; margin-bottom: 10px;">
+        <span class="lang-en">Detailed Question Review</span>
+        <span class="lang-te">వివరణాత్మక ప్రశ్న సమీక్ష</span>
+      </h2>
+      
+      <!-- Populated by JS -->
+      <div id="review-list"></div>
+
+    </section>
+
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/results.js"></script>
+</body>
+</html>
