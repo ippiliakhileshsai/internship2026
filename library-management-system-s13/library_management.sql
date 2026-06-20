@@ -532,8 +532,108 @@ mysql> SELECT * FROM reservations;
 +----------------+---------+------------+------------------+---------+
 1 row in set (0.00 sec)
 
-mysql> m
-    ->
+mysql> 
+mysql> USE library_management;
+Database changed
+mysql>
+mysql> CREATE TABLE IF NOT EXISTS users (
+    ->     user_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     username VARCHAR(50) UNIQUE NOT NULL,
+    ->     password VARCHAR(255) NOT NULL,
+    ->     role VARCHAR(20) DEFAULT 'student'
+    -> );
+Query OK, 0 rows affected (4.52 sec)
+
+mysql>
+mysql> SHOW * FROM user;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* FROM user' at line 1
+mysql> SHOW * FROM users;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* FROM users' at line 1
+mysql> SELECT * FROM users;
+Empty set (0.12 sec)
+
+mysql> INSERT INTO users (username, password, role) VALUES ('admin', 'admin123', 'admin');
+Query OK, 1 row affected (0.20 sec)
+
+mysql> SELECT * FROM users;
++---------+----------+----------+-------+
+| user_id | username | password | role  |
++---------+----------+----------+-------+
+|       1 | admin    | admin123 | admin |
++---------+----------+----------+-------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO users (username, password, role) VALUES ('s101', 'pass123', 'student');
+Query OK, 1 row affected (0.20 sec)
+
+mysql> INSERT INTO users (username, password, role) VALUES ('f201', 'pass123', 'faculty');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> SELECT * FROM users;
++---------+----------+----------+---------+
+| user_id | username | password | role    |
++---------+----------+----------+---------+
+|       1 | admin    | admin123 | admin   |
+|       2 | s101     | pass123  | student |
+|       3 | f201     | pass123  | faculty |
++---------+----------+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 
