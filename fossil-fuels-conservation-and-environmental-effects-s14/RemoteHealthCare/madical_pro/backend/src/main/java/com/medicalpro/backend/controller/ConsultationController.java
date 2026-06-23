@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/consultations")
@@ -40,11 +41,36 @@ public class ConsultationController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Autowired
+    private com.medicalpro.backend.repository.ConsultationRoomRepository roomRepository;
+
+    @Autowired
+    private org.springframework.messaging.simp.SimpMessagingTemplate messagingTemplate;
+
     @PutMapping("/status/{id}")
-    public ResponseEntity<Consultation> updateStatus(@PathVariable Long id, @RequestBody String status) {
+    public ResponseEntity<Consultation> updateStatus(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        String status = body.get("status");
         return consultationRepository.findById(id).map(c -> {
             c.setStatus(status);
-            return ResponseEntity.ok(consultationRepository.save(c));
+            Consultation saved = consultationRepository.save(c);
+            
+            if ("Approved".equalsIgnoreCase(status)) {
+                // Generate secure video consultation room
+                com.medicalpro.backend.entity.ConsultationRoom room = new com.medicalpro.backend.entity.ConsultationRoom();
+                room.setConsultation(saved);
+                room.setDoctor(saved.getDoctor());
+                room.setPatient(saved.getPatient());
+                room.setRoomStatus("PENDING");
+                room.setMeetingLink("/consultation/room/" + java.util.UUID.randomUUID().toString());
+                room.setCreatedAt(LocalDateTime.now());
+                roomRepository.save(room);
+                
+                // Notify patient instantly
+                messagingTemplate.convertAndSend("/topic/patient/" + saved.getPatient().getId() + "/notifications", 
+                        "Your consultation request has been approved.");
+            }
+            
+            return ResponseEntity.ok(saved);
         }).orElse(ResponseEntity.notFound().build());
     }
 }
