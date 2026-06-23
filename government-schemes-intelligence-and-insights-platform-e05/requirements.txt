@@ -1,0 +1,94 @@
+
+                                        GOVERNMENT SCHEMES INTELLIGENCE AND INSIGHTS PLATFORM
+
+PROJECT REQUIREMENTS :
+
+---> We have collected information from various government websites, and reports.  
+---> We also used ChatGPT for content organization and explanation purposes.
+
+References:
+
+---> https://www.india.gov.in/
+---> https://www.mygov.in/
+---> https://www.data.gov.in/
+---> https://www.niti.gov.in/
+---> https://www.pmindia.gov.in/
+---> https://www.niti.gov.in/sdmg-india-index-dashboard
+---> https://www.digitalindia.gov.in/
+
+PROJECT OBJECTIVES :
+
+---> Develop a web-based platform that provides information and insights about various Government Schemes in India.
+---> Enable users to search, explore, and understand different schemes based on categories and eligibility. 
+---> Provide data visualization and analytics for scheme trends and usage.
+---> Use a simple and user-friendly interface for easy navigation. 
+---> Include filtering and search functionalities for quick access to schemes. 
+---> Ensure accurate and up-to-date information from trusted government sources. 
+---> Provide insights and recommendations related to government schemes.
+
+FEATURES :
+
+---> Scheme Search and Exploration 
+---> User-friendly Dashboard
+---> Data Visualization and Analytics 
+---> Eligibility Information 
+---> Search and Filter Options 
+---> Scheme Categories 
+---> Reports and Insights 
+---> Easy Navigation and Responsive Design
+
+MODULES :
+
+Module 1:
+--> Introduction 
+--> Overview of Government Schemes Intelligence and Insights Platform.
+--> Importance of Government Schemes and Digital Access.
+--> Objectives of the Platform.
+
+Module 2: 
+--> Government Schemes Database 
+--> Central Government Schemes. 
+--> State Government Schemes. 
+--> Category-wise Classification (Education, Health, Agriculture, Women Empowerment, Employment, etc.). 
+--> Scheme Details and Benefits.
+
+Module 3: 
+--> Search and Eligibility Analysis 
+--> Search Government Schemes by Category. 
+--> Filter Schemes based on Eligibility Criteria. 
+--> Display Beneficiary Information and Requirements. 
+--> Personalized Scheme Recommendations.
+
+Module 4:
+--> Insights and Analytics Dashboard 
+--> Scheme Statistics and Trends. 
+--> Charts and Graphs for Data Visualization. 
+--> Category-wise Analysis. 
+--> User-friendly Reports and Insights.
+
+Module 5: 
+--> Interactive Features 
+--> Scheme Comparison. 
+--> Bookmark and Save Schemes. 
+--> Feedback and Suggestions. 
+--> Frequently Asked Questions (FAQs).
+
+Module 6:
+--> Conclusion 
+--> Summary of Platform Features. 
+--> Learning Outcomes and Future Scope. 
+--> Importance of Digital Access to Government Schemes.
+
+TECHNOLOGIES USED : 
+
+--> Frontend
+--> React
+--> html
+--> Vite
+--> Backend
+--> Node.js
+--> AI Integration
+--> Google Gemini 3.5 Flash API
+--> Database
+--> JSON-based Storage
+--> React+ vite, nodejs , html. Css.

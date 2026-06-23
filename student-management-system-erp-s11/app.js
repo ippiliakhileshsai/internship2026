@@ -1,5 +1,6 @@
 registerRoutes({
   adminDashboard: adminDashboard,
+  adminAttendance: adminAttendance,
   adminStudents: adminStudents,
   adminFaculty: adminFaculty,
   adminCourses: adminCourses,

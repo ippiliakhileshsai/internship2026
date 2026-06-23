@@ -2,6 +2,7 @@ var navMenus = {
   admin: [
     { section: 'Overview' },
     { label: 'Dashboard', icon: '📊', page: 'adminDashboard' },
+    { label: 'Attendance', icon: 'AT', page: 'adminAttendance' },
     { section: 'User Management' },
     { label: 'Manage Students', icon: '👨‍🎓', page: 'adminStudents' },
     { label: 'Manage Faculty', icon: '👩‍🏫', page: 'adminFaculty' },
