@@ -4,6 +4,7 @@ var routeTitles = {
   adminFaculty: 'Faculty Management',
   adminCourses: 'Courses',
   adminNotices: 'Notices',
+  adminAttendance: 'Attendance Overview',
   adminProfile: 'My Profile',
   facDashboard: 'Dashboard',
   facStudents: 'My Students',
