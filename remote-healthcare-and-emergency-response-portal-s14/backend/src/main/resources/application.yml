@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ambulance-tracker-backend
+  jackson:
+    time-zone: UTC
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+hospital:
+  search:
+    overpass-url: https://overpass-api.de/api
+    radius-km: 10.0
+    timeout-seconds: 25
+
+logging:
+  level:
+    org.springframework.web: INFO
+    com.ambulance.tracker: INFO
