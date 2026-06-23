@@ -1,0 +1,27 @@
+========================================================================
+PROJECT REQUIREMENTS & TECHNICAL SPECIFICATIONS: What Is Inside Our Eyes?
+========================================================================
+
+1. SYSTEM & RUNTIME REQUIREMENTS
+--------------------------------
+* Web Browser: Any modern standard-compliant browser (Google Chrome, Mozilla Firefox, Apple Safari, Microsoft Edge, Opera).
+* JavaScript: Enabled in browser settings.
+* CSS Features: Flexbox, CSS Grid, and CSS Custom Variables (:root) support.
+* SVG Support: Standard vector rendering engine.
+* No local installation, compiler, bundler, or server runtime is required to execute the separated files.
+
+2. TECHNICAL STACK & LIBRARIES
+------------------------------
+* Frontend Structure: Vanilla HTML5 semantic markup.
+* Styling & Presentation: Native CSS3 with responsive viewport adjustments and glassmorphism UI/UX patterns.
+* Core Logic: Vanilla ES6+ JavaScript (handles DOM event listener registrations, transition animations, and canvas-free calculations).
+* Graphics Engine: Scalable Vector Graphics (SVG) for anatomical models, optics diagrams, and smiley faces.
+
+3. FUNCTIONAL CAPABILITIES (MODULES)
+------------------------------------
+* Module 1: Eye Anatomy Explorer (interactive anatomical layers showing pupils, corneas, lenses, retinas, and optic nerves).
+* Module 2: Light & Vision (refraction physics simulation with adjustable lenses and focal indicators for normal, myopia, hyperopia, and astigmatism conditions).
+* Module 3: Brain Vision (neural signals simulation representing impulses flowing from retinas, through the thalamus, to the visual cortex).
+* Module 4: Adaptation Labs (pupil contraction/dilation brightness simulator, and lens accommodation focus lab).
+* Module 5: Ocular Quiz (knowledge rating evaluation with score counts and visual checkmark responses).
+* Module 6: Eye Care Hub (expanded accordion panels displaying clinical care, lighting, and health practices).

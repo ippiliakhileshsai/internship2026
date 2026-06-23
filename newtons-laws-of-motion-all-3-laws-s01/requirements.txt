@@ -1,0 +1,78 @@
+Functional Requirements
+
+What should the simulation do?
+
+• Apply force to an object
+
+• Increase or decrease the mass of an object
+
+• Observe object acceleration in real time
+
+• Compare motion under different forces
+
+• Show the effects of balanced and unbalanced forces
+
+• Demonstrate action-reaction force pairs
+
+• Allow users to reset and rerun experiments
+
+• Display numerical values of:
+• Force (N)
+• Mass (kg)
+• Acceleration (m/s²)
+
+• Provide feedback for incorrect predictions
+
+Non-Functional Requirements
+
+How should it feel?
+
+• Easy to use for school students
+
+• Mobile-friendly
+
+• Smooth performance on low-end devices
+
+• Fast loading time
+
+• Interactive and engaging
+
+• Attractive animations and visuals
+
+• Clear labels and instructions
+
+• Beginner-friendly and accessible
+
+Learning Requirements
+
+After using the simulation, students should be able to:
+
+Newton's First Law
+
+• Explain the concept of inertia
+
+• Distinguish between motion and rest
+
+• Predict what happens when no external force acts on an object
+
+Newton's Second Law
+
+• Understand the relationship between force, mass, and acceleration
+
+• Calculate the effects of changing force or mass
+
+• Predict acceleration under different conditions
+
+Newton's Third Law
+
+• Identify action-reaction force pairs
+
+• Explain why forces always occur in pairs
+
+• Apply the concept to real-world examples such as:
+• Walking
+• Jumping
+• Rocket launches
+
+Bonus Features :
+Achievement / Score system

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Portal - Certificates | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="teacher-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Teacher
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="teacherAvatar" class="profile-avatar teacher">🔋</div>
+            <h2 id="teacherUsername">Teacher Name</h2>
+            <span class="profile-role-badge teacher">Instructor</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="teacher-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="teacher-students.html" class="menu-btn"><span class="icon">👥</span> Students</a></li>
+                <li><a href="teacher-assignments.html" class="menu-btn"><span class="icon">📝</span> Assignments</a></li>
+                <li><a href="teacher-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Quizzes</a></li>
+                <li><a href="teacher-analytics.html" class="menu-btn"><span class="icon">📈</span> Analytics</a></li>
+                <li><a href="teacher-certificates.html" class="menu-btn"><span class="icon">🏆</span> Certificates</a></li>
+                <li><a href="teacher-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="teacher-reports.html" class="menu-btn"><span class="icon">📄</span> Reports</a></li>
+                <li><a href="teacher-settings.html" class="menu-btn"><span class="icon">⚙️</span> Settings</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">Welcome, Instructor!</h1>
+            <p id="welcomeDescription">Verify active student achievement certificates and trace verification IDs.</p>
+        </header>
+
+        <section id="tab-certificates" class="tab-content active">
+            <article class="dashboard-card">
+                <h2>🏆 Student Certificate Verification Hub</h2>
+                <p style="margin-bottom:20px; font-size:0.92rem; color:var(--muted); font-weight: 600;">
+                    Verify achievements of students who have maintained an overall grade of 80% or above in basic testing, sorting streaks, and homework.
+                </p>
+
+                <div class="table-container">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Overall Score</th>
+                                <th>Certificates Earned</th>
+                                <th>Verification ID</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cert-directory-body">
+                            <!-- Dynamic certificates -->
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/teacher-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    renderCertificatesDirectory();
+});
+
+function renderCertificatesDirectory() {
+    const tbody = document.getElementById("cert-directory-body");
+    let html = "";
+
+    studentsData.forEach(s => {
+        const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${s.username}`) || "null");
+        const spot = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${s.username}`) || "null");
+
+        const quizPct = quiz ? quiz.percent : 0;
+        const spotPct = spot ? spot.percent : 0;
+        const completedCount = (quiz ? 1 : 0) + (spot ? 1 : 0);
+        const overall = completedCount ? Math.round((quizPct + spotPct) / completedCount) : 0;
+
+        if (overall >= 80) {
+            const hash = btoa(`${s.username}_mastery`).substring(0, 10).toUpperCase();
+            html += `
+                <tr>
+                    <td><strong>${s.username}</strong></td>
+                    <td><strong>${overall}%</strong></td>
+                    <td>ConductoVerse Mastery Certificate 🏆</td>
+                    <td><code style="background:rgba(22,104,255,0.06); padding:2px 6px; border-radius:4px; font-size:0.75rem;">CV-${hash}</code></td>
+                    <td><span class="profile-role-badge student" style="margin-top:0; padding:2px 8px; font-size:0.68rem; background:rgba(42,157,143,0.1); border-color:var(--green); color:var(--green);">Verified</span></td>
+                </tr>
+            `;
+        }
+    });
+
+    tbody.innerHTML = html || `<tr><td colspan="5" style="text-align:center; padding:30px; font-weight:700; color:var(--muted)">No students have reached certificate mastery thresholds yet (Overall Grade >= 80%).</td></tr>`;
+}
+</script>
+</body>
+</html>

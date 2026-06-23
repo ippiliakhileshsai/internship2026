@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Activities - ConnectMyEvent</title>
+  
+  <!-- CSS Styling files -->
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/utilities.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  
+  <style>
+    /* Section switching styles */
+    .dashboard-panel-section {
+      display: none;
+      animation: fadeIn var(--transition-fast) forwards;
+    }
+    
+    .dashboard-panel-section.active {
+      display: block;
+    }
+    
+    .certificate-card {
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      background: var(--bg-surface);
+      padding: var(--space-6);
+      transition: all var(--transition-base);
+    }
+    
+    .certificate-card:hover {
+      border-color: var(--brand-amber-400);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="dashboard-sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="sidebar-brand" style="text-decoration:none;">
+          <i data-lucide="layers" style="color: var(--brand-indigo-500); width: 22px; height: 22px;"></i>
+          Connect<span style="color: var(--brand-coral-500);">MyEvent</span>
+        </a>
+      </div>
+      <nav class="sidebar-nav" id="dashboardNav">
+        <div class="nav-item active" data-target="section-overview"><i data-lucide="layout-dashboard"></i> Overview</div>
+        <div class="nav-item" data-target="section-events"><i data-lucide="calendar"></i> Registered Events</div>
+        <div class="nav-item" data-target="section-teams"><i data-lucide="users-2"></i> My Teams</div>
+        <div class="nav-item" data-target="section-certs"><i data-lucide="award"></i> Certificates</div>
+        <div class="divider" style="margin: 12px 0;"></div>
+        <button type="button" class="nav-item text-error" onclick="handleLogout()" style="margin-top: auto; color: var(--error); border:none; background:none; width:100%; text-align:left; cursor:pointer;"><i data-lucide="log-out"></i> Logout</button>
+      </nav>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="dashboard-main">
+      <header class="dashboard-header">
+        <div class="flex items-center gap-4">
+          <button type="button" class="btn btn-ghost p-1 lg:hidden" id="mobileSidebarToggle" aria-label="Toggle Navigation"><i data-lucide="menu"></i></button>
+          <h1 class="font-display text-base fw-bold mb-0" style="margin:0;">My Activities</h1>
+        </div>
+        
+        <div class="flex items-center gap-4">
+          <!-- Theme Toggle -->
+          <button type="button" id="themeToggle" class="btn btn-ghost btn-icon" aria-label="Toggle Theme" style="border-radius: var(--radius-full); width:36px; height:36px; padding:0; display:flex; align-items:center; justify-content:center;">
+            <i data-lucide="sun" class="sun-icon" style="width: 18px; height: 18px;"></i>
+            <i data-lucide="moon" class="moon-icon" style="width: 18px; height: 18px; display:none;"></i>
+          </button>
+
+          <!-- Notifications Dropdown -->
+          <div class="noti-dropdown-container">
+            <button type="button" class="btn btn-ghost p-2" id="notiToggle" style="border-radius:var(--radius-full); padding:8px; width:36px; height:36px; display:flex; align-items:center; justify-content:center;" aria-label="Notifications">
+              <i data-lucide="bell" style="width:18px; height:18px;"></i>
+              <span class="noti-badge-dot"></span>
+            </button>
+            <div class="noti-dropdown" id="notiDropdown">
+              <div class="noti-dropdown-header">
+                <span>Notifications</span>
+                <button type="button" class="btn btn-ghost btn-sm text-indigo" onclick="markAllNotificationsRead()" style="padding: 2px 6px; font-size:10px;">Mark read</button>
+              </div>
+              <div class="noti-dropdown-body">
+                <div class="noti-item unread" onclick="readNoti(this)">
+                  <span class="fw-bold block text-main">Team Match Found!</span>
+                  <span class="text-xs text-secondary mt-1 block">You have been matched with 2 partners for FinTech Hackathon. Check Teams!</span>
+                </div>
+                <div class="noti-item unread" onclick="readNoti(this)">
+                  <span class="fw-bold block text-main">Certificate Released</span>
+                  <span class="text-xs text-secondary mt-1 block">Your credential for 'UX Design Figma Bootcamp' is ready for download.</span>
+                </div>
+                <div class="noti-item" onclick="readNoti(this)">
+                  <span class="fw-bold block text-main">Registration Approved</span>
+                  <span class="text-xs text-secondary mt-1 block">Your pass for CodeStorm National Hackathon has been verified. See you there!</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="avatar avatar-sm" id="userAvatar">U</div>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+        
+        <!-- 1. OVERVIEW PANEL -->
+        <div class="dashboard-panel-section active" id="section-overview">
+          <h2 class="text-2xl font-bold font-display mb-6">Welcome back, <span id="helloName" class="text-indigo">User</span>! 👋</h2>
+          
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="stat-card">
+              <div class="flex justify-between items-start">
+                <div class="stat-label">Registered Opportunities</div>
+                <div class="stat-icon" style="background: var(--brand-indigo-50); color: var(--brand-indigo-600);"><i data-lucide="calendar"></i></div>
+              </div>
+              <div class="stat-value text-indigo">2</div>
+            </div>
+            <div class="stat-card">
+              <div class="flex justify-between items-start">
+                <div class="stat-label">Verified Certificates</div>
+                <div class="stat-icon" style="background: var(--success-bg); color: var(--success);"><i data-lucide="award"></i></div>
+              </div>
+              <div class="stat-value text-success">3</div>
+            </div>
+            <div class="stat-card">
+              <div class="flex justify-between items-start">
+                <div class="stat-label">Active Team Matches</div>
+                <div class="stat-icon" style="background: var(--brand-coral-100); color: var(--brand-coral-600);"><i data-lucide="users-2"></i></div>
+              </div>
+              <div class="stat-value text-coral">1</div>
+            </div>
+          </div>
+
+          <!-- Bottom sections layout -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <h3 class="text-lg font-bold font-display mb-4">Upcoming Schedule Highlights</h3>
+              
+              <div class="card card-flat p-5 mb-4 flex flex-col md:flex-row gap-4 items-center" style="border:1px solid var(--border-color);">
+                <div class="w-14 h-14 rounded-lg bg-indigo text-indigo-inverse flex items-center justify-center text-xl shrink-0" style="background: var(--cat-hackathon-bg); color: var(--cat-hackathon);">💻</div>
+                <div class="flex-1 text-center md:text-left">
+                  <h4 class="font-bold text-sm">CodeStorm National Hackathon</h4>
+                  <p class="text-xs text-secondary mt-1">Starts July 12, 2026 • Team: <strong>AlphaDevs</strong></p>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm btn-pill" onclick="simulateShowPass(1)">View Ticket</button>
+              </div>
+
+              <div class="card card-flat p-5 flex flex-col md:flex-row gap-4 items-center" style="border:1px solid var(--border-color);">
+                <div class="w-14 h-14 rounded-lg bg-success-bg text-success flex items-center justify-center text-xl shrink-0" style="background: var(--cat-workshop-bg); color: var(--cat-workshop);">🛠️</div>
+                <div class="flex-1 text-center md:text-left">
+                  <h4 class="font-bold text-sm">AI &amp; Deep Learning Masterclass</h4>
+                  <p class="text-xs text-secondary mt-1">Starts July 20, 2026 • Individual</p>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm btn-pill" onclick="simulateShowPass(2)">View Ticket</button>
+              </div>
+            </div>
+
+            <!-- AI Recommender -->
+            <div>
+              <h3 class="text-lg font-bold font-display mb-4">Recommended for You <i data-lucide="sparkles" style="width:16px; color:var(--brand-indigo-500); display:inline-block; vertical-align:-2px;"></i></h3>
+              <div class="card p-5 bg-elevated border-color">
+                <div class="flex gap-3 mb-4">
+                  <div class="w-10 h-10 rounded bg-white border border-color flex items-center justify-center text-lg">💡</div>
+                  <div>
+                    <h4 class="font-bold text-sm">FinTech Hackathon</h4>
+                    <p class="text-xs text-muted mt-0.5">Recommended based on your focus in web3 &amp; finance.</p>
+                  </div>
+                </div>
+                <a href="event-detail.html?id=11" class="btn btn-primary btn-sm btn-full btn-pill">Apply Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. REGISTERED EVENTS PANEL -->
+        <div class="dashboard-panel-section" id="section-events">
+          <h2 class="text-xl font-bold font-display mb-6">Your Registered Opportunities</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card p-6 flex flex-col justify-between" style="border-top:3.5px solid var(--cat-hackathon);">
+              <div>
+                <span class="badge badge-cat-hackathon mb-3">Hackathon</span>
+                <h3 class="text-lg font-bold">CodeStorm National Hackathon 2026</h3>
+                <p class="text-xs text-muted mb-4">July 12-14, 2026 • IIT Bombay Campus &amp; Online</p>
+                <div class="text-xs text-secondary font-mono bg-elevated p-3 border border-color rounded mb-4">
+                  <strong>TEAM:</strong> AlphaDevs (3 members)<br>
+                  <strong>STATUS:</strong> Verified Participant
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm btn-pill btn-full" onclick="simulateShowPass(1)">Display Gate Pass</button>
+            </div>
+
+            <div class="card p-6 flex flex-col justify-between" style="border-top:3.5px solid var(--cat-workshop);">
+              <div>
+                <span class="badge badge-cat-workshop mb-3">Workshop</span>
+                <h3 class="text-lg font-bold">AI &amp; Deep Learning Masterclass</h3>
+                <p class="text-xs text-muted mb-4">July 20, 2026 • Zoom Online</p>
+                <div class="text-xs text-secondary font-mono bg-elevated p-3 border border-color rounded mb-4">
+                  <strong>TEAM:</strong> Individual<br>
+                  <strong>STATUS:</strong> Paid Confirmation
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm btn-pill btn-full" onclick="simulateShowPass(2)">Display Gate Pass</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. TEAMS PANEL -->
+        <div class="dashboard-panel-section" id="section-teams">
+          <h2 class="text-xl font-bold font-display mb-6">Active Matchmaking Teams</h2>
+          
+          <div class="card p-6 border-color mb-6">
+            <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
+              <div>
+                <h3 class="text-lg font-bold" style="margin:0;">Team AlphaDevs</h3>
+                <p class="text-xs text-muted">Opportunity: CodeStorm National Hackathon</p>
+              </div>
+              <span class="badge badge-success">Completed Matching</span>
+            </div>
+            
+            <div class="divider mt-2 mb-4"></div>
+            
+            <h4 class="text-xs font-bold text-muted uppercase mb-3">Teammates (3/4)</h4>
+            <div class="flex flex-col gap-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="avatar avatar-sm" id="teammateYou">U</div>
+                  <div>
+                    <span class="text-sm font-bold block" id="teammateYouName">User (You)</span>
+                    <span class="text-xs text-muted">Skills: React, Figma, Frontend</span>
+                  </div>
+                </div>
+                <span class="badge badge-outline text-xs">Leader</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="avatar avatar-sm" style="background: var(--brand-coral-500);">AM</div>
+                  <div>
+                    <span class="text-sm font-bold block">Aditya Mehta</span>
+                    <span class="text-xs text-muted">Skills: Node.js, Express, Postgres</span>
+                  </div>
+                </div>
+                <span class="badge badge-outline text-xs">Developer</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="avatar avatar-sm" style="background: var(--brand-amber-500);">SP</div>
+                  <div>
+                    <span class="text-sm font-bold block">Sneha Patel</span>
+                    <span class="text-xs text-muted">Skills: Python, PyTorch, Data Engine</span>
+                  </div>
+                </div>
+                <span class="badge badge-outline text-xs">AI Lead</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. CERTIFICATES PANEL -->
+        <div class="dashboard-panel-section" id="section-certs">
+          <h2 class="text-xl font-bold font-display mb-6">Your Verified Credentials</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="certificate-card">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <div class="p-3 bg-elevated rounded-lg text-2xl border border-color">🏆</div>
+                <button type="button" class="btn btn-ghost btn-sm btn-icon" onclick="simulateCertDownload('Figma Bootcamp')" aria-label="Download PDF"><i data-lucide="download"></i></button>
+              </div>
+              <h3 class="text-base font-bold font-display">UX Design &amp; Figma Bootcamp</h3>
+              <p class="text-xs text-muted mt-1">Issued by UI Collective • Certified on June 18, 2026</p>
+              <div class="divider mt-3 mb-3"></div>
+              <span class="text-xs text-indigo font-mono">CRED-ID: CME-FM82-901B</span>
+            </div>
+
+            <div class="certificate-card">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <div class="p-3 bg-elevated rounded-lg text-2xl border border-color">🏆</div>
+                <button type="button" class="btn btn-ghost btn-sm btn-icon" onclick="simulateCertDownload('Hindustani Sangeet')" aria-label="Download PDF"><i data-lucide="download"></i></button>
+              </div>
+              <h3 class="text-base font-bold font-display">Hindustani Classical Musical Evening</h3>
+              <p class="text-xs text-muted mt-1">Issued by Sangeet Academy • Certified on June 01, 2026</p>
+              <div class="divider mt-3 mb-3"></div>
+              <span class="text-xs text-indigo font-mono">CRED-ID: CME-HS10-829A</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ── TICKET MODAL FOR VIEW PASS ── -->
+  <div class="modal-backdrop" id="passModalBackdrop">
+    <div class="modal" style="max-width: 440px;">
+      <div class="modal-header" style="background:var(--brand-indigo-600); color:#fff;">
+        <h3 class="text-base font-bold font-display flex items-center gap-2" style="margin: 0; color:#fff;">
+          <i data-lucide="ticket"></i> Registered Gate Pass
+        </h3>
+        <button type="button" class="btn btn-ghost" onclick="closePassModal()" style="padding:4px; color:#fff; border-radius:var(--radius-full);" aria-label="Close"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body text-center" style="padding: 32px var(--space-8);">
+        <div class="badge badge-success mb-4"><i data-lucide="check-circle" style="width:12px; height:12px; margin-right:4px;"></i> Registration Approved</div>
+        
+        <h3 id="passTitle" class="text-lg font-bold font-display mb-1 text-truncate">Opportunity Title</h3>
+        <p id="passOrg" class="text-xs text-muted mb-6">Organizer</p>
+
+        <!-- QR Display -->
+        <div class="card card-flat p-6 mx-auto mb-6 flex justify-center items-center bg-elevated" style="width:160px; height:160px; border:2px dashed var(--brand-indigo-300);">
+          <i data-lucide="qr-code" style="width:110px; height:110px; color:var(--brand-indigo-900);"></i>
+        </div>
+
+        <div class="text-left text-xs text-secondary bg-elevated border border-color rounded-lg p-4 font-mono">
+          <div class="flex justify-between mb-1"><span>PASS ID:</span><span id="passId" class="font-bold text-main">CME-8293-AX</span></div>
+          <div class="flex justify-between mb-1"><span>HOLDER:</span><span id="passHolder" class="font-bold text-main">User Name</span></div>
+          <div class="flex justify-between"><span>DATE:</span><span id="passDate" class="font-bold text-main">July 12, 2026</span></div>
+        </div>
+      </div>
+      <div class="modal-footer" style="background:var(--bg-elevated); justify-content:center;">
+        <button type="button" class="btn btn-primary btn-sm btn-pill" onclick="closePassModal()">Close Pass</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // Personalize username & avatar initials dynamically
+    const storedName = localStorage.getItem("userName") || "User Profile";
+    document.getElementById("helloName").textContent = storedName;
+    document.getElementById("teammateYouName").textContent = `${storedName} (You)`;
+    
+    const initial = storedName.trim().charAt(0).toUpperCase();
+    document.getElementById("userAvatar").textContent = initial;
+    document.getElementById("teammateYou").textContent = initial;
+
+    // Sidebar navigation switching logic
+    const navItems = document.querySelectorAll("#dashboardNav .nav-item");
+    navItems.forEach(item => {
+      item.addEventListener("click", () => {
+        navItems.forEach(nav => nav.classList.remove("active"));
+        item.classList.add("active");
+
+        const target = item.getAttribute("data-target");
+        document.querySelectorAll(".dashboard-panel-section").forEach(sec => sec.classList.remove("active"));
+        document.getElementById(target).classList.add("active");
+        
+        // On mobile, close sidebar after clicking
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar && sidebar.classList.contains("open")) {
+          sidebar.classList.remove("open");
+        }
+      });
+    });
+
+    // Mobile sidebar toggle
+    const mToggle = document.getElementById("mobileSidebarToggle");
+    const sidebar = document.getElementById("sidebar");
+    if (mToggle && sidebar) {
+      mToggle.addEventListener("click", () => {
+        sidebar.classList.add("open");
+      });
+    }
+
+    // Notifications toggle
+    const notiToggle = document.getElementById("notiToggle");
+    const notiDropdown = document.getElementById("notiDropdown");
+    if (notiToggle && notiDropdown) {
+      notiToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        notiDropdown.classList.toggle("open");
+      });
+    }
+
+    document.addEventListener("click", (e) => {
+      if (notiDropdown && !notiDropdown.contains(e.target) && e.target !== notiToggle) {
+        notiDropdown.classList.remove("open");
+      }
+    });
+
+    function readNoti(noti) {
+      noti.classList.remove("unread");
+      checkBadgeDot();
+    }
+
+    function markAllNotificationsRead() {
+      document.querySelectorAll(".noti-item").forEach(item => item.classList.remove("unread"));
+      checkBadgeDot();
+    }
+
+    function checkBadgeDot() {
+      const unreads = document.querySelectorAll(".noti-item.unread").length;
+      const dot = document.querySelector(".noti-badge-dot");
+      if (dot) {
+        dot.style.display = unreads > 0 ? "block" : "none";
+      }
+    }
+
+    // Pass details simulation modal
+    function simulateShowPass(eventId) {
+      const passModal = document.getElementById("passModalBackdrop");
+      if (!passModal) return;
+
+      const userName = localStorage.getItem("userName") || "User Profile";
+
+      if (eventId === 1) {
+        document.getElementById("passTitle").textContent = "CodeStorm National Hackathon 2026";
+        document.getElementById("passOrg").textContent = "Hosted by IIT Bombay E-Cell";
+        document.getElementById("passDate").textContent = "July 12-14, 2026";
+        document.getElementById("passId").textContent = "CME-3829-IB";
+      } else {
+        document.getElementById("passTitle").textContent = "AI & Deep Learning Masterclass";
+        document.getElementById("passOrg").textContent = "Hosted by DevMentor Association";
+        document.getElementById("passDate").textContent = "July 20, 2026";
+        document.getElementById("passId").textContent = "CME-6320-DM";
+      }
+
+      document.getElementById("passHolder").textContent = userName;
+      passModal.classList.add("open");
+    }
+
+    function closePassModal() {
+      document.getElementById("passModalBackdrop").classList.remove("open");
+    }
+
+    // Certificate download mock
+    function simulateCertDownload(title) {
+      showToast(`Downloading credential file for '${title}'...`, "success");
+    }
+
+    function showToast(msg, type) {
+      const container = document.getElementById("toastContainer");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<i data-lucide="check-circle"></i> <span>${msg}</span>`;
+      container.appendChild(toast);
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateX(24px)";
+        toast.style.transition = "all 0.3s ease";
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Number Lab - Gateway</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f0f16 0%, #151522 100%);
+            color: #f1f1f7;
+            margin: 0;
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+        .gateway-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #171724;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid #232336;
+            text-align: center;
+        }
+        h1 { font-size: 2.3rem; margin-bottom: 10px; color: #ffffff; }
+        p { color: #a0a0b8; margin-bottom: 30px; }
+        
+        .level-picker {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .level-card {
+            background-color: #1e1e2f;
+            border: 2px solid #28283d;
+            padding: 15px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        .level-card:hover { border-color: #e040fb; background: rgba(224, 64, 251, 0.05); }
+        
+        .level-card.selected[data-level="easy"] { border-color: #00e676; color: #00e676; background: rgba(0, 230, 118, 0.05); }
+        .level-card.selected[data-level="medium"] { border-color: #00c6ff; color: #00c6ff; background: rgba(0, 198, 255, 0.05); }
+        .level-card.selected[data-level="hard"] { border-color: #e040fb; color: #e040fb; background: rgba(224, 64, 251, 0.05); }
+
+        .links-panel {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid #232336;
+            padding-top: 30px;
+        }
+        .module-link {
+            background: linear-gradient(90deg, #e040fb 0%, #ab47bc 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .module-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(224, 64, 251, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gateway-container">
+        <h1>⚖️ Mass Number Lab Entry</h1>
+        <p>Choose your learning tier to configure the Mass Number experiment:</p>
+
+        <div class="level-picker">
+            <div class="level-card selected" data-level="easy" onclick="selectLevel('easy')">🟢 Easy</div>
+            <div class="level-card" data-level="medium" onclick="selectLevel('medium')">🔵 Medium</div>
+            <div class="level-card" data-level="hard" onclick="selectLevel('hard')">🟣 Hard</div>
+        </div>
+
+        <div class="links-panel">
+            <a href="mass-lab.html" class="module-link">⚖️ Start Mass Number Experiment</a>
+        </div>
+    </div>
+
+    <script>
+        // Uses a unique key isolated just for the mass lab folder
+        if(!localStorage.getItem('massLabLevel')) {
+            localStorage.setItem('massLabLevel', 'easy');
+        } else {
+            selectLevel(localStorage.getItem('massLabLevel'));
+        }
+
+        function selectLevel(chosenLevel) {
+            localStorage.setItem('massLabLevel', chosenLevel);
+            
+            document.querySelectorAll('.level-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`.level-card[data-level="${chosenLevel}"]`).classList.add('selected');
+        }
+    </script>
+</body>
+</html>

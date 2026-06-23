@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Portal - Announcements | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="teacher-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Teacher
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="teacherAvatar" class="profile-avatar teacher">🔋</div>
+            <h2 id="teacherUsername">Teacher Name</h2>
+            <span class="profile-role-badge teacher">Instructor</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="teacher-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="teacher-students.html" class="menu-btn"><span class="icon">👥</span> Students</a></li>
+                <li><a href="teacher-assignments.html" class="menu-btn"><span class="icon">📝</span> Assignments</a></li>
+                <li><a href="teacher-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Quizzes</a></li>
+                <li><a href="teacher-analytics.html" class="menu-btn"><span class="icon">📈</span> Analytics</a></li>
+                <li><a href="teacher-certificates.html" class="menu-btn"><span class="icon">🏆</span> Certificates</a></li>
+                <li><a href="teacher-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="teacher-reports.html" class="menu-btn"><span class="icon">📄</span> Reports</a></li>
+                <li><a href="teacher-settings.html" class="menu-btn"><span class="icon">⚙️</span> Settings</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">Welcome, Instructor!</h1>
+            <p id="welcomeDescription">Broadcast class-wide announcements, deadlines, and updates directly to student feeds.</p>
+        </header>
+
+        <section id="tab-announcements" class="tab-content active">
+            <div style="display:grid; grid-template-columns: 1fr; gap: 28px;">
+                <article class="dashboard-card">
+                    <h2>📣 Broadcast Class Announcement</h2>
+                    <form id="broadcast-announcement-form" style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="auth-form-group" style="margin-bottom:0;">
+                            <label for="ann-title" class="auth-label">Announcement Title</label>
+                            <input type="text" id="ann-title" class="auth-input" style="padding-left:14px; min-height: 42px;" required placeholder="e.g. Concept Quiz Level 2 is now open!">
+                        </div>
+                        <div class="auth-form-group" style="margin-bottom:0;">
+                            <label for="ann-content" class="auth-label">Announcement Message</label>
+                            <textarea id="ann-content" class="auth-input" style="padding-left:14px; min-height: 80px; padding-top: 10px; resize: vertical;" required placeholder="Write details here for your students..."></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="min-height: 44px; background: linear-gradient(135deg, var(--orange), var(--yellow)); font-weight: 800; border-color:var(--orange);">Broadcast Spark Announcement 📣</button>
+                    </form>
+                </article>
+
+                <article class="dashboard-card">
+                    <h2>🗂️ Announcement Broadcast Log</h2>
+                    <div class="activity-feed" id="announcement-list">
+                        <!-- Dynamic announcements list -->
+                    </div>
+                </article>
+            </div>
+        </section>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/teacher-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    renderAnnouncementsList();
+    setupAnnouncementForm();
+});
+
+function renderAnnouncementsList() {
+    const list = document.getElementById("announcement-list");
+    let html = "";
+
+    const sorted = [...announcementsData].sort((a, b) => new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime());
+
+    sorted.forEach(ann => {
+        const dateStr = new Date(ann.postedAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        html += `
+            <div class="activity-item" style="flex-direction:column; gap:6px; padding:18px;">
+                <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
+                    <h3 style="font-family:'Outfit', sans-serif; font-size:1.05rem; font-weight:850; color:var(--blue-dark);">${ann.title}</h3>
+                    <span style="font-size:0.75rem; color:var(--muted); font-weight:750;">${dateStr}</span>
+                </div>
+                <p style="font-size:0.86rem; color:var(--muted); line-height:1.5; font-weight:600;">${ann.content}</p>
+            </div>
+        `;
+    });
+
+    list.innerHTML = html || `<div style="text-align:center; padding:24px; font-weight:700; color:var(--muted)">No announcements broadcasted yet.</div>`;
+}
+
+function setupAnnouncementForm() {
+    document.getElementById("broadcast-announcement-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = document.getElementById("ann-title").value.trim();
+        const content = document.getElementById("ann-content").value.trim();
+
+        const newAnn = {
+            id: "ann_" + Date.now(),
+            title,
+            content,
+            postedAt: new Date().toISOString()
+        };
+
+        const currentAnns = JSON.parse(localStorage.getItem("conductoverseAnnouncements") || "[]");
+        currentAnns.push(newAnn);
+        localStorage.setItem("conductoverseAnnouncements", JSON.stringify(currentAnns));
+
+        alert("Broadcast announcement successfully published!");
+        document.getElementById("broadcast-announcement-form").reset();
+
+        loadGlobalTeacherData();
+        renderAnnouncementsList();
+    });
+}
+</script>
+</body>
+</html>

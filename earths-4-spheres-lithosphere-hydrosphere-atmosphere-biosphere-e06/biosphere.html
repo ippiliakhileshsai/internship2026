@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Biosphere - Earth's Living Zone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .bio-theme {
+      --primary: var(--bio-primary);
+      --light: var(--bio-light);
+      --dark: var(--bio-dark);
+      --glow: var(--bio-glow);
+    }
+    
+    .lesson-header-banner {
+      background: linear-gradient(135deg, var(--bio-light), #e2f0d9);
+      border: 3px solid var(--bio-primary);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+
+    /* Ecosystem selector tab styles */
+    .eco-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .eco-tab-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--border-color);
+      background-color: white;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-header);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition-smooth);
+    }
+
+    .eco-tab-btn:hover {
+      background-color: #f1f5f9;
+    }
+
+    .eco-tab-btn.active {
+      background-color: var(--bio-primary);
+      color: white;
+      border-color: var(--bio-dark);
+    }
+
+    .eco-display-box {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(to bottom, #dbeafe, #f0fff4);
+      border: 3px solid var(--bio-primary);
+      border-radius: var(--radius-card);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .eco-critter {
+      cursor: pointer;
+      position: absolute;
+      font-size: 3rem;
+      transition: var(--transition-smooth);
+      user-select: none;
+    }
+
+    .eco-critter:hover {
+      transform: scale(1.2) rotate(10deg);
+      filter: drop-shadow(0 0 10px #fbbf24);
+    }
+
+    /* Food chain simulator arrow animations */
+    .food-chain-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: white;
+      border: 3px solid var(--bio-primary);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      box-shadow: var(--shadow-md);
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .chain-node {
+      background-color: var(--bio-light);
+      border: 2px solid var(--bio-primary);
+      border-radius: var(--radius-card);
+      padding: 12px;
+      text-align: center;
+      flex: 1;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .chain-node:hover {
+      transform: scale(1.05);
+      border-color: var(--primary-accent);
+      background-color: #f5f3ff;
+    }
+
+    .chain-node.active {
+      background-color: #f5f3ff;
+      border-color: var(--primary-accent);
+      box-shadow: 0 0 12px var(--bio-glow);
+    }
+
+    .chain-arrow {
+      font-size: 1.5rem;
+      color: var(--bio-primary);
+      font-weight: bold;
+      animation: pulse-arrow 1s infinite alternate;
+    }
+
+    @keyframes pulse-arrow {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.2); opacity: 1; }
+    }
+  </style>
+</head>
+<body data-page="biosphere" class="lang-en bio-theme">
+
+  <main class="container">
+    
+    <!-- Title Banner -->
+    <div class="lesson-header-banner read-aloud-section">
+      <span class="lesson-badge" style="background-color: var(--bio-primary); color: white;">
+        <span class="lang-en">Sphere Lesson 4</span>
+        <span class="lang-te">ఆవరణ పాఠం 4</span>
+      </span>
+      <h1 style="color: var(--bio-dark); margin-top: 10px;">
+        <span class="lang-en">The Biosphere (జీవావరణం)</span>
+        <span class="lang-te">జీవావరణం (The Biosphere)</span>
+      </h1>
+      <p style="margin: 0; font-size: 1.15rem; color: var(--bio-dark);">
+        <span class="lang-en">The Biosphere is the global home of all life on Earth! Wherever you find trees growing, birds flying, fish swimming, or humans walking, you are looking at the Biosphere.</span>
+        <span class="lang-te">జీవావరణం అంటే భూమిపై ఉన్న జీవులన్నింటి ప్రపంచ గృహం! చెట్లు పెరగడం, పక్షులు ఎగరడం, చేపలు ఈదడం లేదా మనుషులు నడవడం ఎక్కడ చూసినా అది జీవావరణమే.</span>
+      </p>
+    </div>
+
+    <!-- Lesson Body Grid -->
+    <div class="lesson-container">
+      
+      <!-- Left side: Interactive Ecosystems Toggler -->
+      <div class="sphere-card read-aloud-section" id="leaves-container-left" style="position: relative;">
+        <h2 style="color: var(--bio-primary); margin-bottom: 15px;">
+          <span class="lang-en">1. Explore Earth's Ecosystems</span>
+          <span class="lang-te">1. పర్యావరణ వ్యవస్థల అన్వేషణ</span>
+        </h2>
+        <p style="margin-bottom: 15px;">
+          <span class="lang-en">An ecosystem is a community of living things interacting with non-living things. Toggle the tabs below to explore different habitats, and click on the organisms to learn their secrets!</span>
+          <span class="lang-te">పర్యావరణ వ్యవస్థ అంటే జీవుల సమాజం మరియు నిర్జీవ వస్తువులు కలిసి జీవించే ప్రాంతం. వేర్వేరు నివాస స్థలాలను అన్వేషించడానికి ట్యాబ్‌లను మార్చండి మరియు జీవులపై క్లిక్ చేయండి!</span>
+        </p>
+
+        <!-- Ecosystem Tabs -->
+        <div class="eco-tabs">
+          <button class="eco-tab-btn active" id="tab-forest" onclick="switchEcosystem('forest')">
+            <span>🌳</span>
+            <span class="lang-en">Forest</span>
+            <span class="lang-te">అడవి</span>
+          </button>
+          <button class="eco-tab-btn" id="tab-ocean" onclick="switchEcosystem('ocean')">
+            <span>🐋</span>
+            <span class="lang-en">Ocean</span>
+            <span class="lang-te">సముద్రం</span>
+          </button>
+          <button class="eco-tab-btn" id="tab-grassland" onclick="switchEcosystem('grassland')">
+            <span>🌾</span>
+            <span class="lang-en">Grassland</span>
+            <span class="lang-te">గడ్డిభూమి</span>
+          </button>
+        </div>
+
+        <!-- Ecosystem Display Board -->
+        <div class="eco-display-box" id="eco-board">
+          <!-- Populated by JavaScript based on active ecosystem -->
+        </div>
+
+        <!-- Ecosystem Description Panel -->
+        <div class="layer-info-panel" id="eco-desc-panel" style="background-color: var(--bio-light); border-color: var(--bio-primary);">
+          <h3 style="margin-bottom: 8px; color: var(--bio-dark);" id="eco-title">
+            <span class="lang-en">Click on the creatures! 🦊</span>
+            <span class="lang-te">జీవులపై క్లిక్ చేయండి! 🦊</span>
+          </h3>
+          <p style="margin: 0; font-size: 0.95rem; color: var(--text-dark);" id="eco-text">
+            <span class="lang-en">Discover the magical role each plant and animal plays in keeping its forest, ocean, or grassland home clean and balanced!</span>
+            <span class="lang-te">అడవి, సముద్రం లేదా గడ్డిభూమిని శుభ్రంగా మరియు సమతుల్యంగా ఉంచడంలో ప్రతి మొక్క మరియు జంతువు పోషించే పాత్రను కనుగొనండి!</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Right side: Interactive Food Chain Builder -->
+      <div class="sphere-card read-aloud-section" id="leaves-container-right" style="position: relative;">
+        <h2 style="color: var(--bio-primary); margin-bottom: 15px;">
+          <span class="lang-en">2. The Food Chain Energy Flow</span>
+          <span class="lang-te">2. ఆహార గొలుసు శక్తి ప్రవాహం</span>
+        </h2>
+        <p>
+          <span class="lang-en">All living things need energy. In a food chain, energy moves from the Sun to plants, then to animals. Click on each block in the chain to see energy travel!</span>
+          <span class="lang-te">అన్ని జీవులకు శక్తి అవసరం. ఆహార గొలుసులో, సూర్యుడి నుండి శక్తి మొక్కలకు, ఆ తర్వాత జంతువులకు చేరుతుంది. శక్తి ఎలా ప్రవహిస్తుందో చూడడానికి గొలుసులోని ప్రతి బ్లాక్ పై క్లిక్ చేయండి!</span>
+        </p>
+
+        <!-- Food Chain Simulator Grid -->
+        <div class="food-chain-box">
+          <div class="chain-node active" id="node-sun" onclick="triggerChain('sun', event)">
+            <span style="font-size:2.2rem;">☀️</span>
+            <div style="font-weight:800; font-size:0.85rem; margin-top:5px;">
+              <span class="lang-en">The Sun</span>
+              <span class="lang-te">సూర్యుడు</span>
+            </div>
+          </div>
+          <div class="chain-arrow">➔</div>
+          <div class="chain-node" id="node-producer" onclick="triggerChain('producer', event)">
+            <span style="font-size:2.2rem;">🌿</span>
+            <div style="font-weight:800; font-size:0.85rem; margin-top:5px;">
+              <span class="lang-en">Producer</span>
+              <span class="lang-te">ఉత్పత్తిదారుడు</span>
+            </div>
+          </div>
+          <div class="chain-arrow">➔</div>
+          <div class="chain-node" id="node-consumer" onclick="triggerChain('consumer', event)">
+            <span style="font-size:2.2rem;">🦓</span>
+            <div style="font-weight:800; font-size:0.85rem; margin-top:5px;">
+              <span class="lang-en">Consumer</span>
+              <span class="lang-te">వినియోగదారు</span>
+            </div>
+          </div>
+          <div class="chain-arrow">➔</div>
+          <div class="chain-node" id="node-decomposer" onclick="triggerChain('decomposer', event)">
+            <span style="font-size:2.2rem;">🍄</span>
+            <div style="font-weight:800; font-size:0.85rem; margin-top:5px;">
+              <span class="lang-en">Decomposer</span>
+              <span class="lang-te">విచ్ఛిన్నకారి</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Food Chain Explanation Panel -->
+        <div class="layer-info-panel" id="chain-desc-panel" style="background-color: var(--bio-light); border-color: var(--bio-primary);">
+          <h3 style="margin-bottom: 8px; color: var(--bio-dark);" id="chain-title">
+            <span class="lang-en">The Sun's Solar Energy ☀️</span>
+            <span class="lang-te">సూర్యుని సౌర శక్తి ☀️</span>
+          </h3>
+          <p style="margin: 0; font-size: 0.95rem; color: var(--text-dark);" id="chain-text">
+            <span class="lang-en">The source of all life's energy on Earth! The Sun shines down on the planet, sending light waves that green plants capture to create food.</span>
+            <span class="lang-te">భూమిపై ఉన్న సమస్త జీవుల శక్తికి మూలం సూర్యుడు! సూర్యకాంతిని ఆకుపచ్చని మొక్కలు గ్రహించి ఆహారాన్ని తయారు చేసుకుంటాయి.</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Fun Facts Section -->
+    <section class="read-aloud-section" style="margin-top: 40px;">
+      <div class="kids-info-box fun-fact" style="background-color: #f0fdf4; border-color: #bbf7d0; color: #15803d;">
+        <span class="icon">💡</span>
+        <div>
+          <h3 style="margin-bottom: 5px;">
+            <span class="lang-en">Biosphere Fun Fact!</span>
+            <span class="lang-te">జీవావరణం గురించి ఆసక్తికరమైన విషయం!</span>
+          </h3>
+          <p style="margin: 0; font-size: 1.05rem;">
+            <span class="lang-en">Life can be found in the strangest places! High-flying birds fly at heights of 11,000 meters in the air, and deep-sea octopuses live 5,000 meters under the ocean. The biosphere spans all the way from these deep ocean depths to high mountain tops.</span>
+            <span class="lang-te">జీవం అత్యంత వింత ప్రదేశాలలో కూడా ఉంటుంది! ఆకాశంలో 11,000 మీటర్ల ఎత్తులో పక్షులు ఎగురుతాయి, సముద్రంలో 5,000 మీటర్ల లోతులో ఆక్టోపస్లు జీవిస్తాయి. జీవావరణం ఇంత విస్తారంగా వ్యాపించి ఉంది.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/animations.js"></script>
+  <script>
+    // Initialize ambient leaf fall animation
+    window.addEventListener('DOMContentLoaded', () => {
+      const leftBox = document.getElementById('leaves-container-left');
+      const rightBox = document.getElementById('leaves-container-right');
+      if (leftBox) createLeafFall(leftBox);
+      if (rightBox) createLeafFall(rightBox);
+
+      // Initial eco display
+      switchEcosystem('forest');
+    });
+
+    // Ecosystem database
+    const ecoData = {
+      forest: {
+        critters: [
+          { emoji: "🌳", name: { en: "Oak Tree", te: "ఓక్ వృక్షం" }, desc: { en: "A producer. Oak trees capture sunlight to make leaves and acorns, which feed birds and squirrels.", te: "ఒక ఉత్పత్తిదారుడు. ఓక్ చెట్లు సూర్యరశ్మిని గ్రహించి ఆకులు, గింజలను తయారు చేసి పిట్టలకు, ఉడుతలకు ఆహారాన్ని అందిస్తాయి." }, top: "50%", left: "15%" },
+          { emoji: "🐿️", name: { en: "Playful Squirrel", te: "ఆటలాడే ఉడుత" }, desc: { en: "A primary consumer. Squirrels eat acorns and seeds, and bury them in soil, planting new forest trees!", te: "ప్రాథమిక వినియోగదారు. ఉడుతలు గింజలను తింటాయి మరియు వాటిని మట్టిలో దాచిపెడతాయి, తద్వారా కొత్త చెట్లు మొలుస్తాయి!" }, top: "70%", left: "45%" },
+          { emoji: "🦉", name: { en: "Wise Owl", te: "జ్ఞానంగల గుడ్లగూబ" }, desc: { en: "A predator (secondary consumer). Owls hunt at night for mice and bugs, keeping the forest animal population in balance.", te: "ద్వితీయ వినియోగదారు (వేటగాడు). గుడ్లగూబలు రాత్రి వేళల్లో ఎలుకలు, పురుగులను వేటాడి అడవిలో జంతువుల జనాభాను నియంత్రిస్తాయి." }, top: "25%", left: "70%" }
+        ]
+      },
+      ocean: {
+        critters: [
+          { emoji: "🌿", name: { en: "Green Kelp", te: "సముద్రపు నాచు (Kelp)" }, desc: { en: "A sea producer. Kelp grows fast using sunlight in cold ocean waters, creating a forest shelter for small fish.", te: "సముద్రపు ఉత్పత్తిదారు. కల్ప్ సూర్యకాంతిని ఉపయోగించి చల్లని సముద్రపు నీటిలో వేగంగా పెరుగుతుంది మరియు చిన్న చేపలకు ఆశ్రయం కల్పిస్తుంది." }, top: "60%", left: "15%" },
+          { emoji: "🐟", name: { en: "Little Fish", te: "చిన్న చేప" }, desc: { en: "A primary consumer. It feeds on plankton and kelp. Swimming in schools protects it from bigger hunters.", te: "ప్రాథమిక వినియోగదారు. ఇది ప్లवकాలు మరియు కల్ప్ తింటుంది. గుంపులుగా ఈదడం వల్ల పెద్ద చేపల నుండి రక్షణ లభిస్తుంది." }, top: "45%", left: "50%" },
+          { emoji: "🐋", name: { en: "Giant Blue Whale", te: "భారీ నీలి తిమింగలం" }, desc: { en: "The largest animal on Earth! Whales consume tiny krill and swim long distances, recycling ocean nutrients.", te: "భూమిపై ఉన్న అతిపెద్ద జంతువు! తిమింగలాలు చిన్న క్రిల్ జీవులను తింటాయి మరియు సముద్రంలోని పోషకాలను రీసైకిల్ చేస్తాయి." }, top: "20%", left: "65%" }
+        ]
+      },
+      grassland: {
+        critters: [
+          { emoji: "🌾", name: { en: "Lush Grass", te: "పచ్చని గడ్డి" }, desc: { en: "The foundation producer. Grass grows back quickly even after animals graze, keeping the soil rooted firmly.", te: "మూల ఉత్పత్తిదారు. జంతువులు మేసిన తర్వాత కూడా గడ్డి వేగంగా పెరుగుతుంది మరియు నేల కొట్టుకుపోకుండా కాపాడుతుంది." }, top: "70%", left: "15%" },
+          { emoji: "🦗", name: { en: "Grasshopper", te: "మిడత (Grasshopper)" }, desc: { en: "A consumer. Grasshoppers leap through the tall grass eating blades, providing food for birds and frogs.", te: "ఒక వినియోగదారు. మిడతలు గడ్డి పరకలను తింటూ ఎదుగుతాయి, ఇవి పక్షులకు మరియు కప్పలకు ఆహారంగా మారుతాయి." }, top: "65%", left: "48%" },
+          { emoji: "🦅", name: { en: "Golden Eagle", te: "గరుడ పక్షి (Eagle)" }, desc: { en: "A secondary consumer. Eagles soar high looking down, using their sharp eyesight to hunt frogs, snakes, and mice.", te: "ద్వితీయ వినియోగదారు. డేగలు ఆకాశంలో ఎత్తుగా ఎగురుతూ, తమ పదునైన చూపుతో కప్పలు, పాములు మరియు ఎలుకలను వేటాడుతాయి." }, top: "20%", left: "70%" }
+        ]
+      }
+    };
+
+    // Food Chain data
+    const chainData = {
+      sun: {
+        title: { en: "The Solar Engine ☀️", te: "సౌర ఇంజిన్ ☀️" },
+        text: {
+          en: "The source of all life's energy! Plants capture sunlight inside their leaves to power chemical factories that make food.",
+          te: "సమస్త జీవుల శక్తికి మూలం! మొక్కలు తమ ఆకులలో సూర్యకాంతిని నిల్వ చేసుకుని ఆహారాన్ని తయారు చేసే రసాయన కర్మాగారాలను నడుపుతాయి."
+        }
+      },
+      producer: {
+        title: { en: "Producers (Plants) 🌿", te: "ఉత్పత్తిదారులు (మొక్కలు) 🌿" },
+        text: {
+          en: "Plants make their own food using sunlight, carbon dioxide from the atmosphere, and nutrients from the soil (Lithosphere).",
+          te: "మొక్కలు సూర్యకాంతి, వాతావరణం నుండి కార్బన్ డై ఆక్సైడ్ మరియు నేల (శిలావరణం) నుండి లభించే పోషకాలను ఉపయోగించి తమ ఆహారాన్ని తామే తయారు చేసుకుంటాయి."
+        }
+      },
+      consumer: {
+        title: { en: "Consumers (Animals) 🦓🦁", te: "వినియోగదారులు (జంతువులు) 🦓🦁" },
+        text: {
+          en: "Animals cannot make their own food! They must consume plants or other animals to survive and get energy.",
+          te: "జంతువులు తమ ఆహారాన్ని తాము తయారు చేసుకోలేవు! బ్రతకడానికి మరియు శక్తి కోసం అవి మొక్కలను లేదా ఇతర జంతువులను తినాల్సిందే."
+        }
+      },
+      decomposer: {
+        title: { en: "Decomposers (Fungi/Worms) 🍄🐛", te: "విచ్ఛిన్నకారులు (శిలీంధ్రాలు) 🍄🐛" },
+        text: {
+          en: "When plants and animals die, decomposers (like mushrooms and worms) break them down. This recycles rich nutrients back into the soil!",
+          te: "మొక్కలు మరియు జంతువులు చనిపోయినప్పుడు, విచ్ఛిన్నకారులు (పుట్టగొడుగులు మరియు పురుగులు వంటివి) వాటిని కుళ్ళింపజేస్తాయి. ఇది పోషకాలను తిరిగి మట్టిలో కలపడానికి తోడ్పడుతుంది!"
+        }
+      }
+    };
+
+    function switchEcosystem(ecoId) {
+      // Toggle tabs
+      document.querySelectorAll('.eco-tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`tab-${ecoId}`).classList.add('active');
+
+      const board = document.getElementById('eco-board');
+      board.innerHTML = ""; // Clear board
+
+      // Populate elements
+      ecoData[ecoId].critters.forEach(c => {
+        const critterEl = document.createElement('div');
+        critterEl.className = 'eco-critter';
+        critterEl.textContent = c.emoji;
+        critterEl.style.top = c.top;
+        critterEl.style.left = c.left;
+        
+        critterEl.addEventListener('click', (event) => {
+          showCritterInfo(c, event);
+        });
+
+        board.appendChild(critterEl);
+      });
+
+      // Play click tone
+      playTone(440, 0.1);
+    }
+
+    function showCritterInfo(critter, event) {
+      const titleEl = document.getElementById('eco-title');
+      const textEl = document.getElementById('eco-text');
+
+      titleEl.innerHTML = `
+        <span class="lang-en">${critter.name.en} ${critter.emoji}</span>
+        <span class="lang-te">${critter.name.te} ${critter.emoji}</span>
+      `;
+      textEl.innerHTML = `
+        <span class="lang-en">${critter.desc.en}</span>
+        <span class="lang-te">${critter.desc.te}</span>
+      `;
+
+      if (event) {
+        createSparkleBurst(event.clientX, event.clientY);
+      }
+    }
+
+    function triggerChain(nodeId, event) {
+      document.querySelectorAll('.chain-node').forEach(n => n.classList.remove('active'));
+      const activeNode = document.getElementById(`node-${nodeId}`);
+      if (activeNode) activeNode.classList.add('active');
+
+      const titleEl = document.getElementById('chain-title');
+      const textEl = document.getElementById('chain-text');
+
+      titleEl.innerHTML = `
+        <span class="lang-en">${chainData[nodeId].title.en}</span>
+        <span class="lang-te">${chainData[nodeId].title.te}</span>
+      `;
+      textEl.innerHTML = `
+        <span class="lang-en">${chainData[nodeId].text.en}</span>
+        <span class="lang-te">${chainData[nodeId].text.te}</span>
+      `;
+
+      if (event) {
+        createSparkleBurst(event.clientX, event.clientY);
+      }
+
+      // Sound mapping for kids chain building
+      const toneMap = { sun: 261.63, producer: 293.66, consumer: 329.63, decomposer: 349.23 };
+      playTone(toneMap[nodeId], 0.25, 'triangle');
+    }
+
+    function playTone(freq, duration, type = 'sine') {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+  </script>
+</body>
+</html>

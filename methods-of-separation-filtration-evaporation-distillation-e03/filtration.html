@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Filtration – ScienceKids</title>
+  <meta name="description" content="Learn about Filtration – how solids are separated from liquids using filter paper. Interactive animation and audio narration included."/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body data-page="filtration">
+<div class="bg-bubbles" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<div class="page-wrapper">
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <div class="navbar-logo">🔬</div>
+      <div class="navbar-title"><span data-i18n="nav.brand">ScienceKids</span></div>
+    </a>
+    <div class="navbar-controls">
+      <a href="index.html" class="btn-back" data-i18n="btn.back">← Back</a>
+      <div class="nav-progress">
+        <span class="nav-progress-label">0%</span>
+        <div class="nav-progress-bar"><div class="nav-progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="tts-bar" role="group" aria-label="Audio controls">
+        <span class="tts-label" data-i18n="tts.listen">Listen</span>
+        <button class="tts-btn tts-btn-play"  id="tts-play"  title="Play">▶</button>
+        <button class="tts-btn tts-btn-pause" id="tts-pause" title="Pause">⏸</button>
+        <button class="tts-btn tts-btn-stop"  id="tts-stop"  title="Stop">⏹</button>
+      </div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn"        data-lang="te">తె</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content">
+
+    <!-- ── BANNER ── -->
+    <section class="topic-banner" style="background:linear-gradient(135deg,rgba(0,201,167,0.15),rgba(0,201,167,0.03))">
+      <div class="container">
+        <span class="topic-icon" aria-hidden="true">💧</span>
+        <h1 class="topic-title" style="color:var(--accent-teal)" data-i18n="filtration.title">Filtration</h1>
+        <p class="topic-subtitle" data-i18n="filtration.subtitle">Separating solids from liquids using filter paper</p>
+      </div>
+    </section>
+
+    <div class="container section tts-content">
+
+      <!-- Definition -->
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon" style="background:linear-gradient(135deg,rgba(0,201,167,0.3),rgba(0,201,167,0.1))">📖</div>
+          <h2 class="content-card-title" data-i18n="section.definition">📖 Definition</h2>
+        </div>
+        <p data-tts data-i18n="filtration.def">
+          Filtration is a separation method where a mixture of a solid and liquid is passed through
+          a filter (like filter paper) to separate the solid particles from the liquid.
+        </p>
+      </div>
+
+      <!-- How It Works -->
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon" style="background:linear-gradient(135deg,rgba(79,195,247,0.3),rgba(79,195,247,0.1))">⚙️</div>
+          <h2 class="content-card-title" data-i18n="section.howworks">⚙️ How Does It Work?</h2>
+        </div>
+        <p data-tts data-i18n="filtration.how.1">1. The mixture is poured into a funnel lined with filter paper.</p>
+        <p data-tts data-i18n="filtration.how.2">2. The liquid (called the filtrate) passes through the tiny holes in the filter paper.</p>
+        <p data-tts data-i18n="filtration.how.3">3. The solid particles (called residue) are too big to pass through and remain on the filter paper.</p>
+      </div>
+
+      <!-- Real-Life Examples -->
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon" style="background:linear-gradient(135deg,rgba(255,215,0,0.25),rgba(255,215,0,0.05))">🌍</div>
+          <h2 class="content-card-title" data-i18n="section.examples">🌍 Real-Life Examples</h2>
+        </div>
+        <div class="examples-grid">
+          <div class="example-pill" data-i18n="filtration.ex.1">☕ Making Tea / Coffee</div>
+          <div class="example-pill" data-i18n="filtration.ex.2">🚰 Water Purification</div>
+          <div class="example-pill" data-i18n="filtration.ex.3">🧃 Fruit Juice Straining</div>
+          <div class="example-pill" data-i18n="filtration.ex.4">🩺 Blood Purification (Kidneys)</div>
+          <div class="example-pill" data-i18n="filtration.ex.5">🏭 Industrial Water Treatment</div>
+          <div class="example-pill" data-i18n="filtration.ex.6">🍪 Sieving Flour</div>
+        </div>
+      </div>
+
+      <!-- Fun Facts -->
+      <h2 class="section-title mt-40" style="text-align:left;font-size:1.6rem" data-i18n="section.funfacts">💡 Fun Facts</h2>
+      <div class="fun-fact">
+        <span class="fun-fact-icon">🚰</span>
+        <p data-tts data-i18n="filtration.fact1">The water you drink every day is purified using filtration! Water treatment plants use sand and gravel as giant filters.</p>
+      </div>
+      <div class="fun-fact">
+        <span class="fun-fact-icon">🫀</span>
+        <p data-tts data-i18n="filtration.fact2">Your kidneys filter about 200 liters of blood every single day using a natural filtration process!</p>
+      </div>
+      <div class="fun-fact">
+        <span class="fun-fact-icon">☕</span>
+        <p data-tts data-i18n="filtration.fact3">Coffee is made by filtering hot water through ground coffee beans – that's filtration in action!</p>
+      </div>
+
+      <!-- Animation Demo -->
+      <h2 class="section-title mt-40" style="text-align:left;font-size:1.6rem" data-i18n="section.demo">🎬 Watch the Animation</h2>
+      <div class="demo-container">
+        <div class="demo-title" data-i18n="filtration.demo.title">🧪 Filtration – Watch dirty water become clean!</div>
+        <div style="display:flex;justify-content:center;align-items:center;min-height:370px">
+          <canvas id="filt-demo-canvas" class="anim-canvas"></canvas>
+        </div>
+        <div class="demo-controls">
+          <button class="btn btn-teal"     id="filt-play"   aria-label="Play animation">▶ Play</button>
+          <button class="btn btn-outline"  id="filt-pause"  aria-label="Pause animation">⏸ Pause</button>
+          <button class="btn btn-secondary" id="filt-replay" aria-label="Replay animation">🔁 Replay</button>
+        </div>
+      </div>
+
+      <!-- Next Topic Teaser -->
+      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:40px">
+        <a href="evaporation.html" class="btn btn-secondary" data-i18n="nav.next.evaporation">Next: Evaporation ☀️ →</a>
+        <a href="lab.html"         class="btn btn-outline" data-i18n="nav.try.lab">Try in Virtual Lab 🧪</a>
+      </div>
+
+      <!-- Complete -->
+      <div class="complete-section">
+        <button class="btn btn-complete" id="btn-complete" aria-label="Mark lesson as complete">
+          <span data-i18n="btn.complete">✅ Mark as Complete</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/animations.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const anim = new FiltrationAnimation('filt-demo-canvas');
+    initDemoControls(anim, 'filt');
+  });
+</script>
+</body>
+</html>

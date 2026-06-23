@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Portal - Reports | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="teacher-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Teacher
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="teacherAvatar" class="profile-avatar teacher">🔋</div>
+            <h2 id="teacherUsername">Teacher Name</h2>
+            <span class="profile-role-badge teacher">Instructor</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="teacher-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="teacher-students.html" class="menu-btn"><span class="icon">👥</span> Students</a></li>
+                <li><a href="teacher-assignments.html" class="menu-btn"><span class="icon">📝</span> Assignments</a></li>
+                <li><a href="teacher-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Quizzes</a></li>
+                <li><a href="teacher-analytics.html" class="menu-btn"><span class="icon">📈</span> Analytics</a></li>
+                <li><a href="teacher-certificates.html" class="menu-btn"><span class="icon">🏆</span> Certificates</a></li>
+                <li><a href="teacher-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="teacher-reports.html" class="menu-btn"><span class="icon">📄</span> Reports</a></li>
+                <li><a href="teacher-settings.html" class="menu-btn"><span class="icon">⚙️</span> Settings</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">Welcome, Instructor!</h1>
+            <p id="welcomeDescription">Generate and export class performance summaries, assignment submissions, and assessment metrics.</p>
+        </header>
+
+        <section id="tab-reports" class="tab-content active">
+            <article class="dashboard-card">
+                <h2>📄 Class Reports & Grade Exporter</h2>
+                <p style="margin-bottom:20px; font-size:0.92rem; color:var(--muted); font-weight: 600;">
+                    Generate comprehensive class analytics sheets, student rosters, and quiz performance metrics for external grading exports.
+                </p>
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                    <div class="card" style="padding: 24px; text-align:center;">
+                        <span style="font-size:2.5rem; display:block; margin-bottom:12px;">📊</span>
+                        <h3>Complete Performance Report</h3>
+                        <p style="font-size:0.8rem; color:var(--muted); margin: 6px 0 16px;">Compiles all scores, streaks, active times, and grades for every student.</p>
+                        <button onclick="exportTeacherReport('performance')" class="btn" style="min-height:36px; padding: 6px 12px; font-size:0.8rem; width:100%;">Export CSV ⬇️</button>
+                    </div>
+
+                    <div class="card" style="padding: 24px; text-align:center;">
+                        <span style="font-size:2.5rem; display:block; margin-bottom:12px;">📝</span>
+                        <h3>Assignment Submission Report</h3>
+                        <p style="font-size:0.8rem; color:var(--muted); margin: 6px 0 16px;">Details submission timestamps, scoring statuses, and evaluation ratios.</p>
+                        <button onclick="exportTeacherReport('assignments')" class="btn secondary" style="min-height:36px; padding: 6px 12px; font-size:0.8rem; width:100%;">Export CSV ⬇️</button>
+                    </div>
+
+                    <div class="card" style="padding: 24px; text-align:center;">
+                        <span style="font-size:2.5rem; display:block; margin-bottom:12px;">🧠</span>
+                        <h3>Assessment Metrics Report</h3>
+                        <p style="font-size:0.8rem; color:var(--muted); margin: 6px 0 16px;">Extracts question pool difficulty, chapter completion, and levels cleared.</p>
+                        <button onclick="exportTeacherReport('assessments')" class="btn secondary" style="min-height:36px; padding: 6px 12px; font-size:0.8rem; width:100%;">Export CSV ⬇️</button>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/teacher-shared.js"></script>
+<script>
+function exportTeacherReport(type) {
+    let csv = "";
+    let filename = "";
+
+    if (type === "performance") {
+        csv = "Student Name,Quiz Score,Sorting Score,Max Streak,Active Duration,Overall Grade,Status\n";
+        studentsData.forEach(s => {
+            const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${s.username}`) || "null");
+            const spot = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${s.username}`) || "null");
+
+            const quizPct = quiz ? quiz.percent : 0;
+            const spotPct = spot ? spot.percent : 0;
+            const completedCount = (quiz ? 1 : 0) + (spot ? 1 : 0);
+            const overall = completedCount ? Math.round((quizPct + spotPct) / completedCount) : 0;
+
+            const quizText = quiz ? `${quiz.score}/${quiz.total}` : "Not taken";
+            const spotText = spot ? `${spot.score}/${spot.total}` : "Not played";
+            const streak = spot ? spot.bestStreak : 0;
+            const time = quiz || spot ? `${(quiz?.secondsSpent || 0) + (spot?.secondsSpent || 0)}s` : "0s";
+            const status = overall >= 80 ? "Mastery" : "Practice";
+
+            csv += `"${s.username}",${quizText},${spotText},${streak},${time},${overall}%,${status}\n`;
+        });
+        filename = "class_performance_report.csv";
+    } 
+    else if (type === "assignments") {
+        csv = "Student,Assignment Title,Max Points,Score Assigned,Status,Submission Date\n";
+        submissionsData.forEach(sub => {
+            const assign = assignmentsData.find(a => a.id === sub.assignmentId);
+            const title = assign ? assign.title : "Unknown Assignment";
+            const maxPoints = assign ? assign.maxScore : 100;
+            const score = sub.status === "Evaluated" ? sub.score : "Unmarked";
+            const dateStr = new Date(sub.submittedAt).toLocaleDateString();
+
+            csv += `"${sub.student}","${title}",${maxPoints},${score},"${sub.status}",${dateStr}\n`;
+        });
+        filename = "submissions_grading_report.csv";
+    } 
+    else if (type === "assessments") {
+        csv = "Level,Question Pools,Answer Solution\n";
+        const defaultQuestionsDb = {
+            1: [{ question: "Which material is a conductor?", answer: "Copper" }],
+            2: [{ question: "Why is it dangerous to touch switches with wet hands?", answer: "Water conducts" }],
+            3: [{ question: "How does a safety fuse protect your house?", answer: "Melts to break circuit" }]
+        };
+        const db = JSON.parse(localStorage.getItem("conductoverseQuestionsDatabase")) || defaultQuestionsDb;
+        Object.keys(db).forEach(lvl => {
+            db[lvl].forEach(q => {
+                csv += `Level ${lvl},"${q.question}","${q.answer}"\n`;
+            });
+        });
+        filename = "assessment_questions_pool.csv";
+    }
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute("download", filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
+</body>
+</html>

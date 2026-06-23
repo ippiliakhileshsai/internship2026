@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CosmiCode - Solar System Adventure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand" href="#intro">
+          <img src="assets/solarSystemIcon.svg" alt="" class="navbar-logo" aria-hidden="true" />
+          CosmiCode
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarContent">
+          <ul class="navbar-nav gap-2">
+            <li class="nav-item"><a class="nav-link nav-pill" href="#intro">Home</a></li>
+            <li class="nav-item"><a class="nav-link nav-pill" href="#overview">Overview</a></li>
+            <li class="nav-item"><a class="nav-link nav-pill" href="#sun">Sun</a></li>
+            <li class="nav-item"><a class="nav-link nav-pill" href="#inner-planets">Inner Planets</a></li>
+            <li class="nav-item"><a class="nav-link nav-pill" href="#outer-planets">Outer Planets</a></li>
+            <li class="nav-item"><a class="nav-link nav-pill" href="#game">Game</a></li>
+            <li class="nav-item"><a class="nav-link nav-pill" href="#quiz">Quiz</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===================== 1. INTRO HERO ===================== -->
+    <section id="intro" class="section-hero">
+      <div class="sparkle-field" aria-hidden="true">
+        <span class="sparkle sp-1">✦</span>
+        <span class="sparkle sp-2">✦</span>
+        <span class="sparkle sp-3">✦</span>
+        <span class="sparkle sp-4">✦</span>
+        <span class="sparkle sp-5">✦</span>
+        <span class="sparkle sp-6">✦</span>
+        <span class="sparkle sp-7">✦</span>
+        <span class="sparkle sp-8">✦</span>
+        <span class="sparkle sp-9">✦</span>
+        <span class="sparkle sp-10">✦</span>
+      </div>
+      <div class="container text-center hero-content">
+        <h1 class="hero-title fade-in">
+          <span class="letter-c1">C</span><span class="letter-o1">o</span><span class="letter-s">s</span><span class="letter-m">m</span><span class="letter-i">i</span><span class="letter-c2">C</span><span class="letter-o2">o</span><span class="letter-d">d</span><span class="letter-e">e</span>
+        </h1>
+        <img src="assets/RevolvingSystem.svg" alt="Solar System" class="hero-svg fade-in" />
+        <p class="hero-text fade-in">Travel through our Solar System, meet all the planets,<br>play games, and become a Solar System Expert!</p>
+        <button class="btn-cosmic btn-cosmic-lg fade-in" data-target="overview">🚀 Start My Journey</button>
+      </div>
+    </section>
+
+    <!-- ===================== 2. OVERVIEW ===================== -->
+    <section id="overview" class="section-page">
+      <!-- Planet parade strip -->
+      <div class="planet-parade" aria-label="Planets in order from Sun">
+        <div class="parade-sun"></div>
+        <div class="parade-planet" style="--s:18px;--c1:#E0E0E0;--c2:#9E9E9E;" title="Mercury"></div>
+        <div class="parade-planet" style="--s:26px;--c1:#FFCC80;--c2:#D4800A;" title="Venus"></div>
+        <div class="parade-planet parade-earth" title="Earth"></div>
+        <div class="parade-planet" style="--s:22px;--c1:#EF9A9A;--c2:#B71C1C;" title="Mars"></div>
+        <div class="parade-planet" style="--s:56px;--c1:#FFE082;--c2:#8D6E32;" title="Jupiter">
+          <div class="jup-band"></div>
+        </div>
+        <div class="parade-saturn-wrap" title="Saturn">
+          <div class="saturn-ring-back"></div>
+          <div class="parade-planet" style="--s:44px;--c1:#FFF176;--c2:#C8960A;"></div>
+          <div class="saturn-ring-front"></div>
+        </div>
+        <div class="parade-planet" style="--s:34px;--c1:#B2EBF2;--c2:#00838F;" title="Uranus"></div>
+        <div class="parade-planet" style="--s:32px;--c1:#82B1FF;--c2:#1A237E;" title="Neptune"></div>
+      </div>
+
+      <div class="container">
+        <!-- Mnemonic card -->
+        <div class="mnemonic-card fade-in">
+          <h3>Remember the Planet Order!</h3>
+          <p class="mnemonic-sentence">
+            <span style="color:#e0e0e0">My</span>
+            <span style="color:#FFCC80"> Very</span>
+            <span style="color:#81D4FA"> Educated</span>
+            <span style="color:#EF9A9A"> Mother</span>
+            <span style="color:#FFE082"> Just</span>
+            <span style="color:#FFF176"> Served</span>
+            <span style="color:#B2EBF2"> Us</span>
+            <span style="color:#82B1FF"> Noodles</span>
+          </p>
+          <p class="mnemonic-planets">
+            <span style="color:#e0e0e0">Mercury</span>
+            <span style="color:#FFCC80"> Venus</span>
+            <span style="color:#81D4FA"> Earth</span>
+            <span style="color:#EF9A9A"> Mars</span>
+            <span style="color:#FFE082"> Jupiter</span>
+            <span style="color:#FFF176"> Saturn</span>
+            <span style="color:#B2EBF2"> Uranus</span>
+            <span style="color:#82B1FF"> Neptune</span>
+          </p>
+        </div>
+
+        <!-- Fun fact cards -->
+        <div class="row g-3 justify-content-center mt-3">
+          <div class="col-6 col-md-4 col-lg fade-in">
+            <div class="fact-card">
+              <div class="fact-icon">🪐</div>
+              <div class="fact-num">8</div>
+              <div class="fact-label">Planets</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg fade-in">
+            <div class="fact-card">
+              <div class="fact-icon">⭐</div>
+              <div class="fact-num">1</div>
+              <div class="fact-label">Star</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg fade-in">
+            <div class="fact-card">
+              <div class="fact-icon">🌙</div>
+              <div class="fact-num">200+</div>
+              <div class="fact-label">Moons</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg fade-in">
+            <div class="fact-card">
+              <div class="fact-icon">🚀</div>
+              <div class="fact-num">4.6B</div>
+              <div class="fact-label">Years Old</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg fade-in">
+            <div class="fact-card">
+              <div class="fact-icon">🌌</div>
+              <div class="fact-num" style="font-size:1rem;padding-top:4px">Milky<br>Way</div>
+              <div class="fact-label">Galaxy</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="overview-note fade-in mt-3">All planets travel around the Sun in paths called <strong>orbits</strong>.</p>
+
+        <div class="nav-buttons fade-in mt-3">
+          <button class="btn-cosmic" data-target="intro">← Back</button>
+          <button class="btn-cosmic" data-target="sun">☀️ Sun Area</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 3. SUN ===================== -->
+    <section id="sun" class="section-page">
+      <div class="container">
+        <h2 class="section-title fade-in">Introducing the Sun</h2>
+        <img src="assets/sun.svg" alt="The Sun" class="planet-detail-svg fade-in" />
+        <p class="fade-in text-center">The Sun is at the center of our Solar System.<br>
+          It gives us ☀️ Light and ⚡ Energy.<br>
+          Without it there would be no life on Earth.</p>
+
+        <div class="row g-3 justify-content-center mt-4">
+          <div class="col-12 col-md-5 fade-in">
+            <div class="info-card">
+              <h4>Surface Temperature</h4>
+              <p class="big-number">5,500°C</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-5 fade-in">
+            <div class="info-card">
+              <h4>Size</h4>
+              <p class="big-number">~1.3M Earths fit inside</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-buttons fade-in mt-4">
+          <button class="btn-cosmic" data-target="overview">← Back</button>
+          <button class="btn-cosmic" data-target="inner-planets">🪨 Inner Planet Check</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 4. INNER PLANETS ===================== -->
+    <section id="inner-planets" class="section-page">
+      <div class="container">
+        <h2 class="section-title fade-in">Inner Planets</h2>
+
+        <div class="planet-row fade-in">
+          <div class="planet-svg-col"><img src="assets/mercury.svg" alt="Mercury" class="planet-svg" /></div>
+          <div class="planet-info-col">
+            <h3>Mercury</h3>
+            <p>Closest to the Sun, smallest planet, 88-day year</p>
+            <span class="badge-planet">☀️ Closest Planet</span>
+          </div>
+        </div>
+
+        <div class="planet-row fade-in">
+          <div class="planet-svg-col"><img src="assets/venus.svg" alt="Venus" class="planet-svg" /></div>
+          <div class="planet-info-col">
+            <h3>Venus</h3>
+            <p>Hottest, thick atmosphere, spins backwards</p>
+            <span class="badge-planet">🔥 Hottest Planet</span>
+          </div>
+        </div>
+
+        <div class="planet-row fade-in">
+          <div class="planet-svg-col"><img src="assets/earth.svg" alt="Earth" class="planet-svg" /></div>
+          <div class="planet-info-col">
+            <h3>Earth</h3>
+            <p>Home planet, only known life, 71% water</p>
+            <span class="badge-planet">🌍 Our Home</span>
+          </div>
+        </div>
+
+        <div class="planet-row fade-in">
+          <div class="planet-svg-col"><img src="assets/mars.svg" alt="Mars" class="planet-svg" /></div>
+          <div class="planet-info-col">
+            <h3>Mars</h3>
+            <p>Red Planet, largest volcano, possible future human visits</p>
+            <span class="badge-planet">🔴 Red Planet</span>
+          </div>
+        </div>
+
+        <div class="nav-buttons fade-in mt-4">
+          <button class="btn-cosmic" data-target="sun">← Back</button>
+          <button class="btn-cosmic" data-target="outer-planets">🪐 Visit Outer Planets</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5. OUTER PLANETS ===================== -->
+    <section id="outer-planets" class="section-page">
+      <div class="container">
+        <h2 class="section-title fade-in">Outer Planets</h2>
+
+        <div class="planet-row fade-in">
+          <div class="planet-svg-col"><img src="assets/jupiter.svg" alt="Jupiter" class="planet-svg" /></div>
+          <div class="planet-info-col">
+            <h3>Jupiter</h3>
+            <p>Largest, Great Red Spot, 90+ moons</p>
+            <span class="badge-planet">👑 Largest Planet</span>
+          </div>
+        </div>
+
+        <div class="planet-row fade-in">
+          <div class="planet-svg-col"><img src="assets/saturn.svg" alt="Saturn" class="planet-svg" /></div>
+          <div class="planet-info-col">
+            <h3>Saturn</h3>
+            <p>Rings, mostly gas, could float in water</p>
+            <span class="badge-planet">💍 Ring World</span>
+          </div>
+        </div>
+
+        <div class="planet-row fade-in">
+          <div class="planet-svg-col"><img src="assets/uranus.svg" alt="Uranus" class="planet-svg" /></div>
+          <div class="planet-info-col">
+            <h3>Uranus</h3>
+            <p>Ice Giant, rotates on side, methane color</p>
+            <span class="badge-planet">🧊 Ice Giant</span>
+          </div>
+        </div>
+
+        <div class="planet-row fade-in">
+          <div class="planet-svg-col"><img src="assets/neptune.svg" alt="Neptune" class="planet-svg" /></div>
+          <div class="planet-info-col">
+            <h3>Neptune</h3>
+            <p>Farthest, strongest winds, deep blue</p>
+            <span class="badge-planet">🌊 Deep Blue Giant</span>
+          </div>
+        </div>
+
+        <div class="nav-buttons fade-in mt-4">
+          <button class="btn-cosmic" data-target="inner-planets">← Inner Planets</button>
+          <button class="btn-cosmic" data-target="game">🎮 Planet Order Game</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 6. GAME ===================== -->
+    <section id="game" class="section-page">
+      <div class="container">
+        <h2 class="section-title fade-in">🎮 Planet Order Game</h2>
+        <p class="text-center fade-in">Can you place all planets in the correct order from the Sun?</p>
+
+        <div class="game-counters fade-in">
+          <span class="counter-item">✅ Correct: <span id="correctCount">0</span></span>
+          <span class="counter-item">❌ Wrong: <span id="wrongCount">0</span></span>
+          <span class="counter-item">⭐ Score: <span id="scoreValue">0</span>/8</span>
+        </div>
+
+        <div id="planetPool" class="planet-pool fade-in"></div>
+        <div id="dropZones" class="drop-zones fade-in"></div>
+        <div id="gameMessage" class="game-message fade-in"></div>
+
+        <div class="nav-buttons fade-in mt-4">
+          <button class="btn-cosmic" data-target="outer-planets">← Back</button>
+          <button class="btn-cosmic" id="resetGameBtn">🔄 Reset</button>
+          <button class="btn-cosmic" id="checkAnswersBtn">✅ Check Answers</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 7. QUIZ ===================== -->
+    <section id="quiz" class="section-page quiz-section">
+      <div class="container">
+        <!-- Quiz header -->
+        <div class="quiz-header fade-in">
+          <h2 class="quiz-title">🎯 SolaraQuizzz</h2>
+          <p class="quiz-subtitle">Test your Solar System knowledge!</p>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="quiz-progress-wrap fade-in">
+          <div class="quiz-progress-bar-track">
+            <div id="quizProgressBar" class="quiz-progress-bar-fill"></div>
+          </div>
+          <p id="quizProgressText" class="quiz-progress-label">Question 1 of 8</p>
+        </div>
+
+        <!-- Single question card -->
+        <div id="quizContainer" class="quiz-card-wrap fade-in"></div>
+
+        <!-- Next button (shown after answering) -->
+        <div class="text-center mt-3 fade-in" id="quizNextWrap" style="display:none!important">
+          <button class="btn-cosmic" id="quizNextBtn">Next Question →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 8. SCOREBOARD ===================== -->
+    <section id="scoreboard" class="section-page">
+      <div class="container text-center">
+        <h2 class="section-title fade-in">🎉 Congratulations!</h2>
+        <p class="fade-in scoreboard-text">You completed the CosmiCode Solar System Adventure!</p>
+
+        <div class="scoreboard-results fade-in">
+          <div class="scoreboard-item">⭐ Quiz Score: <span id="finalQuizScore">0</span>/8</div>
+          <div class="scoreboard-item">🚀 Planets Learned: 8</div>
+          <div class="scoreboard-item">☀️ Star Learned: 1</div>
+          <div class="scoreboard-item">🏆 Space Explorer Badge Earned!</div>
+        </div>
+
+        <div class="fun-fact-card fade-in mt-4">
+          <strong>Fun Fact:</strong> If you traveled at the speed of a car, it would take over 6,000 years to reach Neptune!
+        </div>
+
+        <div class="nav-buttons fade-in mt-4">
+          <button class="btn-cosmic" id="playAgainBtn">🔄 Play Again</button>
+          <button class="btn-cosmic" id="returnHomeBtn">🏠 Return Home</button>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="main.js"></script>
+  </body>
+</html>

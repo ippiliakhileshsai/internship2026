@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newton's Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🧪 Newton's Lab</div>
+  <div class="nav-links">
+    <button onclick="smoothScroll('#newton')">👨‍🔬 About Newton</button>
+    <button onclick="smoothScroll('#laws')">📖 The Laws</button>
+    <button onclick="smoothScroll('#simulations')">🧬 Simulate</button>
+    <button onclick="smoothScroll('#games')">🎮 Games</button>
+    <button onclick="smoothScroll('#quiz')">❓ Quiz</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <span class="hero-character">👦</span>
+  <div class="speech-bubble">Let's Learn Newton's Three Laws of Motion! 🎓</div>
+  <h1>Newton's <span>Laws of Motion</span><br>🌟 for Kids! 🌟</h1>
+  <p>🎉 Discover how things move with fun animations and interactive experiments! 🧪</p>
+  <div class="hero-btns">
+    <button class="btn btn-orange" onclick="smoothScroll('#newton')">👨‍🔬 Meet Newton!</button>
+    <button class="btn btn-outline" onclick="smoothScroll('#laws')">🚀 The Laws</button>
+    <button class="btn btn-outline" onclick="smoothScroll('#simulations')">🧬 Try Simulations</button>
+    <button class="btn btn-outline" onclick="smoothScroll('#games')">🎮 Play Games</button>
+    <button class="btn btn-outline" onclick="smoothScroll('#quiz')">✅ Take the Quiz</button>
+  </div>
+</section>
+<section id="newton">
+  <div class="sec-header">
+    <h2>👤 Who Was Isaac Newton?</h2>
+    <p>The genius who changed how we understand the universe! 🌍</p>
+  </div>
+  <div class="newton-layout">
+    <div class="newton-portrait-card">
+      <div class="newton-avatar">🧑‍🔬</div>
+      <div class="newton-name">Sir Isaac Newton</div>
+      <div class="newton-dates">4 Jan 1643 – 31 Mar 1727</div>
+      <div class="newton-tags">
+        <span class="ntag ntag-math">🔢 Mathematician</span>
+        <span class="ntag ntag-phys">⚛️ Physicist</span>
+        <span class="ntag ntag-astro">🔭 Astronomer</span>
+      </div>
+      <div class="newton-quote">
+        <span class="quote-mark">"</span>
+        If I have seen further, it is by standing on the shoulders of giants.
+        <span class="quote-mark">"</span>
+      </div>
+    </div>
+    <div class="newton-timeline">
+      <div class="timeline-title">📅 Newton's Life Timeline</div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-orange"></div>
+        <div class="tl-content">
+          <div class="tl-year">1643</div>
+          <div class="tl-text">Born in Woolsthorpe, England — three months after his father died. He was so tiny at birth that nobody thought he'd survive! 👶</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-green"></div>
+        <div class="tl-content">
+          <div class="tl-year">1661</div>
+          <div class="tl-text">Joined Cambridge University at age 18. He worked as a servant to pay for his studies. 📚</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-purple"></div>
+        <div class="tl-content">
+          <div class="tl-year">1666</div>
+          <div class="tl-text"><strong>The "Miracle Year"</strong> — Cambridge closed due to plague. Newton went home and discovered gravity, calculus, and the nature of light — all in one year! 🍎</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-orange"></div>
+        <div class="tl-content">
+          <div class="tl-year">1687</div>
+          <div class="tl-text">Published <em>Principia Mathematica</em> — the most important physics book ever written. It introduced the 3 Laws of Motion! 📜</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-green"></div>
+        <div class="tl-content">
+          <div class="tl-year">1703</div>
+          <div class="tl-text">Became President of the Royal Society — the world's most prestigious science club. 🏛️</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot tl-purple"></div>
+        <div class="tl-content">
+          <div class="tl-year">1727</div>
+          <div class="tl-text">Died peacefully at age 84. Buried in Westminster Abbey with kings and queens! ⭐</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="newton-facts-grid">
+    <div class="newton-fact-card nfc-orange">
+      <div class="nfc-emoji">🍎</div>
+      <div class="nfc-title">The Apple Story</div>
+      <div class="nfc-text">Legend says a falling apple gave Newton the idea for gravity. While the apple may be real, the insight took years of hard thinking — not just one moment!</div>
+    </div>
+    <div class="newton-fact-card nfc-green">
+      <div class="nfc-emoji">🌈</div>
+      <div class="nfc-title">Rainbow Secrets</div>
+      <div class="nfc-text">Newton used a prism to show that white light is actually made of ALL the colours of the rainbow. He invented the colour spectrum!</div>
+    </div>
+    <div class="newton-fact-card nfc-purple">
+      <div class="nfc-emoji">🔭</div>
+      <div class="nfc-title">Built a Telescope</div>
+      <div class="nfc-text">Frustrated with regular telescopes, Newton designed and built a brand-new type — the reflecting telescope — that is still used by astronomers today!</div>
+    </div>
+    <div class="newton-fact-card nfc-orange">
+      <div class="nfc-emoji">🔢</div>
+      <div class="nfc-title">Invented Calculus</div>
+      <div class="nfc-text">Newton invented calculus (advanced maths used for rockets, computers, and phones) at age 23. Leibniz invented it independently at the same time — big argument followed!</div>
+    </div>
+    <div class="newton-fact-card nfc-green">
+      <div class="nfc-emoji">🏠</div>
+      <div class="nfc-title">Lonely Childhood</div>
+      <div class="nfc-text">When Newton was 3, his mother remarried and left him with his grandmother. He was so angry he once threatened to burn the house down!</div>
+    </div>
+    <div class="newton-fact-card nfc-purple">
+      <div class="nfc-emoji">🐱</div>
+      <div class="nfc-title">The Cat Flap</div>
+      <div class="nfc-text">Newton is said to have invented the cat flap — a small hole in the door for his cat and her kittens to pass through freely. Useful science! 😄</div>
+    </div>
+  </div>
+  <div class="newton-achievement">
+    <div class="na-left">
+      <div class="na-icon">📜</div>
+    </div>
+    <div class="na-right">
+      <div class="na-title">Principia Mathematica (1687)</div>
+      <div class="na-text">Newton's masterpiece took him 18 months of intense writing. It described gravity, planetary orbits, the tides, and the 3 Laws of Motion — all using mathematics. It is considered the greatest scientific book ever published!</div>
+      <div class="na-stat-row">
+        <div class="na-stat"><span class="na-num">3</span><span class="na-lbl">Laws of Motion</span></div>
+        <div class="na-stat"><span class="na-num">1687</span><span class="na-lbl">Year Published</span></div>
+        <div class="na-stat"><span class="na-num">84</span><span class="na-lbl">Years Lived</span></div>
+        <div class="na-stat"><span class="na-num">#1</span><span class="na-lbl">Greatest Scientist</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="laws">
+  <div class="sec-header">
+    <h2>🔬 The 3 Laws</h2>
+    <p>Tap any card to see an animated story!</p>
+  </div>
+  <div class="laws-grid">
+    <div class="law-card" onclick="openSim(1)">
+      <div class="law-card-top">
+        <div class="law-num-badge">1</div>
+        <h3>Law of Inertia</h3>
+        <p>Things don't move by themselves — they need a push or pull!</p>
+      </div>
+      <div class="story-strip">
+        <div class="story-panel"><span class="story-emoji">⚽</span><div class="story-caption">Ball at rest</div></div>
+        <div class="arrow-panel">→</div>
+        <div class="story-panel"><span class="story-emoji">🦵</span><div class="story-caption">Kick it!</div></div>
+        <div class="arrow-panel">→</div>
+        <div class="story-panel"><span class="story-emoji">💨⚽</span><div class="story-caption">Ball moves!</div></div>
+      </div>
+      <div class="law-card-bottom">
+        <div class="law-rule">📌 "No force = No movement!"</div>
+        <button class="sim-open-btn">▶ Watch the Animation!</button>
+      </div>
+    </div>
+    <div class="law-card" onclick="openSim(2)">
+      <div class="law-card-top">
+        <div class="law-num-badge">2</div>
+        <h3>Force = Mass × Acceleration</h3>
+        <p>Push harder → go faster! Heavier objects need more force to move.</p>
+      </div>
+      <div class="story-strip">
+        <div class="story-panel"><span class="story-emoji">🛒</span><div class="story-caption">Empty cart</div></div>
+        <div class="arrow-panel">vs</div>
+        <div class="story-panel"><span class="story-emoji">🛒📦</span><div class="story-caption">Full cart</div></div>
+        <div class="arrow-panel">→</div>
+        <div class="story-panel"><span class="story-emoji">😅</span><div class="story-caption">Harder to push!</div></div>
+      </div>
+      <div class="law-card-bottom">
+        <div class="law-rule">📌 F = Mass × Acceleration</div>
+        <button class="sim-open-btn">▶ Watch the Animation!</button>
+      </div>
+    </div>
+    <div class="law-card" onclick="openSim(3)">
+      <div class="law-card-top">
+        <div class="law-num-badge">3</div>
+        <h3>Action &amp; Reaction</h3>
+        <p>Every push has an equal push back! Forces always come in pairs.</p>
+      </div>
+      <div class="story-strip">
+        <div class="story-panel"><span class="story-emoji">🚀</span><div class="story-caption">Rocket up</div></div>
+        <div class="arrow-panel">↕</div>
+        <div class="story-panel"><span class="story-emoji">🔥</span><div class="story-caption">Gas down</div></div>
+        <div class="arrow-panel">→</div>
+        <div class="story-panel"><span class="story-emoji">🌟</span><div class="story-caption">Blast off!</div></div>
+      </div>
+      <div class="law-card-bottom">
+        <div class="law-rule">📌 "Every action = opposite reaction!"</div>
+        <button class="sim-open-btn">▶ Watch the Animation!</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="simulations">
+  <div class="sec-header">
+    <h2>🔬 Interactive Simulations</h2>
+    <p>Change the sliders and watch physics happen live! Experiment like a real scientist! 🧪</p>
+  </div>
+  <div class="sim-tabs">
+    <button class="sim-tab-btn active-tab1" id="stab1" onclick="switchSimTab(1)">⚽ Law 1 — Inertia</button>
+    <button class="sim-tab-btn" id="stab2" onclick="switchSimTab(2)">🛒 Law 2 — F = ma</button>
+    <button class="sim-tab-btn" id="stab3" onclick="switchSimTab(3)">🚀 Law 3 — Action &amp; Reaction</button>
+  </div>
+  <div class="sim-panel active" id="sPanel1">
+    <div class="sandbox-card">
+      <div class="sandbox-header">
+        <div class="sandbox-header-left">
+          <h3 style="color:var(--law1)">⚽ Inertia Sandbox</h3>
+          <p>Change the ball mass &amp; surface friction — see how they change the motion!</p>
+        </div>
+        <div class="sandbox-badge" style="background:#fff0eb;color:var(--law1)">FIRST LAW</div>
+      </div>
+      <div class="sandbox-canvas-wrap"><canvas id="sbCanvas1" height="220"></canvas></div>
+      <div class="controls-panel">
+        <div class="controls-title">🎛️ Your Controls <span>drag sliders to experiment</span></div>
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-label">⚽ Ball Mass</span>
+            <span class="slider-value-badge" style="background:var(--law1)" id="sb1MassVal">5 kg</span>
+          </div>
+          <input type="range" class="law1-range" id="sb1Mass" min="1" max="20" value="5" oninput="updateSB1()">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-label">💨 Applied Force (Kick)</span>
+            <span class="slider-value-badge" style="background:var(--law1)" id="sb1ForceVal">50 N</span>
+          </div>
+          <input type="range" class="law1-range" id="sb1Force" min="10" max="200" value="50" oninput="updateSB1()">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-label">🏜️ Surface Friction</span>
+            <span class="slider-value-badge" style="background:var(--law1)" id="sb1FricVal">Medium</span>
+          </div>
+          <input type="range" class="law1-range" id="sb1Fric" min="0" max="10" value="3" oninput="updateSB1()">
+        </div>
+        <div class="readout-panel">
+          <div class="readout-box"><div class="readout-val" style="color:var(--law1)" id="sb1ReadV">—</div><div class="readout-lbl">Initial Speed</div></div>
+          <div class="readout-box"><div class="readout-val" style="color:var(--law1)" id="sb1ReadA">—</div><div class="readout-lbl">Acceleration</div></div>
+          <div class="readout-box"><div class="readout-val" style="color:var(--law1)" id="sb1ReadD">—</div><div class="readout-lbl">Distance Rolled</div></div>
+          <div class="readout-box"><div class="readout-val" style="color:var(--law1)" id="sb1ReadF">—</div><div class="readout-lbl">Friction Force</div></div>
+        </div>
+        <div class="observation-box" id="sb1Obs">👈 Adjust the sliders and press <strong>Kick!</strong> to start the simulation.</div>
+        <div class="sandbox-btns">
+          <button class="sandbox-btn" style="background:var(--law1)" onclick="kickSB1()">⚽ Kick!</button>
+          <button class="sandbox-btn sandbox-btn-secondary" onclick="resetSB1()">↺ Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sim-panel" id="sPanel2">
+    <div class="sandbox-card">
+      <div class="sandbox-header">
+        <div class="sandbox-header-left">
+          <h3 style="color:var(--law2)">🛒 Force × Mass Lab</h3>
+          <p>Change force &amp; mass and watch the cart accelerate — calculate a = F ÷ m yourself!</p>
+        </div>
+        <div class="sandbox-badge" style="background:#e6fdf5;color:var(--law2)">SECOND LAW</div>
+      </div>
+      <div class="sandbox-canvas-wrap"><canvas id="sbCanvas2" height="220"></canvas></div>
+      <div class="controls-panel">
+        <div class="controls-title">🎛️ Your Controls <span>drag sliders to experiment</span></div>
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-label">💪 Applied Force</span>
+            <span class="slider-value-badge" style="background:var(--law2)" id="sb2ForceVal">30 N</span>
+          </div>
+          <input type="range" class="law2-range" id="sb2Force" min="5" max="150" value="30" oninput="updateSB2()">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-label">🏋️ Cart Mass</span>
+            <span class="slider-value-badge" style="background:var(--law2)" id="sb2MassVal">10 kg</span>
+          </div>
+          <input type="range" class="law2-range" id="sb2Mass" min="1" max="50" value="10" oninput="updateSB2()">
+        </div>
+        <div class="readout-panel">
+          <div class="readout-box"><div class="readout-val" style="color:var(--law2)" id="sb2ReadF">30 N</div><div class="readout-lbl">Force (F)</div></div>
+          <div class="readout-box"><div class="readout-val" style="color:var(--law2)" id="sb2ReadM">10 kg</div><div class="readout-lbl">Mass (m)</div></div>
+          <div class="readout-box"><div class="readout-val" style="color:var(--law2)" id="sb2ReadA">3.0 m/s²</div><div class="readout-lbl">Acceleration (a)</div></div>
+          <div class="readout-box"><div class="readout-val" style="color:var(--law2)" id="sb2ReadSpd">—</div><div class="readout-lbl">Current Speed</div></div>
+        </div>
+        <div class="observation-box" id="sb2Obs">👈 Set force &amp; mass, then press <strong>Push!</strong> to launch the cart.</div>
+        <div class="sandbox-btns">
+          <button class="sandbox-btn" style="background:var(--law2)" onclick="pushSB2()">💪 Push!</button>
+          <button class="sandbox-btn sandbox-btn-secondary" onclick="resetSB2()">↺ Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sim-panel" id="sPanel3">
+    <div class="sandbox-card">
+      <div class="sandbox-header">
+        <div class="sandbox-header-left">
+          <h3 style="color:var(--law3)">🚀 Action-Reaction Lab</h3>
+          <p>Control rocket thrust &amp; fuel — observe action-reaction forces in space!</p>
+        </div>
+        <div class="sandbox-badge" style="background:#f5eaff;color:var(--law3)">THIRD LAW</div>
+      </div>
+      <div class="sandbox-canvas-wrap"><canvas id="sbCanvas3" height="220"></canvas></div>
+      <div class="controls-panel">
+        <div class="controls-title">🎛️ Your Controls <span>drag sliders to experiment</span></div>
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-label">🔥 Thrust Power</span>
+            <span class="slider-value-badge" style="background:var(--law3)" id="sb3ThrustVal">50%</span>
+          </div>
+          <input type="range" class="law3-range" id="sb3Thrust" min="10" max="100" value="50" oninput="updateSB3()">
+        </div>
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-label">⚖️ Rocket Mass</span>
+            <span class="slider-value-badge" style="background:var(--law3)" id="sb3MassVal">5 tons</span>
+          </div>
+          <input type="range" class="law3-range" id="sb3Mass" min="1" max="20" value="5" oninput="updateSB3()">
+        </div>
+        <div class="readout-panel">
+          <div class="readout-box"><div class="readout-val" style="color:var(--law3)" id="sb3ReadThrust">—</div><div class="readout-lbl">Action Force ↓</div></div>
+          <div class="readout-box"><div class="readout-val" style="color:var(--law3)" id="sb3ReadReaction">—</div><div class="readout-lbl">Reaction Force ↑</div></div>
+          <div class="readout-box"><div class="readout-val" style="color:var(--law3)" id="sb3ReadAcc">—</div><div class="readout-lbl">Net Acceleration</div></div>
+          <div class="readout-box"><div class="readout-val" style="color:var(--law3)" id="sb3ReadAlt">0 m</div><div class="readout-lbl">Altitude</div></div>
+        </div>
+        <div class="observation-box" id="sb3Obs">👈 Set thrust &amp; mass, then press <strong>Launch!</strong> to fire the rocket.</div>
+        <div class="sandbox-btns">
+          <button class="sandbox-btn" style="background:var(--law3)" onclick="launchSB3()">🚀 Launch!</button>
+          <button class="sandbox-btn sandbox-btn-secondary" onclick="resetSB3()">↺ Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="games">
+  <div class="sec-header">
+    <h2>🎮 Play &amp; Learn Games!</h2>
+    <p>One game for each law — click or tap to play!</p>
+  </div>
+  <div class="games-grid">
+    <div class="game-card">
+      <div class="game-card-header">
+        <div class="game-icon">⚽</div>
+        <div><h3>Kick the Ball!</h3><p>Law 1 · Inertia — click balls to kick them into the goal</p></div>
+      </div>
+      <div class="game-canvas-wrap"><canvas id="game1Canvas" height="220"></canvas></div>
+      <div class="game-footer">
+        <div class="game-score-row">
+          <span class="game-score" id="g1score">⚽ Score: 0</span>
+          <span class="game-lives" id="g1lives">❤️❤️❤️</span>
+        </div>
+        <div class="game-instructions">👆 Click / tap the ball to kick it into the goal!</div>
+        <button class="game-start-btn" id="g1btn" onclick="startGame1()">▶ Start Game!</button>
+        <div class="game-hint">Once kicked the ball keeps moving — that's Inertia! 🧲</div>
+      </div>
+    </div>
+    <div class="game-card">
+      <div class="game-card-header">
+        <div class="game-icon">🛒</div>
+        <div><h3>Race the Carts!</h3><p>Law 2 · F=ma — hold PUSH to charge, release to race!</p></div>
+      </div>
+      <div id="g2-arena"><canvas id="game2Canvas" height="180"></canvas></div>
+      <div class="g2-push-wrap">
+        <div class="g2-power-bar-bg" id="g2PowerBarBg">
+          <div class="g2-power-bar-fill" id="g2PowerFill"></div>
+          <div class="g2-power-label" id="g2PowerLabel">Press START first!</div>
+        </div>
+        <button id="g2PushBtn" class="disabled-btn">▶ Start Race!</button>
+        <div class="g2-result-badge" id="g2ResultBadge">🎉 Empty cart won!</div>
+      </div>
+      <div class="game-footer" style="padding-top:4px;">
+        <div class="game-score-row">
+          <span class="game-score" id="g2score">🏁 Round: 0 / 3</span>
+          <span id="g2roundLabel" style="font-size:0.8rem;color:var(--muted);font-weight:800;"></span>
+        </div>
+        <div class="game-instructions">⬇️ HOLD the big green button to charge power, then let go to LAUNCH both carts!</div>
+        <div class="game-hint">Empty cart zooms, full cart crawls — same push, different mass! That's F = ma! 🏋️</div>
+      </div>
+    </div>
+    <div class="game-card">
+      <div class="game-card-header">
+        <div class="game-icon">🚀</div>
+        <div><h3>Launch the Rocket!</h3><p>Law 3 · Action/Reaction — tap to boost and collect stars!</p></div>
+      </div>
+      <div class="game-canvas-wrap"><canvas id="game3Canvas" height="220"></canvas></div>
+      <div class="game-footer">
+        <div class="game-score-row">
+          <span class="game-score" id="g3score">⭐ Stars: 0</span>
+          <span class="game-lives" id="g3lives">❤️❤️❤️</span>
+        </div>
+        <div class="game-instructions">👆 Tap / click to fire rocket and collect stars — avoid meteors!</div>
+        <button class="game-start-btn" id="g3btn" onclick="startGame3()">▶ Start Game!</button>
+        <div class="game-hint">Fire DOWN → rocket goes UP! Action = Reaction! 🔥</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="sec-header"><h2>🎯 Quiz Time!</h2><p>Test what you've learned about Newton's Laws!</p></div>
+  <div class="quiz-start-card" id="quizStart">
+    <span class="big-char">🧠</span>
+    <h2>Are you ready, Scientist?</h2>
+    <p>10 fun questions about Newton's 3 Laws. Pick the right answer and earn stars! ⭐</p>
+    <button class="start-btn" onclick="startQuiz()">🚀 Let's Go!</button>
+  </div>
+  <div class="quiz-active" id="quizActive">
+    <div class="q-progress-bar-wrap">
+      <div class="q-meta"><span id="qNum">Question 1 of 10</span><span id="qStar">⭐ 0 stars</span></div>
+      <div class="q-bar"><div class="q-bar-fill" id="qFill" style="width:10%"></div></div>
+    </div>
+    <div class="q-card">
+      <div class="q-law-tag" id="qTag">Law 1</div>
+      <div class="q-scene" id="qScene"></div>
+      <div class="q-text" id="qText"></div>
+      <div class="opts-grid" id="optsGrid"></div>
+      <div class="q-feedback" id="qFeedback"></div>
+      <button class="next-q-btn" id="nextBtn" onclick="nextQ()">Next Question →</button>
+    </div>
+  </div>
+  <div class="quiz-results" id="quizResults">
+    <span class="result-emoji" id="resEmoji">🏆</span>
+    <div class="score-ring" id="scoreRing">
+      <span class="big-num" id="finalNum">0</span>
+      <span class="small-lbl">out of 10</span>
+    </div>
+    <div class="results-title" id="resTitle">Amazing!</div>
+    <p class="results-msg" id="resMsg"></p>
+    <button class="start-btn" onclick="startQuiz()">🔄 Play Again!</button>
+  </div>
+</section>
+
+<footer>
+  <p>⚗️ <strong>Newton's Lab</strong> — Fun Science for Curious Kids! 🌟</p>
+  <p style="margin-top:4px;opacity:0.6">Sir Isaac Newton discovered these laws way back in 1687! 📜</p>
+</footer>
+<div class="modal-overlay" id="modalOverlay" onclick="closeOnBg(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeSim()">✕</button>
+    <div class="modal-law-badge" id="mBadge"></div>
+    <h2 id="mTitle"></h2>
+    <p class="modal-tagline" id="mTagline"></p>
+    <div class="sim-scene"><canvas class="sim-canvas" id="simCanvas" height="220"></canvas></div>
+    <div class="sim-story-panels" id="mPanels"></div>
+    <div class="sim-ctrl-row">
+      <button class="btn-play" id="playBtn" onclick="togglePlay()" style="background:var(--law2)">⏸ Pause</button>
+      <button class="btn-reset" onclick="resetSim()">↺ Restart</button>
+    </div>
+    <div class="sim-did-you-know" id="mFact"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

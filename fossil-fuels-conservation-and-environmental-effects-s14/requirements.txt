@@ -1,0 +1,110 @@
+
+FOSSIL FUELS SIMULATION PROJECT - SYSTEM REQUIREMENTS & MATRIX
+
+PROJECT STATEMENT & SCOPE:
+---> Develop an interactive, visually driven educational web simulation covering Fossil Fuel formation, societal demands, environmental degradation, and modern mitigation techniques.
+---> Target Audience: School students of Classes 6–8 (Middle School).
+---> UI/UX Guidelines: Minimal technical text, intuitive animation triggers, tactile slider controls, and responsive feedback indicators.
+---> Technical Concept: Build a standalone single-page application (SPA) where high-consumption demands dynamically trigger visual biosphere degradation, which users must balance using real-time green energy toggles.
+---> Content Source: Derived from school curriculum frameworks mapping resource extraction timelines against actionable ecological preservation principles.
+
+------------------------------------------------------------------------
+SIMULATION FEATURES AND CORE MODULES
+------------------------------------------------------------------------
+Module 1: Introduction Panel
+--> Core Visual: Stylized Global Earth asset interacting with Coal, Oil, and Natural Gas vectors.
+--> Key Lesson: Emphasize that these non-renewable resources take millions of years to naturally accumulate and cannot replenish within human timescales.
+
+Module 2: Formation Stages
+--> Interactive UI: 4-stage vertical stratigraphic cross-section timeline slider.
+--> Process Sequence: 
+    * Stage 1: Ancient Organisms Living (Biomass base)
+    * Stage 2: Burial Under Sediment (Layer trapping)
+    * Stage 3: Heat & Pressure Transformation (Deep earth physics)
+    * Stage 4: Collection in Reservoirs (Ready for extraction)
+
+Module 3: Uses & Demands (System Inputs)
+--> Interactive Interface: Sector load sliders mapping consumer rates.
+--> Target Vectors:
+    * ⚡ Electricity (Domestic appliances and structural grids)
+    * 🚢 Transportation (Automotive, air travel, and marine freight)
+    * 🏭 Industries (Heavy manufacturing and commercial processing)
+
+Module 4: Environmental Effects (System State Outputs)
+--> Core Visual: Reactive biosphere tracker responding to global pollution coefficients.
+--> Live Metrics Displayed:
+    * 💨 Air Pollution (Real-time CO2, SO2, and NOx saturation levels)
+    * 🌡️ Global Warming (Dynamic climate index indicators)
+    * 🏔️ Melting Ice Caps (Visual deterioration of polar glaciers)
+    * 🌧️ Acid Rain & Extreme Weather frequency adjustments
+
+Module 5: Conservation Methods (System Offsets)
+--> Interactive Controls: Action toggle switches allowing the user to initiate:
+    * [ ] "Turn off unused lights and appliances" (Electricity reduction)
+    * [ ] "Use public transportation, walk, or cycle" (Emission scaling drop)
+    * [ ] "Plant more trees" (Reforestation carbon-sink calculations)
+    * [ ] "Transition to Renewable Energy (Solar & Wind)" (Clean grid swap)
+
+------------------------------------------------------------------------
+6-MEMBER TEAM ROLE TASK DIVISION
+------------------------------------------------------------------------
+Member 1 – Research Lead
+- Source verified stratigraphic parameters and environmental emission data scales.
+- Aggregate contextual definitions for environmental parameters (Acid rain, CO2, non-renewable limits).
+- Audit the final application text for pedagogical and factual correctness.
+
+Member 2 – UX & Storyboard Designer
+- Define the layout structure mapping the interactive connections between inputs (sliders) and outputs (meters).
+- Design individual screen mockups and wireframes matching the 5 module panels.
+- Standardize the color guidelines across system states (Green/Stable, Orange/Warning, Red/Critical).
+
+Member 3 – Content & Documentation Lead
+- Compose child-friendly instructional copy, labels, and contextual tutorial alerts.
+- Set up, update, and manage the repository's project logs, code syntax guidelines, and master README.md file.
+- Own and track the core requirements.txt asset.
+
+Member 4 – Backend & DevOps Developer (GitHub Manager)
+- Provision the central GitHub repository and control team-wide branch merge rules.
+- Design the application state engine handling the mathematical calculation behind consumption vs. environmental decay.
+- Setup core scaffolding architecture and run initial baseline server side or system setup.
+
+Member 5 – Frontend UI Developer
+- Convert storyboard elements into fluid, custom styled responsive HTML elements.
+- Apply layout frameworks (e.g., Tailwind CSS) to build custom responsive dashboard grids optimized for mobile browsers.
+- Wire frontend UI events (dragging sliders, clicking toggles) cleanly into the underlying state management algorithms.
+
+Member 6 – QA Testing & Review Lead
+- Design and execute performance testing passes across multiple viewport configurations.
+- Verify asset loading efficiency over throttled, low-tier 3G network environments.
+- Log interface latency bugs or logic broken flows as traceable issue tickets directly on GitHub.
+
+------------------------------------------------------------------------
+PROJECT ISSUES & SPRINT WORKFLOW STATUS
+------------------------------------------------------------------------
+Issue #1 – [RESEARCH] Formulate Stratigraphic & Carbon Saturation Datasets
+Assigned To: Member 1  |  Status: Completed
+
+Issue #2 – [DESIGN] Module Layout Architecture & Navigation User Flow Wireframes
+Assigned To: Member 2  |  Status: Completed
+
+Issue #3 – [DOC] Content Copywriting & UI Onboarding Instruction Sets
+Assigned To: Member 3  |  Status: Completed
+
+Issue #4 – [DEV] Repository Initialization & Directory Scaffolding Configuration
+Assigned To: Member 4  |  Status: Completed
+
+Issue #5 – [DEV] Core Simulation State Machine Logic & Equation Matrices
+Assigned To: Member 4  |  Status: Completed
+
+Issue #6 – [UI] Interactive Sliders, Toggle Switches, & Modular Responsive Panels
+Assigned To: Member 5  |  Status: In Progress
+
+Issue #7 – [UI] Dynamic Ecosystem Damage Metrics & CSS Theme Transforms
+Assigned To: Member 5  |  Status: In Progress
+
+Issue #8 – [QA] Cross-Device Mobile Responsiveness & Layout Boundary Checks
+Assigned To: Member 6  |  Status: Pending
+
+Issue #9 – [QA] Final Code Compilation Integration & Pre-Deployment Review
+Assigned To: Member 6  |  Status: Pending
+========================================================================

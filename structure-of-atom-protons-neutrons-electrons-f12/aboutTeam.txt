@@ -1,0 +1,108 @@
+TEAM NAME:
+Atomic Innovators F12
+
+PROJECT TITLE:
+Structure of Atom (Electrons, Protons, neutrons)
+
+TEAM MEMBERS & RESPONSIBILITIES
+
+The project is developed by a team of 6 members. Each member is assigned specific responsibilities including UI/UX design, atom simulation, Mass number calculations, mini games, educational content, testing, and final integration.
+
+Badavath Varshitha – PROJECT STRUCTURE, UI & RESPONSIVENESS
+Responsibilities:
+• Create homepage
+• Create navigation system
+• Build responsive UI
+• Create reusable components
+• Maintain overall project structure
+• Ensure mobile, tablet, and desktop responsiveness
+
+Mynampati Hamsika – ATOM SIMULATION DEVELOPMENT
+Responsibilities:
+• Create atom visualization
+• Develop proton, neutron, and electron systems
+• Implement electron orbit animations
+• Create interactive particle inspector
+• Add real-time particle movement
+
+Sayed Ameena Firdous – BUILD AN ATOM DEVELOPMENT
+Responsibilities:
+• Create Build Your Atom feature
+• Add proton, neutron, and electron counters
+• Implement atom generation system
+• Create neutral atom checker
+• Dynamic element generation
+
+Dandu Rohitha – ATOMIC NUMBER & MASS NUMBER LAB
+Responsibilities:
+• Develop Atomic Number calculations
+• Develop Mass Number calculations
+• Create interactive calculation system
+• Implement live particle counting
+• Create example-based learning system
+
+Sayed Ameena Firdous – MINI GAMES DEVELOPMENT
+Responsibilities:
+• Develop educational mini games
+• Implement game logic
+• Add score tracking system
+• Create animations and feedback systems
+
+Games Included:
+• Build Neutral Atom
+• Electron Catcher
+• Stability Challenge
+• Shell Builder
+• Proton Blaster
+• Isotope Hunter
+
+Avula Govardhini – QUIZ & EDUCATIONAL CONTENT
+Responsibilities:
+• Create educational explanations
+• Develop quizzes and assessments
+• Add achievement and badge system
+• Create feedback system
+• Create certificate module
+
+@all – GITHUB MANAGEMENT, TESTING & FINAL INTEGRATION
+Responsibilities:
+• Create and manage GitHub repository
+• Create GitHub issues
+• Manage branches and pull requests
+• Integrate all modules
+• Perform testing and debugging
+• Ensure responsiveness
+• Prepare documentation 
+• Prepare presentation
+• Final deployment and review
+
+GITHUB ISSUES:
+Issue #1 – Create Homepage & Navigation
+Issue #2 – Implement Responsive Design
+Issue #3 – Develop Atom Simulation
+Issue #4 – Create Build Atom Logic
+Issue #5 – Implement Atomic & Mass Number Calculations
+Issue #6 – Develop Mini Games
+Issue #7 – Create Quiz & Educational Content
+Issue #8 – Create Achievement & Certificate System
+Issue #9 – GitHub Setup & Repository Management
+Issue #10 – Final Integration & Deployment
+
+FINAL USER FLOW:
+Home
+→ Enter Atom World
+→ Enter your name and level
+→ Atom Simulator
+→ Particle Inspector
+→ Build Your Atom
+→ Atomic Number Lab
+→ Mass Number Lab
+→ Mini Games
+→ Quiz Zone
+→ Achievements
+→ Certificate
+
+PROJECT LEVELS:
+• Easy Level
+• Medium Level
+• Hard Level

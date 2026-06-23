@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atom Universe Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="stars"></div>
+
+   <div class="dashboard-logo">
+    <img src="images/atom-logo.png"
+         alt="Atom Logo">
+</div>
+
+<h1>ATOM UNIVERSE</h1>
+
+<p class="dashboard-tagline">
+    EXPLORE • LEARN • DISCOVER
+</p>
+
+       <div class="user-profile">
+
+    <img id="avatarImg" src="" alt="Avatar">
+
+    <div class="profile-info">
+
+        <h2 id="userName"></h2>
+
+        <p id="userLevel"></p>
+
+    </div>
+
+
+
+
+
+</div>
+
+        <p class="subtitle">
+            Explore Simulations, Interactive Labs and Scientific Challenges
+        </p>
+
+        <div class="card-grid">
+
+            <div class="card" onclick="location.href='AtomicStimulator-1/index.html'">
+
+    <img src="images/atom-simulator.png"
+         class="card-icon">
+
+    <h3>Atom Simulator</h3>
+
+    <p>Explore Atomic Structures in 3D →</p>
+
+</div>
+
+            <div class="card" onclick="location.href='Buildanatom/pages/build-atom.html'">
+       <img src="images/build-atom.png" class="card-icon">
+    <h3>Build an Atom</h3>
+    <p>Build atoms from particles →</p>
+</div>
+
+            <div class="card" onclick="location.href='Atomic-Lab/atomic-lab.html'">
+    <img src="images/atomic-number.png" class="card-icon">
+    <h3>Atomic Number Lab</h3>
+    <p>Discover proton numbers →</p>
+</div>
+
+            <div class="card" onclick="location.href='Mass-Lab/mass-lab.html'">
+    <img src="images/mass-number.png" class="card-icon">
+    <h3>Mass Number Lab</h3>
+    <p>Learn atomic mass concepts →</p>
+</div>
+
+           <div class="card" onclick="location.href='Buildanatom/pages/mini-games.html'">
+    <img src="images/games.png" class="card-icon">
+    <h3>Mini Games</h3>
+    <p>Play and learn science →</p>
+</div>
+ 
+       <div class="card" onclick="openQuizSelection()">
+
+    <img src="images/quiz.png" class="card-icon">
+
+    <h3>Quiz Zone</h3>
+
+    <p>Test your knowledge →</p>
+
+</div>
+
+<div class="card"
+onclick="location.href='Certificates/index (1).html'">
+    <img src="images/certificate.png" class="card-icon">
+    <h3>Certificate</h3>
+    <p>Showcase your achievements →</p>
+</div>
+
+        </div>
+
+    </div>
+
+<script>
+
+  
+
+const avatar = localStorage.getItem("avatar");
+
+const avatarImg = document.getElementById("avatarImg");
+
+
+if (avatar === "Student Boy") {
+    avatarImg.src = "https://cdn-icons-png.flaticon.com/512/4140/4140048.png";
+}
+else if (avatar === "Student Girl") {
+    avatarImg.src = "https://cdn-icons-png.flaticon.com/512/4140/4140051.png";
+}
+else if (avatar === "Scientist") {
+    avatarImg.src = "https://cdn-icons-png.flaticon.com/512/1995/1995574.png";
+}
+else if(avatar === "Astronaut"){
+    avatarImg.src = "https://cdn-icons-png.flaticon.com/512/4326/4326377.png";
+}
+else if(avatar === "Chemist"){
+    avatarImg.src = "https://cdn-icons-png.flaticon.com/512/2784/2784445.png";
+}
+else if(avatar === "AI Robot"){
+    avatarImg.src = "https://cdn-icons-png.flaticon.com/512/4712/4712027.png";
+}
+else {
+    avatarImg.src = "https://cdn-icons-png.flaticon.com/512/4140/4140048.png";
+    avatarImg.alt = "Default Avatar";
+}
+
+
+
+const username = localStorage.getItem("username") || "Guest";
+const difficulty = localStorage.getItem("difficulty") || "Easy";
+
+const formattedName =
+    username.charAt(0).toUpperCase() +
+    username.slice(1);
+
+document.getElementById("userName").innerText =
+    " Welcome Back, " + formattedName;
+
+const userLevel = document.getElementById("userLevel");
+
+if (difficulty === "Easy") {
+    userLevel.innerText = "🌱 Easy";
+}
+else if (difficulty === "Medium") {
+    userLevel.innerText = "🚀 Medium";
+}
+else {
+    userLevel.innerText = "🔥 Difficult";
+}
+
+
+function openQuizSelection(){
+
+    const level = localStorage.getItem("difficulty");
+
+    if(level === "Easy"){
+
+        localStorage.setItem(
+            "quizDifficulty",
+            "easy"
+        );
+
+    }
+    else if(level === "Medium"){
+
+        localStorage.setItem(
+            "quizDifficulty",
+            "moderate"
+        );
+
+    }
+    else{
+
+        localStorage.setItem(
+            "quizDifficulty",
+            "hard"
+        );
+
+    }
+
+    location.href = "Quiz/index.html";
+}
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opportunity Registration - ConnectMyEvent</title>
+  
+  <!-- CSS Styling files -->
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/utilities.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  
+  <style>
+    body {
+      background-color: var(--bg-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .registration-layout {
+      flex: 1;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-4);
+    }
+    
+    .registration-header-card {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      margin-bottom: var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .event-icon-badge {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      shrink-0;
+    }
+    
+    .registration-card {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-xl);
+      position: relative;
+    }
+    
+    .registration-section-title {
+      font-family: var(--font-display);
+      font-size: var(--text-md);
+      font-weight: var(--font-bold);
+      color: var(--brand-indigo-600);
+      border-bottom: 2px solid var(--brand-indigo-100);
+      padding-bottom: var(--space-2);
+      margin-bottom: var(--space-6);
+      margin-top: var(--space-8);
+    }
+    
+    .registration-section-title:first-of-type {
+      margin-top: 0;
+    }
+    
+    /* Responsive Form Grid */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    @media (min-width: 640px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    /* Country selector prefix alignment */
+    .phone-input-wrapper {
+      display: flex;
+      gap: var(--space-2);
+    }
+    .phone-prefix {
+      width: 100px;
+      flex-shrink: 0;
+    }
+    
+    /* Warning alert banner */
+    .warning-banner {
+      background-color: #FFFBEB;
+      border: 1.5px dashed var(--brand-amber-400);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      margin: var(--space-6) 0;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+    [data-theme="dark"] .warning-banner {
+      background-color: rgba(245, 165, 36, 0.08);
+      border-color: var(--brand-amber-600);
+    }
+    .warning-banner-text {
+      font-size: var(--text-xs);
+      color: #92400E;
+      line-height: 1.5;
+    }
+    [data-theme="dark"] .warning-banner-text {
+      color: var(--brand-amber-300);
+    }
+    
+    /* Google SSO helper button */
+    .google-sso-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border-color);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: var(--font-bold);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .google-sso-btn:hover {
+      border-color: var(--brand-indigo-300);
+      background: var(--bg-surface-hover);
+    }
+    
+    /* Confetti canvas overlay styling */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    
+    /* Success screen styles */
+    .success-container {
+      text-align: center;
+      padding: var(--space-8) 0;
+    }
+    
+    .checkmark-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-full);
+      background-color: var(--success-bg);
+      color: var(--success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin: 0 auto var(--space-4);
+      border: 2px solid var(--success);
+      animation: scaleIn var(--transition-base) forwards;
+    }
+    
+    .ticket-pass-wrapper {
+      max-width: 440px;
+      margin: var(--space-8) auto;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      background: var(--bg-surface);
+      text-align: left;
+    }
+    
+    .ticket-header {
+      background: var(--brand-indigo-600);
+      color: #ffffff;
+      padding: var(--space-4);
+    }
+    
+    .ticket-body {
+      padding: var(--space-6);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <main class="registration-layout">
+    
+    <!-- Dynamic Opportunity Header -->
+    <div class="registration-header-card anim-slide" id="eventHeaderCard">
+      <div class="event-icon-badge" id="eventIcon" style="background: var(--brand-indigo-50); color: var(--brand-indigo-600);">🏆</div>
+      <div>
+        <h1 class="text-lg font-bold font-display text-main mb-1" id="eventTitle">Opportunity Title</h1>
+        <p class="text-xs text-secondary m-0" id="eventOrg">Hosted by Organizer Name</p>
+      </div>
+    </div>
+    
+    <!-- Registration Form Card -->
+    <div class="registration-card anim-slide" id="registrationCard">
+      
+      <!-- Form Input Area -->
+      <div id="formSection">
+        <div class="flex justify-between items-center flex-wrap gap-4 mb-8">
+          <h2 class="text-xl font-bold font-display text-main" style="margin: 0;">Registration Form</h2>
+          <button type="button" class="google-sso-btn" onclick="simulateGoogleLogin()">
+            <svg style="width:16px; height:16px;" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.56-2.77c-.98.66-2.23 1.06-3.72 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.85z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.85c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+        </div>
+
+        <form id="regForm" onsubmit="handleRegistration(event)">
+          
+          <!-- Section 1: Basic Details -->
+          <h3 class="registration-section-title">Basic Details</h3>
+          
+          <div class="form-grid-2">
+            <div class="input-group">
+              <label class="input-label" for="firstName">First Name <span class="req">*</span></label>
+              <input type="text" id="firstName" class="input" placeholder="Enter first name" required>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="lastName">Last Name (if applicable)</label>
+              <input type="text" id="lastName" class="input" placeholder="Enter last name">
+            </div>
+          </div>
+          
+          <div class="form-grid-2 mt-4">
+            <div class="input-group">
+              <label class="input-label" for="email">Email Address <span class="req">*</span></label>
+              <input type="email" id="email" class="input" placeholder="name@college.edu" required>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="phoneNum">Mobile <span class="req">*</span></label>
+              <div class="phone-input-wrapper">
+                <select class="input phone-prefix" aria-label="Country Code">
+                  <option value="+91">🇮🇳 +91</option>
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+61">🇦🇺 +61</option>
+                  <option value="+971">🇦🇪 +971</option>
+                </select>
+                <input type="tel" id="phoneNum" class="input flex-1" placeholder="98765 43210" pattern="[0-9]{10}" title="Ten-digit phone number" required>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Gender selection chip pills -->
+          <div class="input-group mt-4">
+            <label class="input-label">Gender <span class="req">*</span></label>
+            <div class="pill-select" id="genderSelect">
+              <button type="button" class="pill-option" data-value="female" onclick="selectGender(this)">Female</button>
+              <button type="button" class="pill-option" data-value="male" onclick="selectGender(this)">Male</button>
+              <button type="button" class="pill-option" data-value="transgender" onclick="selectGender(this)">Transgender</button>
+              <button type="button" class="pill-option" data-value="intersex" onclick="selectGender(this)">Intersex</button>
+              <button type="button" class="pill-option" data-value="non-binary" onclick="selectGender(this)">Non-binary</button>
+              <button type="button" class="pill-option" data-value="prefer-not" onclick="selectGender(this)">Prefer not to say</button>
+              <button type="button" class="pill-option" data-value="others" onclick="selectGender(this)">Others</button>
+            </div>
+            <input type="hidden" id="genderValue">
+          </div>
+          
+          <div class="form-grid-2 mt-4">
+            <div class="input-group">
+              <label class="input-label" for="location">Location <span class="req">*</span></label>
+              <input type="text" id="location" class="input" placeholder="e.g. Mumbai, India" required>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="orgName">Organization Name <span class="req">*</span></label>
+              <input type="text" id="orgName" class="input" placeholder="Enter college or university name" required>
+              <span class="input-help mt-1 block">Please enter your organisation</span>
+            </div>
+          </div>
+          
+          <!-- Differently abled selection pills -->
+          <div class="input-group mt-4">
+            <label class="input-label">Differently Abled <span class="req">*</span></label>
+            <div class="pill-select" id="abledSelect">
+              <button type="button" class="pill-option selected" data-value="no" onclick="selectAbled(this)">No</button>
+              <button type="button" class="pill-option" data-value="yes" onclick="selectAbled(this)">Yes</button>
+            </div>
+            <input type="hidden" id="abledValue" value="no">
+          </div>
+          
+          <!-- Section 2: User Details -->
+          <h3 class="registration-section-title">User Details</h3>
+          
+          <!-- Type selector pills -->
+          <div class="input-group">
+            <label class="input-label">Type <span class="req">*</span></label>
+            <div class="pill-select" id="typeSelect">
+              <button type="button" class="pill-option" data-value="college" onclick="selectType(this)">College Students</button>
+              <button type="button" class="pill-option" data-value="professional" onclick="selectType(this)">Professional</button>
+              <button type="button" class="pill-option" data-value="school" onclick="selectType(this)">School Student</button>
+              <button type="button" class="pill-option" data-value="fresher" onclick="selectType(this)">Fresher</button>
+            </div>
+            <input type="hidden" id="typeValue">
+          </div>
+          
+          <!-- Warning alert banner -->
+          <div class="warning-banner">
+            <div class="warning-banner-icon flex shrink-0"><i data-lucide="alert-triangle"></i></div>
+            <div class="warning-banner-text">
+              Registration CANNOT be cancelled as registration form is enabled for this opportunity. You can add team members on the next step.
+            </div>
+          </div>
+          
+          <!-- Section 3: Terms & Conditions -->
+          <h3 class="registration-section-title">Terms &amp; Conditions</h3>
+          
+          <div class="input-group">
+            <label class="filter-item flex items-start gap-3 mt-2 cursor-pointer">
+              <input type="checkbox" required style="margin-top: 3px; accent-color: var(--brand-indigo-500);">
+              <span class="text-xs text-secondary leading-relaxed">
+                By registering for this opportunity, you agree to share the data mentioned in this form or any form henceforth on this opportunity with the organizer of this opportunity for further analysis, processing, and outreach. You also agree to the privacy policy and terms of use of ConnectMyEvent.
+              </span>
+            </label>
+            
+            <label class="filter-item flex items-start gap-3 mt-4 cursor-pointer">
+              <input type="checkbox" checked style="margin-top: 3px; accent-color: var(--brand-indigo-500);">
+              <span class="text-xs text-secondary">Stay in the loop - Get relevant updates curated just for you!</span>
+            </label>
+          </div>
+          
+          <!-- Submit Button -->
+          <div class="mt-8 flex justify-end">
+            <button type="submit" class="btn btn-primary btn-pill btn-lg px-8">Submit Registration</button>
+          </div>
+        </form>
+      </div>
+      
+      <!-- SUCCESS CELEBRATION BLOCK -->
+      <div id="successSection" class="success-container" style="display: none;">
+        <div class="checkmark-circle">✓</div>
+        <h2 class="text-2xl font-bold font-display text-main mb-2">Registration Successfully Completed!</h2>
+        <p class="text-sm text-secondary mb-6">Congratulations! You have successfully registered. Your gate pass is generated below.</p>
+        
+        <!-- Interactive Gate Pass Ticket -->
+        <div class="ticket-pass-wrapper anim-slide">
+          <div class="ticket-header">
+            <h3 class="text-base font-bold font-display flex items-center gap-2" style="margin: 0; color:#fff;">
+              <i data-lucide="ticket"></i> Digital Gate Pass
+            </h3>
+          </div>
+          <div class="ticket-body">
+            <div class="badge badge-success mb-4"><i data-lucide="check-circle" style="width:12px; height:12px; margin-right:4px;"></i> Entry Verified</div>
+            
+            <h3 id="ticketTitle" class="text-lg font-bold font-display mb-1 text-truncate">Opportunity Title</h3>
+            <p id="ticketOrg" class="text-xs text-muted mb-6">Organizer</p>
+            
+            <!-- Mock QR -->
+            <div class="card card-flat p-6 mx-auto mb-6 flex justify-center items-center bg-elevated" style="width:160px; height:160px; border:2px dashed var(--brand-indigo-300);">
+              <i data-lucide="qr-code" style="width:110px; height:110px; color:var(--brand-indigo-900);"></i>
+            </div>
+            
+            <div class="text-left text-xs text-secondary bg-elevated border border-color rounded-lg p-4 font-mono">
+              <div class="flex justify-between mb-1"><span>PASS ID:</span><span id="ticketId" class="font-bold text-main">CME-8293-AX</span></div>
+              <div class="flex justify-between mb-1"><span>HOLDER:</span><span id="ticketHolder" class="font-bold text-main">User Name</span></div>
+              <div class="flex justify-between"><span>DATE:</span><span id="ticketDate" class="font-bold text-main">July 12, 2026</span></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex gap-4 justify-center mt-8">
+          <button type="button" class="btn btn-outline btn-pill px-6" onclick="goBackToEvent()">Back to Event</button>
+          <a href="my-activities.html" class="btn btn-primary btn-pill px-6">View My Activities</a>
+        </div>
+      </div>
+      
+    </div>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../assets/js/events-data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    let currentEvent = null;
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      // Extract URL params and fetch event
+      const urlParams = new URLSearchParams(window.location.search);
+      const eventId = parseInt(urlParams.get("id")) || 1;
+      
+      if (typeof mockEvents !== 'undefined') {
+        currentEvent = mockEvents.find(e => e.id === eventId);
+      }
+      
+      hydrateEventDetails();
+      prefillUserDetails();
+    });
+    
+    function hydrateEventDetails() {
+      if (!currentEvent) return;
+      
+      const titleElem = document.getElementById("eventTitle");
+      const orgElem = document.getElementById("eventOrg");
+      const iconElem = document.getElementById("eventIcon");
+      
+      if (titleElem) titleElem.textContent = currentEvent.title;
+      if (orgElem) orgElem.textContent = `Hosted by ${currentEvent.organizer}`;
+      if (iconElem) {
+        iconElem.textContent = currentEvent.icon;
+        iconElem.style.background = currentEvent.bgColor;
+        iconElem.style.color = currentEvent.color;
+      }
+    }
+    
+    function prefillUserDetails() {
+      if (localStorage.getItem("isLoggedIn") === "true") {
+        const storedName = localStorage.getItem("userName") || "";
+        const storedEmail = localStorage.getItem("userEmail") || "";
+        
+        if (storedName) {
+          const parts = storedName.trim().split(" ");
+          document.getElementById("firstName").value = parts[0] || "";
+          if (parts.length > 1) {
+            document.getElementById("lastName").value = parts.slice(1).join(" ") || "";
+          }
+        }
+        
+        if (storedEmail) {
+          document.getElementById("email").value = storedEmail;
+        }
+      }
+    }
+    
+    // Select selectors functions
+    function selectGender(pill) {
+      document.querySelectorAll("#genderSelect .pill-option").forEach(p => p.classList.remove("selected"));
+      pill.classList.add("selected");
+      document.getElementById("genderValue").value = pill.getAttribute("data-value");
+    }
+    
+    function selectAbled(pill) {
+      document.querySelectorAll("#abledSelect .pill-option").forEach(p => p.classList.remove("selected"));
+      pill.classList.add("selected");
+      document.getElementById("abledValue").value = pill.getAttribute("data-value");
+    }
+    
+    function selectType(pill) {
+      document.querySelectorAll("#typeSelect .pill-option").forEach(p => p.classList.remove("selected"));
+      pill.classList.add("selected");
+      document.getElementById("typeValue").value = pill.getAttribute("data-value");
+    }
+    
+    // Google SSO simulation helper
+    function simulateGoogleLogin() {
+      document.getElementById("firstName").value = "Google";
+      document.getElementById("lastName").value = "Participant";
+      document.getElementById("email").value = "google.user@gmail.com";
+      document.getElementById("orgName").value = "Stanford University";
+      
+      // Auto select gender & type
+      const genderPill = document.querySelector("#genderSelect .pill-option");
+      if (genderPill) selectGender(genderPill);
+      
+      const typePill = document.querySelector("#typeSelect .pill-option");
+      if (typePill) selectType(typePill);
+    }
+    
+    function handleRegistration(e) {
+      e.preventDefault();
+      
+      const gender = document.getElementById("genderValue").value;
+      const type = document.getElementById("typeValue").value;
+      
+      if (!gender) {
+        alert("Please select a Gender option.");
+        return;
+      }
+      
+      if (!type) {
+        alert("Please select a User Type option.");
+        return;
+      }
+      
+      // Load form details
+      const firstName = document.getElementById("firstName").value;
+      const lastName = document.getElementById("lastName").value;
+      const fullName = `${firstName} ${lastName}`.trim();
+      const org = document.getElementById("orgName").value;
+      
+      // Hydrate ticket
+      document.getElementById("ticketTitle").textContent = currentEvent ? currentEvent.title : "Opportunity";
+      document.getElementById("ticketOrg").textContent = currentEvent ? `Hosted by ${currentEvent.organizer}` : "";
+      document.getElementById("ticketHolder").textContent = fullName;
+      document.getElementById("ticketDate").textContent = currentEvent ? currentEvent.date : "July 12, 2026";
+      document.getElementById("ticketId").textContent = `CME-${Math.floor(1000 + Math.random() * 9000)}-${org.slice(0,2).toUpperCase()}`;
+      
+      // Flip views
+      document.getElementById("formSection").style.display = "none";
+      document.getElementById("successSection").style.display = "block";
+      
+      // Trigger celebration
+      triggerConfettiBlast();
+      
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+    
+    function goBackToEvent() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const eventId = urlParams.get("id") || "1";
+      window.location.href = `event-detail.html?id=${eventId}`;
+    }
+    
+    // Self-contained physics-based confetti blast function
+    function triggerConfettiBlast() {
+      const canvas = document.getElementById("confettiCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      const colors = ["#6C3CE9", "#FF5C2B", "#F5A524", "#10B981", "#3B82F6", "#EC4899"];
+      const particles = [];
+      
+      const startX = canvas.width / 2;
+      const startY = canvas.height * 0.8;
+      
+      for (let i = 0; i < 150; i++) {
+        const angle = Math.random() * Math.PI - Math.PI; // upward burst direction
+        const speed = Math.random() * 15 + 10;
+        particles.push({
+          x: startX,
+          y: startY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          r: Math.random() * 6 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: Math.random() * 10 - 5
+        });
+      }
+      
+      let animationId;
+      let ticks = 0;
+      
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        let active = false;
+        particles.forEach(p => {
+          p.vy += 0.5; // gravity pulling it down
+          p.vx *= 0.98; // friction/drag
+          p.vy *= 0.98;
+          
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rotation += p.rotationSpeed;
+          
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
+          ctx.restore();
+          
+          if (p.y < canvas.height && p.x > 0 && p.x < canvas.width) {
+            active = true;
+          }
+        });
+        
+        ticks++;
+        if (active && ticks < 300) {
+          animationId = requestAnimationFrame(draw);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          cancelAnimationFrame(animationId);
+        }
+      }
+      
+      draw();
+    }
+  </script>
+</body>
+</html>

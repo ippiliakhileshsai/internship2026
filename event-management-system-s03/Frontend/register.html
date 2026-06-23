@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - ConnectMyEvent</title>
+  
+  <!-- CSS Styling files -->
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/utilities.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  
+  <style>
+    body {
+      background-color: var(--bg-body);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    .auth-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-12) var(--space-4);
+      background: radial-gradient(circle at 10% 90%, var(--brand-indigo-50) 0%, transparent 40%),
+                  radial-gradient(circle at 90% 10%, var(--brand-coral-100) 0%, transparent 40%),
+                  var(--bg-body);
+    }
+    
+    .auth-card {
+      background: var(--bg-surface);
+      width: 100%;
+      max-width: 500px;
+      padding: var(--space-8);
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-xl);
+      border: 1.5px solid var(--border-color);
+      transition: all var(--transition-base);
+    }
+    
+    .auth-card:hover {
+      border-color: var(--brand-indigo-300);
+      box-shadow: 0 24px 64px rgba(15,11,46,0.12);
+    }
+    
+    .role-select {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    
+    .role-card {
+      border: 1.5px dashed var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      text-align: center;
+      cursor: pointer;
+      background: var(--bg-elevated);
+      transition: all var(--transition-fast);
+    }
+    
+    .role-card:hover {
+      border-color: var(--brand-indigo-400);
+      color: var(--brand-indigo-600);
+    }
+    
+    .role-card.active {
+      border-color: var(--brand-indigo-500);
+      border-style: solid;
+      background-color: var(--brand-indigo-50);
+      color: var(--brand-indigo-700);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .role-icon {
+      font-size: 28px;
+      margin-bottom: var(--space-2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <div class="auth-container">
+    <div class="auth-card anim-slide">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold font-display text-main mb-2">Create your account</h1>
+        <p class="text-sm text-secondary">Join the platform connecting the entire event ecosystem.</p>
+      </div>
+
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        <label class="input-label mb-2 block">Registering as a <span class="req">*</span></label>
+        <div class="role-select">
+          <div class="role-card active" id="roleParticipant" onclick="selectRole('participant')">
+            <div class="role-icon">👩‍💻</div>
+            <div class="fw-bold text-sm">Participant</div>
+          </div>
+          <div class="role-card" id="roleOrganizer" onclick="selectRole('organizer')">
+            <div class="role-icon">📋</div>
+            <div class="fw-bold text-sm">Organizer</div>
+          </div>
+        </div>
+        <input type="hidden" id="regRole" value="participant">
+
+        <div class="input-group">
+          <label class="input-label" for="nameInput">Full Name <span class="req">*</span></label>
+          <input type="text" id="nameInput" class="input" placeholder="John Doe" required>
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="emailInput">Email address <span class="req">*</span></label>
+          <input type="email" id="emailInput" class="input" placeholder="john@university.edu" required>
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="passwordInput">Password <span class="req">*</span></label>
+          <input type="password" id="passwordInput" autocomplete="new-password" class="input" placeholder="Create a strong password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full btn-lg mt-6">Get Started Free</button>
+      </form>
+
+      <p class="text-center text-sm text-secondary mt-8" style="margin-bottom:0;">
+        Already have an account? <a href="login.html" class="text-indigo fw-bold">Sign in here</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function selectRole(role) {
+      document.querySelectorAll('.role-card').forEach(c => c.classList.remove('active'));
+      document.getElementById('regRole').value = role;
+      
+      if (role === 'participant') {
+        document.getElementById('roleParticipant').classList.add('active');
+      } else {
+        document.getElementById('roleOrganizer').classList.add('active');
+      }
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      
+      const role = document.getElementById("regRole").value;
+      const name = document.getElementById("nameInput").value;
+      const email = document.getElementById("emailInput").value.toLowerCase().trim();
+      const password = document.getElementById("passwordInput").value;
+      
+      // Load existing users safely
+      let users = [];
+      try {
+        users = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+        if (!Array.isArray(users)) users = [];
+      } catch (err) {
+        users = [];
+      }
+      
+      const userExists = users.some(u => u.email === email);
+      
+      if (userExists) {
+        alert("This email is already registered. Please login or use a different email.");
+        return;
+      }
+      
+      const newUser = { name, email, password, role };
+      users.push(newUser);
+      localStorage.setItem("registeredUsers", JSON.stringify(users));
+      
+      localStorage.setItem("userRole", role);
+      localStorage.setItem("userName", name);
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("isLoggedIn", "true");
+
+      // Redirect back to home landing page
+      window.location.href = "../index.html";
+    }
+  </script>
+</body>
+</html>

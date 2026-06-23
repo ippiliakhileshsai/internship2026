@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Bulb Test</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="index.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse
+    </a>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="learn.html">Learn</a></li>
+        <li><a class="active" href="bulb.html">Bulb Test</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="uses.html">Uses</a></li>
+        <li><a href="lab.html">Virtual Lab</a></li>
+        <li><a href="results.html">Results</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section class="page-intro">
+        <div class="eyebrow">Virtual experiment</div>
+        <h1>Place a material in the circuit.</h1>
+        <p>
+            If the material conducts electricity, the path closes and the bulb glows.
+            If it is an insulator, the circuit stays open.
+        </p>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="container circuit-lab">
+        <div class="test-panel">
+            <h2>Choose a material</h2>
+            <p>Watch the circuit update instantly after each choice.</p>
+
+            <div class="options" aria-label="Material choices">
+                <button class="material-choice" data-kind="conductor" data-material="Copper wire" data-note="Copper has free electrons, so current can pass through it easily.">
+                    🧵 Copper Wire
+                </button>
+                <button class="material-choice" data-kind="insulator" data-material="Rubber" data-note="Rubber holds its electrons tightly, so it blocks the current and keeps us safe.">
+                    🧤 Rubber
+                </button>
+                <button class="material-choice" data-kind="insulator" data-material="Plastic" data-note="Plastic is used around wires because it stops electricity from reaching our hands.">
+                    🔌 Plastic
+                </button>
+                <button class="material-choice" data-kind="insulator" data-material="Glass" data-note="Glass does not let current flow easily, so the bulb will not glow.">
+                    🧪 Glass
+                </button>
+                <button class="material-choice" data-kind="conductor" data-material="Coin" data-note="Coins are made from metals, and metals usually conduct electricity.">
+                    🪙 Coin
+                </button>
+                <button class="material-choice" data-kind="conductor" data-material="Metal spoon" data-note="A metal spoon can complete the path because metal is a conductor.">
+                    🥄 Metal Spoon
+                </button>
+            </div>
+
+            <div id="message" class="message">
+                Pick a material to test whether electricity can travel through it.
+            </div>
+
+            <div id="next" class="next">
+                <a href="quiz.html">Go To Quiz</a>
+            </div>
+        </div>
+
+        <div class="result-panel">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div>
+                    <h2>Live circuit view</h2>
+                    <p style="margin-top: 4px; color: var(--muted); font-weight: 600;">The test material sits in the gap. A conductor completes the loop.</p>
+                </div>
+                <!-- Live Digital Multimeter Console -->
+                <div class="live-multimeter">
+                    <div class="meter-line"><span class="meter-label">SYS STATE:</span> <span id="meter-status" class="meter-val standby">STANDBY</span></div>
+                    <div class="meter-line"><span class="meter-label">CURRENT:</span> <span id="meter-current" class="meter-val">0.00 A</span></div>
+                    <div class="meter-line"><span class="meter-label">VOLTAGE:</span> <span id="meter-voltage" class="meter-val">12.00 V</span></div>
+                    <div class="meter-line"><span class="meter-label">RESISTANCE:</span> <span id="meter-resistance" class="meter-val">--</span></div>
+                </div>
+            </div>
+
+            <div id="circuitStage" class="circuit-stage bulb-stage" aria-live="polite">
+                <!-- Battery -->
+                <div class="battery">
+                    <span class="polarity neg">-</span>
+                    <div class="battery-core"></div>
+                    <span class="polarity pos">+</span>
+                </div>
+                
+                <!-- Wires -->
+                <div class="wire one"></div>
+                <div class="wire two"></div>
+                <div class="wire three"></div>
+                <div class="wire four"></div>
+                
+                <!-- Electron Flow (8 continuous particles) -->
+                <div class="electron-flow">
+                    <div class="electron e1"></div>
+                    <div class="electron e2"></div>
+                    <div class="electron e3"></div>
+                    <div class="electron e4"></div>
+                    <div class="electron e5"></div>
+                    <div class="electron e6"></div>
+                    <div class="electron e7"></div>
+                    <div class="electron e8"></div>
+                </div>
+                
+                <!-- Bulb Visual with Glowing Background and sparks -->
+                <div class="bulb-visual">
+                    <div class="bulb-glow-backdrop"></div>
+                    <div class="bulb-glass">
+                        <span class="filament"></span>
+                        <div class="electric-sparks">
+                            <span class="spark s1"></span>
+                            <span class="spark s2"></span>
+                            <span class="spark s3"></span>
+                        </div>
+                    </div>
+                    <div class="bulb-base"></div>
+                </div>
+                
+                <!-- Test Material Slot -->
+                <div id="testMaterial" class="test-material">Test material</div>
+                
+                <!-- Insulator Block Indicator -->
+                <div class="visual-block-mark">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/bg-simulation.js"></script>
+<script src="js/bulb.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evaporation – ScienceKids</title>
+  <meta name="description" content="Learn about Evaporation – separating dissolved solids from liquids using heat. Interactive animation and audio narration for kids."/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body data-page="evaporation">
+<div class="bg-bubbles" aria-hidden="true">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+<div class="page-wrapper">
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">
+      <div class="navbar-logo">🔬</div>
+      <div class="navbar-title"><span data-i18n="nav.brand">ScienceKids</span></div>
+    </a>
+    <div class="navbar-controls">
+      <a href="index.html" class="btn-back" data-i18n="btn.back">← Back</a>
+      <div class="nav-progress">
+        <span class="nav-progress-label">0%</span>
+        <div class="nav-progress-bar"><div class="nav-progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="tts-bar" role="group" aria-label="Audio controls">
+        <span class="tts-label" data-i18n="tts.listen">Listen</span>
+        <button class="tts-btn tts-btn-play"  id="tts-play"  title="Play">▶</button>
+        <button class="tts-btn tts-btn-pause" id="tts-pause" title="Pause">⏸</button>
+        <button class="tts-btn tts-btn-stop"  id="tts-stop"  title="Stop">⏹</button>
+      </div>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn"        data-lang="te">తె</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-content">
+
+    <!-- ── BANNER ── -->
+    <section class="topic-banner" style="background:linear-gradient(135deg,rgba(255,107,53,0.15),rgba(255,107,53,0.03))">
+      <div class="container">
+        <span class="topic-icon" aria-hidden="true">☀️</span>
+        <h1 class="topic-title" style="color:var(--secondary)" data-i18n="evaporation.title">Evaporation</h1>
+        <p class="topic-subtitle" data-i18n="evaporation.subtitle">Separating dissolved solids from liquids using heat</p>
+      </div>
+    </section>
+
+    <div class="container section tts-content">
+
+      <!-- Definition -->
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon" style="background:linear-gradient(135deg,rgba(255,107,53,0.3),rgba(255,107,53,0.1))">📖</div>
+          <h2 class="content-card-title" data-i18n="section.definition">📖 Definition</h2>
+        </div>
+        <p data-tts data-i18n="evaporation.def">
+          Evaporation is a process where a liquid is heated and turns into vapor (gas), leaving behind
+          any dissolved solids. It is used to separate a dissolved substance from a solvent.
+        </p>
+      </div>
+
+      <!-- How It Works -->
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon" style="background:linear-gradient(135deg,rgba(255,215,0,0.3),rgba(255,215,0,0.1))">⚙️</div>
+          <h2 class="content-card-title" data-i18n="section.howworks">⚙️ How Does It Work?</h2>
+        </div>
+        <p data-tts data-i18n="evaporation.how.1">1. A solution (like salt water) is placed in a dish and heated.</p>
+        <p data-tts data-i18n="evaporation.how.2">2. The heat energy causes the liquid (water) molecules to move faster and escape as vapor.</p>
+        <p data-tts data-i18n="evaporation.how.3">3. As the water evaporates, the dissolved solid (salt) is left behind as crystals.</p>
+      </div>
+
+      <!-- Real-Life Examples -->
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon" style="background:linear-gradient(135deg,rgba(255,215,0,0.25),rgba(255,215,0,0.05))">🌍</div>
+          <h2 class="content-card-title" data-i18n="section.examples">🌍 Real-Life Examples</h2>
+        </div>
+        <div class="examples-grid">
+          <div class="example-pill" data-i18n="evaporation.ex.1">🧂 Making Salt from Sea Water</div>
+          <div class="example-pill" data-i18n="evaporation.ex.2">👕 Drying Wet Clothes</div>
+          <div class="example-pill" data-i18n="evaporation.ex.3">💧 The Water Cycle</div>
+          <div class="example-pill" data-i18n="evaporation.ex.4">🏊 Pool Water Evaporating</div>
+          <div class="example-pill" data-i18n="evaporation.ex.5">😓 Sweating cools our body</div>
+          <div class="example-pill" data-i18n="evaporation.ex.6">🍲 Cooking – Reducing Sauces</div>
+        </div>
+      </div>
+
+      <!-- Fun Facts -->
+      <h2 class="section-title mt-40" style="text-align:left;font-size:1.6rem" data-i18n="section.funfacts">💡 Fun Facts</h2>
+      <div class="fun-fact">
+        <span class="fun-fact-icon">🧂</span>
+        <p data-tts data-i18n="evaporation.fact1">India gets most of its salt by evaporating sea water in large shallow ponds called salt pans!</p>
+      </div>
+      <div class="fun-fact">
+        <span class="fun-fact-icon">🌧️</span>
+        <p data-tts data-i18n="evaporation.fact2">The water cycle is nature's own evaporation process – the Sun heats ocean water, which evaporates and forms clouds!</p>
+      </div>
+      <div class="fun-fact">
+        <span class="fun-fact-icon">😅</span>
+        <p data-tts data-i18n="evaporation.fact3">When you sweat, water evaporates from your skin and cools your body down – that's evaporation at work!</p>
+      </div>
+
+      <!-- Animation Demo -->
+      <h2 class="section-title mt-40" style="text-align:left;font-size:1.6rem" data-i18n="section.demo">🎬 Watch the Animation</h2>
+      <div class="demo-container">
+        <div class="demo-title" data-i18n="evaporation.demo.title">🔥 Evaporation – Watch salt water turn into crystals!</div>
+        <div style="display:flex;justify-content:center;align-items:center;min-height:370px">
+          <canvas id="evap-demo-canvas" class="anim-canvas"></canvas>
+        </div>
+        <div class="demo-controls">
+          <button class="btn btn-secondary"  id="evap-play"   aria-label="Play animation">▶ Play</button>
+          <button class="btn btn-outline"    id="evap-pause"  aria-label="Pause animation">⏸ Pause</button>
+          <button class="btn btn-teal"       id="evap-replay" aria-label="Replay animation">🔁 Replay</button>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:40px">
+        <a href="filtration.html"   class="btn btn-outline">← <span data-i18n="card.filtration.title">Filtration</span></a>
+        <a href="distillation.html" class="btn btn-primary" data-i18n="nav.next.distillation">Next: Distillation ⚗️ →</a>
+        <a href="lab.html"          class="btn btn-outline" data-i18n="nav.try.lab">Try in Virtual Lab 🧪</a>
+      </div>
+
+      <!-- Complete -->
+      <div class="complete-section">
+        <button class="btn btn-complete" id="btn-complete" aria-label="Mark lesson as complete">
+          <span data-i18n="btn.complete">✅ Mark as Complete</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/animations.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const anim = new EvaporationAnimation('evap-demo-canvas');
+    initDemoControls(anim, 'evap');
+  });
+</script>
+</body>
+</html>

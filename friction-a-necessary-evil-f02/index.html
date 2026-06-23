@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Friction: The Necessary Evil</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Space Grotesk', sans-serif; background: #0a0a0f; color: #e8e8f0; min-height: 100vh; }
+
+  /* HERO */
+  .hero { text-align: center; padding: 5rem 2rem 4rem; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, #1a0a2e 0%, #0a0a0f 70%); pointer-events: none; }
+  .hero-label { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 3px; color: #7c5cbf; text-transform: uppercase; margin-bottom: 1rem; position: relative; }
+  .hero-title { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 700; line-height: 1.1; margin: 0 0 1.2rem; background: linear-gradient(135deg, #c084fc 0%, #a78bfa 40%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; }
+  .hero-sub { font-size: 1.1rem; color: #9090b0; max-width: 560px; margin: 0 auto 2rem; line-height: 1.7; position: relative; }
+  .neon-line { width: 120px; height: 2px; background: linear-gradient(90deg, transparent, #7c3aed, #3b82f6, transparent); margin: 0 auto 2.5rem; border-radius: 2px; position: relative; }
+  .hero-stat-row { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; position: relative; }
+  .hero-stat-num { font-family: 'Space Mono', monospace; font-size: 1.6rem; font-weight: 700; color: #a78bfa; display: block; }
+  .hero-stat-lbl { font-size: 11px; color: #707090; letter-spacing: 1px; }
+
+  /* SECTIONS */
+  .section { padding: 3rem 1.5rem; max-width: 780px; margin: 0 auto; }
+  .section-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; color: #7c5cbf; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .section-title { font-size: 1.5rem; font-weight: 700; color: #e0e0f8; margin: 0 0 0.5rem; }
+  .section-sub { color: #707090; font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6; }
+
+  /* CARDS */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .icard { background: #12121e; border: 1px solid #2a2a4a; border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: border-color 0.25s, transform 0.2s; position: relative; overflow: hidden; }
+  .icard::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+  .icard.purple::before { background: radial-gradient(ellipse at 50% 0%, rgba(76,29,149,0.2), transparent 70%); }
+  .icard.blue::before   { background: radial-gradient(ellipse at 50% 0%, rgba(30,58,138,0.2), transparent 70%); }
+  .icard.teal::before   { background: radial-gradient(ellipse at 50% 0%, rgba(13,74,56,0.2),  transparent 70%); }
+  .icard:hover { transform: translateY(-3px); }
+  .icard.purple:hover { border-color: #7c3aed; }
+  .icard.blue:hover   { border-color: #3b82f6; }
+  .icard.teal:hover   { border-color: #14b8a6; }
+  .icard:hover::before { opacity: 1; }
+  .icard-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 1rem; }
+  .icard.purple .icard-icon { background: #2e1065; color: #c084fc; }
+  .icard.blue   .icard-icon { background: #1e3a8a; color: #93c5fd; }
+  .icard.teal   .icard-icon { background: #0d3d30; color: #5eead4; }
+  .icard-title { font-size: 1rem; font-weight: 700; color: #e0e0f8; margin: 0 0 0.5rem; }
+  .icard-body { font-size: 0.88rem; color: #7070a0; line-height: 1.6; }
+  .icard-expand { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #2a2a4a; font-size: 0.85rem; color: #9090c0; line-height: 1.6; display: none; }
+  .icard.open .icard-expand { display: block; }
+  .icard-toggle { font-family: 'Space Mono', monospace; font-size: 11px; color: #7c5cbf; margin-top: 0.8rem; display: inline-block; }
+
+  /* SPLIT */
+  .split { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #2a2a4a; border-radius: 12px; overflow: hidden; }
+  .split-evil { background: #150a0a; border-right: 1px solid #2a2a4a; padding: 2rem 1.5rem; }
+  .split-good { background: #0a0f15; padding: 2rem 1.5rem; }
+  .split-badge { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 700; display: inline-block; margin-bottom: 1rem; }
+  .badge-evil { background: #3b0a0a; color: #f87171; border: 1px solid #7f1d1d; }
+  .badge-good { background: #0a2030; color: #60a5fa; border: 1px solid #1e3a5a; }
+  .evil-title { color: #f87171; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; }
+  .good-title { color: #60a5fa; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; }
+  .split-list { list-style: none; }
+  .split-list li { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.7rem 0; border-bottom: 1px solid #1a1a2e; font-size: 0.9rem; color: #a0a0c0; line-height: 1.5; }
+  .split-list li:last-child { border-bottom: none; }
+  .li-icon { font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+  .evil-icon { color: #ef4444; }
+  .good-icon { color: #3b82f6; }
+  .split-meter { margin-top: 1rem; }
+  .meter-label { font-size: 11px; color: #505070; font-family: 'Space Mono', monospace; letter-spacing: 1px; margin-bottom: 6px; display: flex; justify-content: space-between; }
+  .meter-bar { height: 6px; background: #1a1a2e; border-radius: 3px; overflow: hidden; }
+  .meter-fill { height: 100%; border-radius: 3px; transition: width 1.2s ease; width: 0; }
+  .fill-evil { background: linear-gradient(90deg, #7f1d1d, #ef4444); }
+  .fill-good { background: linear-gradient(90deg, #1e3a8a, #3b82f6); }
+
+  /* MU CHART */
+  .physics-bar { background: #0e0e1a; border: 1px solid #2a2a4a; border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; }
+  .pb-title { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px; color: #7c5cbf; margin-bottom: 1rem; text-transform: uppercase; }
+  .pb-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+  .pb-name { font-size: 12px; color: #7070a0; width: 120px; flex-shrink: 0; }
+  .pb-track { flex: 1; height: 8px; background: #1a1a2e; border-radius: 4px; overflow: hidden; }
+  .pb-fill { height: 100%; border-radius: 4px; }
+  .pb-val { font-family: 'Space Mono', monospace; font-size: 11px; color: #9090c0; width: 36px; text-align: right; }
+
+  /* NEWSLETTER */
+  .newsletter-wrap { padding: 0 1.5rem 3rem; max-width: 780px; margin: 0 auto; }
+  .newsletter { background: #0e0e1a; border: 1px solid #2a2a4a; border-radius: 16px; padding: 2.5rem 2rem; text-align: center; position: relative; overflow: hidden; }
+  .nl-glow { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 300px; height: 100px; background: radial-gradient(ellipse, rgba(124,58,237,0.18), transparent 70%); pointer-events: none; }
+  .nl-icon { font-size: 28px; color: #a78bfa; margin-bottom: 0.75rem; }
+  .nl-title { font-size: 1.4rem; font-weight: 700; color: #e0e0f8; margin-bottom: 0.5rem; }
+  .nl-sub { color: #707090; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .nl-form { display: flex; gap: 0.75rem; max-width: 420px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+  .nl-input { flex: 1; min-width: 200px; padding: 0.65rem 1rem; background: #1a1a2e; border: 1px solid #3a3a5a; border-radius: 8px; color: #e0e0f8; font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif; outline: none; transition: border-color 0.2s; }
+  .nl-input::placeholder { color: #505070; }
+  .nl-input:focus { border-color: #7c3aed; }
+  .nl-btn { padding: 0.65rem 1.5rem; background: linear-gradient(135deg, #7c3aed, #3b82f6); border: none; border-radius: 8px; color: white; font-size: 0.9rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; cursor: pointer; transition: opacity 0.2s; }
+  .nl-btn:hover { opacity: 0.85; }
+  .nl-success { color: #a78bfa; font-size: 0.9rem; margin-top: 0.75rem; display: none; }
+
+  /* FOOTER */
+  .footer-line { text-align: center; padding: 1.5rem; font-family: 'Space Mono', monospace; font-size: 11px; color: #404060; letter-spacing: 1px; border-top: 1px solid #1a1a2e; }
+
+  @media (max-width: 540px) {
+    .split { grid-template-columns: 1fr; }
+    .split-evil { border-right: none; border-bottom: 1px solid #2a2a4a; }
+    .hero-title { font-size: 2rem; }
+    .hero-stat-row { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-label">Physics · Everyday Science · Engineering</p>
+  <h1 class="hero-title">Friction: The Necessary Evil</h1>
+  <p class="hero-sub">It slows you down, wears things out, and wastes energy — yet without it, civilization would literally fall apart. Here's the force we love to hate.</p>
+  <div class="neon-line"></div>
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <span class="hero-stat-num">~30%</span>
+      <span class="hero-stat-lbl">Engine energy lost to friction</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">μ 0.01</span>
+      <span class="hero-stat-lbl">Ice vs. rubber (coefficient)</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">4 types</span>
+      <span class="hero-stat-lbl">Static · Kinetic · Rolling · Fluid</span>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE CARDS -->
+<section class="section">
+  <p class="section-label">Everyday examples</p>
+  <h2 class="section-title">Friction in action</h2>
+  <p class="section-sub">Click each card to uncover the physics hiding in plain sight.</p>
+  <div class="cards-grid">
+
+    <div class="icard purple" id="card1" onclick="toggleCard('card1')">
+      <div class="icard-icon"><i class="ti ti-car" aria-hidden="true"></i></div>
+      <div class="icard-title">Brake pads</div>
+      <div class="icard-body">High-friction materials convert kinetic energy into heat to stop a 2-ton vehicle in seconds.</div>
+      <div class="icard-expand">Brake pads press against rotors with a coefficient of friction around <strong style="color:#c084fc">μ = 0.35–0.45</strong>. At 60 mph, they must absorb the same energy as a small explosion — all in under 4 seconds. Without this "evil" force, ABS systems would be useless.</div>
+      <span class="icard-toggle" id="t1">▸ Reveal the physics</span>
+    </div>
+
+    <div class="icard blue" id="card2" onclick="toggleCard('card2')">
+      <div class="icard-icon"><i class="ti ti-shoe" aria-hidden="true"></i></div>
+      <div class="icard-title">Walking upright</div>
+      <div class="icard-body">Every step you take is a negotiation between your foot and the ground — friction wins, gravity loses.</div>
+      <div class="icard-expand">Your foot pushes <em>backward</em> on the ground; static friction pushes you <em>forward</em>. On ice (μ ≈ 0.03), that reaction force nearly vanishes. On rubber (μ ≈ 0.8), you can accelerate, turn, and stop. Bipedal walking is essentially a controlled fall caught by friction.</div>
+      <span class="icard-toggle" id="t2">▸ Reveal the physics</span>
+    </div>
+
+    <div class="icard teal" id="card3" onclick="toggleCard('card3')">
+      <div class="icard-icon"><i class="ti ti-nail" aria-hidden="true"></i></div>
+      <div class="icard-title">Nails &amp; screws</div>
+      <div class="icard-body">Fasteners hold entire buildings together through nothing more than compressed friction between surfaces.</div>
+      <div class="icard-expand">A nail holds via friction between its shaft and wood fibers — a <strong style="color:#5eead4">normal force</strong> from compression creates the grip. Screws amplify this with helical threads, converting rotation into clamping force. No friction → no fasteners → no structures.</div>
+      <span class="icard-toggle" id="t3">▸ Reveal the physics</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- SPLIT SCREEN -->
+<section class="section" style="padding-top:0">
+  <p class="section-label">The verdict</p>
+  <h2 class="section-title">Evil vs. Necessity</h2>
+  <p class="section-sub">Friction giveth and friction taketh away. Here's the ledger.</p>
+  <div class="split">
+    <div class="split-evil">
+      <span class="split-badge badge-evil">The evil</span>
+      <p class="evil-title">Where friction hurts us</p>
+      <ul class="split-list">
+        <li><i class="ti ti-flame li-icon evil-icon" aria-hidden="true"></i><span>Car engines lose ~30% of fuel energy to friction between moving parts.</span></li>
+        <li><i class="ti ti-tools li-icon evil-icon" aria-hidden="true"></i><span>Bearings, gears, and joints wear down — leading to billions in annual maintenance costs.</span></li>
+        <li><i class="ti ti-bolt li-icon evil-icon" aria-hidden="true"></i><span>Data centers waste enormous energy fighting friction in cooling fans and drives.</span></li>
+        <li><i class="ti ti-wind li-icon evil-icon" aria-hidden="true"></i><span>Air drag limits aircraft efficiency and forces costly aerodynamic compromises.</span></li>
+      </ul>
+      <div class="split-meter">
+        <div class="meter-label"><span>Annual global energy wasted</span><span>~23%</span></div>
+        <div class="meter-bar"><div class="meter-fill fill-evil" id="m1" style="width:0"></div></div>
+      </div>
+      <div class="split-meter" style="margin-top:0.75rem">
+        <div class="meter-label"><span>Machinery lifespan reduction</span><span>~40%</span></div>
+        <div class="meter-bar"><div class="meter-fill fill-evil" id="m2" style="width:0"></div></div>
+      </div>
+    </div>
+    <div class="split-good">
+      <span class="split-badge badge-good">The necessity</span>
+      <p class="good-title">Where friction saves us</p>
+      <ul class="split-list">
+        <li><i class="ti ti-run li-icon good-icon" aria-hidden="true"></i><span>Walking, running, climbing — all physical locomotion depends on surface grip.</span></li>
+        <li><i class="ti ti-steering-wheel li-icon good-icon" aria-hidden="true"></i><span>Braking systems turn kinetic energy into heat, stopping vehicles from certain crashes.</span></li>
+        <li><i class="ti ti-building li-icon good-icon" aria-hidden="true"></i><span>Nails, screws, rivets, and mortar use friction to hold infrastructure together.</span></li>
+        <li><i class="ti ti-writing li-icon good-icon" aria-hidden="true"></i><span>Pens, pencils, and touchscreens rely on surface resistance for precision input.</span></li>
+      </ul>
+      <div class="split-meter">
+        <div class="meter-label"><span>Structures held by friction</span><span>~95%</span></div>
+        <div class="meter-bar"><div class="meter-fill fill-good" id="m3" style="width:0"></div></div>
+      </div>
+      <div class="split-meter" style="margin-top:0.75rem">
+        <div class="meter-label"><span>Human motion dependent</span><span>~100%</span></div>
+        <div class="meter-bar"><div class="meter-fill fill-good" id="m4" style="width:0"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MU CHART -->
+  <div class="physics-bar">
+    <div class="pb-title">Coefficient of friction — μ reference chart</div>
+    <div class="pb-row">
+      <span class="pb-name">Ice on ice</span>
+      <div class="pb-track"><div class="pb-fill" style="width:3%;background:linear-gradient(90deg,#1e3a8a,#3b82f6)"></div></div>
+      <span class="pb-val">0.03</span>
+    </div>
+    <div class="pb-row">
+      <span class="pb-name">Steel on steel</span>
+      <div class="pb-track"><div class="pb-fill" style="width:18%;background:linear-gradient(90deg,#3b1d8a,#7c3aed)"></div></div>
+      <span class="pb-val">0.18</span>
+    </div>
+    <div class="pb-row">
+      <span class="pb-name">Wood on wood</span>
+      <div class="pb-track"><div class="pb-fill" style="width:40%;background:linear-gradient(90deg,#0d4a38,#14b8a6)"></div></div>
+      <span class="pb-val">0.40</span>
+    </div>
+    <div class="pb-row">
+      <span class="pb-name">Rubber on road</span>
+      <div class="pb-track"><div class="pb-fill" style="width:75%;background:linear-gradient(90deg,#7f1d1d,#ef4444)"></div></div>
+      <span class="pb-val">0.75</span>
+    </div>
+    <div class="pb-row">
+      <span class="pb-name">Brake pads</span>
+      <div class="pb-track"><div class="pb-fill" style="width:90%;background:linear-gradient(90deg,#92400e,#f59e0b)"></div></div>
+      <span class="pb-val">0.90</span>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter-wrap">
+  <div class="newsletter">
+    <div class="nl-glow"></div>
+    <div class="nl-icon"><i class="ti ti-atom" aria-hidden="true"></i></div>
+    <h2 class="nl-title">Physics, demystified weekly</h2>
+    <p class="nl-sub">One concept. Real examples. No equations required. Join 14,000+ curious minds.</p>
+    <div class="nl-form">
+      <input class="nl-input" type="email" id="nl-email" placeholder="your@email.com" />
+      <button class="nl-btn" onclick="subscribe()">Subscribe &rarr;</button>
+    </div>
+    <p class="nl-success" id="nl-ok"><i class="ti ti-check"></i> You're in! First issue arrives Tuesday.</p>
+  </div>
+</div>
+
+<footer class="footer-line">F = μN &nbsp;·&nbsp; Friction: The Necessary Evil &nbsp;·&nbsp; A Physics Explainer</footer>
+
+<script>
+  // Card toggle
+  function toggleCard(id) {
+    const card = document.getElementById(id);
+    const num = id.replace('card', '');
+    const toggle = document.getElementById('t' + num);
+    const isOpen = card.classList.contains('open');
+
+    ['card1', 'card2', 'card3'].forEach(function(c) {
+      document.getElementById(c).classList.remove('open');
+      var n = c.replace('card', '');
+      document.getElementById('t' + n).textContent = '▸ Reveal the physics';
+    });
+
+    if (!isOpen) {
+      card.classList.add('open');
+      toggle.textContent = '▾ Hide the physics';
+    }
+  }
+
+  // Newsletter signup
+  function subscribe() {
+    var email = document.getElementById('nl-email').value;
+    var input = document.getElementById('nl-email');
+    if (!email || !email.includes('@')) {
+      input.style.borderColor = '#ef4444';
+      return;
+    }
+    input.style.borderColor = '#3a3a5a';
+    input.value = '';
+    document.getElementById('nl-ok').style.display = 'block';
+  }
+
+  // Animate meters on scroll into view
+  var metersAnimated = false;
+  var meters = [
+    { id: 'm1', target: '23%' },
+    { id: 'm2', target: '40%' },
+    { id: 'm3', target: '95%' },
+    { id: 'm4', target: '100%' }
+  ];
+
+  function animateMeters() {
+    if (metersAnimated) return;
+    metersAnimated = true;
+    meters.forEach(function(m) {
+      document.getElementById(m.id).style.width = m.target;
+    });
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) animateMeters();
+    });
+  }, { threshold: 0.3 });
+
+  var splitEl = document.querySelector('.split');
+  if (splitEl) observer.observe(splitEl);
+</script>
+</body>
+</html>

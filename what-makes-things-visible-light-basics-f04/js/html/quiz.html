@@ -1,0 +1,48 @@
+      <div class="screen quiz-screen" style="--accent:${lvl.color}">
+        <div class="starfield" id="starfield-quiz"></div>
+
+        <!-- Header -->
+        <div class="quiz-header">
+          <div class="quiz-meta">
+            <span class="quiz-topic" style="color:${lvl.color}">${lvl.icon} ${lvl.name}</span>
+            <span class="quiz-counter" style="color:#a78bca">Q${currentQ + 1}/${questions.length}</span>
+          </div>
+          <div class="quiz-progress-bar-bg">
+            <div class="quiz-progress-fill" style="width:${progress}%; background:${lvl.color}; transition:width 0.5s ease"></div>
+          </div>
+          <div class="quiz-score-row">
+            <span style="color:#ffd700">⭐ Score: ${score}/${currentQ}</span>
+            <span style="color:#c084fc">💎 ${lvl.name}</span>
+          </div>
+        </div>
+
+        <!-- Question -->
+        <div class="quiz-card" id="quiz-card">
+          <div class="quiz-q-num" style="color:${lvl.color}">Question ${currentQ + 1}</div>
+          <div class="quiz-question">${q.q}</div>
+        </div>
+
+        <!-- Options -->
+        <div class="quiz-options" id="quiz-options">
+          ${q.options.map((opt, i) =>
+            '<button class="quiz-option" data-index="' + i + '" style="--accent:' + lvl.color + '">'
+            + '<span class="opt-letter">' + ['A','B','C','D'][i] + '</span>'
+            + '<span class="opt-text">' + opt + '</span>'
+            + '</button>'
+          ).join('')}
+        </div>
+
+        <!-- Explanation (hidden initially) -->
+        <div class="quiz-explanation hidden" id="quiz-explanation">
+          <span class="exp-icon" id="exp-icon">✅</span>
+          <p id="exp-text">${q.explanation}</p>
+        </div>
+
+        <!-- Next button (hidden initially) -->
+        <div class="quiz-bottom">
+          <button class="btn-primary shimmer-btn hidden" id="btn-next" style="background:linear-gradient(135deg,${lvl.colorDark},#4c1d95)">
+            <div class="shimmer-sweep"></div>
+            <span id="next-label">${questions.length > currentQ + 1 ? 'Next Question →' : '📊 See Results →'}</span>
+          </button>
+        </div>
+      </div>

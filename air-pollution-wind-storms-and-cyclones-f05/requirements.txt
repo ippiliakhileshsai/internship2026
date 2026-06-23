@@ -1,0 +1,8 @@
+# Atmosphere Explorer Requirements
+# ----------------------------------------------------
+# This project is a static web application utilizing HTML5, CSS3, and Vanilla JavaScript.
+# It runs directly in any modern browser without compiling, bundling, or external installations.
+
+# For developers wishing to run a local server:
+# Python (Standard Library) - run: python -m http.server 8000
+# Node.js (Optional developer utility) - run: npx http-server

@@ -1,0 +1,65 @@
+TEAM NAME: Force Explorers
+
+PROJECT TITLE:
+Force: A Push or Pull
+
+TEAM MEMBERS & TASK DIVISION
+
+1. Research Lead
+Name:Poorna Pravallika
+Responsibilities:
+- Collect information about force, push, and pull.
+- Gather real-life examples and educational content.
+- Define project requirements.
+
+2. UX / Learning Designer
+Name: Bhuvana Siri
+Responsibilities:
+- Design user-friendly learning experience.
+- Plan interactive elements for students.
+- Ensure content is easy to understand.
+
+3. Storyboard Designer
+Name:Abhi Mavuri,Anuhya Tamanna
+Responsibilities:
+- Create storyboard for the simulation.
+- Design visual flow of scenes.
+- Plan animations and illustrations.
+
+4. Frontend Developer
+Name:Bhuvana siri
+Responsibilities:
+- Develop the simulation using HTML, CSS, and JavaScript.
+- Implement push and pull force interactions.
+- Create responsive user interface.
+
+5. Documentation Lead
+Name:Lalitha
+Responsibilities:
+- Prepare README.md.
+- Maintain requirements.txt and project documents.
+- Document project workflow and features.
+
+6. Testing Lead
+Name:Lalitha,Madhuri
+Responsibilities:
+- Test all simulation functions.
+- Identify and report bugs.
+- Verify accuracy of force concepts and user interactions.
+
+PROJECT DESCRIPTION
+
+This project demonstrates the concept of Force: A Push or Pull through an interactive simulation. Users can apply push and pull forces to objects and observe their movement. The simulation helps students understand how forces affect motion in everyday life.
+
+MVP (Minimum Viable Simulation)
+
+- Show one object (box/cart).
+- Push button moves the object forward.
+- Pull button moves the object backward.
+- Display message:
+  "Force is a Push or Pull."
+- Simple animation showing object movement.
+
+TEAM GOAL
+
+To create an engaging educational simulation that helps learners understand the basic concept of force through interactive visual demonstrations.

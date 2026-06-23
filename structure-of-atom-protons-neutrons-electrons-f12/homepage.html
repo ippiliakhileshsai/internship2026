@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Atom Universe</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+
+    <!-- Logo -->
+
+    <!-- Title -->
+
+    <h1 class="title">
+        
+        Atom Universe
+        
+    </h1>
+
+    <p class="subtitle">
+        Configure Your Learning Experience
+    </p>
+
+    <!-- Form -->
+
+    <div class="form-section">
+
+        <h2> Enter your name</h2>
+
+        <input
+            type="text"
+             id="username"
+            placeholder="Enter your name"
+        >
+
+        <h2>Select Your Learning Path</h2>
+
+        <!-- Easy -->
+
+       <div class="difficulty-card">
+    <label>
+
+        <input type="radio" name="difficulty" value="Easy">
+
+        <div class="difficulty-info">
+
+            <div class="difficulty-top">
+                <h3> Easy</h3>
+                <span class="level-text">Explorer</span>
+            </div>
+
+            <p>Learn Atomic Fundamentals</p>
+
+        </div>
+
+    </label>
+</div>
+
+<div class="difficulty-card">
+    <label>
+
+        <input type="radio" name="difficulty" value="Medium" >
+
+        <div class="difficulty-info">
+
+            <div class="difficulty-top">
+                <h3> Medium</h3>
+                <span class="level-text">Researcher</span>
+            </div>
+
+            <p>Build and Analyze Atoms</p>
+
+        </div>
+
+    </label>
+</div>
+
+<div class="difficulty-card">
+    <label>
+
+        <input type="radio" name="difficulty" value="Difficult" >
+
+        <div class="difficulty-info">
+
+            <div class="difficulty-top">
+                <h3> Difficult</h3>
+                <span class="level-text">Master Scientist</span>
+            </div>
+
+            <p>Advanced Atomic Challenges</p>
+
+        </div>
+
+    </label>
+</div>
+
+        <!-- Button -->
+
+   <button class="start-btn" onclick="startApp()">
+     Start Exploring →
+</button>
+
+    </div>
+
+    <!-- Footer -->
+
+    <footer>
+       Simulations • Interactive Labs • Certificates
+    </footer>
+
+</div>
+
+<script>
+
+function startApp(){
+
+    const name =
+        document.getElementById("username").value.trim();
+
+    const difficulty =
+        document.querySelector(
+            'input[name="difficulty"]:checked'
+        );
+
+    if(name === ""){
+        alert("Please enter your name");
+        return;
+    }
+
+    if(!difficulty){
+        alert("Please select a difficulty level");
+        return;
+    }
+
+    localStorage.setItem("username", name);
+    localStorage.setItem(
+        "difficulty",
+        difficulty.value
+    );
+
+    window.location.href = "dashboard.html";
+}
+
+</script>
+
+
+</body>
+</html>

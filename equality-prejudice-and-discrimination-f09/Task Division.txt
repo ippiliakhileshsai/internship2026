@@ -1,0 +1,30 @@
+👥 Team Task Division
+
+🔹 Madeeha
+
+- Designed and structured the UI layout (HTML & CSS)
+- Worked on overall project design and styling
+- Helped in organizing storyboard and visual flow
+
+---
+
+🔹 Varshini
+
+- Developed the core concept and storyline (The 12th Man)
+- Prepared problem statement, solution, and content
+- Created storyboard idea and ensured continuity in scenes
+
+---
+
+🔹 Abhinay
+
+- Implemented JavaScript functionality and interactivity
+- Managed logic and user interactions in the project
+- Assisted in testing and final output improvements
+
+---
+
+🤝 Team Contribution
+
+- All members collaborated in idea discussion and planning
+- Worked together on final testing and project completion

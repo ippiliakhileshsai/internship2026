@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description"
+    content="Quest for the Lost Light — An educational mobile adventure game that teaches 7th graders about light through interactive missions, quizzes, and rewards in a fantasy world." />
+  <meta name="theme-color" content="#0a0618" />
+  <title>Quest for the Lost Light 🏰</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/screens.css" />
+
+  <style>
+    /* Inline loading screen */
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: #04020a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      gap: 16px;
+      transition: opacity 0.5s ease;
+    }
+
+    #loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-castle {
+      font-size: 64px;
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+
+    .loading-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 18px;
+      color: #ffd700;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    .loading-sub {
+      font-family: 'Nunito', sans-serif;
+      font-size: 13px;
+      color: #a78bca;
+    }
+
+    .loading-bar-bg {
+      width: 200px;
+      height: 4px;
+      background: rgba(147, 51, 234, 0.2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .loading-bar-fill {
+      height: 100%;
+      background: linear-gradient(to right, #7c3aed, #ffd700);
+      border-radius: 2px;
+      animation: loadBar 1.2s ease forwards;
+    }
+
+    @keyframes loadBar {
+      from {
+        width: 0%;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        filter: drop-shadow(0 0 10px #ffd700);
+      }
+
+      50% {
+        filter: drop-shadow(0 0 30px #ffd700) drop-shadow(0 0 60px rgba(255, 215, 0, 0.5));
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Loading Screen -->
+  <div id="loading">
+    <div class="loading-castle">🏰</div>
+    <div class="loading-title">Quest for the Lost Light</div>
+    <div class="loading-sub">Loading your adventure...</div>
+    <div class="loading-bar-bg">
+      <div class="loading-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- Background glow -->
+  <div id="bg-glow"></div>
+
+  <!-- Phone Shell -->
+  <div id="shell">
+    <!-- App mount point -->
+    <div id="app"></div>
+  </div>
+
+  <!-- Responsive note for very small screens -->
+  <div id="mobile-note"
+    style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(22,13,48,0.9); border:1px solid rgba(147,51,234,0.4); border-radius:12px; padding:10px 18px; font-family:'Nunito',sans-serif; font-size:12px; color:#a78bca; text-align:center; z-index:20; white-space:nowrap;">
+    📱 Best experienced at 390px width
+  </div>
+
+  <!-- App entry point (ES Module) -->
+  <script type="module" src="js/app.js"></script>
+
+  <!-- Hide loading screen after fonts + module load -->
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loading = document.getElementById('loading');
+        if (loading) loading.classList.add('hidden');
+        setTimeout(() => { if (loading) loading.remove(); }, 600);
+      }, 1400);
+    });
+
+    // Show mobile note if viewport width < 450px
+    if (window.innerWidth < 450) {
+      const note = document.getElementById('mobile-note');
+      if (note) {
+        note.style.display = 'block';
+        setTimeout(() => {
+          note.style.opacity = '0';
+          note.style.transition = 'opacity 0.5s';
+          setTimeout(() => note.remove(), 600);
+        }, 4000);
+      }
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+Functional Requirements
+
+What should the project do?
+
+Students should be able to:
+
+✅ Set up and test the base project structure
+✅ Create and modify chapter-specific HTML, CSS, and JavaScript files
+✅ Build features using the provided starter files and examples
+✅ Integrate all chapters into one working project
+
+Non-Functional Requirements
+
+How should the project feel?
+
+✅ Simple and easy to understand
+✅ Beginner-friendly implementation
+✅ No frameworks or external libraries required
+✅ Easy to maintain and modify
+✅ Organized file structure and code comments
+
+Learning Requirements
+
+After completing the project, students should be able to:
+
+✅ Understand the basic structure of an HTML, CSS, and JavaScript project
+✅ Work collaboratively by dividing tasks among team members
+✅ Create chapter-specific pages and styles independently
+✅ Use provided examples as references to build new features
+✅ Test, debug, and integrate multiple components into one project
+✅ Gain confidence in building a complete web application using Vanilla HTML, CSS, and JavaScript

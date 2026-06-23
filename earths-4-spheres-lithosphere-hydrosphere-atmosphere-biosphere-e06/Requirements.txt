@@ -1,0 +1,245 @@
+EARTH SPHERES - Interactive Learning Website
+
+
+PROJECT REQUIREMENTS
+
+
+Project Name:
+Earth Spheres - Interactive Learning Website for Earth's Four Spheres
+
+
+Project Objective:
+To develop an interactive educational website that helps school students understand Earth's four major spheres (Atmosphere, Hydrosphere, Biosphere, and Lithosphere) 
+through engaging learning modules, animations, quizzes, virtual activities, and interactive exploration.
+
+
+Target Users:
+
+* School Students
+* Teachers
+* Geography and Environmental Science Learners
+
+
+Technology Stack:
+
+* HTML5
+* CSS3
+* JavaScript
+* VS Code
+* GitHub
+* Vercel (Deployment)
+
+
+
+FEATURES / MODULES
+
+
+1. Home Page (index.html)
+
+   * Introduction to Earth Spheres
+   * Overview of Earth's four interconnected systems
+   * Navigation cards for different learning modules
+   * Interactive Earth visualization
+   * Start Learning button
+   * Educational animations and illustrations
+
+
+2. Learning Module (learn.html)
+
+   * Detailed explanation of Earth's four spheres:
+
+      Atmosphere 🌬️
+      - Layer of gases surrounding Earth
+      - Importance of air and climate regulation
+
+      Hydrosphere 💧
+      - All water bodies present on Earth
+      - Oceans, rivers, lakes, glaciers, and groundwater
+
+      Biosphere 🌱
+      - Region where living organisms exist
+      - Interaction between plants, animals, and environment
+
+      Lithosphere 🪨
+      - Earth's solid outer layer
+      - Rocks, soil, mountains, and landforms
+
+
+   * Comparison table between four spheres
+   * Real-life examples
+   * Importance of interactions between spheres
+   * Environmental facts section
+   * Visual learning content
+
+
+
+3. Interactive Earth Explorer (explorer.html)
+
+   * Explore Earth's four spheres visually
+   * Interactive sphere selection
+   * Animated Earth model
+   * Information cards for each sphere
+   * Discover environmental relationships
+   * Learn how spheres affect each other
+
+
+
+4. Quiz Module (quiz.html)
+
+   * Multiple-choice questions
+   * Questions based on Earth's spheres
+   * Dynamic question loading
+   * Score calculation
+   * Instant feedback
+   * Performance evaluation
+   * Achievement badge system
+
+
+
+5. Real-Life Applications Module (applications.html)
+
+   * Relationship between Earth's spheres and daily life
+
+   * Atmosphere applications:
+       - Weather and climate
+       - Oxygen supply
+       - Protection from harmful radiation
+
+
+   * Hydrosphere applications:
+       - Water resources
+       - Agriculture
+       - Human consumption
+
+
+   * Biosphere applications:
+       - Ecosystems
+       - Food chains
+       - Biodiversity
+
+
+   * Lithosphere applications:
+       - Soil for agriculture
+       - Minerals and resources
+       - Land formations
+
+
+
+6. Virtual Sorting Lab / Drag and Drop Activity (lab.html)
+
+   * Interactive drag and drop learning activity
+   * Classification of examples into Earth's spheres
+
+   Examples:
+
+   Atmosphere:
+       - Clouds
+       - Wind
+       - Oxygen
+
+   Hydrosphere:
+       - Rivers
+       - Oceans
+       - Rain
+
+   Biosphere:
+       - Plants
+       - Animals
+       - Humans
+
+   Lithosphere:
+       - Mountains
+       - Rocks
+       - Soil
+
+
+   * Score tracking
+   * Correct and incorrect answer feedback
+   * Activity-based learning experience
+
+
+
+7. Results Module (results.html)
+
+   * Student name input
+   * Quiz score display
+   * Performance analysis
+   * Achievement level generation
+   * Digital certificate generation
+   * Completion recognition
+
+
+
+TEAM TASK DIVISION
+
+
+Member 1
+
+• Storyboard Design
+• Frontend Design
+• Initial Prototype Development
+• Project Planning
+• User Interface Layout Design
+
+
+Member 2
+
+• Frontend Development
+• Storyboard Support and Refinement
+• Initial Prototype Development
+• UI Implementation
+• Interactive Components Development
+
+
+Member 3
+
+• Deployment Research
+• Technology Research and Analysis
+• Backend Planning
+• Project Groundwork
+• Repository Management
+
+
+
+
+
+TASK ASSIGNMENT STATUS
+
+
+✓ Storyboard Design Assigned - Member 1
+✓ Frontend Design Assigned - Member 1
+✓ Initial Prototype Development Assigned - Member 1
+✓ Project Planning Assigned - Member 1
+
+
+✓ Frontend Development Assigned - Member 2
+✓ Storyboard Support and Refinement Assigned - Member 2
+✓ Initial Prototype Development Assigned - Member 2
+✓ UI Implementation Assigned - Member 2
+
+
+✓ Deployment Research Assigned - Member 3
+✓ Technology Research and Analysis Assigned - Member 3
+✓ Project Groundwork Assigned - Member 3
+
+
+
+
+EXPECTED OUTCOME
+
+
+Students will be able to:
+
+* Understand Earth's four major spheres
+* Identify examples belonging to each sphere
+* Learn how Atmosphere, Hydrosphere, Biosphere, and Lithosphere interact
+* Explore Earth systems through interactive activities
+* Test their knowledge through quizzes
+* Improve environmental awareness
+* Earn a completion certificate after successful learning
+
+
+
+PROJECT STATUS:
+
+COMPLETED

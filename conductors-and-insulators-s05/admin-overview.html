@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - Overview | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="admin-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Admin
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="adminAvatar" class="profile-avatar admin">⚡</div>
+            <h2 id="adminUsername">System Admin</h2>
+            <span class="profile-role-badge admin">Super Administrator</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="admin-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="admin-users.html" class="menu-btn"><span class="icon">👥</span> User Directory</a></li>
+                <li><a href="admin-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="admin-reports.html" class="menu-btn"><span class="icon">📄</span> System Reports</a></li>
+                <li><a href="admin-settings.html" class="menu-btn"><span class="icon">⚙️</span> Configurations</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="window.ConductoVerseAdmin.logout()" class="btn danger" style="width: 100%;">Disconnect Admin ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">System Command Center</h1>
+            <p>Monitor platform statistics, manage teacher and student environments, broadcast announcements, and audit database events.</p>
+        </header>
+
+        <!-- Stats Counter Section -->
+        <div class="quick-stats-row">
+            <div class="quick-stat-box">
+                <span>Total Nodes (Users)</span>
+                <strong id="stat-total-users">0</strong>
+            </div>
+            <div class="quick-stat-box">
+                <span>Students Active</span>
+                <strong id="stat-students">0</strong>
+            </div>
+            <div class="quick-stat-box">
+                <span>Teachers Active</span>
+                <strong id="stat-teachers" style="color: var(--cyan)">0</strong>
+            </div>
+            <div class="quick-stat-box">
+                <span>Announcements</span>
+                <strong id="stat-announcements" style="color: var(--yellow)">0</strong>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 30px;">
+            <!-- Left panel: Live Audit Logs -->
+            <article class="dashboard-card" style="margin-bottom: 0;">
+                <h2>🕵️‍♂️ System Audit & Event Log</h2>
+                <div class="system-log-list" id="system-logs-container">
+                    <!-- Dynamic Log Items Injected Here -->
+                </div>
+                <div style="margin-top: 18px; display: flex; gap: 12px; justify-content: flex-end;">
+                    <button onclick="clearAuditLogs()" class="btn secondary" style="font-size: 0.8rem; min-height: 36px; padding: 6px 12px;">Clear Audit Feed</button>
+                </div>
+            </article>
+
+            <!-- Right panel: System Monitor -->
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                <article class="dashboard-card" style="margin-bottom: 0;">
+                    <h2>📟 System Health</h2>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Database State:</span>
+                            <span class="status-pulsar"><span class="status-dot"></span>Operational</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Server Connection:</span>
+                            <span style="font-size:0.8rem; font-weight:700; color:var(--cyan);">Online (TLS v1.3)</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Quiz Attempts:</span>
+                            <strong id="stat-quiz-attempts" style="font-family: monospace; font-size: 1.05rem;">0</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Lab Attempts:</span>
+                            <strong id="stat-spot-attempts" style="font-family: monospace; font-size: 1.05rem;">0</strong>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="dashboard-card" style="margin-bottom: 0;">
+                    <h2>⚡ Quick Actions</h2>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <a href="admin-announcements.html" class="btn" style="text-align: center; font-size: 0.85rem; padding: 8px 12px;">New Global Broadcast</a>
+                        <a href="admin-users.html" class="btn secondary" style="text-align: center; font-size: 0.85rem; padding: 8px 12px;">Register User Manual</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/admin-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Initial system logs check
+    const logs = window.ConductoVerseAdmin.getSystemLogs();
+    if (logs.length === 0) {
+        window.ConductoVerseAdmin.addSystemLog("Admin Portal accessed and initialized.", "info");
+    }
+
+    renderDashboardData();
+});
+
+function renderDashboardData() {
+    // 1. Get stats
+    const stats = window.ConductoVerseAdmin.getSystemStats();
+    document.getElementById("stat-total-users").textContent = stats.totalUsers;
+    document.getElementById("stat-students").textContent = stats.students;
+    document.getElementById("stat-teachers").textContent = stats.teachers;
+    document.getElementById("stat-announcements").textContent = stats.announcements;
+    document.getElementById("stat-quiz-attempts").textContent = stats.quizAttempts;
+    document.getElementById("stat-spot-attempts").textContent = stats.spotAttempts;
+
+    // 2. Render logs
+    const logsContainer = document.getElementById("system-logs-container");
+    const logs = window.ConductoVerseAdmin.getSystemLogs();
+    logsContainer.innerHTML = "";
+
+    if (logs.length === 0) {
+        logsContainer.innerHTML = `
+            <div style="text-align:center; padding: 40px; color: var(--admin-muted);">
+                <span>📭</span> No system audit logs recorded.
+            </div>
+        `;
+        return;
+    }
+
+    logs.forEach(log => {
+        const timeStr = new Date(log.timestamp).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const logItem = document.createElement("div");
+        logItem.className = `system-log-item ${log.type}`;
+        logItem.innerHTML = `
+            <span class="log-text">${log.text}</span>
+            <span class="log-time">${timeStr}</span>
+        `;
+        logsContainer.appendChild(logItem);
+    });
+}
+
+function clearAuditLogs() {
+    if (confirm("Are you sure you want to clear the audit logs feed?")) {
+        window.ConductoVerseAdmin.clearSystemLogs();
+        renderDashboardData();
+    }
+}
+</script>
+</body>
+</html>

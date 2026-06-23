@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details - ConnectMyEvent</title>
+  
+  <!-- CSS Styling files -->
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/utilities.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  
+  <style>
+    /* Event Detail structure */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+      padding: var(--space-8) 0;
+    }
+    
+    @media (min-width: 1024px) {
+      .detail-grid {
+        grid-template-columns: 1fr 360px;
+      }
+    }
+    
+    /* Hero Banner */
+    .event-banner {
+      width: 100%;
+      height: 240px;
+      border-radius: var(--radius-2xl);
+      margin-top: var(--space-4);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-8);
+      position: relative;
+      overflow: hidden;
+      color: #ffffff;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .event-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15,11,46,0.85) 0%, rgba(15,11,46,0.3) 70%, transparent 100%);
+      z-index: 1;
+    }
+    
+    .event-banner-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: var(--space-5);
+    }
+    
+    .event-banner-icon {
+      font-size: 52px;
+      width: 90px;
+      height: 90px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    /* Sticky sidebar card */
+    .sticky-register-card {
+      position: sticky;
+      top: 90px;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .register-info-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) 0;
+      border-bottom: 1px solid var(--border-color);
+      font-size: var(--text-sm);
+    }
+    
+    .register-info-row:last-of-type {
+      border-bottom: none;
+    }
+    
+    .register-info-icon {
+      color: var(--brand-indigo-500);
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tab-panel {
+      display: none;
+      padding: var(--space-6) 0;
+      animation: fadeIn var(--transition-fast) forwards;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* Accordion FAQ */
+    .faq-item {
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      margin-bottom: var(--space-3);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 16px 20px;
+      font-weight: var(--font-bold);
+      font-size: var(--text-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .faq-answer {
+      padding: 0 20px 16px;
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      display: none;
+    }
+
+    /* Team lobby widget */
+    .team-lobby-box {
+      border: 1.5px dashed var(--brand-indigo-300);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      background: var(--brand-indigo-50);
+      margin-top: var(--space-8);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Placeholder -->
+  <div id="header-placeholder"></div>
+
+  <main class="container">
+    <!-- Hero Banner -->
+    <div class="event-banner" id="eventBanner">
+      <div class="event-banner-overlay"></div>
+      <div class="event-banner-content">
+        <div class="event-banner-icon">💻</div>
+        <div>
+          <div class="flex gap-2 items-center mb-2">
+            <span id="eventCatBadge" class="badge">Category</span>
+            <span class="badge badge-success"><i data-lucide="shield-check" style="width:12px; height:12px; margin-right:2px;"></i> Verified</span>
+          </div>
+          <h1 id="eventTitle" class="text-2xl md:text-3xl font-bold font-display" style="color: #fff; margin: 0;">Event Title</h1>
+          <p class="text-sm mt-1" style="color: var(--brand-indigo-200); margin: 0;">Hosted by <span id="eventOrg" class="fw-bold" style="color:#fff;">Organizer</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Double Column Layout -->
+    <div class="detail-grid" id="eventDetailContainer">
+      
+      <!-- Left Column: Navigation Tabs &amp; Information details -->
+      <div>
+        <div class="tabs" id="detailTabs">
+          <div class="tab active" data-target="panel-overview">Overview</div>
+          <div class="tab" data-target="panel-schedule">Schedule</div>
+          <div class="tab" data-target="panel-speakers">Speakers</div>
+          <div class="tab" data-target="panel-sponsors">Partners &amp; Sponsors</div>
+          <div class="tab" data-target="panel-faqs">FAQs</div>
+        </div>
+
+        <!-- 1. Overview Panel -->
+        <div class="tab-panel active" id="panel-overview">
+          <h2 class="text-xl font-bold font-display mb-4">About Opportunity</h2>
+          <p id="eventDesc" class="text-sm text-secondary leading-relaxed mb-6">Loading details...</p>
+
+          <!-- Team Formation Lobby Widget -->
+          <div class="team-lobby-box">
+            <div class="flex items-start gap-4">
+              <div class="avatar avatar-md" style="background:var(--brand-indigo-100); color:var(--brand-indigo-600);"><i data-lucide="users-round"></i></div>
+              <div>
+                <h3 class="text-base font-bold font-display text-indigo" style="margin: 0 0 var(--space-1);">Dynamic Team Matching Lobby</h3>
+                <p class="text-xs text-secondary mb-4">Don't have a team? Join the matchmaking pool to merge with candidates based on mutual skills (design, backend, etc.).</p>
+                <div class="flex gap-2 flex-wrap">
+                  <button type="button" class="btn btn-primary btn-sm" onclick="showTeamModal('create')">Create Team</button>
+                  <button type="button" class="btn btn-outline btn-sm" onclick="showTeamModal('join')">Join Matching Pool</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Schedule Panel -->
+        <div class="tab-panel" id="panel-schedule">
+          <h2 class="text-xl font-bold font-display mb-4">Timeline &amp; Schedule</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+            <div>
+              <h3 class="text-base font-bold mb-4 flex items-center gap-2"><i data-lucide="milestone" style="width:16px; height:16px; color:var(--brand-indigo-500);"></i> Key Milestones</h3>
+              <div class="timeline" id="timelineGrid">
+                <!-- Timeline nodes injected by JS -->
+              </div>
+            </div>
+            <div>
+              <h3 class="text-base font-bold mb-4 flex items-center gap-2"><i data-lucide="calendar-check" style="width:16px; height:16px; color:var(--brand-indigo-500);"></i> Program Iteration</h3>
+              <div id="scheduleGrid">
+                <!-- Day breakdown injected by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Speakers Panel -->
+        <div class="tab-panel" id="panel-speakers">
+          <h2 class="text-xl font-bold font-display mb-4">Keynote Speakers &amp; Judges</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="speakersGrid">
+            <!-- Speakers cards injected by JS -->
+          </div>
+        </div>
+
+        <!-- 4. Sponsors Panel -->
+        <div class="tab-panel" id="panel-sponsors">
+          <h2 class="text-xl font-bold font-display mb-4">Sponsors &amp; Supporting Partners</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="sponsorsGrid">
+            <!-- Sponsors elements injected by JS -->
+          </div>
+        </div>
+
+        <!-- 5. FAQs Panel -->
+        <div class="tab-panel" id="panel-faqs">
+          <h2 class="text-xl font-bold font-display mb-4">Frequently Asked Questions</h2>
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-question">Who is eligible to participate? <i data-lucide="plus" style="width: 14px; height:14px;"></i></div>
+              <div class="faq-answer">Students from any verified college, university, or boot camp are welcome to register. Professional builders can participate in select hackathons.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">What is the team size limit? <i data-lucide="plus" style="width: 14px; height:14px;"></i></div>
+              <div class="faq-answer">Team rules vary. Most hackathons allow 1-4 members. You can review the exact limits in the registration drawer.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">How will certificates be issued? <i data-lucide="plus" style="width: 14px; height:14px;"></i></div>
+              <div class="faq-answer">Automated participation check-ins generate verified credential badges. Certificates will be downloadable in PDF form on your dashboard.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Sticky Action Card -->
+      <div>
+        <div class="sticky-register-card">
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-xs text-muted">Participation Fee</span>
+            <span id="stickyPrice" class="text-2xl font-bold font-display text-indigo" style="color:var(--brand-indigo-600);">Free</span>
+          </div>
+
+          <div class="divider mt-2 mb-4"></div>
+
+          <div class="flex flex-col gap-1 mb-6">
+            <div class="register-info-row">
+              <span class="register-info-icon"><i data-lucide="calendar"></i></span>
+              <div>
+                <span class="text-xs text-muted block">Event Date</span>
+                <span id="stickyDate" class="font-semibold text-xs text-main">Jan 10, 2026</span>
+              </div>
+            </div>
+            <div class="register-info-row">
+              <span class="register-info-icon"><i data-lucide="map-pin"></i></span>
+              <div>
+                <span class="text-xs text-muted block">Venue / Mode</span>
+                <span id="stickyVenue" class="font-semibold text-xs text-main">Virtual Hub</span>
+              </div>
+            </div>
+            <div class="register-info-row">
+              <span class="register-info-icon"><i data-lucide="users-2"></i></span>
+              <div>
+                <span class="text-xs text-muted block">Team Requirement</span>
+                <span id="stickyTeam" class="font-semibold text-xs text-main">1-4 Members</span>
+              </div>
+            </div>
+            <div class="register-info-row">
+              <span class="register-info-icon"><i data-lucide="hourglass"></i></span>
+              <div>
+                <span class="text-xs text-muted block">Application Window</span>
+                <span id="stickyDays" class="font-bold text-xs text-coral" style="color: var(--brand-coral-500);">8 days left</span>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="registerCTA" class="btn btn-coral btn-lg btn-full btn-pill mb-4" onclick="openRegisterModal()">Register Now</button>
+          
+          <div class="text-center">
+            <span id="stickyRegs" class="text-xs text-muted font-mono"><i data-lucide="users" style="display:inline-block; width:12px; height:12px; vertical-align:text-bottom; margin-right:4px;"></i> 1,420 registered</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Registration and pass verification are handled on the dedicated event-register.html page -->
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../assets/js/events-data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/events.js"></script>
+
+  <!-- Page Interactivity -->
+  <script>
+    // Tab switching
+    const tabTriggers = document.querySelectorAll("#detailTabs .tab");
+    tabTriggers.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabTriggers.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        const target = tab.getAttribute("data-target");
+        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+        document.getElementById(target).classList.add("active");
+      });
+    });
+
+    // FAQs accordion
+    document.querySelectorAll(".faq-question").forEach(q => {
+      q.addEventListener("click", () => {
+        const item = q.closest(".faq-item");
+        const ans = item.querySelector(".faq-answer");
+        const icon = q.querySelector("i");
+        
+        const isOpen = ans.style.display === "block";
+        ans.style.display = isOpen ? "none" : "block";
+        
+        if (icon) {
+          icon.style.transform = isOpen ? "rotate(0deg)" : "rotate(45deg)";
+          icon.style.transition = "transform 0.2s ease";
+        }
+      });
+    });
+
+    // Modal triggers (refactored to dedicated page)
+    function openRegisterModal() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const eventId = urlParams.get('id') || '1';
+      window.location.href = `event-register.html?id=${eventId}`;
+    }
+
+    // Team Matching Modal trigger simulation
+    function showTeamModal(type) {
+      if (type === 'create') {
+        const teamName = prompt("Enter a name for your new Team:");
+        if (teamName) {
+          showToast(`Team '${teamName}' created successfully! Share the join link with peers.`, "success");
+        }
+      } else {
+        showToast("You have been added to the matchmaking lobby. We will notify you when a match is found!", "success");
+      }
+    }
+
+    // Simple toast helper
+    function showToast(msg, type) {
+      const container = document.getElementById("toastContainer");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      toast.className = `toast ${type}`;
+      
+      let icon = "info";
+      if (type === 'success') icon = "check-circle";
+      if (type === 'error') icon = "alert-circle";
+
+      toast.innerHTML = `<i data-lucide="${icon}"></i> <span>${msg}</span>`;
+      container.appendChild(toast);
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateX(24px)";
+        toast.style.transition = "all 0.3s ease";
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Portal - Overview | ConductoVerse</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="teacher-overview.html">
+        <span class="logo-mark">⚡</span>
+        ConductoVerse Teacher
+    </a>
+    <ul class="nav-links">
+        <!-- Injected dynamically by js/auth.js -->
+    </ul>
+</nav>
+
+<main class="dashboard-grid">
+    <!-- Sidebar navigation -->
+    <aside class="dashboard-sidebar">
+        <article class="profile-card">
+            <div id="teacherAvatar" class="profile-avatar teacher">🔋</div>
+            <h2 id="teacherUsername">Teacher Name</h2>
+            <span class="profile-role-badge teacher">Instructor</span>
+            
+            <ul class="sidebar-menu">
+                <li><a href="teacher-overview.html" class="menu-btn"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="teacher-students.html" class="menu-btn"><span class="icon">👥</span> Students</a></li>
+                <li><a href="teacher-assignments.html" class="menu-btn"><span class="icon">📝</span> Assignments</a></li>
+                <li><a href="teacher-quizzes.html" class="menu-btn"><span class="icon">🧠</span> Quizzes</a></li>
+                <li><a href="teacher-analytics.html" class="menu-btn"><span class="icon">📈</span> Analytics</a></li>
+                <li><a href="teacher-certificates.html" class="menu-btn"><span class="icon">🏆</span> Certificates</a></li>
+                <li><a href="teacher-announcements.html" class="menu-btn"><span class="icon">📣</span> Announcements</a></li>
+                <li><a href="teacher-reports.html" class="menu-btn"><span class="icon">📄</span> Reports</a></li>
+                <li><a href="teacher-settings.html" class="menu-btn"><span class="icon">⚙️</span> Settings</a></li>
+            </ul>
+
+            <div style="margin-top: 24px;">
+                <button onclick="logout()" class="btn" style="min-height: 38px; font-size: 0.85rem; padding: 6px 12px; width: 100%; background: linear-gradient(135deg, var(--red), #e76f51); box-shadow: 0 8px 16px rgba(231,111,81,0.25);">Disconnect ⚡</button>
+            </div>
+        </article>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <section class="dashboard-main">
+        <header class="welcome-hero">
+            <h1 id="welcomeTitle">Welcome, Instructor!</h1>
+            <p id="welcomeDescription">Managing student learning progress, assignments, and certificates across electrical simulation pathways.</p>
+        </header>
+
+        <section id="tab-overview" class="tab-content active">
+            <div class="quick-stats-row">
+                <div class="quick-stat-box">
+                    <span>Total Students</span>
+                    <strong id="stat-total-students">0</strong>
+                </div>
+                <div class="quick-stat-box">
+                    <span>Active Assignments</span>
+                    <strong id="stat-active-assignments">0</strong>
+                </div>
+                <div class="quick-stat-box">
+                    <span>Pending Evaluations</span>
+                    <strong id="stat-pending-evaluations" style="color: var(--orange)">0</strong>
+                </div>
+                <div class="quick-stat-box">
+                    <span>Completed Assessments</span>
+                    <strong id="stat-completed-assessments" style="color: var(--green)">0</strong>
+                </div>
+            </div>
+
+            <article class="dashboard-card">
+                <h2>🔔 Recent Class Activity Feed</h2>
+                <div class="activity-feed" id="recent-activity-list">
+                    <!-- Dynamic activity items -->
+                </div>
+            </article>
+        </section>
+    </section>
+</main>
+
+<footer>
+    Created by Team SynapseX | Conductors & Insulators Learning Platform
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/bg-simulation.js"></script>
+<script src="js/teacher-shared.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    renderOverviewStats();
+    renderRecentActivity();
+});
+
+function renderOverviewStats() {
+    document.getElementById("stat-total-students").textContent = studentsData.length;
+    document.getElementById("stat-active-assignments").textContent = assignmentsData.length;
+    
+    const pendingCount = submissionsData.filter(s => s.status === "Pending").length;
+    document.getElementById("stat-pending-evaluations").textContent = pendingCount;
+
+    let completedAssessmentsCount = submissionsData.filter(s => s.status === "Evaluated").length;
+    studentsData.forEach(s => {
+        const quiz = localStorage.getItem(`conductoverseQuizResult_${s.username}`);
+        if (quiz) completedAssessmentsCount++;
+    });
+    document.getElementById("stat-completed-assessments").textContent = completedAssessmentsCount;
+}
+
+function renderRecentActivity() {
+    const list = document.getElementById("recent-activity-list");
+    let html = "";
+    const activities = [];
+
+    studentsData.forEach(s => {
+        const quiz = JSON.parse(localStorage.getItem(`conductoverseQuizResult_${s.username}`) || "null");
+        if (quiz) {
+            activities.push({
+                icon: "🧠",
+                text: `<strong>${s.username}</strong> completed Level ${quiz.level} concept quiz scoring <strong>${quiz.score}/${quiz.total}</strong>.`,
+                time: new Date(quiz.completedAt || Date.now()).getTime(),
+                timeStr: formatRelativeTime(quiz.completedAt || Date.now())
+            });
+        }
+        const spot = JSON.parse(localStorage.getItem(`conductoverseSpotResult_${s.username}`) || "null");
+        if (spot) {
+            activities.push({
+                icon: "🗂️",
+                text: `<strong>${s.username}</strong> finished sorting activity clearing <strong>${spot.score}/${spot.total}</strong> items with a max streak of ${spot.bestStreak}.`,
+                time: new Date(spot.completedAt || Date.now()).getTime(),
+                timeStr: formatRelativeTime(spot.completedAt || Date.now())
+            });
+        }
+    });
+
+    submissionsData.forEach(sub => {
+        const assign = assignmentsData.find(a => a.id === sub.assignmentId);
+        const title = assign ? assign.title : "Assignment";
+        if (sub.status === "Pending") {
+            activities.push({
+                icon: "📩",
+                text: `<strong>${sub.student}</strong> uploaded submission for assignment <em>"${title}"</em> (Pending Evaluation).`,
+                time: new Date(sub.submittedAt).getTime(),
+                timeStr: formatRelativeTime(sub.submittedAt)
+            });
+        } else {
+            activities.push({
+                icon: "✅",
+                text: `Graded <strong>${sub.student}</strong>'s submission for <em>"${title}"</em>, assigned <strong>${sub.score} points</strong>.`,
+                time: new Date(sub.submittedAt).getTime(),
+                timeStr: formatRelativeTime(sub.submittedAt)
+            });
+        }
+    });
+
+    activities.sort((a, b) => b.time - a.time);
+
+    const displayActivities = activities.slice(0, 5);
+    displayActivities.forEach(act => {
+        html += `
+            <div class="activity-item">
+                <span class="activity-icon">${act.icon}</span>
+                <div class="activity-details">
+                    <p>${act.text}</p>
+                    <span>${act.timeStr}</span>
+                </div>
+            </div>
+        `;
+    });
+
+    list.innerHTML = html || `<div style="text-align:center; padding: 24px; font-weight:700; color:var(--muted)">No student activities recorded yet in current cycle.</div>`;
+}
+</script>
+</body>
+</html>

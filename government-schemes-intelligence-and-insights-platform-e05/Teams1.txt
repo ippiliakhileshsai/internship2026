@@ -1,0 +1,31 @@
+PROJECT: Government Schemes Intelligence and Insights Platform
+
+Team Members and Responsibilities
+
+1. Joshita – Researching
+   - Research government schemes and user requirements.
+   - Collect and analyze information related to the project.
+
+2. Muzaina Aafrin Khanum – Documentation, Wireframing, and Written Work
+   - Prepare project documentation and reports.
+   - Design wireframes and user flow of the web application.
+   - Handle all written work and project records.
+
+3. Ajay – Frontend Development
+   - Design and develop the user interface (UI).
+   - Implement web pages based on the wireframes.
+
+4. Sanjana – Backend Development
+   - Develop server-side logic and APIs.
+   - Manage database integration and functionality.
+
+5. Trisha – Backend Development
+   - Assist in database design and backend implementation.
+   - Work on APIs and system functionality.
+
+6. Muhsina – Testing and Debugging
+   - Test the application for errors and bugs.
+   - Perform debugging and ensure smooth functionality.
+
+Project Workflow:
+Researching → Documentation & Wireframing → Frontend Development → Backend Development → Testing & Debugging-> deployment.
