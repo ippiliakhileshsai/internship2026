@@ -7,14 +7,13 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const eventId = parseInt(id);
 
-    if (isNaN(eventId)) {
+    if (!id || id.length !== 24) {
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
     await db.event.delete({
-      where: { id: eventId },
+      where: { id },
     });
 
     return NextResponse.json({ success: true });
