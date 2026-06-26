@@ -7,11 +7,14 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const eventId = parseInt(id);
     const { email } = await request.json();
 
     if (!email) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    }
+
+    if (!id || id.length !== 24) {
+      return NextResponse.json({ error: "Invalid event ID" }, { status: 400 });
     }
 
     const emailLower = email.toLowerCase().trim();
@@ -30,7 +33,7 @@ export async function POST(
 
     // Verify event exists
     const event = await db.event.findUnique({
-      where: { id: eventId },
+      where: { id },
     });
 
     if (!event) {
@@ -42,7 +45,7 @@ export async function POST(
       where: {
         userId_eventId: {
           userId: user.id,
-          eventId: eventId,
+          eventId: id,
         },
       },
     });
@@ -59,11 +62,11 @@ export async function POST(
       db.registration.create({
         data: {
           userId: user.id,
-          eventId: eventId,
+          eventId: id,
         },
       }),
       db.event.update({
-        where: { id: eventId },
+        where: { id },
         data: {
           registrationsCount: {
             increment: 1,

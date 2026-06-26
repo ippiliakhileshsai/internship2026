@@ -9,15 +9,14 @@ interface PageProps {
 
 export default async function EventDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const eventId = parseInt(id);
 
-  if (isNaN(eventId)) {
+  if (!id || id.length !== 24) {
     notFound();
   }
 
-  // Fetch event directly from Neon DB
+  // Fetch event directly from MongoDB Atlas
   const event = await db.event.findUnique({
-    where: { id: eventId },
+    where: { id },
   });
 
   if (!event) {

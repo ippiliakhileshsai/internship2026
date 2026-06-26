@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id            Int            @id @default(autoincrement())
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
   email         String         @unique
   password      String
   name          String
@@ -19,7 +19,7 @@ model User {
 }
 
 model Event {
-  id                 Int            @id @default(autoincrement())
+  id                 String         @id @default(auto()) @map("_id") @db.ObjectId
   title              String
   category           String
   categoryLabel      String
@@ -39,19 +39,19 @@ model Event {
   daysLeft           Int            @default(0)
   teamSize           String
   featured           Boolean        @default(false)
-  timeline           Json           // List of { date: String, label: String }
-  schedule           Json           // List of { time: String, title: String }
-  speakers           Json           // List of { name: String, role: String }
-  sponsors           Json           // List of { name: String, logo: String }
+  timeline           Json[]         // List of { date: String, label: String }
+  schedule           Json[]         // List of { time: String, title: String }
+  speakers           Json[]         // List of { name: String, role: String }
+  sponsors           Json[]         // List of { name: String, logo: String }
   createdAt          DateTime       @default(now())
   updatedAt          DateTime       @updatedAt
   registrations      Registration[]
 }
 
 model Registration {
-  id           Int      @id @default(autoincrement())
-  userId       Int
-  eventId      Int
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @db.ObjectId
+  eventId      String   @db.ObjectId
   registeredAt DateTime @default(now())
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   event        Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
