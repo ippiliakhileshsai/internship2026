@@ -12,7 +12,7 @@ model User {
   email         String         @unique
   password      String
   name          String
-  role          String         // "participant", "organizer", etc.
+  role          String
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   registrations Registration[]
@@ -39,10 +39,10 @@ model Event {
   daysLeft           Int            @default(0)
   teamSize           String
   featured           Boolean        @default(false)
-  timeline           Json           // List of { date: String, label: String }
-  schedule           Json           // List of { time: String, title: String }
-  speakers           Json           // List of { name: String, role: String }
-  sponsors           Json           // List of { name: String, logo: String }
+  timeline           Json
+  schedule           Json
+  speakers           Json
+  sponsors           Json
   createdAt          DateTime       @default(now())
   updatedAt          DateTime       @updatedAt
   registrations      Registration[]
@@ -53,8 +53,8 @@ model Registration {
   userId       Int
   eventId      Int
   registeredAt DateTime @default(now())
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   event        Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, eventId])
 }

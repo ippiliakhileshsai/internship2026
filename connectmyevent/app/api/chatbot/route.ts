@@ -97,7 +97,10 @@ Instructions for responding:
     }
 
     const data = await response.json();
-    const reply = data.choices[0]?.message?.content || "I couldn't process that request. How else can I help?";
+    const raw = data.choices[0]?.message?.content || "I couldn't process that request. How else can I help?";
+
+    // Strip <think>...</think> blocks produced by reasoning/thinking models (e.g. qwen3)
+    const reply = raw.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
 
     return NextResponse.json({ reply });
   } catch (error) {
