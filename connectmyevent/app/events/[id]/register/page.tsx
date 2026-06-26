@@ -9,13 +9,14 @@ interface PageProps {
 
 export default async function RegisterPage({ params }: PageProps) {
   const { id } = await params;
+  const eventId = parseInt(id);
 
-  if (!id || id.length !== 24) {
+  if (isNaN(eventId)) {
     notFound();
   }
 
   const event = await db.event.findUnique({
-    where: { id },
+    where: { id: eventId },
   });
 
   if (!event) {

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Clock, Building, Calendar, MapPin } from "lucide-react";
 
 export interface EventData {
-  id: string;
+  id: number;
   title: string;
   category: string;
   categoryLabel: string;
